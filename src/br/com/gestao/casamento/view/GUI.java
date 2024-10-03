@@ -23,6 +23,7 @@ public class GUI {
         pessoaDao.inicializarPessoasDeExemplo();
     }
 
+    //TODO Menus do software de gestão de casamentos
     public int menuBoasVindas() {
         this.builder.setLength(0);
         this.builder.append("\n----------------------------");
@@ -61,14 +62,41 @@ public class GUI {
         this.builder.append("\n|          MENU PRINCIPAL         |");
         this.builder.append("\n|     Bem vindo ao gerenciador    |");
         this.builder.append("\n|                                 |");
-        this.builder.append("\n| 1 - Pessoas / Usuários          |");
-        this.builder.append("\n| 2 - Evento                      |");
-        this.builder.append("\n| 3 - Fornecedores                |");
-        this.builder.append("\n| 4 - Convites                    |");
-        this.builder.append("\n| 5 - Presentes                   |");
-        this.builder.append("\n| 6 - Mural de Recados            |");
-        this.builder.append("\n| 7 - Pagamento                   |");
-        this.builder.append("\n| 8 - Relatórios                  |");
+        this.builder.append("\n| 1 - Perfil                      |");
+        this.builder.append("\n| 2 - Pessoas / Usuários          |");
+        this.builder.append("\n| 3 - Evento                      |");
+        this.builder.append("\n| 4 - Fornecedores                |");
+        this.builder.append("\n| 5 - Convites                    |");
+        this.builder.append("\n| 6 - Presentes                   |");
+        this.builder.append("\n| 7 - Mural de Recados            |");
+        this.builder.append("\n| 8 - Pagamento                   |");
+        this.builder.append("\n| 9 - Relatórios                  |");
+        this.builder.append("\n| 10 - Sair                       |");
+        this.builder.append("\n|                                 |");
+        this.builder.append("\n-----------------------------------");
+        this.builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(this.builder.toString());
+        return Integer.parseInt(this.scanner.nextLine());
+    }
+
+    public int menuPessoa() {
+        this.builder.setLength(0);
+        this.builder.append("\n-----------------------------------");
+        this.builder.append("\n|      MENU PESSOAS/USUARIOS      |");
+        this.builder.append("\n|     Bem vindo ao gerenciador    |");
+        this.builder.append("\n|                                 |");
+        this.builder.append("\n| 1 - Criar nova pessoa           |");
+        this.builder.append("\n| 2 - Exibir pessoa               |");
+        this.builder.append("\n| 3 - Buscar pessoa               |");
+        this.builder.append("\n| 4 - Atualizar pessoa            |");
+        this.builder.append("\n| 5 - Deletar pessoa              |");
+        this.builder.append("\n| 6 - Alterar nome                |");
+        this.builder.append("\n| 7 - Alterar sexo                |");
+        this.builder.append("\n| 8 - Alterar nascimento          |");
+        this.builder.append("\n| 9 - Alterar email/login         |");
+        this.builder.append("\n| 10 - Alterar senha              |");
+        this.builder.append("\n| 11 - Alterar tipo do usuario    |");
+        this.builder.append("\n| 12 - Alterar CPF                |");
         this.builder.append("\n| 0 - Sair                        |");
         this.builder.append("\n|                                 |");
         this.builder.append("\n-----------------------------------");
@@ -122,7 +150,7 @@ public class GUI {
 
         System.out.println("\nDigite seu email [Login]: ");
         String email = this.scanner.nextLine();
-        novaPessoa.setLogin(email);
+        novaPessoa.setEmail(email);
 
         System.out.println("\nDigite a sua senha: ");
         String senha = this.scanner.nextLine();

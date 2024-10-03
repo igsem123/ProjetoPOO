@@ -43,7 +43,7 @@ public class Main {
                     pessoaDAO.criarPessoa(criar);
                     break;
                 case 3:
-                    System.out.println("\n Ate a proxima!!");
+                    System.out.println("\n Volte sempre!!");
                     break;
                 default:
                     System.out.println("\n Digite um numero valido!");
@@ -67,19 +67,32 @@ public class Main {
                         System.out.println(Util.getPessoaLogada().perfil());
                         break;
                     case 2:
-
+                        gui.menuPessoa();
                         break;
                     case 3:
-
+                        //gui.menuEvento();
                         break;
                     case 4:
-
+                        //gui.menuFornecedores();
                         break;
                     case 5:
-
+                        //gui.menuConvites();
+                        break;
+                    case 6:
+                        //gui.menuPresentes();
+                        break;
+                    case 7:
+                        //gui.menuRecados();
+                        break;
+                    case 8:
+                        //gui.menuPagamentos();
+                        break;
+                    case 9:
+                        //gui.menuRelatorios();
                         break;
                     case 0:
-                        System.out.println("5 - Sair");
+                        System.out.println("Saindo do menu principal!");
+                        gui.menuBoasVindas();
                         break;
                     default:
                         System.out.println("Digite uma opcao valida");
@@ -181,10 +194,10 @@ public class Main {
                                 editar.setTelefone(telefone);
                             }
 
-                            System.out.println("\n Digite o novo email (ou pressione ENTER para manter o email atual): " + editar.getLogin());
+                            System.out.println("\n Digite o novo email (ou pressione ENTER para manter o email atual): " + editar.getEmail());
                             String login = s.nextLine();
                             if(!login.isEmpty()) {
-                                editar.setLogin(login);
+                                editar.setEmail(login);
                             }
 
                             System.out.println("\n Digite a nova senha (ou pressione ENTER para manter a senha atual): " + editar.getSenha());

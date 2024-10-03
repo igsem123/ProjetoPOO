@@ -80,11 +80,11 @@ public class Pessoa {
         this.telefone = telefone;
     }
 
-    public String getLogin() {
+    public String getEmail() {
         return this.login;
     }
 
-    public void setLogin(String login) {
+    public void setEmail(String login) {
         this.login = login;
         this.dataModificacao = Util.getDia();
     }

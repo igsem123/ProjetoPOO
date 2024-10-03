@@ -23,42 +23,14 @@ public class GUI {
         pessoaDao.inicializarPessoasDeExemplo();
     }
 
-    // Exibe o menu e gerencia as opções
-    public void exibirMenu() {
-        while (true) {
-            System.out.println("========= GESTÃO DE CASAMENTOS =========");
-            System.out.println("1. Cadastrar Pessoa/Usuário");
-            System.out.println("2. Exibir Pessoas/Usuários");
-            System.out.println("3. Sair");
-            System.out.print("Escolha uma opção: ");
-
-            int opcao = scanner.nextInt();
-            scanner.nextLine(); // Limpa o buffer
-
-            switch (opcao) {
-                case 1:
-                    cadastrarPessoa();
-                    break;
-                case 2:
-                    pessoaDao.listarPessoas();
-                    break;
-                case 3:
-                    System.out.println("Saindo...");
-                    return;
-                default:
-                    System.out.println("Opção inválida! Tente novamente.");
-            }
-        }
-    }
-
     public int menuBoasVindas() {
         this.builder.setLength(0);
         this.builder.append("\n----------------------------");
         this.builder.append("\n|   GESTÃO DE CASAMENTOS   |");
         this.builder.append("\n|                          |");
-        this.builder.append("\n| 1 - Login                |");
+        this.builder.append("\n| 1 - Login no Sistema     |");
         this.builder.append("\n| 2 - Cadastrar            |");
-        this.builder.append("\n| 3 - Sair do programa     |");
+        this.builder.append("\n| 3 - Sair do Programa     |");
         this.builder.append("\n|                          |");
         this.builder.append("\n----------------------------");
         this.builder.append("\n\nQual sua opcao? R: ");
@@ -69,31 +41,12 @@ public class GUI {
     public int menuConvidado() {
         this.builder.setLength(0);
         this.builder.append("\n----------------------------------------");
-        this.builder.append("\n|   BEM VINDO ALUNO                    |");
+        this.builder.append("\n|          BEM VINDO CONVIDADO         |");
         this.builder.append("\n|                                      |");
         this.builder.append("\n| 1 - Perfil                           |");
-        this.builder.append("\n| 2 - Realizar Entrada                 |");
-        this.builder.append("\n| 3 - Visualizar Ficha de Treino       |");
-        this.builder.append("\n| 4 - Imprimir Ficha de Treino         |");
-        this.builder.append("\n| 5 - Visualizar Avaliacoes Fisicas    |");
-        this.builder.append("\n| 0 - Sair                             |");
-        this.builder.append("\n|                                      |");
-        this.builder.append("\n----------------------------------------");
-        this.builder.append("\n\nQual sua opcao? R: ");
-        System.out.print(this.builder.toString());
-        return Integer.parseInt(this.scanner.nextLine());
-    }
-
-    public int menuNoivos() {
-        this.builder.setLength(0);
-        this.builder.append("\n----------------------------------------");
-        this.builder.append("\n|     BEM VINDO NOIVO(A)               |");
-        this.builder.append("\n|                                      |");
-        this.builder.append("\n| 1 - Perfil                           |");
-        this.builder.append("\n| 2 - Realizar Entrada                 |");
-        this.builder.append("\n| 3 - Visualizar Ficha de Treino       |");
-        this.builder.append("\n| 4 - Imprimir Ficha de Treino         |");
-        this.builder.append("\n| 5 - Visualizar Avaliacoes Fisicas    |");
+        this.builder.append("\n| 2 - Presentes                        |");
+        this.builder.append("\n| 3 - Mural de Recados                 |");
+        this.builder.append("\n| 4 - Confirmar Presença no Evento     |");
         this.builder.append("\n| 0 - Sair                             |");
         this.builder.append("\n|                                      |");
         this.builder.append("\n----------------------------------------");
@@ -105,12 +58,17 @@ public class GUI {
     public int menuPrincipal() {
         this.builder.setLength(0);
         this.builder.append("\n-----------------------------------");
-        this.builder.append("\n|             MENU                |");
-        this.builder.append("\n|     Usuario sem tipo valido!    |");
+        this.builder.append("\n|          MENU PRINCIPAL         |");
+        this.builder.append("\n|     Bem vindo ao gerenciador    |");
         this.builder.append("\n|                                 |");
-        this.builder.append("\n| 1 - Perfil                      |");
-        this.builder.append("\n| 2 - Alterar Cadastro            |");
-        this.builder.append("\n| 3 - Tentar Novamente            |");
+        this.builder.append("\n| 1 - Pessoas / Usuários          |");
+        this.builder.append("\n| 2 - Evento                      |");
+        this.builder.append("\n| 3 - Fornecedores                |");
+        this.builder.append("\n| 4 - Convites                    |");
+        this.builder.append("\n| 5 - Presentes                   |");
+        this.builder.append("\n| 6 - Mural de Recados            |");
+        this.builder.append("\n| 7 - Pagamento                   |");
+        this.builder.append("\n| 8 - Relatórios                  |");
         this.builder.append("\n| 0 - Sair                        |");
         this.builder.append("\n|                                 |");
         this.builder.append("\n-----------------------------------");
@@ -119,11 +77,11 @@ public class GUI {
         return Integer.parseInt(this.scanner.nextLine());
     }
 
-    public int menuAdmin() {
+    public int menuUsuarioDefault() {
         this.builder.setLength(0);
         this.builder.append("\n-----------------------------------");
         this.builder.append("\n|             MENU                |");
-        this.builder.append("\n|     Usuario sem tipo valido!    |");
+        this.builder.append("\n|     Usuario sem tipo válido!    |");
         this.builder.append("\n|                                 |");
         this.builder.append("\n| 1 - Perfil                      |");
         this.builder.append("\n| 2 - Alterar Cadastro            |");
@@ -136,7 +94,7 @@ public class GUI {
         return Integer.parseInt(this.scanner.nextLine());
     }
 
-    // Método para cadastrar uma nova pessoa
+    // TODO Método para cadastrar uma nova pessoa
     public Pessoa cadastrarPessoa() {
         Pessoa novaPessoa = new Pessoa();
         System.out.println("\nDigite seu nome: ");

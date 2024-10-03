@@ -59,9 +59,9 @@ public class Main {
     public void menuPrincipal() {
         int opcaoPrincipal = 20;
 
-        if(Util.getPessoaLogada().getTipoUsuario() == 1) {
+        if(Util.getPessoaLogada().getTipoUsuario() == 1 || Util.getPessoaLogada().getTipoUsuario() == 2 || Util.getPessoaLogada().getTipoUsuario() == 3) {
             while (opcaoPrincipal != 0) {
-                opcaoPrincipal = gui.menuNoivos();
+                opcaoPrincipal = gui.menuPrincipal();
                 switch (opcaoPrincipal) {
                     case 1:
                         System.out.println(Util.getPessoaLogada().perfil());
@@ -86,9 +86,9 @@ public class Main {
                         break;
                 }
             }
-        } else if(Util.getPessoaLogada().getTipoUsuario() == 3) {
+        } else if(Util.getPessoaLogada().getTipoUsuario() == 4) {
             while (opcaoPrincipal != 0) {
-                opcaoPrincipal = gui.menuAdmin();
+                opcaoPrincipal = gui.menuConvidado();
                 switch (opcaoPrincipal) {
                     case 1:
                         System.out.println(Util.getPessoaLogada().perfil());
@@ -145,7 +145,7 @@ public class Main {
             }
         } else {
             while (opcaoPrincipal != 0) {
-                opcaoPrincipal = gui.menuPrincipal();
+                opcaoPrincipal = gui.menuUsuarioDefault();
                 switch (opcaoPrincipal) {
                     case 1:
                         Util.getPessoaLogada().perfil();

@@ -189,7 +189,15 @@ public class Pessoa {
 
     public String perfil() {
         String var10000 = this.nome;
-        return "\n|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n| Este é seu perfil " + var10000 + "\n|\n|\n| ID                 : " + this.id + "\n| Sexo               : " + this.sexo + "\n| Nascimento         : " + this.getDataNascimento() + "\n| Email              : " + this.login + "\n| Tipo de Usuario    : " + this.tipoUsuario(this.tipoUsuario) + "\n| CPF                : " + this.cpf + "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
+        return "\n|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" +
+                "| Este é seu perfil " + var10000 + "\n|\n|\n" +
+                "| ID                 : " + this.id + "\n" +
+                "| Sexo               : " + this.sexo + "\n" +
+                "| Nascimento         : " + this.getDataNascimento() + "\n" +
+                "| Email              : " + this.login + "\n" +
+                "| Tipo de Usuario    : " + this.tipoUsuario(this.tipoUsuario) + "\n" +
+                "| CPF                : " + this.cpf + "\n" +
+                "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 
     @Override

@@ -3,9 +3,10 @@ package br.com.gestao.casamento.controller;
 import br.com.gestao.casamento.dao.PessoaDAOMemoria;
 import br.com.gestao.casamento.model.Pessoa;
 import br.com.gestao.casamento.model.Util;
+
+//Importações das Views
 import br.com.gestao.casamento.view.GUI;
 
-import javax.swing.*;
 import java.util.Scanner;
 
 public class Main {
@@ -22,8 +23,10 @@ public class Main {
                 case 1:
                     int login = 0;
                     while(login != 1) {
-                        String email = JOptionPane.showInputDialog("Digite seu e-mail: ");
-                        String senha = JOptionPane.showInputDialog("Digite sua senha: ");
+                        System.out.println("\nDigite seu login [email]:");
+                        String email = this.s.nextLine().trim();
+                        System.out.println("\nDigite sua senha: ");
+                        String senha = this.s.nextLine().trim();;
                         Pessoa logada = pessoaDAO.buscaPessoaLogin(email, senha);
 
                         if (logada != null) {
@@ -73,7 +76,7 @@ public class Main {
                         //gui.menuEvento();
                         break;
                     case 4:
-                        //gui.menuFornecedores();
+                        gui.opFornecedor();
                         break;
                     case 5:
                         //gui.menuConvites();

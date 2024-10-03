@@ -16,9 +16,7 @@ public class PessoaDAOMemoria implements PessoaDAO {
     public PessoaDAOMemoria() {
         this.listaPessoas = new Pessoa[TAMANHO_MAXIMO];
         this.totalPessoas = 0;
-    }
 
-    public void inicializarPessoasDeExemplo() {
         Pessoa p1 = new Pessoa("Raphael Nathan Moreira", "Masculino", Util.formataData("04/05/1999"),
                 "+55 34 9 9222-8686", "rnathan@gmail.com", "12345678", 1, "142.786.626-02");
         this.criarPessoa(p1);
@@ -126,8 +124,6 @@ public class PessoaDAOMemoria implements PessoaDAO {
         }
         return null;
     }
-
-
 
     @Override
     public Pessoa buscaPessoa(String cpf) {

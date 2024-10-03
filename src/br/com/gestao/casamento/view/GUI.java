@@ -1,7 +1,12 @@
 package br.com.gestao.casamento.view;
 
+import br.com.gestao.casamento.controller.Main;
+import br.com.gestao.casamento.dao.FornecedorDAO;
+import br.com.gestao.casamento.dao.FornecedorDAOMemoria;
 import br.com.gestao.casamento.dao.PessoaDAO;
 import br.com.gestao.casamento.dao.PessoaDAOMemoria;
+import br.com.gestao.casamento.model.Fornecedor;
+
 import br.com.gestao.casamento.model.Pessoa;
 import br.com.gestao.casamento.model.Util;
 
@@ -10,17 +15,17 @@ import java.util.Scanner;
 
 public class GUI {
     Scanner scanner;
+    JOptionPane optionPane;
     PessoaDAO pessoaDao;
+    FornecedorDAO fornecedorDao;
     StringBuilder builder;
     Util util;
 
     public GUI() {
         this.scanner = new Scanner(System.in);
         this.pessoaDao = new PessoaDAOMemoria();
+        this.fornecedorDao = new FornecedorDAOMemoria();
         this.builder = new StringBuilder();
-
-        // Inicializar pessoas para os testes
-        pessoaDao.inicializarPessoasDeExemplo();
     }
 
     //TODO Menus do software de gestão de casamentos
@@ -122,6 +127,25 @@ public class GUI {
         return Integer.parseInt(this.scanner.nextLine());
     }
 
+    public int opFornecedor() {
+        builder.setLength(0);
+        builder.append("\n-----------------------------------");
+        builder.append("\n|  * -> Fornecedor                 |");
+        builder.append("\n|                                  |");
+        builder.append("\n|  1 - Perfil da Empresa           |");
+        builder.append("\n|  2 - Cadastrar                   |");
+        builder.append("\n|  3 - Mostrar todos               |");
+        builder.append("\n|  4 - Alterar um Fornecedor       |");
+        builder.append("\n|  5 - Excluir um Fornecedor       |");
+        builder.append("\n|  0 - Sair                        |");
+        builder.append("\n|                                  |");
+        builder.append("\n-----------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    // =-=-=-=-=CRIACOES=-=-=-=-=-= //
     // TODO Método para cadastrar uma nova pessoa
     public Pessoa cadastrarPessoa() {
         Pessoa novaPessoa = new Pessoa();
@@ -167,9 +191,57 @@ public class GUI {
         return novaPessoa;
     }
 
+    // TODO Método para cadastrar um novo Fornecedor
+    public Fornecedor cadastrarFornecedor() {
+        Fornecedor f = new Fornecedor();
+        System.out.println("\nDigite o nome da empresa: ");
+        String nome = this.scanner.nextLine();
+        f.setNome(nome);
+
+        System.out.println("\nDigite o CNPJ da empresa: ");
+        System.out.println("Digite desta forma-> 00.000.000/0000-00");
+        String CNPJ = this.scanner.nextLine();
+        f.setCNPJ(CNPJ);
+
+        System.out.println("\nDigite o telefone da empresa: ");
+        System.out.println("Digite desta forma -> +55 DDD X XXXX-XXXX");
+        String telefone = this.scanner.nextLine();
+        f.setTelefone(telefone);
+
+        System.out.println("\nDigite o valor em débito com a empresa: ");
+        long valorAPagar = this.scanner.nextLong();
+        f.setValorAPagar(valorAPagar);
+
+        // Armazena o Fornecedor no DAO e exibe uma mensagem de sucesso
+        fornecedorDao.criarFornecedor(f);
+        JOptionPane.showMessageDialog(null, "Fornecedor cadastrado com sucesso!\n" + f.toString());
+        return f;
+    }
+
     // TODO Método principal para executar o programa
     public static void main(String[] args) {
         GUI gui = new GUI();
         gui.menuBoasVindas();
+    }
+
+    public void fazerLogin() {
+        int login = 0;
+        while(login != 1) {
+            System.out.println("\nDigite seu login [email]:");
+            String email = this.scanner.nextLine();
+            System.out.println("Digite sua senha: ");
+            String senha = this.scanner.nextLine();
+            Pessoa logada = pessoaDao.buscaPessoaLogin(email, senha);
+
+            if (logada != null) {
+                System.out.println("Voce esta logado!");
+                Util.setPessoaLogada(logada);
+                System.out.println("Seus dados: " + Util.getPessoaLogada().toString());
+                login = 1;
+                menuPrincipal();
+            } else {
+                System.out.println("Login Invalido. Tente novamente!");
+            }
+        }
     }
 }

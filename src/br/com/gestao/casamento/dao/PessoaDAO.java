@@ -3,7 +3,6 @@ package br.com.gestao.casamento.dao;
 import br.com.gestao.casamento.model.Pessoa;
 
 public interface PessoaDAO {
-    void inicializarPessoasDeExemplo();
     void criarPessoa(Pessoa pessoa);
     void listarPessoas();
     Pessoa buscarPessoaPorId(int id);

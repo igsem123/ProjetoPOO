@@ -120,12 +120,14 @@ public class PessoaDAOMemoria implements PessoaDAO {
     @Override
     public Pessoa buscaPessoaLogin(String email, String senha) {
         for (Pessoa pessoa : listaPessoas) {
-            if (pessoa != null && pessoa.getLogin().equals(email) && pessoa.getSenha().equals(senha)) {
+            if (pessoa != null && pessoa.getEmail().equals(email) && pessoa.getSenha().equals(senha)) {
                 return pessoa;
             }
         }
-        return null; // Se não encontrar, retorna null
+        return null;
     }
+
+
 
     @Override
     public Pessoa buscaPessoa(String cpf) {
@@ -181,7 +183,7 @@ public class PessoaDAOMemoria implements PessoaDAO {
     public boolean alterarEmail(String cpf, String novoEmail) {
         Pessoa pessoa = buscaPessoa(cpf);
         if (pessoa != null) {
-            pessoa.setLogin(novoEmail);
+            pessoa.setEmail(novoEmail);
             return true; // Email atualizado com sucesso
         }
         return false; // Pessoa não encontrada

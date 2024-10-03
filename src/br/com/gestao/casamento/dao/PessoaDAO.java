@@ -3,11 +3,11 @@ package br.com.gestao.casamento.dao;
 import br.com.gestao.casamento.model.Pessoa;
 
 public interface PessoaDAO {
-    void criarPessoa(Pessoa pessoa);
+    boolean criarPessoa(Pessoa pessoa);
     void listarPessoas();
     Pessoa buscarPessoaPorId(int id);
     void atualizarPessoa(Pessoa pessoa);
-    void deletarPessoa(int id);
+    boolean deletarPessoa(String cpf);
     Pessoa buscaPessoaLogin(String email, String senha);
     Pessoa buscaPessoa(String cpf);
     Pessoa buscaPorId(Long id);

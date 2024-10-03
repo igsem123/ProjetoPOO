@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/FornecedorDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/FornecedorDAOMemoria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Fornecedor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v0.3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/controller/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Pessoa.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +24,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -59,7 +59,8 @@
     "Application.GUI.executor": "Debug",
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "raphael/Correção-Login-e-Criação-CRUD-Fornecedores",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/rnmoreira/Documents/Projetos Faculdade/academia_parte1",
@@ -133,11 +134,35 @@
       <workItem from="1727614524564" duration="31301000" />
       <workItem from="1727693722013" duration="209000" />
       <workItem from="1727959512412" duration="919000" />
-      <workItem from="1727960446208" duration="4416000" />
+      <workItem from="1727960446208" duration="18563000" />
     </task>
+    <task id="LOCAL-00001" summary="v0.3">
+      <option name="closed" value="true" />
+      <created>1727965117383</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1727965117383</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="v0.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.3" />
   </component>
 </project>

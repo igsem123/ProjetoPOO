@@ -30,18 +30,35 @@ public class GUI {
 
     //TODO Menus do software de gestão de casamentos
     public int menuBoasVindas() {
-        this.builder.setLength(0);
-        this.builder.append("\n----------------------------");
-        this.builder.append("\n|   GESTÃO DE CASAMENTOS   |");
-        this.builder.append("\n|                          |");
-        this.builder.append("\n| 1 - Login no Sistema     |");
-        this.builder.append("\n| 2 - Cadastrar            |");
-        this.builder.append("\n| 3 - Sair do Programa     |");
-        this.builder.append("\n|                          |");
-        this.builder.append("\n----------------------------");
-        this.builder.append("\n\nQual sua opcao? R: ");
-        System.out.print(this.builder.toString());
-        return Integer.parseInt(this.scanner.nextLine());
+        int opcao = -1; // inicializa com um valor inválido
+
+        while (opcao < 1 || opcao > 3) {
+            this.builder.setLength(0);
+            this.builder.append("\n----------------------------");
+            this.builder.append("\n|   GESTÃO DE CASAMENTOS   |");
+            this.builder.append("\n|                          |");
+            this.builder.append("\n| 1 - Login no Sistema     |");
+            this.builder.append("\n| 2 - Cadastrar            |");
+            this.builder.append("\n| 3 - Sair do Programa     |");
+            this.builder.append("\n|                          |");
+            this.builder.append("\n----------------------------");
+            this.builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 1 || opcao > 3) {
+                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 1 e 3.");
+                }
+            } else {
+                // Limpa o buffer do scanner e avisa sobre a entrada inválida
+                this.scanner.nextLine();
+                System.out.println("Entrada inválida! Por favor, digite um número (1, 2 ou 3).");
+            }
+        }
+
+        return opcao;
     }
 
     public int menuConvidado() {
@@ -84,11 +101,11 @@ public class GUI {
         return Integer.parseInt(this.scanner.nextLine());
     }
 
-    public int menuPessoa() {
+    public int opPessoa() {
         this.builder.setLength(0);
         this.builder.append("\n-----------------------------------");
         this.builder.append("\n|      MENU PESSOAS/USUARIOS      |");
-        this.builder.append("\n|     Bem vindo ao gerenciador    |");
+        this.builder.append("\n|                                 |");
         this.builder.append("\n|                                 |");
         this.builder.append("\n| 1 - Criar nova pessoa           |");
         this.builder.append("\n| 2 - Exibir pessoa               |");
@@ -132,7 +149,7 @@ public class GUI {
         builder.append("\n-----------------------------------");
         builder.append("\n|  * -> Fornecedor                 |");
         builder.append("\n|                                  |");
-        builder.append("\n|  1 - Perfil da Empresa           |");
+        builder.append("\n|  1 - Buscar Perfil da Empresa    |");
         builder.append("\n|  2 - Cadastrar                   |");
         builder.append("\n|  3 - Mostrar todos               |");
         builder.append("\n|  4 - Alterar um Fornecedor       |");
@@ -186,8 +203,9 @@ public class GUI {
         novaPessoa.setTipoUsuario(tipo);
 
         // Armazena a Pessoa no DAO e exibe uma mensagem de sucesso
-        pessoaDao.criarPessoa(novaPessoa);
+        pessoaDao.criarPessoa(novaPessoa); // Confirmar aqui pois acho que está conflitando isso aqui
         JOptionPane.showMessageDialog(null, "Pessoa cadastrada com sucesso!\n" + novaPessoa.toString());
+
         return novaPessoa;
     }
 

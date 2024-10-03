@@ -5,7 +5,6 @@ import br.com.gestao.casamento.model.Util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class PessoaDAOMemoria implements PessoaDAO {
     private static final int TAMANHO_MAXIMO = 100;
@@ -55,13 +54,15 @@ public class PessoaDAOMemoria implements PessoaDAO {
     }
 
     @Override
-    public void criarPessoa(Pessoa pessoa) {
+    public boolean criarPessoa(Pessoa pessoa) {
         if (totalPessoas < TAMANHO_MAXIMO) {
             listaPessoas[totalPessoas] = pessoa;
             totalPessoas++;
             System.out.println("Pessoa cadastrada com sucesso:\n\n" + pessoa);
+            return true;
         } else {
             System.out.println("Erro: Não há espaço para mais pessoas.");
+            return false;
         }
     }
 
@@ -90,18 +91,19 @@ public class PessoaDAOMemoria implements PessoaDAO {
     }
 
     @Override
-    public void deletarPessoa(int id) {
+    public boolean deletarPessoa(String cpf) {
         for (int i = 0; i < totalPessoas; i++) {
-            if (listaPessoas[i].getId() == id) {
+            if (listaPessoas[i].getCpf().equals(cpf)) {
                 for (int j = i; j < totalPessoas - 1; j++) {
                     listaPessoas[j] = listaPessoas[j + 1];  // Move os itens para trás no array
                 }
                 totalPessoas--;
                 System.out.println("Pessoa deletada com sucesso.");
-                return;
+                return true;
             }
         }
         System.out.println("Pessoa não encontrada.");
+        return false;
     }
 
     public void listarPessoas() {

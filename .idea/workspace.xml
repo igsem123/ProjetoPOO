@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v0.3">
+    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v0.4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/FornecedorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/FornecedorDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/FornecedorDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/FornecedorDAOMemoria.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Fornecedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Fornecedor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Pessoa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Util.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="raphael/Correção-Login-e-Criação-CRUD-Fornecedores" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,7 +44,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/igsem123/ProjetoPOO.git&quot;,
-    &quot;accountId&quot;: &quot;d50dd616-959b-483c-8621-e7628a16486a&quot;
+    &quot;accountId&quot;: &quot;6948aaf8-1890-4146-bf08-431d82cfa30a&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -60,7 +64,7 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "raphael/Correção-Login-e-Criação-CRUD-Fornecedores",
+    "git-widget-placeholder": "raphael/Correção-Implementação-Pessoa",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/rnmoreira/Documents/Projetos Faculdade/academia_parte1",
@@ -134,7 +138,8 @@
       <workItem from="1727614524564" duration="31301000" />
       <workItem from="1727693722013" duration="209000" />
       <workItem from="1727959512412" duration="919000" />
-      <workItem from="1727960446208" duration="18563000" />
+      <workItem from="1727960446208" duration="18878000" />
+      <workItem from="1728038753005" duration="13774000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -144,7 +149,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727965117383</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="v0.4">
+      <option name="closed" value="true" />
+      <created>1727983524847</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1727983524847</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +176,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="v0.3" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.3" />
+    <MESSAGE value="v0.4" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.4" />
   </component>
 </project>

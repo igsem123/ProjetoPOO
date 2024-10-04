@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Pessoa {
     private final long id;
-    public static long totalPessoas = 0;
+    public static int totalPessoas = 0;
     private String nome;
     private String sexo;
     private LocalDate dataNascimento;
@@ -150,6 +150,20 @@ public class Pessoa {
         }
     }
 
+    public String perfil() {
+        return  "\n|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
+                "\n| Este e seu perfil " + this.nome +
+                "\n|" + "\n|" +
+                "\n| ID                 : " + this.id +
+                "\n| Sexo               : " + this.sexo +
+                "\n| Nascimento         : " + getDataNascimento() +
+                "\n| Email              : " + this.login +
+                "\n| Tipo de Usuario    : " + tipoUsuario(this.tipoUsuario) +
+                "\n| CPF                : " + this.cpf +
+                "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 23 * hash + Objects.hashCode(this.nome);
@@ -162,42 +176,37 @@ public class Pessoa {
         return hash;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
-        } else if (obj == null) {
-            return false;
-        } else if (this.getClass() != obj.getClass()) {
-            return false;
-        } else {
-            Pessoa other = (Pessoa)obj;
-            if (this.tipoUsuario != other.tipoUsuario) {
-                return false;
-            } else if (!Objects.equals(this.nome, other.nome)) {
-                return false;
-            } else if (!Objects.equals(this.sexo, other.sexo)) {
-                return false;
-            } else if (!Objects.equals(this.login, other.login)) {
-                return false;
-            } else if (!Objects.equals(this.senha, other.senha)) {
-                return false;
-            } else {
-                return !Objects.equals(this.cpf, other.cpf) ? false : Objects.equals(this.dataNascimento, other.dataNascimento);
-            }
         }
-    }
-
-    public String perfil() {
-        String var10000 = this.nome;
-        return "\n|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" +
-                "| Este é seu perfil " + var10000 + "\n|\n|\n" +
-                "| ID                 : " + this.id + "\n" +
-                "| Sexo               : " + this.sexo + "\n" +
-                "| Nascimento         : " + this.getDataNascimento() + "\n" +
-                "| Email              : " + this.login + "\n" +
-                "| Tipo de Usuario    : " + this.tipoUsuario(this.tipoUsuario) + "\n" +
-                "| CPF                : " + this.cpf + "\n" +
-                "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pessoa other = (Pessoa) obj;
+        if (this.tipoUsuario != other.tipoUsuario) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.sexo, other.sexo)) {
+            return false;
+        }
+        if (!Objects.equals(this.login, other.login)) {
+            return false;
+        }
+        if (!Objects.equals(this.senha, other.senha)) {
+            return false;
+        }
+        if (!Objects.equals(this.cpf, other.cpf)) {
+            return false;
+        }
+        return Objects.equals(this.dataNascimento, other.dataNascimento);
     }
 
     @Override

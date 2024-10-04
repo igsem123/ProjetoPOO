@@ -8,13 +8,11 @@ import java.util.Scanner;
 
 public class Util {
     private static Pessoa pessoaLogada = null;
+
     private static LocalDateTime diaAtual;
     private static LocalDateTime dia;
     private static LocalDate dia2;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-    public Util() {
-    }
 
     public static Pessoa getPessoaLogada() {
         return pessoaLogada;

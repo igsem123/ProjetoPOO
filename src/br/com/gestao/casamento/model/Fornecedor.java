@@ -124,17 +124,19 @@ public class Fornecedor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Fornecedor that = (Fornecedor) o;
-        return Objects.equals(nome, that.nome) && Objects.equals(CNPJ, that.CNPJ) && Objects.equals(telefone, that.telefone) && Objects.equals(email, that.email);
+        return id == that.id &&
+                nome.equals(that.nome) &&
+                CNPJ.equals(that.CNPJ) &&
+                telefone.equals(that.telefone) &&
+                email.equals(that.email) &&
+                valorAPagar == that.valorAPagar &&
+                parcelas == that.parcelas &&
+                estado.equals(that.estado);
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.nome);
-        hash = 31 * hash + Objects.hashCode(this.CNPJ);
-        hash = 31 * hash + Objects.hashCode(this.telefone);
-        hash = 31 * hash + Objects.hashCode(this.email);
-        return Objects.hash(nome, CNPJ, telefone, email);
+        return Objects.hash(id, nome, CNPJ, telefone, email, valorAPagar, parcelas, estado);
     }
 
     public String perfil() {
@@ -152,14 +154,14 @@ public class Fornecedor {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("========== Fornecedor ID {" + getId() + "} ==========\n");
+        sb.append("=============== Fornecedor ID {" + getId() + "} ===============\n");
         sb.append(String.format("Nome                : %s\n", nome));
         sb.append(String.format("CNPJ                : %s\n", CNPJ));
         sb.append(String.format("Telefone            : %s\n", telefone));
         sb.append(String.format("Email               : %s\n", email));
         sb.append(String.format("Data de Criação     : %s\n", dataCriacao));
         sb.append(String.format("Data de Modificação : %s\n", dataModificacao));
-        sb.append("====================================+================\n");
+        sb.append("=====================================================\n");
         return sb.toString();
     }
 }

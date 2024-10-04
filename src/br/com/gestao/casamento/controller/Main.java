@@ -1,7 +1,9 @@
 package br.com.gestao.casamento.controller;
 
+import br.com.gestao.casamento.dao.EventoDAOMemoria;
 import br.com.gestao.casamento.dao.FornecedorDAOMemoria;
 import br.com.gestao.casamento.dao.PessoaDAOMemoria;
+import br.com.gestao.casamento.model.Evento;
 import br.com.gestao.casamento.model.Fornecedor;
 import br.com.gestao.casamento.model.Pessoa;
 import br.com.gestao.casamento.model.Util;
@@ -15,6 +17,7 @@ public class Main {
     GUI gui = new GUI();
     PessoaDAOMemoria pessoaDAO = new PessoaDAOMemoria();
     FornecedorDAOMemoria fornecedorDAO = new FornecedorDAOMemoria();
+    EventoDAOMemoria eventoDAO = new EventoDAOMemoria();
     Scanner s = new Scanner(System.in);
 
     public Main() {
@@ -468,10 +471,49 @@ public class Main {
                     System.out.println("\nQual o ID do fornecedor que deseja deletar do sistema?\n");
                     fornecedorDAO.exibeFornecedoresSimples();
                     System.out.println("\nDigite o ID: ");
-                    long id = Long.parseLong(s.nextLine());
-                    fornecedorDAO.deletarFornecedor(id);
+                    long fornecedorId = Long.parseLong(s.nextLine());
+                    fornecedorDAO.deletarFornecedor(fornecedorId);
                     break;
 
+            }
+        } while (op != 0);
+    }
+
+    public void menuEventos() {
+        int op = -1;
+        do {
+            op = gui.opEvento();
+            switch(op) {
+                case 1:
+                    /*Evento e = gui.cadastrarEvento();
+
+                    boolean eventoInserido = fornecedorDAO.criarFornecedor(e);
+                    if (eventoInserido) {
+                        System.out.println("\nEvento inserido com sucesso!");
+                    } else {
+                        System.out.println("\nEvento nao inserido!");
+                    }
+                    break;*/
+                case 2:
+                    System.out.println("\nQual o ID do evento? ");
+                    long eventoId = Long.parseLong(s.nextLine()); //Conferir se vai dar certo
+
+                    Evento achouE = eventoDAO.buscarPorId(eventoId);
+                    if (achouE != null) {
+                        System.out.println("\nEvento encontrado com sucesso!\n");
+                        System.out.println(achouE.toString());
+                    } else {
+                        System.out.println("\nEvento nao encontrado!\n");
+                    }
+                    break;
+                case 3:
+                    System.out.println("\nO total de eventos no sistema é    : ["+ Evento.totalEventos +"] ");
+                    System.out.println("Esses são os eventos encontrados:\n");
+                    eventoDAO.listarEventos();
+                    break;
+                case 4:
+
+                    break;
             }
         } while (op != 0);
     }

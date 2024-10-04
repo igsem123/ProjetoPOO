@@ -5,7 +5,6 @@ import br.com.gestao.casamento.model.Pessoa;
 public interface PessoaDAO {
     boolean criarPessoa(Pessoa pessoa);
     void listarPessoas();
-    Pessoa buscarPessoaPorId(int id);
     void atualizarPessoa(Pessoa pessoa);
     boolean deletarPessoa(String cpf);
     Pessoa buscaPessoaLogin(String email, String senha);

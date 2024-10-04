@@ -136,7 +136,12 @@ public class Fornecedor {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, CNPJ, telefone, email, valorAPagar, parcelas, estado);
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.nome);
+        hash = 23 * hash + Objects.hashCode(this.CNPJ);
+        hash = 23 * hash + Objects.hashCode(this.telefone);
+        hash = 23 * hash + Objects.hashCode(this.email);
+        return hash;
     }
 
     public String perfil() {

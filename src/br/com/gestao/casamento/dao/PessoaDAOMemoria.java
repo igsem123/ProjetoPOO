@@ -15,13 +15,13 @@ public class PessoaDAOMemoria implements PessoaDAO {
         this.listaPessoas = new Pessoa[TAMANHO_MAXIMO];
         this.totalPessoas = 0;
 
-        Pessoa p1 = new Pessoa("Raphael Nathan Moreira", "Masculino", Util.formataData("04/05/1999"),
+        Pessoa noivo1 = new Pessoa("Raphael Nathan Moreira", "Masculino", Util.formataData("04/05/1999"),
                 "+55 34 9 9222-8686", "rnathan@gmail.com", "12345678", 1, "142.786.626-02");
-        this.criarPessoa(p1);
+        this.criarPessoa(noivo1);
 
-        Pessoa p2 = new Pessoa("Lucas Tobias de Sousa Machado", "Masculino", Util.formataData("28/03/1994"),
+        Pessoa noivo2 = new Pessoa("Lucas Tobias de Sousa Machado", "Masculino", Util.formataData("28/03/1994"),
                 "+55 9 9227-8858", "lucastobias@gmail.com", "lucas123", 1, "785.147.542-01");
-        this.criarPessoa(p2);
+        this.criarPessoa(noivo2);
 
         Pessoa p3 = new Pessoa("Admin", "Sem Gênero", Util.formataData("14/08/2024"),
                 "", "admin", "admin", 3, "123.456.789-10");
@@ -44,11 +44,11 @@ public class PessoaDAOMemoria implements PessoaDAO {
         this.criarPessoa(p7);
 
         Pessoa p8 = new Pessoa("João das Neves", "Masculino", LocalDate.of(1990, 1, 1),
-                "+55 34 9978-8852","joao@email.com" , "joao123", 4, "123.456.789-00");
+                "+55 34 9978-8852","joao@email.com" , "joao123", 1, "123.456.789-00");
         this.criarPessoa(p8);
 
         Pessoa p9 = new Pessoa("Maria das Neves", "Feminino", LocalDate.of(1995, 2, 12),
-                "+55 34 9125-4550","maria@email.com" , "maria123", 5, "987.654.321-00");
+                "+55 34 9125-4550","maria@email.com" , "maria123", 1, "987.654.321-00");
         this.criarPessoa(p9);
     }
 
@@ -63,17 +63,6 @@ public class PessoaDAOMemoria implements PessoaDAO {
             System.out.println("Erro: Não há espaço para mais pessoas.");
             return false;
         }
-    }
-
-    @Override
-    public Pessoa buscarPessoaPorId(int id) {
-        for (int i = 0; i < totalPessoas; i++) {
-            if (listaPessoas[i].getId() == id) {
-                return listaPessoas[i];
-            }
-        }
-        System.out.println("Pessoa não encontrada.");
-        return null;
     }
 
     @Override

@@ -4,15 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v0.4">
+    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v0.5">
+      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/ConvidadoIndividualDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/ConvidadoIndividualDAOMemoria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/EventoDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/EventoDAOMemoria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/ConvidadoIndividual.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Evento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/FornecedorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/FornecedorDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/FornecedorDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/FornecedorDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAOMemoria.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Fornecedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Fornecedor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Pessoa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Util.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,6 +85,7 @@
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="br.com.gestao.casamento.dao" />
+      <recent name="br.com.gestao.casamento.model" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -139,7 +144,7 @@
       <workItem from="1727693722013" duration="209000" />
       <workItem from="1727959512412" duration="919000" />
       <workItem from="1727960446208" duration="18878000" />
-      <workItem from="1728038753005" duration="13774000" />
+      <workItem from="1728038753005" duration="26743000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -157,7 +162,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727983524847</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="v0.5">
+      <option name="closed" value="true" />
+      <created>1728053721696</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728053721696</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,6 +190,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="v0.3" />
     <MESSAGE value="v0.4" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.4" />
+    <MESSAGE value="v0.5" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.5" />
   </component>
 </project>

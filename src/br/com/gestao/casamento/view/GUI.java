@@ -54,40 +54,6 @@ public class GUI {
         return opcao;
     }
 
-    public int menuConvidado() {
-        int opcao = -1; // inicializa com um valor inválido
-
-        while (opcao < 0 || opcao > 4) {
-            this.builder.setLength(0);
-            this.builder.append("\n----------------------------------------");
-            this.builder.append("\n|          BEM VINDO CONVIDADO         |");
-            this.builder.append("\n|                                      |");
-            this.builder.append("\n| 1 - Perfil                           |");
-            this.builder.append("\n| 2 - Presentes                        |");
-            this.builder.append("\n| 3 - Mural de Recados                 |");
-            this.builder.append("\n| 4 - Confirmar Presença no Evento     |");
-            this.builder.append("\n| 0 - Sair                             |");
-            this.builder.append("\n|                                      |");
-            this.builder.append("\n----------------------------------------");
-            this.builder.append("\n\nQual sua opcao? R: ");
-            System.out.print(this.builder.toString());
-
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
-
-                if (opcao < 0 || opcao > 4) {
-                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 4.");
-                }
-            } else {
-                // Limpa o buffer do scanner e avisa sobre a entrada inválida
-                this.scanner.nextLine();
-                System.out.println("Entrada inválida! Por favor, digite um número (0, 1, 2, 3 ou 4).");
-            }
-        }
-
-        return opcao;
-    }
-
     public int menuPrincipal() {
         int opcao = -1; // inicializa com um valor inválido
 
@@ -205,6 +171,41 @@ public class GUI {
         return opcao;
     }
 
+    public int opEvento() {
+        int opcao = -1; // inicializa com um valor inválido
+
+        while (opcao < 0 || opcao > 5) {
+            builder.setLength(0);
+            builder.append("\n-----------------------------------------");
+            builder.append("\n|  * -> Eventos                         |");
+            builder.append("\n|                                       |");
+            builder.append("\n|  1 - Criar um novo evento             |");
+            builder.append("\n|  2 - Buscar evento pelo ID            |");
+            builder.append("\n|  3 - Listar todos os eventos          |");
+            builder.append("\n|  4 - Atualizar dados do evento        |");
+            builder.append("\n|  5 - Remover evento                   |");
+            builder.append("\n|  0 - Sair                             |");
+            builder.append("\n|                                       |");
+            builder.append("\n-----------------------------------------");
+            builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 0 || opcao > 5) {
+                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                }
+            } else {
+                // Limpa o buffer do scanner e avisa sobre a entrada inválida
+                this.scanner.nextLine();
+                System.out.println("Entrada inválida!");
+            }
+        }
+
+        return opcao;
+    }
+
     public int opFornecedor() {
         int opcao = -1; // inicializa com um valor inválido
 
@@ -234,6 +235,76 @@ public class GUI {
                 // Limpa o buffer do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
                 System.out.println("Entrada inválida!");
+            }
+        }
+
+        return opcao;
+    }
+
+    public int opConvites() {
+        int opcao = -1; // inicializa com um valor inválido
+
+        while (opcao < 0 || opcao > 6) {
+            builder.setLength(0);
+            builder.append("\n-----------------------------------------");
+            builder.append("\n|  * -> Convites                        |");
+            builder.append("\n|                                       |");
+            builder.append("\n|  1 - Adicionar convidado em evento    |");
+            builder.append("\n|  2 - Confirmar convidado no evento    |");
+            builder.append("\n|  3 - Mostrar todos os convidados      |");
+            builder.append("\n|  4 - Alterar um convidado ind.        |");
+            builder.append("\n|  5 - Alterar um convidado fam.        |");
+            builder.append("\n|  6 - Excluir convite                  |");
+            builder.append("\n|  0 - Sair                             |");
+            builder.append("\n|                                       |");
+            builder.append("\n-----------------------------------------");
+            builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 0 || opcao > 6) {
+                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 6.");
+                }
+            } else {
+                // Limpa o buffer do scanner e avisa sobre a entrada inválida
+                this.scanner.nextLine();
+                System.out.println("Entrada inválida!");
+            }
+        }
+
+        return opcao;
+    }
+
+    public int menuConvidado() {
+        int opcao = -1; // inicializa com um valor inválido
+
+        while (opcao < 0 || opcao > 4) {
+            this.builder.setLength(0);
+            this.builder.append("\n----------------------------------------");
+            this.builder.append("\n|          BEM VINDO CONVIDADO         |");
+            this.builder.append("\n|                                      |");
+            this.builder.append("\n| 1 - Perfil                           |");
+            this.builder.append("\n| 2 - Presentes                        |");
+            this.builder.append("\n| 3 - Mural de Recados                 |");
+            this.builder.append("\n| 4 - Confirmar Presença no Evento     |");
+            this.builder.append("\n| 0 - Sair                             |");
+            this.builder.append("\n|                                      |");
+            this.builder.append("\n----------------------------------------");
+            this.builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 0 || opcao > 4) {
+                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 4.");
+                }
+            } else {
+                // Limpa o buffer do scanner e avisa sobre a entrada inválida
+                this.scanner.nextLine();
+                System.out.println("Entrada inválida! Por favor, digite um número (0, 1, 2, 3 ou 4).");
             }
         }
 

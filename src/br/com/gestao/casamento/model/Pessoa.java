@@ -213,17 +213,17 @@ public class Pessoa {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("========== Pessoa de ID {" + getId() + "} ==========\n");
-        sb.append(String.format("Nome:                 %s\n", nome));
-        sb.append(String.format("Sexo:                 %s\n", sexo));
-        sb.append(String.format("Data de Nascimento:   %s\n", dataNascimento));
-        sb.append(String.format("CPF:                  %s\n", cpf));
-        sb.append(String.format("Telefone:             %s\n", telefone));
-        sb.append(String.format("Login:                %s\n", login));
-        sb.append(String.format("Senha:                %s\n", senha));
-        sb.append(String.format("Tipo de Usuário:      %s\n", tipoUsuario(getTipoUsuario())));
-        sb.append(String.format("Data de Criação:      %s\n", dataCriacao));
-        sb.append(String.format("Data de Modificação:  %s\n", dataModificacao));
-        sb.append("====================================================\n");
+        sb.append(String.format("Nome                : %s\n", nome));
+        sb.append(String.format("Sexo                : %s\n", sexo));
+        sb.append(String.format("Data de Nascimento  : %s\n", dataNascimento));
+        sb.append(String.format("CPF                 : %s\n", cpf));
+        sb.append(String.format("Telefone            : %s\n", telefone));
+        sb.append(String.format("Login               : %s\n", login));
+        sb.append(String.format("Senha               : %s\n", senha));
+        sb.append(String.format("Tipo de Usuário     : %s\n", tipoUsuario(getTipoUsuario())));
+        sb.append(String.format("Data de Criação     : %s\n", dataCriacao));
+        sb.append(String.format("Data de Modificação : %s\n", dataModificacao));
+        sb.append("==================================================\n");
         return sb.toString();
     }
 }

@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 public class PessoaDAOMemoria implements PessoaDAO {
     private static final int TAMANHO_MAXIMO = 100;
     private final Pessoa[] listaPessoas;  // Simulação de armazenamento
-    private int totalPessoas = 0;
-    private Util util;
+    private int totalPessoas;
 
     public PessoaDAOMemoria() {
         this.listaPessoas = new Pessoa[TAMANHO_MAXIMO];
@@ -49,7 +48,7 @@ public class PessoaDAOMemoria implements PessoaDAO {
         this.criarPessoa(p8);
 
         Pessoa p9 = new Pessoa("Maria das Neves", "Feminino", LocalDate.of(1995, 2, 12),
-                "+55 34 9125-4550","maria@email.com" , "maria123", 4, "987.654.321-00");
+                "+55 34 9125-4550","maria@email.com" , "maria123", 5, "987.654.321-00");
         this.criarPessoa(p9);
     }
 
@@ -98,11 +97,9 @@ public class PessoaDAOMemoria implements PessoaDAO {
                     listaPessoas[j] = listaPessoas[j + 1];  // Move os itens para trás no array
                 }
                 totalPessoas--;
-                System.out.println("Pessoa deletada com sucesso.");
                 return true;
             }
         }
-        System.out.println("Pessoa não encontrada.");
         return false;
     }
 

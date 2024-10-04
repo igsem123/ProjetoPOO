@@ -9,7 +9,6 @@ import br.com.gestao.casamento.model.Util;
 //Importações das Views
 import br.com.gestao.casamento.view.GUI;
 
-import javax.swing.*;
 import java.util.Scanner;
 
 public class Main {
@@ -30,7 +29,7 @@ public class Main {
                         System.out.println("\nDigite seu login [email]:");
                         String email = this.s.nextLine().trim();
                         System.out.println("\nDigite sua senha: ");
-                        String senha = this.s.nextLine().trim();;
+                        String senha = this.s.nextLine().trim();
                         Pessoa logada = pessoaDAO.buscaPessoaLogin(email, senha);
 
                         if (logada != null) {
@@ -56,7 +55,7 @@ public class Main {
                     System.out.println("\n Digite um numero valido!");
                     break;
             }
-        };
+        }
     }
 
     public static void main(String[] args) {
@@ -77,25 +76,25 @@ public class Main {
                         menuPessoa();
                         break;
                     case 3:
-                        //gui.menuEvento();
+                        //menuEvento();
                         break;
                     case 4:
-                        gui.opFornecedor();
+                        menuFornecedor();
                         break;
                     case 5:
-                        //gui.menuConvites();
+                        //menuConvites();
                         break;
                     case 6:
-                        //gui.menuPresentes();
+                        //menuPresentes();
                         break;
                     case 7:
-                        //gui.menuRecados();
+                        //menuRecados();
                         break;
                     case 8:
-                        //gui.menuPagamentos();
+                        //menuPagamentos();
                         break;
                     case 9:
-                        //gui.menuRelatorios();
+                        //menuRelatorios();
                         break;
                     case 0:
                         System.out.println("Saindo do menu principal!");
@@ -114,12 +113,13 @@ public class Main {
                         System.out.println(Util.getPessoaLogada().perfil());
                         break;
                     case 2:
-
+                        //menuPresentes()
                         break;
                     case 3:
-
+                        //menuRecados()
                         break;
                     case 4:
+                        //menuConvidado()
                         break;
                     case 0:
                         System.out.println("0 - Sair");
@@ -134,20 +134,78 @@ public class Main {
                 opcaoPrincipal = gui.menuUsuarioDefault();
                 switch (opcaoPrincipal) {
                     case 1:
-                        Util.getPessoaLogada().perfil();
+                        System.out.println(Util.getPessoaLogada().perfil());
                         break;
+
                     case 2:
-                        atualizarPessoa(Util.getPessoaLogada().getCpf());
+                        Pessoa editar = Util.getPessoaLogada();
+
+                        if (editar != null) {
+                            System.out.println("\nDigite o novo nome (ou pressione ENTER para manter o nome atual): " + editar.getNome());
+                            String nome = s.nextLine();
+                            if(!nome.isEmpty()) {
+                                editar.setNome(nome);
+                            }
+
+                            System.out.println("\nDigite o novo sexo (ou pressione ENTER para manter o sexo atual): " + editar.getSexo());
+                            String sexo = s.nextLine();
+                            if(!sexo.isEmpty()) {
+                                editar.setSexo(sexo);
+                            }
+
+                            System.out.println("\nDigite a nova Data de Nascimento (ou pressione ENTER para manter a data atual): " + editar.getDataNascimento());
+                            System.out.println("\nDigite desta forma-> dd/MM/yyyy");
+                            String nascimento = s.nextLine();
+                            if(!nascimento.isEmpty()) {
+                                editar.setDataNascimento(nascimento);
+                            }
+
+                            System.out.println("\nDigite o novo email (ou pressione ENTER para manter o email atual): " + editar.getEmail());
+                            String login = s.nextLine();
+                            if(!login.isEmpty()) {
+                                editar.setEmail(login);
+                            }
+
+                            System.out.println("\nDigite a nova senha (ou pressione ENTER para manter a senha atual): " + editar.getSenha());
+                            String senha = s.nextLine();
+                            if(!senha.isEmpty()) {
+                                editar.setSenha(senha);
+                            }
+
+                            System.out.println("\nDigite o novo tipo do usuario (ou pressione ENTER para manter o tipo atual): " + editar.getTipoUsuario());
+                            System.out.println("Escolha um número -> 1 - Noivo(a) | 2 - Cerimonialista | 3 - Administrador | 4 - Convidado");
+                            String tipo = s.nextLine();
+                            if(!tipo.isEmpty()) {
+                                int num = Integer.parseInt(tipo);
+                                editar.setTipoUsuario(num);
+                            }
+
+                            System.out.println("\nDigite o novo CPF (ou pressione ENTER para manter o CPF atual): " + editar.getCpf());
+                            System.out.println("\nDigite desta forma-> 000.000.000-00");
+                            String cpfNovo = s.nextLine();
+                            if(!cpfNovo.isEmpty()) {
+                                editar.setCpf(cpfNovo);
+                            }
+
+                            System.out.println("Pessoa alterada com sucesso, alterações:\n");
+                            System.out.println(editar.toString());
+                        } else {
+                            System.out.println("Não foi possível alterar o seu perfil!");
+                        }
                         break;
+
                     case 3:
                         menuPrincipal();
                         break;
+
                     case 0:
                         System.out.println("0 - Sair");
                         break;
+
                     default:
                         System.out.println("Digite uma opcao valida");
                         break;
+
                 }
 
             }
@@ -155,7 +213,7 @@ public class Main {
     }
 
     public void menuPessoa() {
-        int op = 10;
+        int op;
         do {
             op = gui.opPessoa();
             switch (op) {
@@ -164,9 +222,9 @@ public class Main {
 
                     boolean pessoaInserida = pessoaDAO.criarPessoa(p);
                     if (pessoaInserida) {
-                        System.out.println("\n Pessoa inserida com sucesso!");
+                        System.out.println("\nPessoa inserida com sucesso!");
                     } else {
-                        System.out.println("\n Pessoa nao inserida!");
+                        System.out.println("\nPessoa nao inserida!");
                     }
                     break;
 
@@ -175,8 +233,8 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.println("\n Digite o CPF da pessoa: ");
-                    System.out.println("\n Ex: 000.000.000-00 ");
+                    System.out.println("\nDigite o CPF da pessoa: ");
+                    System.out.println("\nEx: 000.000.000-00 ");
                     String cpf = s.nextLine();
                     Pessoa achou = pessoaDAO.buscaPessoa(cpf);
                     if(achou != null) {
@@ -187,70 +245,129 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.println("\n Digite o CPF da pessoa que deseja alterar: ");
+                    System.out.println("\nDigite o CPF da pessoa que deseja alterar: ");
                     String cpfDaPessoa = s.nextLine();
                     atualizarPessoa(cpfDaPessoa);
                     break;
 
                 case 5:
-                    System.out.println("\n Digite o CPF da pessoa que deseja excluir: ");
-                    System.out.println("\n Ex: 000.000.000-00 ");
+                    System.out.println("\nDigite o CPF da pessoa que deseja excluir: ");
+                    System.out.println("Ex: 000.000.000-00 ");
                     String cpfExclusao = s.nextLine();
 
                     if (pessoaDAO.deletarPessoa(cpfExclusao)) {
-                        System.out.println("\n Pessoa excluida!");
+                        System.out.println("\nPessoa deletada com sucesso.");
                     } else {
-                        System.out.println("\n Pessoa nao excluida!");
+                        System.out.println("\nPessoa nao encontrada!");
                     }
                     break;
 
                 case 6:
-                    System.out.println("\n Digite o CPF da pessoa que deseja alterar o nome: ");
+                    System.out.println("\nDigite o CPF da pessoa que deseja alterar o nome: ");
                     String editaNome = s.nextLine();
-                    System.out.println("\n Qual o novo nome? ");
+                    System.out.println("\nQual o novo nome? ");
                     String novoNome = s.nextLine();
 
                     if (pessoaDAO.alterarNome(editaNome, novoNome)) {
-                        System.out.println("\n Pessoa alterada!");
+                        System.out.println("\nPessoa alterada!");
                         novoNome = pessoaDAO.buscaPessoa(editaNome).getNome();
-                        System.out.println(" Novo nome: " + novoNome);
+                        System.out.println("Novo nome: " + novoNome);
                     } else {
-                        System.out.println("\n Pessoa nao alterada!");
+                        System.out.println("\nPessoa nao alterada!");
                     }
                     break;
 
                 case 7:
-                    System.out.println("\n Digite o CPF da pessoa que deseja alterar o sexo: ");
+                    System.out.println("\nDigite o CPF da pessoa que deseja alterar o sexo: ");
                     String editaSexo = s.nextLine();
-                    System.out.println("\n Qual o novo sexo? ");
+                    System.out.println("\nQual o novo sexo? ");
                     String novoSexo = s.nextLine();
 
                     if (pessoaDAO.alterarSexo(editaSexo, novoSexo)) {
-                        System.out.println("\n Pessoa alterada!");
+                        System.out.println("\nPessoa alterada!");
+                        novoSexo = pessoaDAO.buscaPessoa(editaSexo).getSexo();
+                        System.out.println("Novo sexo: " + novoSexo);
                     } else {
-                        System.out.println("\n Pessoa nao alterada!");
+                        System.out.println("\nPessoa nao alterada!");
                     }
                     break;
 
                 case 8:
-                    System.out.println("\n Digite o CPF da pessoa que deseja alterar a data de nascimento: ");
+                    System.out.println("\nDigite o CPF da pessoa que deseja alterar a data de nascimento: ");
                     String editaNascimento = s.nextLine();
-                    System.out.println("\n Qual a nova data de nascimento? ");
+                    System.out.println("\nQual a nova data de nascimento? ");
                     String novoNascimento = s.nextLine();
 
                     if (pessoaDAO.alterarNascimento(editaNascimento, novoNascimento)) {
                         System.out.println("\n Pessoa alterada!");
+                        novoNascimento = pessoaDAO.buscaPessoa(editaNascimento).getDataNascimento();
+                        System.out.println(" Nova data de nascimento: " + novoNascimento);
                     } else {
                         System.out.println("\n Pessoa nao alterada!");
                     }
                     break;
                 case 9:
+                    System.out.println("\nDigite o CPF da pessoa que deseja alterar o email: ");
+                    String editaEmail = s.nextLine();
+                    System.out.println("\nQual o novo email [Login]? ");
+                    String novoEmail = s.nextLine();
+
+                    if (pessoaDAO.alterarEmail(editaEmail, novoEmail)) {
+                        System.out.println("\nPessoa alterada!");
+                        novoEmail = pessoaDAO.buscaPessoa(editaEmail).getEmail();
+                        System.out.println("Novo email: " + novoEmail);
+                    } else {
+                        System.out.println("\nPessoa nao alterada!");
+                    }
                     break;
                 case 10:
+                    System.out.println("\nDigite o CPF da pessoa que deseja alterar a senha: ");
+                    String editaSenha = s.nextLine();
+                    System.out.println("\nQual a nova senha? ");
+                    String novaSenha = s.nextLine();
+
+                    if (pessoaDAO.alterarSenha(editaSenha, novaSenha)) {
+                        System.out.println("\nPessoa alterada!");
+                        novaSenha = pessoaDAO.buscaPessoa(editaSenha).getSenha();
+                        System.out.println("Novo email: " + novaSenha);
+                    } else {
+                        System.out.println("\nPessoa nao alterada!");
+                    }
                     break;
+                case 11:
+                    System.out.println("\nDigite o CPF da pessoa que deseja alterar o tipo de usuario: ");
+                    String editaTipoUsuario = s.nextLine();
+                    System.out.println("\nQual o novo tipo de usuário? ");
+                    System.out.println("Escolha um número -> 1 - Noivo(a) | 2 - Cerimonialista | 3 - Administrador | 4 - Convidado");
+                    int novoTipoUsuario = Integer.parseInt(s.nextLine());
+
+                    if (pessoaDAO.alterarTipoUsuario(editaTipoUsuario, novoTipoUsuario)) {
+                        System.out.println("\nPessoa alterada!");
+                        novoTipoUsuario = pessoaDAO.buscaPessoa(editaTipoUsuario).getTipoUsuario();
+                        System.out.println("Novo tipo de usuário: " + novoTipoUsuario);
+                    } else {
+                        System.out.println("\nPessoa nao alterada!");
+                    }
+                    break;
+                case 12:
+                    System.out.println("\nDigite o CPF da pessoa que deseja alterar o cadastro de pessoa fisica: ");
+                    String editaCPF = s.nextLine();
+                    System.out.println("\nQual o novo CPF? ");
+                    String novoCPF = s.nextLine();
+
+                    if (pessoaDAO.alterarCpf(editaCPF, novoCPF)) {
+                        System.out.println("\nPessoa alterada!");
+                        novoCPF = pessoaDAO.buscaPessoa(editaCPF).getCpf();
+                        System.out.println("Novo CPF: " + novoCPF);
+                    } else {
+                        System.out.println("\nPessoa nao alterada!");
+                    }
+                    break;
+
                 case 0:
                     System.out.println("Saindo do modulo Pessoa!");
                     break;
+
                 default:
                     System.out.println("Digite um numero valido!");
                     break;
@@ -266,59 +383,47 @@ public class Main {
                 case 1:
                     System.out.println("\nQual o CNPJ da empresa? ");
                     String cnpj = s.nextLine();
-                    fornecedorDAO.buscaFornecedor(cnpj);
+
+                    Fornecedor achouF = fornecedorDAO.buscaFornecedor(cnpj);
+                    if (achouF != null) {
+                        System.out.println("\nFornecedor encontrado com sucesso!\n");
+                        System.out.println(achouF.toString());
+                    } else {
+                        System.out.println("\nFornecedor nao encontrado!\n");
+                    }
                     break;
                 case 2:
-                    Fornecedor nF = new Fornecedor();
-                    System.out.println("\nQual o nome da empresa? ");
-                    String nome = s.nextLine();
-                    nF.setNome(nome);
+                    Fornecedor f = gui.cadastrarFornecedor();
 
-                    System.out.println("\nQual o telefone da empresa? ");
-                    String telefone = s.nextLine();
-                    nF.setTelefone(telefone);
-
-                    System.out.println("\nQual o email da empresa? ");
-                    String email = s.nextLine();
-                    nF.setEmail(email);
-
-                    System.out.println("\nQual o valor em débito com a empresa?");
-                    long valor = Long.parseLong(s.nextLine());
-                    nF.setValorAPagar(valor);
-
-                    System.out.println("\nEm quantas parcelas pagará?");
-                    System.out.println("\n -> Digite 0 se o pagamento for à vista!");
-                    int parcelas = Integer.parseInt(s.nextLine());
-                    nF.setParcelas(parcelas);
-
-                    String estado = "Em débito!";
-                    nF.setEstado(estado);
-
-                    // Armazena o Fornecedor no DAO e exibe mensagem de sucesso
-                    fornecedorDAO.criarFornecedor(nF);
-                    JOptionPane.showMessageDialog(null, "Fornecedor criado com sucesso!");
-
+                    boolean fornecedorInserido = fornecedorDAO.criarFornecedor(f);
+                    if (fornecedorInserido) {
+                        System.out.println("\nFornecedor inserido com sucesso!");
+                    } else {
+                        System.out.println("\nFornecedor nao inserido!");
+                    }
                     break;
                 case 3:
+                    System.out.println("\nO total de fornecedores é          : ["+ Fornecedor.totalFornecedores +"] ");
+                    System.out.println("Esses são os fornecedores cadastrados:\n");
                     fornecedorDAO.listarFornecedores();
                     break;
                 case 4:
-                    Fornecedor fornecedorEditar = new Fornecedor();
                     System.out.println("\nPara atualizar, primeiro digite o CNPJ do fornecedor que deseja atualizar: ");
                     String fornecedorCNPJ = s.nextLine();
 
+                    Fornecedor fornecedorEditar = fornecedorDAO.buscaFornecedor(fornecedorCNPJ);
+
                     if(fornecedorDAO.buscaFornecedor(fornecedorCNPJ) != null) {
-                        // Armazenando o fornecedor sem editar
-                        Fornecedor semEditar = fornecedorDAO.buscaFornecedor(fornecedorCNPJ);
+                        Fornecedor semEditar = fornecedorDAO.buscaFornecedor(fornecedorCNPJ); // Armazenando o fornecedor sem editar
                         fornecedorEditar = fornecedorDAO.buscaFornecedor(fornecedorCNPJ);
 
-                        System.out.println("\n Digite o novo nome da empresa (ou pressione ENTER para manter o nome atual): " + fornecedorEditar.getNome());
+                        System.out.println("\nDigite o novo nome da empresa (ou pressione ENTER para manter o nome atual): " + fornecedorEditar.getNome());
                         String novoNome = s.nextLine();
                         if(!novoNome.isEmpty()) {
                             fornecedorEditar.setNome(novoNome);
                         }
 
-                        System.out.println("\n Digite o novo CNPJ (ou pressione ENTER para manter o CNPJ atual): " + fornecedorEditar.getCNPJ());
+                        System.out.println("\nDigite o novo CNPJ (ou pressione ENTER para manter o CNPJ atual): " + fornecedorEditar.getCNPJ());
                         System.out.println("Digite desta forma-> 00.000.000/0000-00");
                         String novoCnpj = s.nextLine();
                         if(!novoCnpj.isEmpty()) {
@@ -333,34 +438,38 @@ public class Main {
                         }
 
                         System.out.println("\nDigite o novo valor em débito com a empresa (ou pressione ENTER para manter o valor atual): " + fornecedorEditar.getValorAPagar());
-                        long valorAPagar = this.s.nextLong();
-                        if(!(valorAPagar == 0)) {
-                            fornecedorEditar.setValorAPagar(valorAPagar);
+                        String valorAPagar = this.s.nextLine();
+                        if(!valorAPagar.isEmpty()) {
+                            fornecedorEditar.setValorAPagar(Long.parseLong(valorAPagar));
                         }
 
-                        System.out.println("\n Digite a nova quantidade de parcelas (ou pressione ENTER para manter a parcela atual): " + fornecedorEditar.getParcelas());
-                        int novaParcela = Integer.parseInt(s.nextLine());
-                        if(!(novaParcela == 0)) {
+                        System.out.println("\nDigite a nova quantidade de parcelas (ou pressione ENTER para manter a parcela atual): " + fornecedorEditar.getParcelas());
+                        String novaParcelaInput = this.s.nextLine();
+                        if (!novaParcelaInput.isEmpty()) {
+                            int novaParcela = Integer.parseInt(novaParcelaInput);
                             fornecedorEditar.setParcelas(novaParcela);
                         }
 
-                        System.out.println("\n Digite o estado atual da dívida (ou pressione ENTER para manter o estado atual): " + fornecedorEditar.getEstado());
+                        System.out.println("\nDigite o estado atual da dívida (ou pressione ENTER para manter o estado atual): " + fornecedorEditar.getEstado());
                         String novoEstado = s.nextLine();
                         if(!novoEstado.isEmpty()) {
                             fornecedorEditar.setEstado(novoEstado);
                         }
 
-                        if(semEditar.equals(fornecedorEditar)) {
+                        if(!semEditar.equals(fornecedorEditar)) {
                             System.out.println("Fornecedor nao foi alterado!");
                         } else {
                             System.out.println("Fornecedor alterado com sucesso, alteracoes: ");
-                            fornecedorEditar.toString();
+                            System.out.println(fornecedorEditar.toString());
                         }
-                    } else {
-                        System.out.println("Fornecedor nao encontrado para alterar!");
                     }
                     break;
                 case 5:
+                    System.out.println("\nQual o ID do fornecedor que deseja deletar do sistema?\n");
+                    fornecedorDAO.exibeFornecedoresSimples();
+                    System.out.println("\nDigite o ID: ");
+                    long id = Long.parseLong(s.nextLine());
+                    fornecedorDAO.deletarFornecedor(id);
                     break;
 
             }
@@ -369,56 +478,56 @@ public class Main {
 
     private void atualizarPessoa(String cpfDaPessoa) {
         Pessoa editar = pessoaDAO.buscaPessoa(cpfDaPessoa); // Retorna o objeto Pessoa e armazena
-        Pessoa semEditar = pessoaDAO.buscaPessoa(cpfDaPessoa);
 
         if(editar != null) {
-            System.out.println("\n Digite o novo nome (ou pressione ENTER para manter o nome atual): " + editar.getNome());
+            System.out.println("\nDigite o novo nome (ou pressione ENTER para manter o nome atual): " + editar.getNome());
             String nome = s.nextLine();
             if(!nome.isEmpty()) {
                 editar.setNome(nome);
             }
 
-            System.out.println("\n Digite o novo sexo (ou pressione ENTER para manter o sexo atual): " + editar.getSexo());
+            System.out.println("\nDigite o novo sexo (ou pressione ENTER para manter o sexo atual): " + editar.getSexo());
             String sexo = s.nextLine();
             if(!sexo.isEmpty()) {
                 editar.setSexo(sexo);
             }
 
-            System.out.println("\n Digite a nova Data de Nascimento (ou pressione ENTER para manter a data atual): " + editar.getDataNascimento());
-            System.out.println("\n Digite desta forma-> dd/MM/yyyy");
+            System.out.println("\nDigite a nova Data de Nascimento (ou pressione ENTER para manter a data atual): " + editar.getDataNascimento());
+            System.out.println("\nDigite desta forma-> dd/MM/yyyy");
             String nascimento = s.nextLine();
             if(!nascimento.isEmpty()) {
                 editar.setDataNascimento(nascimento);
             }
 
-            System.out.println("\n Digite o novo email (ou pressione ENTER para manter o email atual): " + editar.getEmail());
+            System.out.println("\nDigite o novo email (ou pressione ENTER para manter o email atual): " + editar.getEmail());
             String login = s.nextLine();
             if(!login.isEmpty()) {
                 editar.setEmail(login);
             }
 
-            System.out.println("\n Digite a nova senha (ou pressione ENTER para manter a senha atual): " + editar.getSenha());
+            System.out.println("\nDigite a nova senha (ou pressione ENTER para manter a senha atual): " + editar.getSenha());
             String senha = s.nextLine();
             if(!senha.isEmpty()) {
                 editar.setSenha(senha);
             }
 
-            System.out.println("\n Digite o novo tipo do usuario (ou pressione ENTER para manter o tipo atual): " + editar.getTipoUsuario());
-            System.out.println("\n Digite um numero-> 1- Aluno | 2- Professor | 3- Administrador");
+            System.out.println("\nDigite o novo tipo do usuario (ou pressione ENTER para manter o tipo atual): " + editar.getTipoUsuario());
+            System.out.println("Escolha um número -> 1 - Noivo(a) | 2 - Cerimonialista | 3 - Administrador | 4 - Convidado");
             String tipo = s.nextLine();
             if(!tipo.isEmpty()) {
                 int num = Integer.parseInt(tipo);
                 editar.setTipoUsuario(num);
             }
 
-            System.out.println("\n Digite o novo CPF (ou pressione ENTER para manter o CPF atual): " + editar.getCpf());
-            System.out.println("\n Digite desta forma-> 000.000.000-00");
+            System.out.println("\nDigite o novo CPF (ou pressione ENTER para manter o CPF atual): " + editar.getCpf());
+            System.out.println("\nDigite desta forma-> 000.000.000-00");
             String cpfNovo = s.nextLine();
             if(!cpfNovo.isEmpty()) {
                 editar.setCpf(cpfNovo);
             }
 
-            System.out.println("Pessoa alterado com sucesso!");
+            System.out.println("Pessoa alterado com sucesso, alteracoes: ");
+            System.out.println(editar.toString());
         } else {
             System.out.println("Pessoa nao encontrada para alterar!");
         }

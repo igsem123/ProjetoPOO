@@ -1,10 +1,9 @@
-package br.com.gestao.casamento.model;
+package mvc.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 public class Util {
     private static Pessoa pessoaLogada = null;

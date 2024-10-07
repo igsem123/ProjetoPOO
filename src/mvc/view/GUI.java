@@ -1,19 +1,21 @@
-package br.com.gestao.casamento.view;
+package mvc.view;
 
-import br.com.gestao.casamento.dao.FornecedorDAO;
-import br.com.gestao.casamento.dao.PessoaDAO;
-import br.com.gestao.casamento.model.Fornecedor;
+import mvc.dao.*;
+import mvc.model.Evento;
+import mvc.model.Fornecedor;
 
-import br.com.gestao.casamento.model.Pessoa;
-import br.com.gestao.casamento.model.Util;
+import mvc.model.Pessoa;
+import mvc.model.Util;
 
-import javax.swing.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class GUI {
     Scanner scanner;
-    PessoaDAO pessoaDao;
-    FornecedorDAO fornecedorDao;
+    PessoaDAOMemoria pessoaDao;
+    FornecedorDAOMemoria fornecedorDao;
+    EventoDAOMemoria eventoDao;
     StringBuilder builder;
 
     public GUI() {
@@ -312,7 +314,7 @@ public class GUI {
     }
 
     // =-=-=-=-=CRIACOES=-=-=-=-=-= //
-    // TODO Método para cadastrar uma nova pessoa
+    // TODO Formulário para cadastrar uma nova pessoa
     public Pessoa cadastrarPessoa() {
         Pessoa novaPessoa = new Pessoa();
         System.out.println("\nDigite seu nome: ");
@@ -356,7 +358,7 @@ public class GUI {
         return novaPessoa;
     }
 
-    // TODO Método para cadastrar um novo Fornecedor
+    // TODO Formulário para cadastrar um novo Fornecedor
     public Fornecedor cadastrarFornecedor() {
         Fornecedor nF = new Fornecedor();
         System.out.println("\nQual o nome da empresa? ");
@@ -390,30 +392,47 @@ public class GUI {
         return nF;
     }
 
+    // TODO Formulário para criar um novo evento
+    public Evento cadastrarEvento() {
+        Evento nE = new Evento();
+        System.out.println("\nQual a data do evento? ");
+        System.out.println("-> Digite desta forma: DD/MM/AAAA ");
+        LocalDate dataEvento = Util.formataData(scanner.nextLine());
+        nE.setDataEvento(dataEvento);
+
+        System.out.println("\nLista de cerimonialistas cadastrados no sistema: \n");
+        pessoaDao.buscaCerimonialistas();
+        System.out.println("\nInforme o ID do cerimonialista desejado: ");
+        long cerimonialId = Long.parseLong(scanner.nextLine());
+        Pessoa cerimonialista = pessoaDao.buscaPorId(cerimonialId);
+        nE.setCerimonial(cerimonialista);
+
+        System.out.println("\nEm qual igreja será realizado o casamento? ");
+        String igrejaEvento = scanner.nextLine();
+        nE.setIgreja(igrejaEvento);
+
+        System.out.println("\nInforme em qual cartório será cadastro o matrimônio: ");
+        String cartorioEvento  = scanner.nextLine();
+        nE.setCartorio(cartorioEvento);
+
+        System.out.println("\nQuem serão os noivos?");
+        System.out.println("\nLista de noivos cadastrados no sistema: \n");
+        pessoaDao.buscaNoivos();
+        System.out.println("\nInforme o ID do noivo(a): ");
+        long noivo1Id = Long.parseLong(scanner.nextLine());
+        Pessoa noivo1 = pessoaDao.buscaPorId(noivo1Id);
+        nE.setPessoaNoivo1(noivo1);
+        System.out.println("\nAgora, informe ID do outro noivo(a): ");
+        long noivo2Id = Long.parseLong(scanner.nextLine());
+        Pessoa noivo2 = pessoaDao.buscaPorId(noivo2Id);
+        nE.setPessoaNoivo2(noivo2);
+
+        return nE;
+    }
+
     // TODO Método principal para executar o programa
     public static void main(String[] args) {
         GUI gui = new GUI();
         gui.menuBoasVindas();
-    }
-
-    public void fazerLogin() {
-        int login = 0;
-        while(login != 1) {
-            System.out.println("\nDigite seu login [email]:");
-            String email = this.scanner.nextLine();
-            System.out.println("Digite sua senha: ");
-            String senha = this.scanner.nextLine();
-            Pessoa logada = pessoaDao.buscaPessoaLogin(email, senha);
-
-            if (logada != null) {
-                System.out.println("Voce esta logado!");
-                Util.setPessoaLogada(logada);
-                System.out.println("Seus dados: " + Util.getPessoaLogada().toString());
-                login = 1;
-                menuPrincipal();
-            } else {
-                System.out.println("Login Invalido. Tente novamente!");
-            }
-        }
     }
 }

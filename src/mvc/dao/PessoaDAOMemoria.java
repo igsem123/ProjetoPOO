@@ -1,7 +1,7 @@
-package br.com.gestao.casamento.dao;
+package mvc.dao;
 
-import br.com.gestao.casamento.model.Pessoa;
-import br.com.gestao.casamento.model.Util;
+import mvc.model.Pessoa;
+import mvc.model.Util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -121,6 +121,22 @@ public class PessoaDAOMemoria implements PessoaDAO {
             }
         }
         return null; // Se não encontrar, retorna null
+    }
+
+    public void buscaCerimonialistas() {
+        for (Pessoa pessoa : listaPessoas) {
+            if (pessoa != null && pessoa.getTipoUsuario() == 2){
+                System.out.println("Cerimonialista: " + pessoa.getNome() + " cadastrado sob o ID: [" + pessoa.getId() + "]");
+            }
+        }
+    }
+
+    public void buscaNoivos() {
+        for (Pessoa pessoa : listaPessoas) {
+            if (pessoa != null && pessoa.getTipoUsuario() == 1){
+                System.out.println("Noivo(a): " + pessoa.getNome() + " cadastrado sob o ID: [" + pessoa.getId() + "]");
+            }
+        }
     }
 
     @Override

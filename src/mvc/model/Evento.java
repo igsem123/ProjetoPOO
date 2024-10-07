@@ -1,5 +1,6 @@
-package br.com.gestao.casamento.model;
+package mvc.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -7,7 +8,7 @@ import java.util.Objects;
 public class Evento {
     public long id;
     public static int totalEventos = 0;
-    private LocalDateTime dataEvento;
+    private LocalDate dataEvento;
     Pessoa cerimonial;
     public String igreja;
     public String cartorio;
@@ -17,9 +18,9 @@ public class Evento {
     private LocalDateTime dataModificacao;
 
     // Construtor com parâmetros
-    public Evento(LocalDateTime dataEvento, Pessoa cerimonial, String igreja, String cartorio, Pessoa pessoaNoivo1, Pessoa pessoaNoivo2) {
+    public Evento(LocalDate dataEvento, Pessoa cerimonial, String igreja, String cartorio, Pessoa pessoaNoivo1, Pessoa pessoaNoivo2) {
         this.id = (totalEventos++);
-        this.dataEvento = Util.getDia();
+        this.dataEvento = dataEvento;
         this.cerimonial = new Pessoa();
         this.igreja = igreja;
         this.cartorio = cartorio;
@@ -45,9 +46,9 @@ public class Evento {
         return dataEvento.format(formatter);
     }
 
-    public void setDataEvento(LocalDateTime dataEvento) {
+    public void setDataEvento(LocalDate dataEvento) {
         this.dataModificacao = LocalDateTime.now();
-        this.dataEvento = LocalDateTime.now();
+        this.dataEvento = dataEvento;
     }
 
     public Pessoa getCerimonial() {
@@ -132,15 +133,15 @@ public class Evento {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("================= Evento ID {" + getId() + "} =================\n");
+        sb.append("================== Evento ID {" + getId() + "} ==================\n");
         sb.append(String.format("Data do Evento      : %s\n", dataEvento));
-        sb.append(String.format("Cerimonial          : %s\n", cerimonial));
+        sb.append(String.format("Cerimonial          : %s\n", cerimonial.getNome()));
         sb.append(String.format("Igreja              : %s\n", igreja));
         sb.append(String.format("Cartorio            : %s\n", cartorio));
-        sb.append(String.format("Noivo(a)            : %s\n", pessoaNoivo1));
-        sb.append(String.format("Noivo(a)            : %s\n", pessoaNoivo2));
-        sb.append(String.format("Data de Criação     : %s\n", dataCriacao));
-        sb.append(String.format("Data de Modificação : %s\n", dataModificacao));
+        sb.append(String.format("Noivo(a)            : %s\n", pessoaNoivo1.getNome()));
+        sb.append(String.format("Noivo(a)            : %s\n", pessoaNoivo2.getNome()));
+        sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+        sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append("=====================================================\n");
         return sb.toString();
     }

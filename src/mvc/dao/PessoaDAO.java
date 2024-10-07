@@ -1,6 +1,6 @@
-package br.com.gestao.casamento.dao;
+package mvc.dao;
 
-import br.com.gestao.casamento.model.Pessoa;
+import mvc.model.Pessoa;
 
 public interface PessoaDAO {
     boolean criarPessoa(Pessoa pessoa);
@@ -10,6 +10,8 @@ public interface PessoaDAO {
     Pessoa buscaPessoaLogin(String email, String senha);
     Pessoa buscaPessoa(String cpf);
     Pessoa buscaPorId(Long id);
+    void buscaCerimonialistas();
+    void buscaNoivos();
     boolean alterarNome(String cpf, String novoNome);
     boolean alterarSexo(String cpf, String novoSexo);
     boolean alterarNascimento(String cpf, String novoNascimento);

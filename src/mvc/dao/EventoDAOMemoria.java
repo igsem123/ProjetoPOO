@@ -1,34 +1,43 @@
-package br.com.gestao.casamento.dao;
+package mvc.dao;
 
-import br.com.gestao.casamento.model.Evento;
-import br.com.gestao.casamento.model.Fornecedor;
-import br.com.gestao.casamento.model.Util;
+import mvc.model.Evento;
+import mvc.model.Pessoa;
+import mvc.model.Util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class EventoDAOMemoria implements EventoDAO {
     private static final int TAMANHO_MAXIMO = 50;
     private final Evento[] eventos;
     private int totalEventos;
-    PessoaDAOMemoria pessoaDAO;
+    private Pessoa pessoa;
 
-    public EventoDAOMemoria() {
+    public EventoDAOMemoria(PessoaDAOMemoria pessoaDAO) {
         this.eventos = new Evento[TAMANHO_MAXIMO];
         this.totalEventos = 0;
 
         // Armazenando eventos de exemplo
-        Evento evento1 = new Evento(LocalDateTime.now(), pessoaDAO.buscaPorId(5L), "Igreja Central", "Cartório Central", pessoaDAO.buscaPorId(0L), pessoaDAO.buscaPorId(1L));
-        Evento evento2 = new Evento(LocalDateTime.now().plusDays(30), pessoaDAO.buscaPorId(6L), "Igreja Nova", "Cartório Nova", pessoaDAO.buscaPorId(7L), pessoaDAO.buscaPorId(8L));
+        Pessoa cerimonialista1 = pessoaDAO.buscaPorId(5L);
+        Pessoa noivo1 = pessoaDAO.buscaPorId(0L);
+        Pessoa noivo2 = pessoaDAO.buscaPorId(1L);
+        Evento evento1 = new Evento(LocalDate.now(), cerimonialista1, "Igreja Central", "Cartório Central", noivo1, noivo2);
+        criarEvento(evento1);
 
+        Pessoa cerimonialista2 = pessoaDAO.buscaPorId(6L);
+        Pessoa noivo3 = pessoaDAO.buscaPorId(7L);
+        Pessoa noivo4 = pessoaDAO.buscaPorId(8L);
+        Evento evento2 = new Evento(LocalDate.now().plusDays(30), cerimonialista2, "Igreja Nova", "Cartório Nova", noivo3, noivo4);
+        criarEvento(evento2);
     }
 
     // Criar um novo evento
     public void criarEvento(Evento evento) {
         if (totalEventos < eventos.length) {
             eventos[totalEventos++] = evento;
-            System.out.println("Evento criado com sucesso.");
+            System.out.println("Evento cadastrado com sucesso:\n\n" + evento);
         } else {
-            System.out.println("Capacidade máxima de eventos atingida.");
+            System.out.println("\nCapacidade máxima de eventos atingida.");
         }
     }
 
@@ -48,11 +57,11 @@ public class EventoDAOMemoria implements EventoDAO {
             if (eventos[i] != null && eventos[i].getId() == id) {
                 eventos[i] = eventoAtualizado;
                 eventos[i].setDataModificacao(Util.getDia());  // Atualiza a data de modificação
-                System.out.println("Evento atualizado.");
+                System.out.println("\nEvento atualizado.");
                 return;
             }
         }
-        System.out.println("Evento não encontrado.");
+        System.out.println("\nEvento não encontrado.");
     }
 
     // Remover evento por ID
@@ -60,11 +69,11 @@ public class EventoDAOMemoria implements EventoDAO {
         for (int i = 0; i < eventos.length; i++) {
             if (eventos[i] != null && eventos[i].getId() == id) {
                 eventos[i] = null;  // Remove o evento
-                System.out.println("Evento removido.");
+                System.out.println("\nEvento removido.");
                 return;
             }
         }
-        System.out.println("Evento não encontrado.");
+        System.out.println("\nEvento não encontrado.");
     }
 
     // Listar todos os eventos

@@ -1,4 +1,4 @@
-package br.com.gestao.casamento.model;
+package mvc.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

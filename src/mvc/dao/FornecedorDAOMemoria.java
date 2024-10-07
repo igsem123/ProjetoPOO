@@ -1,6 +1,6 @@
-package br.com.gestao.casamento.dao;
+package mvc.dao;
 
-import br.com.gestao.casamento.model.Fornecedor;
+import mvc.model.Fornecedor;
 
 import java.time.LocalDateTime;
 

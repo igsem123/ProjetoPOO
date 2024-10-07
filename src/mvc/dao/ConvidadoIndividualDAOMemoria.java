@@ -1,9 +1,8 @@
-package br.com.gestao.casamento.dao;
+package mvc.dao;
 
-import br.com.gestao.casamento.model.ConvidadoIndividual;
+import mvc.model.ConvidadoIndividual;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
     private ConvidadoIndividual[] convidados;

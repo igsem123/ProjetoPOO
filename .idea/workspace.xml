@@ -4,20 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v0.5">
-      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/ConvidadoIndividualDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/ConvidadoIndividualDAOMemoria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/EventoDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/EventoDAOMemoria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/ConvidadoIndividual.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Evento.java" afterDir="false" />
+    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v0.6">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Fornecedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Fornecedor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Pessoa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/gestao/casamento/view/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/ConvidadoIndividualDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/ConvidadoIndividualDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/EventoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/EventoDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/FornecedorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/FornecedorDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/dao/PessoaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/ConvidadoIndividual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Evento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Fornecedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Fornecedor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Pessoa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/model/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/gestao/casamento/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +37,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="raphael/Correção-Login-e-Criação-CRUD-Fornecedores" />
+        <entry key="$PROJECT_DIR$" value="raphael/Correção-Implementação-Pessoa" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -66,9 +69,10 @@
   "keyToString": {
     "Application.GUI.executor": "Debug",
     "Application.Main.executor": "Run",
+    "Application.mvc.controller.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "raphael/Correção-Implementação-Pessoa",
+    "git-widget-placeholder": "raphael/Criação-CRUD-Eventos-e-CRUD-Convidado-Individual",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/rnmoreira/Documents/Projetos Faculdade/academia_parte1",
@@ -88,7 +92,7 @@
       <recent name="br.com.gestao.casamento.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.mvc.controller.Main">
     <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.com.gestao.casamento.view.GUI" />
       <module name="ProjetoPOO" />
@@ -115,8 +119,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="mvc.controller.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="mvc.controller.Main" />
+      <module name="ProjetoPOO" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="mvc.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.mvc.controller.Main" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.GUI" />
       </list>
@@ -144,7 +162,8 @@
       <workItem from="1727693722013" duration="209000" />
       <workItem from="1727959512412" duration="919000" />
       <workItem from="1727960446208" duration="18878000" />
-      <workItem from="1728038753005" duration="26743000" />
+      <workItem from="1728038753005" duration="27494000" />
+      <workItem from="1728298804585" duration="10845000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -170,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728053721696</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="v0.6">
+      <option name="closed" value="true" />
+      <created>1728073609456</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728073609456</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,6 +218,7 @@
     <MESSAGE value="v0.3" />
     <MESSAGE value="v0.4" />
     <MESSAGE value="v0.5" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.5" />
+    <MESSAGE value="v0.6" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.6" />
   </component>
 </project>

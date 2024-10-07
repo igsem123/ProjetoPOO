@@ -1,26 +1,30 @@
-package br.com.gestao.casamento.controller;
+package mvc.controller;
 
-import br.com.gestao.casamento.dao.EventoDAOMemoria;
-import br.com.gestao.casamento.dao.FornecedorDAOMemoria;
-import br.com.gestao.casamento.dao.PessoaDAOMemoria;
-import br.com.gestao.casamento.model.Evento;
-import br.com.gestao.casamento.model.Fornecedor;
-import br.com.gestao.casamento.model.Pessoa;
-import br.com.gestao.casamento.model.Util;
+import mvc.dao.EventoDAOMemoria;
+import mvc.dao.FornecedorDAOMemoria;
+import mvc.dao.PessoaDAOMemoria;
+import mvc.model.Evento;
+import mvc.model.Fornecedor;
+import mvc.model.Pessoa;
+import mvc.model.Util;
 
 //Importações das Views
-import br.com.gestao.casamento.view.GUI;
+import mvc.view.GUI;
 
 import java.util.Scanner;
 
 public class Main {
     GUI gui = new GUI();
-    PessoaDAOMemoria pessoaDAO = new PessoaDAOMemoria();
-    FornecedorDAOMemoria fornecedorDAO = new FornecedorDAOMemoria();
-    EventoDAOMemoria eventoDAO = new EventoDAOMemoria();
+    private PessoaDAOMemoria pessoaDAO;
+    private FornecedorDAOMemoria fornecedorDAO;
+    private EventoDAOMemoria eventoDAO;
     Scanner s = new Scanner(System.in);
 
     public Main() {
+        pessoaDAO = new PessoaDAOMemoria();
+        fornecedorDAO = new FornecedorDAOMemoria();
+        eventoDAO = new EventoDAOMemoria(pessoaDAO);
+
         int opcao = 0;
 
         while(opcao != 3) {
@@ -79,7 +83,7 @@ public class Main {
                         menuPessoa();
                         break;
                     case 3:
-                        //menuEvento();
+                        menuEventos();
                         break;
                     case 4:
                         menuFornecedor();
@@ -368,11 +372,11 @@ public class Main {
                     break;
 
                 case 0:
-                    System.out.println("Saindo do modulo Pessoa!");
+                    System.out.println("\nSaindo do modulo Pessoa!");
                     break;
 
                 default:
-                    System.out.println("Digite um numero valido!");
+                    System.out.println("\nDigite um numero valido!");
                     break;
             }
         } while (op != 0);
@@ -485,15 +489,9 @@ public class Main {
             op = gui.opEvento();
             switch(op) {
                 case 1:
-                    /*Evento e = gui.cadastrarEvento();
-
-                    boolean eventoInserido = fornecedorDAO.criarFornecedor(e);
-                    if (eventoInserido) {
-                        System.out.println("\nEvento inserido com sucesso!");
-                    } else {
-                        System.out.println("\nEvento nao inserido!");
-                    }
-                    break;*/
+                    Evento e = gui.cadastrarEvento();
+                    eventoDAO.criarEvento(e);
+                    break;
                 case 2:
                     System.out.println("\nQual o ID do evento? ");
                     long eventoId = Long.parseLong(s.nextLine()); //Conferir se vai dar certo
@@ -512,7 +510,7 @@ public class Main {
                     eventoDAO.listarEventos();
                     break;
                 case 4:
-
+                    // Precisa terminar o convidado individual
                     break;
             }
         } while (op != 0);

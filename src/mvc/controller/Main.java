@@ -11,6 +11,7 @@ import mvc.model.Util;
 //Importações das Views
 import mvc.view.GUI;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -510,7 +511,51 @@ public class Main {
                     eventoDAO.listarEventos();
                     break;
                 case 4:
-                    // Precisa terminar o convidado individual
+                    System.out.println("\nLista de eventos cadastrados no sistema: ");
+                    eventoDAO.exibirListaEventosSimples();
+
+                    System.out.println("\nDigite o ID de qual evento deseja editar: ");
+                    long editarId = Long.parseLong(s.nextLine());
+
+                    Evento editarEvento = eventoDAO.buscarPorId(editarId);
+
+                    if (editarEvento != null) {
+                        System.out.println("\nEvento encontrado com sucesso!\n");
+
+                        System.out.println("\nDigite a nova data do evento (ou pressione ENTER para manter a data atual): " + editarEvento.getDataEvento());
+                        System.out.println("-> Digite desta forma: DD/MM/AAAA ");
+                        LocalDate dataEvento = Util.formataData(s.nextLine());
+                        if(dataEvento != null) {
+                            editarEvento.setDataEvento(dataEvento);
+                        }
+
+                        System.out.println("\nEscolha o novo cerimonialista do evento (ou pressione ENTER para manter o cerimonialista atual)" + editarEvento.getCerimonial());
+                        System.out.println("\nLista de cerimonialistas cadastrados no sistema: \n");
+                        pessoaDAO.buscaCerimonialistas();
+                        System.out.println("\nDigite o ID abaixo: ");
+                        long cerimonialId = Long.parseLong(s.nextLine());
+                        Pessoa cerimonialista = pessoaDAO.buscaPorId(cerimonialId);
+                        if (cerimonialista != null) {
+                            editarEvento.setCerimonial(cerimonialista);
+                        }
+
+                        System.out.println("\nDigite a nova igreja em que será realizado o casamento (ou pressione ENTER para manter a igreja atual)" + editarEvento.getIgreja());
+                        String igrejaEvento = s.nextLine();
+                        if(!igrejaEvento.isEmpty()) {
+                            editarEvento.setIgreja(igrejaEvento);
+                        }
+
+                        System.out.println("\nDigite qual o novo cartório que cadastrará o matrimônio: (ou pressione ENTER para manter o cartório atual)" + editarEvento.getCartorio());
+                        String cartorioEvento  = s.nextLine();
+                        if(!cartorioEvento.isEmpty()) {
+                            editarEvento.setCartorio(cartorioEvento);
+                        }
+
+                        System.out.println("\nAinda são os mesmo noivos?");
+                        //Preciso continuar aqui depois
+                    }
+                    break;
+                case 5:
                     break;
             }
         } while (op != 0);

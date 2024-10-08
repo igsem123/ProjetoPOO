@@ -212,7 +212,7 @@ public class Pessoa {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("========== Pessoa de ID {" + getId() + "} ==========\n");
+        sb.append("================= Pessoa de ID {" + getId() + "} =================\n");
         sb.append(String.format("Nome                : %s\n", nome));
         sb.append(String.format("Sexo                : %s\n", sexo));
         sb.append(String.format("Data de Nascimento  : %s\n", dataNascimento));

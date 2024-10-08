@@ -159,7 +159,7 @@ public class Fornecedor {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("=============== Fornecedor ID {" + getId() + "} ===============\n");
+        sb.append("================= Fornecedor ID {" + getId() + "} =================\n");
         sb.append(String.format("Nome                : %s\n", nome));
         sb.append(String.format("CNPJ                : %s\n", CNPJ));
         sb.append(String.format("Telefone            : %s\n", telefone));

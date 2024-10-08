@@ -8,7 +8,6 @@ import mvc.model.Pessoa;
 import mvc.model.Util;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class GUI {
@@ -21,6 +20,9 @@ public class GUI {
     public GUI() {
         this.scanner = new Scanner(System.in);
         this.builder = new StringBuilder();
+        pessoaDao = new PessoaDAOMemoria();
+        fornecedorDao = new FornecedorDAOMemoria();
+        eventoDao = new EventoDAOMemoria(pessoaDao);
     }
 
     //TODO Menus do software de gestão de casamentos
@@ -59,7 +61,7 @@ public class GUI {
     public int menuPrincipal() {
         int opcao = -1; // inicializa com um valor inválido
 
-        while (opcao < 1 || opcao > 10) {
+        while (opcao < 0 || opcao > 9) {
             this.builder.setLength(0);
             this.builder.append("\n-----------------------------------");
             this.builder.append("\n|          MENU PRINCIPAL         |");
@@ -74,7 +76,7 @@ public class GUI {
             this.builder.append("\n| 7 - Mural de Recados            |");
             this.builder.append("\n| 8 - Pagamento                   |");
             this.builder.append("\n| 9 - Relatórios                  |");
-            this.builder.append("\n| 10 - Sair                       |");
+            this.builder.append("\n| 0 - Sair                       |");
             this.builder.append("\n|                                 |");
             this.builder.append("\n-----------------------------------");
             this.builder.append("\n\nQual sua opcao? R: ");
@@ -83,8 +85,8 @@ public class GUI {
             if (this.scanner.hasNextInt()) {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
-                if (opcao < 1 || opcao > 10) {
-                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 1 e 10.");
+                if (opcao < 0 || opcao > 9) {
+                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 9.");
                 }
             } else {
                 // Limpa o buffer do scanner e avisa sobre a entrada inválida
@@ -313,7 +315,7 @@ public class GUI {
         return opcao;
     }
 
-    // =-=-=-=-=CRIACOES=-=-=-=-=-= //
+    // =-=-=-=-==-=-=-=-=-=-=-=-=-=-= CRIACOES =-=-=-=-==-=-=-=-=-=-=-=-=-=-= //
     // TODO Formulário para cadastrar uma nova pessoa
     public Pessoa cadastrarPessoa() {
         Pessoa novaPessoa = new Pessoa();
@@ -428,11 +430,5 @@ public class GUI {
         nE.setPessoaNoivo2(noivo2);
 
         return nE;
-    }
-
-    // TODO Método principal para executar o programa
-    public static void main(String[] args) {
-        GUI gui = new GUI();
-        gui.menuBoasVindas();
     }
 }

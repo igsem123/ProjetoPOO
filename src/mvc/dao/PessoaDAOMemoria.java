@@ -71,11 +71,9 @@ public class PessoaDAOMemoria implements PessoaDAO {
             if (listaPessoas[i].getId() == pessoa.getId()) {
                 listaPessoas[i] = pessoa;
                 pessoa.setDataModificacao(LocalDateTime.now());
-                System.out.println("Pessoa atualizada: " + pessoa);
                 return;
             }
         }
-        System.out.println("Pessoa não encontrada.");
     }
 
     @Override
@@ -135,6 +133,14 @@ public class PessoaDAOMemoria implements PessoaDAO {
         for (Pessoa pessoa : listaPessoas) {
             if (pessoa != null && pessoa.getTipoUsuario() == 1){
                 System.out.println("Noivo(a): " + pessoa.getNome() + " cadastrado sob o ID: [" + pessoa.getId() + "]");
+            }
+        }
+    }
+
+    public void buscaConvidados() {
+        for (Pessoa pessoa : listaPessoas) {
+            if (pessoa != null && pessoa.getTipoUsuario() == 4){
+                System.out.println("Convidado(a): " + pessoa.getNome() + " cadastrado sob o ID: [" + pessoa.getId() + "]");
             }
         }
     }

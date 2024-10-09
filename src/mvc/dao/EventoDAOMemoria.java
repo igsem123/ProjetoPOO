@@ -56,11 +56,9 @@ public class EventoDAOMemoria implements EventoDAO {
             if (eventos[i] != null && eventos[i].getId() == id) {
                 eventos[i] = eventoAtualizado;
                 eventos[i].setDataModificacao(Util.getDia());  // Atualiza a data de modificação
-                System.out.println("\nEvento atualizado.");
                 return;
             }
         }
-        System.out.println("\nEvento não encontrado.");
     }
 
     // Remover evento por ID

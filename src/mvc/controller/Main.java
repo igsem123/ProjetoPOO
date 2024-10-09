@@ -1,10 +1,7 @@
 package mvc.controller;
 
 import mvc.dao.*;
-import mvc.model.Evento;
-import mvc.model.Fornecedor;
-import mvc.model.Pessoa;
-import mvc.model.Util;
+import mvc.model.*;
 
 //Importações das Views
 import mvc.view.GUI;
@@ -17,6 +14,7 @@ public class Main {
     PessoaDAO pessoaDAO = new PessoaDAOMemoria();
     FornecedorDAO fornecedorDAO = new FornecedorDAOMemoria();
     EventoDAO eventoDAO = new EventoDAOMemoria((PessoaDAOMemoria) pessoaDAO);
+    ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(50);
 
     // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
     GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO);
@@ -194,6 +192,7 @@ public class Main {
                                 editar.setCpf(cpfNovo);
                             }
 
+                            pessoaDAO.atualizarPessoa(editar);
                             System.out.println("Pessoa alterada com sucesso, alterações:\n");
                             System.out.println(editar.toString());
                         } else {
@@ -214,7 +213,6 @@ public class Main {
                         break;
 
                 }
-
             }
         }
     }
@@ -574,6 +572,7 @@ public class Main {
                                 editarEvento.setPessoaNoivo2(noivo2);
                             }
 
+                            eventoDAO.atualizarEvento(editarId, editarEvento);
                             System.out.println("\nEvento atualizado com sucesso!");
                             System.out.println("\nEvento com os dados atualizados:\n\n" + editarEvento.toString());
                         }
@@ -585,6 +584,46 @@ public class Main {
                     System.out.println("\nDigite o ID: ");
                     long eventoId = Long.parseLong(s.nextLine());
                     eventoDAO.removerEvento(eventoId);
+                    break;
+            }
+        } while (op != 0);
+    }
+
+    public void menuConvites() {
+        int op = -1;
+        do {
+            op = gui.opConvites();
+            switch(op) {
+                case 1:
+
+                    int opConviteInd = -1;
+                    do {
+                        opConviteInd = gui.opConvitesIndividual();
+                        switch(opConviteInd) {
+                            case 1:
+                                ConvidadoIndividual criaConv = gui.cadastrarConviteIndividual();
+                                convidadoIndividualDAO.criarConvidado(criaConv);
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                            case 5:
+                                break;
+                        }
+
+                    } while (opConviteInd != 0);
+
+                    break;
+                case 2:
+
+                    int opConviteFam = -1;
+                    do {
+                        //opConviteFam = gui.opConvitesFamilia();
+                    } while (opConviteFam != 0);
+
                     break;
             }
         } while (op != 0);
@@ -640,6 +679,7 @@ public class Main {
                 editar.setCpf(cpfNovo);
             }
 
+            pessoaDAO.atualizarPessoa(editar);
             System.out.println("\nPessoa alterado com sucesso, alteracoes: \n\n");
             System.out.println(editar.toString());
         } else {

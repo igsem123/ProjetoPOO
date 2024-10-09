@@ -1,11 +1,7 @@
 package mvc.view;
 
 import mvc.dao.*;
-import mvc.model.Evento;
-import mvc.model.Fornecedor;
-
-import mvc.model.Pessoa;
-import mvc.model.Util;
+import mvc.model.*;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -283,20 +279,86 @@ public class GUI {
     public int opConvites() {
         int opcao = -1; // inicializa com um valor inválido
 
-        while (opcao < 0 || opcao > 6) {
+        while (opcao < 0 || opcao > 2) {
             builder.setLength(0);
             builder.append("\n-----------------------------------------");
             builder.append("\n|  * -> Convites                        |");
             builder.append("\n|                                       |");
-            builder.append("\n|  1 - Adicionar convidado em evento    |");
-            builder.append("\n|  2 - Confirmar convidado no evento    |");
-            builder.append("\n|  3 - Mostrar todos os convidados      |");
-            builder.append("\n|  4 - Alterar um convidado individual  |");
-            builder.append("\n|  5 - Alterar um convidado familia     |");
-            builder.append("\n|  6 - Excluir convite                  |");
+            builder.append("\n|  1 - Convidados Individuais           |");
+            builder.append("\n|  2 - Convidados Familia               |");
             builder.append("\n|  0 - Sair                             |");
             builder.append("\n|                                       |");
             builder.append("\n-----------------------------------------");
+            builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 0 || opcao > 2) {
+                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 2.");
+                }
+            } else {
+                // Limpa o buffer do scanner e avisa sobre a entrada inválida
+                this.scanner.nextLine();
+                System.out.println("Entrada inválida!");
+            }
+        }
+
+        return opcao;
+    }
+
+    public int opConvitesIndividual() {
+        int opcao = -1; // inicializa com um valor inválido
+
+        while (opcao < 0 || opcao > 6) {
+            builder.setLength(0);
+            builder.append("\n-----------------------------------------------------");
+            builder.append("\n|  * -> Convites Individuais                        |");
+            builder.append("\n|                                                   |");
+            builder.append("\n|  1 - Criar um convite individual                  |");
+            builder.append("\n|  2 - Confirmar presença do convidado              |");
+            builder.append("\n|  3 - Mostrar todos os convites individuais        |");
+            builder.append("\n|  4 - Alterar um convidado individual              |");
+            builder.append("\n|  5 - Excluir um convite individual                |");
+            builder.append("\n|  0 - Sair                                         |");
+            builder.append("\n|                                                   |");
+            builder.append("\n-----------------------------------------------------");
+            builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 0 || opcao > 6) {
+                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 6.");
+                }
+            } else {
+                // Limpa o buffer do scanner e avisa sobre a entrada inválida
+                this.scanner.nextLine();
+                System.out.println("Entrada inválida!");
+            }
+        }
+
+        return opcao;
+    }
+
+    public int opConvitesFamilia() {
+        int opcao = -1; // inicializa com um valor inválido
+
+        while (opcao < 0 || opcao > 6) {
+            builder.setLength(0);
+            builder.append("\n-----------------------------------------------------");
+            builder.append("\n|  * -> Convites Individuais                        |");
+            builder.append("\n|                                                   |");
+            builder.append("\n|  1 - Criar um convite individual                  |");
+            builder.append("\n|  2 - Confirmar presença do convidado              |");
+            builder.append("\n|  3 - Mostrar todos os convites individuais        |");
+            builder.append("\n|  4 - Alterar um convidado individual              |");
+            builder.append("\n|  5 - Excluir um convite individual                |");
+            builder.append("\n|  0 - Sair                                         |");
+            builder.append("\n|                                                   |");
+            builder.append("\n-----------------------------------------------------");
             builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
@@ -434,4 +496,22 @@ public class GUI {
     }
 
     // TODO Formulário para criar um convite individual
+    public ConvidadoIndividual cadastrarConviteIndividual() {
+        ConvidadoIndividual nCi = new ConvidadoIndividual();
+        System.out.println("\nLista de convidados cadastrados no sistema? ");
+        pessoaDAO.buscaConvidados();
+
+        System.out.println("\nInforme o ID do convidado(a): ");
+        long convidadoId = Long.parseLong(scanner.nextLine());
+        Pessoa ci = pessoaDAO.buscaPorId(convidadoId);
+        nCi.setPessoa(ci);
+
+        System.out.println("\nQual o parentesco do convidado com algum dos noivos?");
+        String parentesco = scanner.nextLine();
+        nCi.setParentesco(parentesco);
+
+        nCi.setConfirmacao(false);
+
+        return nCi;
+    }
 }

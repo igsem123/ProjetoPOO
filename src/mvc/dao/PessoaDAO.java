@@ -12,6 +12,7 @@ public interface PessoaDAO {
     Pessoa buscaPorId(Long id);
     void buscaCerimonialistas();
     void buscaNoivos();
+    void buscaConvidados();
     boolean alterarNome(String cpf, String novoNome);
     boolean alterarSexo(String cpf, String novoSexo);
     boolean alterarNascimento(String cpf, String novoNascimento);

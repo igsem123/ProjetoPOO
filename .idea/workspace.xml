@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v0.7">
+    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v0.8">
+      <change afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaDAOMemoria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mvc/model/ConvidadoFamilia.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/EventoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Fornecedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Fornecedor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Pessoa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,6 +82,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="mvc.dao" />
+      <recent name="mvc.model" />
       <recent name="br.com.gestao.casamento.dao" />
       <recent name="br.com.gestao.casamento.model" />
     </key>
@@ -154,7 +160,8 @@
       <workItem from="1727960446208" duration="18878000" />
       <workItem from="1728038753005" duration="27494000" />
       <workItem from="1728298804585" duration="11089000" />
-      <workItem from="1728410632728" duration="3578000" />
+      <workItem from="1728410632728" duration="4601000" />
+      <workItem from="1728471247960" duration="9196000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -196,15 +203,53 @@
       <option name="project" value="LOCAL" />
       <updated>1728313198850</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="v0.8">
+      <option name="closed" value="true" />
+      <created>1728417331629</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728417331629</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="0abde006-795f-4f39-8e0e-abd262a83267" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
+        <entry key="0abde006-795f-4f39-8e0e-abd262a83267">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/Users/rnmoreira/IdeaProjects/ProjetoPOO/src/mvc/dao" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State />
@@ -219,6 +264,7 @@
     <MESSAGE value="v0.5" />
     <MESSAGE value="v0.6" />
     <MESSAGE value="v0.7" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.7" />
+    <MESSAGE value="v0.8" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.8" />
   </component>
 </project>

@@ -11,9 +11,8 @@ public class EventoDAOMemoria implements EventoDAO {
     private static final int TAMANHO_MAXIMO = 50;
     private final Evento[] eventos;
     private int totalEventos;
-    private Pessoa pessoa;
 
-    public EventoDAOMemoria(PessoaDAOMemoria pessoaDAO) {
+    public EventoDAOMemoria(PessoaDAO pessoaDAO) {
         this.eventos = new Evento[TAMANHO_MAXIMO];
         this.totalEventos = 0;
 
@@ -57,11 +56,9 @@ public class EventoDAOMemoria implements EventoDAO {
             if (eventos[i] != null && eventos[i].getId() == id) {
                 eventos[i] = eventoAtualizado;
                 eventos[i].setDataModificacao(Util.getDia());  // Atualiza a data de modificação
-                System.out.println("\nEvento atualizado.");
                 return;
             }
         }
-        System.out.println("\nEvento não encontrado.");
     }
 
     // Remover evento por ID

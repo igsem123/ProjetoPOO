@@ -1,7 +1,6 @@
 package mvc.dao;
 
 import mvc.model.ConvidadoIndividual;
-
 import java.time.LocalDateTime;
 
 public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {

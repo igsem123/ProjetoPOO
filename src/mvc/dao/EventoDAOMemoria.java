@@ -11,9 +11,8 @@ public class EventoDAOMemoria implements EventoDAO {
     private static final int TAMANHO_MAXIMO = 50;
     private final Evento[] eventos;
     private int totalEventos;
-    private Pessoa pessoa;
 
-    public EventoDAOMemoria(PessoaDAOMemoria pessoaDAO) {
+    public EventoDAOMemoria(PessoaDAO pessoaDAO) {
         this.eventos = new Evento[TAMANHO_MAXIMO];
         this.totalEventos = 0;
 

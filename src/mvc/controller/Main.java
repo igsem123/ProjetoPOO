@@ -1,8 +1,6 @@
 package mvc.controller;
 
-import mvc.dao.EventoDAOMemoria;
-import mvc.dao.FornecedorDAOMemoria;
-import mvc.dao.PessoaDAOMemoria;
+import mvc.dao.*;
 import mvc.model.Evento;
 import mvc.model.Fornecedor;
 import mvc.model.Pessoa;
@@ -15,17 +13,18 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
-    GUI gui = new GUI();
-    private PessoaDAOMemoria pessoaDAO;
-    private FornecedorDAOMemoria fornecedorDAO;
-    private EventoDAOMemoria eventoDAO;
+    // Inicializa os DAOs uma única vez
+    PessoaDAO pessoaDAO = new PessoaDAOMemoria();
+    FornecedorDAO fornecedorDAO = new FornecedorDAOMemoria();
+    EventoDAO eventoDAO = new EventoDAOMemoria((PessoaDAOMemoria) pessoaDAO);
+
+    // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
+    GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO);
+
+    // Scanner pode ser utilizado para interações no console, se necessário
     Scanner s = new Scanner(System.in);
 
     public Main() {
-        pessoaDAO = new PessoaDAOMemoria();
-        fornecedorDAO = new FornecedorDAOMemoria();
-        eventoDAO = new EventoDAOMemoria(pessoaDAO);
-
         int opcao = 0;
 
         while(opcao != 3) {
@@ -495,9 +494,9 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("\nQual o ID do evento? ");
-                    long eventoId = Long.parseLong(s.nextLine()); //Conferir se vai dar certo
+                    long buscaEventoId = Long.parseLong(s.nextLine()); //Conferir se vai dar certo
 
-                    Evento achouE = eventoDAO.buscarPorId(eventoId);
+                    Evento achouE = eventoDAO.buscarPorId(buscaEventoId);
                     if (achouE != null) {
                         System.out.println("\nEvento encontrado com sucesso!\n");
                         System.out.println(achouE.toString());
@@ -524,12 +523,12 @@ public class Main {
 
                         System.out.println("\nDigite a nova data do evento (ou pressione ENTER para manter a data atual): " + editarEvento.getDataEvento());
                         System.out.println("-> Digite desta forma: DD/MM/AAAA ");
-                        LocalDate dataEvento = Util.formataData(s.nextLine());
-                        if(dataEvento != null) {
+                        String dataEvento = s.nextLine();
+                        if(dataEvento.equals(editarEvento.getDataEvento())) {
                             editarEvento.setDataEvento(dataEvento);
                         }
 
-                        System.out.println("\nEscolha o novo cerimonialista do evento (ou pressione ENTER para manter o cerimonialista atual)" + editarEvento.getCerimonial());
+                        System.out.println("\nEscolha o novo cerimonialista do evento (ou pressione ENTER para manter o cerimonialista atual)" + editarEvento.getCerimonial().getNome());
                         System.out.println("\nLista de cerimonialistas cadastrados no sistema: \n");
                         pessoaDAO.buscaCerimonialistas();
                         System.out.println("\nDigite o ID abaixo: ");
@@ -545,17 +544,47 @@ public class Main {
                             editarEvento.setIgreja(igrejaEvento);
                         }
 
-                        System.out.println("\nDigite qual o novo cartório que cadastrará o matrimônio: (ou pressione ENTER para manter o cartório atual)" + editarEvento.getCartorio());
+                        System.out.println("\nDigite qual o novo cartório que cadastrará o matrimônio (ou pressione ENTER para manter o cartório atual)" + editarEvento.getCartorio());
                         String cartorioEvento  = s.nextLine();
                         if(!cartorioEvento.isEmpty()) {
                             editarEvento.setCartorio(cartorioEvento);
                         }
 
                         System.out.println("\nAinda são os mesmo noivos?");
-                        //Preciso continuar aqui depois
+                        System.out.println("\nDigite 1 para [SIM] ou 0 para [NAO]");
+                        int respostaNoivos = Integer.parseInt(s.nextLine());
+
+                        if(respostaNoivos == 0) {
+                            System.out.println("\nLista de noivos(a) cadastrados no sistema: ");
+                            pessoaDAO.buscaNoivos();
+
+                            System.out.println("\nDigite qual o ID do noivo(a) (ou pressione ENTER para manter o noivo(a) atual)" + editarEvento.getPessoaNoivo1().getNome());
+                            long noivo1Id = Long.parseLong(s.nextLine());
+
+                            if(noivo1Id != 0) {
+                                Pessoa noivo1 = pessoaDAO.buscaPorId(noivo1Id);
+                                editarEvento.setPessoaNoivo1(noivo1);
+                            }
+
+                            System.out.println("\nAgora, digite qual o ID do outro(a) noivo(a) (ou pressione ENTER para manter o noivo(a) atual)" + editarEvento.getPessoaNoivo2().getNome());
+                            long noivo2Id = Long.parseLong(s.nextLine());
+
+                            if(noivo2Id != 0) {
+                                Pessoa noivo2 = pessoaDAO.buscaPorId(noivo2Id);
+                                editarEvento.setPessoaNoivo2(noivo2);
+                            }
+
+                            System.out.println("\nEvento atualizado com sucesso!");
+                            System.out.println("\nEvento com os dados atualizados:\n\n" + editarEvento.toString());
+                        }
                     }
                     break;
                 case 5:
+                    System.out.println("\nQual o ID do evento que deseja remover do sistema?\n");
+                    eventoDAO.exibirListaEventosSimples();
+                    System.out.println("\nDigite o ID: ");
+                    long eventoId = Long.parseLong(s.nextLine());
+                    eventoDAO.removerEvento(eventoId);
                     break;
             }
         } while (op != 0);
@@ -611,10 +640,10 @@ public class Main {
                 editar.setCpf(cpfNovo);
             }
 
-            System.out.println("Pessoa alterado com sucesso, alteracoes: ");
+            System.out.println("\nPessoa alterado com sucesso, alteracoes: \n\n");
             System.out.println(editar.toString());
         } else {
-            System.out.println("Pessoa nao encontrada para alterar!");
+            System.out.println("\nPessoa nao encontrada para alterar!");
         }
     }
 }

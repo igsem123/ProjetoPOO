@@ -42,13 +42,13 @@ public class Evento {
     }
 
     public String getDataEvento() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return dataEvento.format(formatter);
     }
 
-    public void setDataEvento(LocalDate dataEvento) {
+    public void setDataEvento(String dataEvento) {
         this.dataModificacao = LocalDateTime.now();
-        this.dataEvento = dataEvento;
+        this.dataEvento = Util.formataData(dataEvento);
     }
 
     public Pessoa getCerimonial() {

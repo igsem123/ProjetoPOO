@@ -1,5 +1,6 @@
 package mvc.dao;
 
+import mvc.model.ConvidadoIndividual;
 import mvc.model.Pessoa;
 import mvc.model.Util;
 
@@ -20,27 +21,27 @@ public class PessoaDAOMemoria implements PessoaDAO {
         this.criarPessoa(noivo1);
 
         Pessoa noivo2 = new Pessoa("Lucas Tobias de Sousa Machado", "Masculino", Util.formataData("28/03/1994"),
-                "+55 9 9227-8858", "lucastobias@gmail.com", "lucas123", 1, "785.147.542-01");
+                "+55 34 9 9227-8858", "lucastobias@gmail.com", "lucas123", 1, "785.147.542-01");
         this.criarPessoa(noivo2);
 
         Pessoa p3 = new Pessoa("Admin", "Sem Gênero", Util.formataData("14/08/2024"),
-                "", "admin", "admin", 3, "123.456.789-10");
+                "+55 34 9 2222-5555", "admin", "admin", 3, "123.456.789-10");
         this.criarPessoa(p3);
 
         Pessoa p4 = new Pessoa("Adivâina dos Reis", "Feminino", Util.formataData("17/03/1972"),
-                "", "adivaina@gmail.com", "adivaina", 4, "855.777.666-32");
+                "+55 34 9 3333-5555", "adivaina@gmail.com", "adivaina", 4, "855.777.666-32");
         this.criarPessoa(p4);
 
         Pessoa p5 = new Pessoa("Jessica Moreira", "Feminino", Util.formataData("30/06/1992"),
-                "", "jessica@gmail.com", "jessica123", 4, "789.456.123-00");
+                "+55 34 9 4444-7777", "jessica@gmail.com", "jessica123", 4, "789.456.123-00");
         this.criarPessoa(p5);
 
         Pessoa p6 = new Pessoa("Anderson Alvarenga", "Masculino", Util.formataData("01/05/1998"),
-                "", "anderson@gmail.com", "anderson123", 2, "111.222.333-44");
+                "+55 34 9 1111-8888", "anderson@gmail.com", "anderson123", 2, "111.222.333-44");
         this.criarPessoa(p6);
 
         Pessoa p7 = new Pessoa("Adriana Tobias Machado", "Feminino", Util.formataData("10/11/1976"),
-                "", "adriana@gmail.com", "adriana", 2, "147.852.012-98");
+                "+55 34 9 7777-9999", "adriana@gmail.com", "adriana", 2, "147.852.012-98");
         this.criarPessoa(p7);
 
         Pessoa p8 = new Pessoa("João das Neves", "Masculino", LocalDate.of(1990, 1, 1),
@@ -57,10 +58,10 @@ public class PessoaDAOMemoria implements PessoaDAO {
         if (totalPessoas < TAMANHO_MAXIMO) {
             listaPessoas[totalPessoas] = pessoa;
             totalPessoas++;
-            System.out.println("Pessoa cadastrada com sucesso:\n\n" + pessoa);
+            System.out.println("Pessoa cadastrada com sucesso:\n\n" + pessoa.toString());
             return true;
         } else {
-            System.out.println("Erro: Não há espaço para mais pessoas.");
+            System.out.println("\nErro: Não há espaço para mais pessoas.");
             return false;
         }
     }
@@ -92,11 +93,11 @@ public class PessoaDAOMemoria implements PessoaDAO {
 
     public void listarPessoas() {
         if (totalPessoas == 0) {
-            System.out.println("Nenhuma pessoa cadastrada.");
+            System.out.println("\nNenhuma pessoa cadastrada.");
         } else {
             for (int i = 0; i < totalPessoas; i++) {
                 System.out.println(listaPessoas[i].toString());
-                System.out.println("--------------------------------------");
+                System.out.println("\n--------------------------------------");
             }
         }
     }

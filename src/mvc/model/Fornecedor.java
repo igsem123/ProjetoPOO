@@ -164,8 +164,8 @@ public class Fornecedor {
         sb.append(String.format("CNPJ                : %s\n", CNPJ));
         sb.append(String.format("Telefone            : %s\n", telefone));
         sb.append(String.format("Email               : %s\n", email));
-        sb.append(String.format("Data de Criação     : %s\n", dataCriacao));
-        sb.append(String.format("Data de Modificação : %s\n", dataModificacao));
+        sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+        sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append("=====================================================\n");
         return sb.toString();
     }

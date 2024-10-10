@@ -16,7 +16,7 @@ public class ConvidadoIndividual {
 
     // Construtor com parâmetros
     public ConvidadoIndividual(Pessoa pessoa, String familia, String parentesco) {
-        this.id = (totalConvidados++);
+        this.id = pessoa.getId();
         this.pessoa = pessoa;
         this.familia = familia;
         this.parentesco = parentesco;
@@ -59,12 +59,23 @@ public class ConvidadoIndividual {
 
     public boolean isConfirmacao() {
         if (this.confirmacao) {
-            System.out.println("Confirmado!");
+            System.out.println("\nConfirmado(a) no evento!");
         } else {
-            System.out.println("Cancelado!");
+            System.out.println("\nPresença no evento não confirmada!");
         }
 
         return this.confirmacao;
+    }
+
+    public String getConfirmacao() {
+        String confirmacaoString;
+        if (this.confirmacao) {
+            confirmacaoString = "Confirmado(a)";
+            return confirmacaoString;
+        } else {
+            confirmacaoString = "Não confirmado(a)";
+            return confirmacaoString;
+        }
     }
 
     public void setConfirmacao(boolean confirmacao) {
@@ -115,20 +126,20 @@ public class ConvidadoIndividual {
                 "\n| ID                 : " + this.id +
                 "\n| Familia            : " + this.familia +
                 "\n| Parentesco         : " + this.parentesco +
-                "\n| Confirmacao        : " + this.dataCriacao +
+                "\n| Confirmacao        : " + getConfirmacao() +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("=============== Convidado ID {" + getId() + "} ===============\n");
+        sb.append("================== Convidado ID {" + getId() + "} ==================\n");
         sb.append(String.format("Nome                : %s\n", pessoa.getNome()));
         sb.append(String.format("Familia             : %s\n", familia));
         sb.append(String.format("Parentesco          : %s\n", parentesco));
-        sb.append(String.format("Confirmacao         : %s\n", confirmacao));
-        sb.append(String.format("Data de Criação     : %s\n", dataCriacao));
-        sb.append(String.format("Data de Modificação : %s\n", dataModificacao));
+        sb.append(String.format("Confirmacao         : %s\n", getConfirmacao()));
+        sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+        sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append("=====================================================\n");
         return sb.toString();
     }

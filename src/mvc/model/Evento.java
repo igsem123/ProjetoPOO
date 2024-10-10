@@ -21,11 +21,11 @@ public class Evento {
     public Evento(LocalDate dataEvento, Pessoa cerimonial, String igreja, String cartorio, Pessoa pessoaNoivo1, Pessoa pessoaNoivo2) {
         this.id = (totalEventos++);
         this.dataEvento = dataEvento;
-        this.cerimonial = new Pessoa();
+        this.cerimonial = cerimonial;
         this.igreja = igreja;
         this.cartorio = cartorio;
-        this.pessoaNoivo1 = new Pessoa();
-        this.pessoaNoivo2 = new Pessoa();
+        this.pessoaNoivo1 = pessoaNoivo1;
+        this.pessoaNoivo2 = pessoaNoivo2;
         this.dataCriacao = Util.getDia();
         this.dataModificacao = Util.getDia();
     }
@@ -134,7 +134,7 @@ public class Evento {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("================== Evento ID {" + getId() + "} ==================\n");
-        sb.append(String.format("Data do Evento      : %s\n", dataEvento));
+        sb.append(String.format("Data do Evento      : %s\n", dataEvento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
         sb.append(String.format("Cerimonial          : %s\n", cerimonial.getNome()));
         sb.append(String.format("Igreja              : %s\n", igreja));
         sb.append(String.format("Cartorio            : %s\n", cartorio));

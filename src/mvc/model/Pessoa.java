@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Pessoa {
-    private final long id;
+    public long id;
     public static int totalPessoas = 0;
     private String nome;
     private String sexo;
@@ -212,17 +212,17 @@ public class Pessoa {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("================= Pessoa de ID {" + getId() + "} =================\n");
+        sb.append("================ Pessoa de ID {" + getId() + "} ================\n");
         sb.append(String.format("Nome                : %s\n", nome));
         sb.append(String.format("Sexo                : %s\n", sexo));
-        sb.append(String.format("Data de Nascimento  : %s\n", dataNascimento));
+        sb.append(String.format("Data de Nascimento  : %s\n", dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
         sb.append(String.format("CPF                 : %s\n", cpf));
         sb.append(String.format("Telefone            : %s\n", telefone));
         sb.append(String.format("Login               : %s\n", login));
         sb.append(String.format("Senha               : %s\n", senha));
         sb.append(String.format("Tipo de Usuário     : %s\n", tipoUsuario(getTipoUsuario())));
-        sb.append(String.format("Data de Criação     : %s\n", dataCriacao));
-        sb.append(String.format("Data de Modificação : %s\n", dataModificacao));
+        sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+        sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append("==================================================\n");
         return sb.toString();
     }

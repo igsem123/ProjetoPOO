@@ -13,11 +13,11 @@ public class Main {
     // Inicializa os DAOs uma única vez
     PessoaDAO pessoaDAO = new PessoaDAOMemoria();
     FornecedorDAO fornecedorDAO = new FornecedorDAOMemoria();
-    EventoDAO eventoDAO = new EventoDAOMemoria((PessoaDAOMemoria) pessoaDAO);
-    ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(50);
+    EventoDAO eventoDAO = new EventoDAOMemoria(pessoaDAO, 100);
+    ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(pessoaDAO, 100);
 
     // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
-    GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO);
+    GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO, convidadoIndividualDAO);
 
     // Scanner pode ser utilizado para interações no console, se necessário
     Scanner s = new Scanner(System.in);
@@ -54,10 +54,10 @@ public class Main {
                     pessoaDAO.criarPessoa(criar);
                     break;
                 case 3:
-                    System.out.println("\n Volte sempre!!");
+                    System.out.println("\nVolte sempre!!");
                     break;
                 default:
-                    System.out.println("\n Digite um numero valido!");
+                    System.out.println("\nDigite um numero valido!");
                     break;
             }
         }
@@ -87,7 +87,7 @@ public class Main {
                         menuFornecedor();
                         break;
                     case 5:
-                        //menuConvites();
+                        menuConvites();
                         break;
                     case 6:
                         //menuPresentes();
@@ -102,11 +102,11 @@ public class Main {
                         //menuRelatorios();
                         break;
                     case 0:
-                        System.out.println("Saindo do menu principal!");
+                        System.out.println("\nSaindo do menu principal!");
                         gui.menuBoasVindas();
                         break;
                     default:
-                        System.out.println("Digite uma opcao valida");
+                        System.out.println("\nDigite uma opcao valida");
                         break;
                 }
             }
@@ -116,6 +116,9 @@ public class Main {
                 switch (opcaoPrincipal) {
                     case 1:
                         System.out.println(Util.getPessoaLogada().perfil());
+                        long idConvidado = Util.getPessoaLogada().getId();
+                        ConvidadoIndividual perfil = convidadoIndividualDAO.buscarPorId(idConvidado);
+                        System.out.println("\nConvite da pessoa logada: \n" + perfil.perfil());
                         break;
                     case 2:
                         //menuPresentes()
@@ -124,7 +127,21 @@ public class Main {
                         //menuRecados()
                         break;
                     case 4:
-                        //menuConvidado()
+                        long idPessoaLogada = Util.getPessoaLogada().getId();
+                        System.out.println("\nDeseja confirmar sua presença no evento?");
+                        System.out.println("\n->Digite [0] para SIM ou [1] para NÃO");
+                        int opPresenca = Integer.parseInt(s.nextLine());
+
+                        if(opPresenca == 0) {
+                            ConvidadoIndividual convidadoConfirmar = convidadoIndividualDAO.buscarPorId(idPessoaLogada);
+                            convidadoIndividualDAO.confirmarPresencaPelaPessoa(convidadoConfirmar);
+                        } else {
+                            ConvidadoIndividual convidadoNaoConfirmado = convidadoIndividualDAO.buscarPorId(idPessoaLogada);
+                            convidadoNaoConfirmado.isConfirmacao();
+                        }
+
+                        break;
+                    case 5:
                         break;
                     case 0:
                         System.out.println("0 - Sair");
@@ -311,6 +328,7 @@ public class Main {
                         System.out.println("\n Pessoa nao alterada!");
                     }
                     break;
+
                 case 9:
                     System.out.println("\nDigite o CPF da pessoa que deseja alterar o email: ");
                     String editaEmail = s.nextLine();
@@ -325,6 +343,7 @@ public class Main {
                         System.out.println("\nPessoa nao alterada!");
                     }
                     break;
+
                 case 10:
                     System.out.println("\nDigite o CPF da pessoa que deseja alterar a senha: ");
                     String editaSenha = s.nextLine();
@@ -339,6 +358,7 @@ public class Main {
                         System.out.println("\nPessoa nao alterada!");
                     }
                     break;
+
                 case 11:
                     System.out.println("\nDigite o CPF da pessoa que deseja alterar o tipo de usuario: ");
                     String editaTipoUsuario = s.nextLine();
@@ -353,7 +373,8 @@ public class Main {
                     } else {
                         System.out.println("\nPessoa nao alterada!");
                     }
-                    break;
+                    break
+                            ;
                 case 12:
                     System.out.println("\nDigite o CPF da pessoa que deseja alterar o cadastro de pessoa fisica: ");
                     String editaCPF = s.nextLine();
@@ -397,6 +418,7 @@ public class Main {
                         System.out.println("\nFornecedor nao encontrado!\n");
                     }
                     break;
+
                 case 2:
                     Fornecedor f = gui.cadastrarFornecedor();
 
@@ -407,11 +429,13 @@ public class Main {
                         System.out.println("\nFornecedor nao inserido!");
                     }
                     break;
+
                 case 3:
                     System.out.println("\nO total de fornecedores é          : ["+ Fornecedor.totalFornecedores +"] ");
                     System.out.println("Esses são os fornecedores cadastrados:\n");
                     fornecedorDAO.listarFornecedores();
                     break;
+
                 case 4:
                     System.out.println("\nPara atualizar, primeiro digite o CNPJ do fornecedor que deseja atualizar: ");
                     String fornecedorCNPJ = s.nextLine();
@@ -469,10 +493,11 @@ public class Main {
                         }
                     }
                     break;
+
                 case 5:
-                    System.out.println("\nQual o ID do fornecedor que deseja deletar do sistema?\n");
+                    System.out.println("\nQual o [ID] do fornecedor que deseja deletar do sistema?\n");
                     fornecedorDAO.exibeFornecedoresSimples();
-                    System.out.println("\nDigite o ID: ");
+                    System.out.println("\nDigite o [ID]: ");
                     long fornecedorId = Long.parseLong(s.nextLine());
                     fornecedorDAO.deletarFornecedor(fornecedorId);
                     break;
@@ -490,8 +515,9 @@ public class Main {
                     Evento e = gui.cadastrarEvento();
                     eventoDAO.criarEvento(e);
                     break;
+
                 case 2:
-                    System.out.println("\nQual o ID do evento? ");
+                    System.out.println("\nQual o [ID] do evento? ");
                     long buscaEventoId = Long.parseLong(s.nextLine()); //Conferir se vai dar certo
 
                     Evento achouE = eventoDAO.buscarPorId(buscaEventoId);
@@ -502,16 +528,18 @@ public class Main {
                         System.out.println("\nEvento nao encontrado!\n");
                     }
                     break;
+
                 case 3:
                     System.out.println("\nO total de eventos no sistema é    : ["+ Evento.totalEventos +"] ");
                     System.out.println("Esses são os eventos encontrados:\n");
                     eventoDAO.listarEventos();
                     break;
+
                 case 4:
                     System.out.println("\nLista de eventos cadastrados no sistema: ");
                     eventoDAO.exibirListaEventosSimples();
 
-                    System.out.println("\nDigite o ID de qual evento deseja editar: ");
+                    System.out.println("\nDigite o [ID] de qual evento deseja editar: ");
                     long editarId = Long.parseLong(s.nextLine());
 
                     Evento editarEvento = eventoDAO.buscarPorId(editarId);
@@ -529,7 +557,7 @@ public class Main {
                         System.out.println("\nEscolha o novo cerimonialista do evento (ou pressione ENTER para manter o cerimonialista atual)" + editarEvento.getCerimonial().getNome());
                         System.out.println("\nLista de cerimonialistas cadastrados no sistema: \n");
                         pessoaDAO.buscaCerimonialistas();
-                        System.out.println("\nDigite o ID abaixo: ");
+                        System.out.println("\nDigite o [ID] abaixo: ");
                         long cerimonialId = Long.parseLong(s.nextLine());
                         Pessoa cerimonialista = pessoaDAO.buscaPorId(cerimonialId);
                         if (cerimonialista != null) {
@@ -556,7 +584,7 @@ public class Main {
                             System.out.println("\nLista de noivos(a) cadastrados no sistema: ");
                             pessoaDAO.buscaNoivos();
 
-                            System.out.println("\nDigite qual o ID do noivo(a) (ou pressione ENTER para manter o noivo(a) atual)" + editarEvento.getPessoaNoivo1().getNome());
+                            System.out.println("\nDigite qual o [ID] do noivo(a) (ou pressione ENTER para manter o noivo(a) atual)" + editarEvento.getPessoaNoivo1().getNome());
                             long noivo1Id = Long.parseLong(s.nextLine());
 
                             if(noivo1Id != 0) {
@@ -564,7 +592,7 @@ public class Main {
                                 editarEvento.setPessoaNoivo1(noivo1);
                             }
 
-                            System.out.println("\nAgora, digite qual o ID do outro(a) noivo(a) (ou pressione ENTER para manter o noivo(a) atual)" + editarEvento.getPessoaNoivo2().getNome());
+                            System.out.println("\nAgora, digite qual o [ID] do outro(a) noivo(a) (ou pressione ENTER para manter o noivo(a) atual)" + editarEvento.getPessoaNoivo2().getNome());
                             long noivo2Id = Long.parseLong(s.nextLine());
 
                             if(noivo2Id != 0) {
@@ -576,15 +604,19 @@ public class Main {
                             System.out.println("\nEvento atualizado com sucesso!");
                             System.out.println("\nEvento com os dados atualizados:\n\n" + editarEvento.toString());
                         }
+                    } else {
+                        System.out.println("\nEvento não encontrado para atualizar!");
                     }
                     break;
+
                 case 5:
-                    System.out.println("\nQual o ID do evento que deseja remover do sistema?\n");
+                    System.out.println("\nQual o [ID] do evento que deseja remover do sistema?\n");
                     eventoDAO.exibirListaEventosSimples();
-                    System.out.println("\nDigite o ID: ");
+                    System.out.println("\nDigite o [ID]: ");
                     long eventoId = Long.parseLong(s.nextLine());
                     eventoDAO.removerEvento(eventoId);
                     break;
+
             }
         } while (op != 0);
     }
@@ -604,14 +636,72 @@ public class Main {
                                 ConvidadoIndividual criaConv = gui.cadastrarConviteIndividual();
                                 convidadoIndividualDAO.criarConvidado(criaConv);
                                 break;
+
                             case 2:
+                                System.out.println("\nLista de convidados cadastrados no sistema: ");
+                                convidadoIndividualDAO.exibirConvidadosSimples();
+                                System.out.println("\nDigite o [ID] do convidado que deseja confirmar a presença: ");
+                                long id = Long.parseLong(s.nextLine());
+                                ConvidadoIndividual confirmar = convidadoIndividualDAO.buscarPorId(id);
+                                convidadoIndividualDAO.confirmarConvidado(confirmar);
                                 break;
+
                             case 3:
+                                System.out.println("\nMostrando todos os convites individuais criados no sistema: \n");
+                                convidadoIndividualDAO.listarConvidados();
                                 break;
+
                             case 4:
+                                System.out.println("\nLista de convidados individuais cadastrados no sistema: ");
+                                convidadoIndividualDAO.exibirConvidadosSimples();
+
+                                System.out.println("\nDigite o [ID] de qual evento deseja editar: ");
+                                long convidadoEditarId = Long.parseLong(s.nextLine());
+
+                                ConvidadoIndividual convidadoEditar = convidadoIndividualDAO.buscarPorId(convidadoEditarId);
+
+                                if (convidadoEditar != null) {
+                                    System.out.println("\nConvidado individual encontrado com sucesso!");
+
+                                    System.out.println("\nDeseja mudar a pessoa cadastrada no convite (ou pressione ENTER para manter a pessoa atual): " + convidadoEditar.getPessoa().getNome() + "\n");
+                                    pessoaDAO.buscaConvidados();
+                                    System.out.println("\nSe deseja mudar, digite o [ID] da pessoa que possui este convite: ");
+                                    long idPessoaConvite = Long.parseLong(s.nextLine());
+                                    Pessoa novoConvidado = pessoaDAO.buscaPorId(idPessoaConvite);
+
+                                    if (novoConvidado != null) {
+                                        convidadoEditar.setPessoa(novoConvidado);
+                                    }
+
+                                    System.out.println("\nDeseja mudar a familia de qual o convidado faz parte (ou pressione ENTER para manter a familia atual)" + convidadoEditar.getFamilia());
+                                    String novaFamilia = s.nextLine();
+
+                                    if (novaFamilia != null) {
+                                        convidadoEditar.setFamilia(novaFamilia);
+                                    }
+
+                                    System.out.println("\nDeseja mudar o parentesco do convidado (ou pressione ENTER para manter o parentesco atual)" + convidadoEditar.getParentesco());
+                                    String novoParentesco = s.nextLine();
+
+                                    if(novoParentesco != null) {
+                                        convidadoEditar.setParentesco(novoParentesco);
+                                    }
+
+                                    convidadoIndividualDAO.atualizarConvidado(convidadoEditarId, convidadoEditar);
+                                    System.out.println("\nConvidado com os dados atualizados:\n\n" + convidadoEditar.toString());
+                                } else {
+                                    System.out.println("\nConvidado não encontrado para atualizar!");
+                                }
                                 break;
+
                             case 5:
+                                System.out.println("\nLista de convidados cadastrados no sistema: ");
+                                convidadoIndividualDAO.exibirConvidadosSimples();
+                                System.out.println("\nDigite o [ID] do convidado que deseja remover do sistema: ");
+                                long idRemover = Long.parseLong(s.nextLine());
+                                convidadoIndividualDAO.removerConvidado(idRemover);
                                 break;
+
                         }
 
                     } while (opConviteInd != 0);

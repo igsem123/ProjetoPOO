@@ -5,15 +5,13 @@ import mvc.model.Pessoa;
 import mvc.model.Util;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class EventoDAOMemoria implements EventoDAO {
-    private static final int TAMANHO_MAXIMO = 50;
     private final Evento[] eventos;
     private int totalEventos;
 
-    public EventoDAOMemoria(PessoaDAO pessoaDAO) {
-        this.eventos = new Evento[TAMANHO_MAXIMO];
+    public EventoDAOMemoria(PessoaDAO pessoaDAO, int capacidade) {
+        this.eventos = new Evento[capacidade];
         this.totalEventos = 0;
 
         // Armazenando eventos de exemplo
@@ -21,13 +19,13 @@ public class EventoDAOMemoria implements EventoDAO {
         Pessoa noivo1 = pessoaDAO.buscaPorId(0L);
         Pessoa noivo2 = pessoaDAO.buscaPorId(1L);
         Evento evento1 = new Evento(LocalDate.now(), cerimonialista1, "Igreja Central", "Cartório Central", noivo1, noivo2);
-        criarEvento(evento1);
+        this.criarEvento(evento1);
 
         Pessoa cerimonialista2 = pessoaDAO.buscaPorId(6L);
         Pessoa noivo3 = pessoaDAO.buscaPorId(7L);
         Pessoa noivo4 = pessoaDAO.buscaPorId(8L);
         Evento evento2 = new Evento(LocalDate.now().plusDays(30), cerimonialista2, "Igreja Nova", "Cartório Nova", noivo3, noivo4);
-        criarEvento(evento2);
+        this.criarEvento(evento2);
     }
 
     // Criar um novo evento

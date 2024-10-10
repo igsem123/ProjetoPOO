@@ -1,24 +1,60 @@
 package mvc.dao;
 
 import mvc.model.ConvidadoIndividual;
+import mvc.model.Pessoa;
+
 import java.time.LocalDateTime;
 
 public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
-    private ConvidadoIndividual[] convidados;
+    public ConvidadoIndividual[] convidados;
     private int totalConvidados = 0;
 
-    public ConvidadoIndividualDAOMemoria(int capacidade) {
+    public ConvidadoIndividualDAOMemoria(PessoaDAO pessoaDAO, int capacidade) {
         convidados = new ConvidadoIndividual[capacidade];
+        this.totalConvidados = 0;
+
+        // Armazenando os convidados individuais de exemplo
+        Pessoa convidado1 = pessoaDAO.buscaPorId(3L);
+        ConvidadoIndividual cI1 = new ConvidadoIndividual(convidado1, "Reis", "Mãe");
+        this.criarConvidado(cI1);
+
+        Pessoa convidado2 = pessoaDAO.buscaPorId(4L);
+        ConvidadoIndividual cI2 = new ConvidadoIndividual(convidado2, "Moreira", "Irmã");
+        this.criarConvidado(cI2);
     }
 
     // Criar
     public void criarConvidado(ConvidadoIndividual convidado) {
         if (totalConvidados < convidados.length) {
             convidados[totalConvidados++] = convidado;
-            System.out.println("Convidado criado com sucesso.");
+            System.out.println("Convidado criado com sucesso: \n\n" + convidado.toString());
         } else {
-            System.out.println("Capacidade máxima atingida.");
+            System.out.println("\nCapacidade máxima de convidados atingida.");
         }
+    }
+
+    // Confirmar presença
+    public void confirmarConvidado(ConvidadoIndividual convidado) {
+        for (ConvidadoIndividual convidadoConfirmar : convidados) {
+            if (convidadoConfirmar != null && convidadoConfirmar.equals(convidado)) {
+                convidado.setConfirmacao(true);
+                convidado.isConfirmacao();
+                return;
+            }
+        }
+        System.out.println("\nConvidado não confirmado!");
+    }
+
+    // Confirmar presença pela pessoa que possui o convite
+    public void confirmarPresencaPelaPessoa(ConvidadoIndividual convidado) {
+        for (ConvidadoIndividual convidadoConfirmar : convidados) {
+            if (convidadoConfirmar != null && convidadoConfirmar.getPessoa().equals(convidado.getPessoa())) {
+                convidado.setConfirmacao(true);
+                convidado.isConfirmacao();
+                return;
+            }
+        }
+        System.out.println("\nConvidado não confirmado!");
     }
 
     // Buscar por ID
@@ -37,11 +73,11 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
             if (convidados[i] != null && convidados[i].getId() == id) {
                 convidados[i] = convidadoAtualizado;
                 convidados[i].setDataModificacao(LocalDateTime.now());
-                System.out.println("Convidado atualizado.");
+                System.out.println("\nConvidado atualizado.");
                 return;
             }
         }
-        System.out.println("Convidado não encontrado.");
+        System.out.println("\nConvidado não encontrado.");
     }
 
     // Remover
@@ -49,11 +85,11 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
         for (int i = 0; i < convidados.length; i++) {
             if (convidados[i] != null && convidados[i].getId() == id) {
                 convidados[i] = null; // Remove o convidado
-                System.out.println("Convidado removido.");
+                System.out.println("\nConvidado removido.");
                 return;
             }
         }
-        System.out.println("Convidado não encontrado.");
+        System.out.println("\nConvidado não encontrado.");
     }
 
     // Listar todos

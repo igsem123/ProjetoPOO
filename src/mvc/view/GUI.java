@@ -513,8 +513,8 @@ public class GUI {
         }
 
         System.out.println("\nQual o nome da família que você faz parte?");
-        String nomeFamilia = scanner.nextLine();
-        nCi.setFamilia(nomeFamilia);
+        String nomeFamiliaInd = scanner.nextLine();
+        nCi.setFamilia(nomeFamiliaInd);
 
         System.out.println("\nQual o parentesco do convidado com algum dos noivos?");
         String parentesco = scanner.nextLine();
@@ -526,4 +526,27 @@ public class GUI {
     }
 
     //TODO Formulário para criar um convite família
+    public ConvidadoFamilia cadastraConviteFamiliar() {
+        System.out.println("\nDigite o nome da família: ");
+        String nomeFamilia = scanner.nextLine();
+
+        System.out.println("\nPara gerar o acesso da família, precisamos das seguintes informações: ");
+        System.out.println("\nLista de eventos cadastrados no sistema: ");
+        eventoDAO.exibirListaEventosSimples();
+        System.out.println("\nInforme o [ID] do evento: ");
+        long idEvento = Long.parseLong(scanner.nextLine());
+        Evento eventoDoConvite = eventoDAO.buscarPorId(idEvento);
+
+        if(eventoDoConvite != null) {
+            String noivo = eventoDoConvite.getPessoaNoivo1().getNome();
+            String noiva = eventoDoConvite.getPessoaNoivo2().getNome();
+            String data = eventoDoConvite.getDataEvento();
+            ConvidadoFamilia cF = new ConvidadoFamilia(nomeFamilia, noivo, noiva, data);
+            return cF;
+        } else {
+            System.out.println("\nEvento informado inválido. Tente novamente!");
+            this.cadastraConviteFamiliar();
+        }
+        return null;
+    }
 }

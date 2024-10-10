@@ -5,31 +5,44 @@ import java.util.Random;
 
 public class ConvidadoFamilia {
     private long id;
+    public static int totalConvitesFamiliares = 0;
     private String nomeFamilia;
     private String acesso;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public ConvidadoFamilia(long id, String nomeFamilia, String noivo, String noiva, String data) {
-        this.id = id;
+    // Construtor cheio
+    public ConvidadoFamilia(String nomeFamilia, String noivo, String noiva, String data) {
+        this.id = (totalConvitesFamiliares++);
         this.nomeFamilia = nomeFamilia;
         this.acesso = gerarAcesso(noivo, noiva, data);
         this.dataCriacao = LocalDateTime.now();
         this.dataModificacao = LocalDateTime.now();
     }
 
-    private String gerarAcesso(String noivo, String noiva, String data) {
+    // Construtor vazio
+    public ConvidadoFamilia() {
+        this.id = (totalConvitesFamiliares++);
+        this.dataCriacao = LocalDateTime.now();
+        this.dataModificacao = LocalDateTime.now();
+    }
+
+    private String gerarAcesso(String noivo1, String noivo2, String data) {
         Random random = new Random();
         String letrasAleatorias = String.format("%04d", random.nextInt(10000));
-        return noivo + noiva + data + letrasAleatorias;
+        this.dataModificacao = LocalDateTime.now();
+        return noivo1 + noivo2 + data + letrasAleatorias;
     }
 
     // Getters e Setters
     public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
 
     public String getNomeFamilia() { return nomeFamilia; }
-    public void setNomeFamilia(String nomeFamilia) { this.nomeFamilia = nomeFamilia; }
+    public void setNomeFamilia(String nomeFamilia)
+    {
+        this.dataModificacao = LocalDateTime.now();
+        this.nomeFamilia = nomeFamilia;
+    }
 
     public String getAcesso() { return acesso; }
 

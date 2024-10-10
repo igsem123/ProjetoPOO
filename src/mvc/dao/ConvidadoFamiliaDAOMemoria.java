@@ -5,7 +5,7 @@ import mvc.model.ConvidadoIndividual;
 
 import java.time.LocalDateTime;
 
-public class ConvidadoFamiliaDAOMemoria {
+public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
     private ConvidadoFamilia[] familias;
     private int contador = 0;
 

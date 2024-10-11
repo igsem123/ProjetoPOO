@@ -16,6 +16,7 @@ public class Main {
     EventoDAO eventoDAO = new EventoDAOMemoria(pessoaDAO, 100);
     ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaDAOMemoria(100, pessoaDAO, eventoDAO);
     ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(pessoaDAO, convidadoFamiliaDAO, 100);
+    PresentesDAO presentesDAO = new PresentesDAOMemoria(pessoaDAO, 500);
 
     // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
     GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO, convidadoIndividualDAO, convidadoFamiliaDAO);
@@ -24,7 +25,7 @@ public class Main {
     Scanner s = new Scanner(System.in);
 
     public Main() {
-        int opcao = 0;
+        int opcao = -1;
 
         while(opcao != 3) {
             opcao = gui.menuBoasVindas();
@@ -69,7 +70,7 @@ public class Main {
     }
 
     public void menuPrincipal() {
-        int opcaoPrincipal = 20;
+        int opcaoPrincipal = -1;
 
         if(Util.getPessoaLogada().getTipoUsuario() == 1 || Util.getPessoaLogada().getTipoUsuario() == 2 || Util.getPessoaLogada().getTipoUsuario() == 3) {
             while (opcaoPrincipal != 0) {
@@ -91,7 +92,7 @@ public class Main {
                         menuConvites();
                         break;
                     case 6:
-                        //menuPresentes();
+                        menuPresentes();
                         break;
                     case 7:
                         //menuRecados();
@@ -121,8 +122,31 @@ public class Main {
                         ConvidadoIndividual perfil = convidadoIndividualDAO.buscarPorId(idConvidado);
                         System.out.println("\nConvite da pessoa logada: \n" + perfil.perfil());
                         break;
+
                     case 2:
-                        //menuPresentes()
+                        int opcaoPresentes = gui.opPresentesConvidados();
+                        switch (opcaoPresentes) {
+                            case 1:
+                                System.out.println("\nPresentes na lista dos noivos: ");
+                                presentesDAO.exibeListaPresentesSimples();
+                                System.out.println("\nDigite o [ID] do presente que você deseja dar aos noivos: ");
+                                long idPresentear = Long.parseLong(s.nextLine());
+                                presentesDAO.darPresente(idPresentear, Util.getPessoaLogada());
+                                break;
+
+                            case 2:
+                                presentesDAO.exibeListaPresentesSimples();
+                                break;
+
+                            case 0:
+                                System.out.println("\nRetornando ao menu de convidados!");
+                                break;
+
+                            default:
+                                System.out.println("\nDigite uma opcao valida");
+                                break;
+                        }
+
                         break;
                     case 3:
                         //menuRecados()
@@ -154,10 +178,10 @@ public class Main {
                         }
                         break;
                     case 0:
-                        System.out.println("0 - Sair");
+                        System.out.println("\n0 - Sair");
                         break;
                     default:
-                        System.out.println("Digite uma opcao valida");
+                        System.out.println("\nDigite uma opcao valida");
                         break;
                 }
             }
@@ -781,6 +805,89 @@ public class Main {
                     } while (opConviteFam != 0);
 
                     break;
+            }
+        } while (op != 0);
+    }
+
+    public void menuPresentes() {
+        int op;
+        do {
+            op = gui.opPresentes();
+            switch(op) {
+                case 1:
+                    Presentes novoPresente = gui.cadastraPresente();
+                    presentesDAO.adicionarPresente(novoPresente);
+                    break;
+
+                case 2:
+                    System.out.println("\nLista de presentes cadastrados no sistema: ");
+                    presentesDAO.exibeListaPresentesSimples();
+                    break;
+
+                case 3:
+                    System.out.println("\nInforme o [ID] do presente que deseja visualizar as informações: ");
+                    long idPresente = Long.parseLong(s.nextLine());
+                    presentesDAO.buscarPorId(idPresente);
+                    break;
+
+                case 4:
+                    System.out.println("\nLista de presentes cadastrados no sistema: ");
+                    presentesDAO.exibeListaPresentesSimples();
+                    System.out.println("\nInforme o [ID] do presente que deseja atualizar: ");
+                    long idPresenteAtualizar = Long.parseLong(s.nextLine());
+
+                    Presentes presenteEditar = presentesDAO.buscarPorId(idPresenteAtualizar);
+
+                    while (presenteEditar == null) {
+                        System.out.println("\nO [ID] informado é inválido! Digite novamente: ");
+                        idPresenteAtualizar = Long.parseLong(s.nextLine());
+                        presenteEditar = presentesDAO.buscarPorId(idPresenteAtualizar);
+                    }
+
+                    System.out.println("Digite o novo nome do presente (ou pressione ENTER para manter o nome atual): " + presenteEditar.getNome());
+                    String presenteNome = s.nextLine();
+
+                    if(!presenteNome.isEmpty()) {
+                        presenteEditar.setNome(presenteNome);
+                    }
+
+                    System.out.println("\nDigite o novo valor do presente (ou pressione ENTER para manter o valor atual): " + presenteEditar.getValor());
+                    double presenteValor = Double.parseDouble(s.nextLine());
+
+                    if (presenteValor != -1) {
+                        presenteEditar.setValor(presenteValor);
+                    }
+
+                    System.out.println("\nEsse presente já foi presentado aos noivos por algum convidado?");
+                    System.out.println("\n->Digite [1] para SIM e [0] para NÃO.");
+                    int opcaoPresente = Integer.parseInt(s.nextLine());
+
+                    if (opcaoPresente == 1) {
+                        System.out.println("\nLista de convidados cadastrados no sistema: ");
+                        pessoaDAO.buscaConvidados();
+                        System.out.println("\nDigite o [ID] do convidado que enviou este presente: ");
+                        long idConvPresente = Long.parseLong(s.nextLine());
+                        Pessoa pessoaPresente = pessoaDAO.buscaPorId(idConvPresente);
+
+                        if (pessoaPresente != null) {
+                            presenteEditar.setPessoa(pessoaPresente);
+                        }
+                    } else {
+                        presenteEditar.setPessoa(null);
+                    }
+
+                    presentesDAO.atualizarPresente(idPresenteAtualizar, presenteEditar); // Atualiza o presente com as novas infos
+                    break;
+
+                case 5:
+                    System.out.println("\nLista de presentes cadastrados no sistema: ");
+                    presentesDAO.exibeListaPresentesSimples();
+                    System.out.println("\nInforme o [ID] do presente que deseja remover: ");
+                    long idPresenteRemover = Long.parseLong(s.nextLine());
+
+                    presentesDAO.removerPresente(idPresenteRemover);
+                    break;
+
             }
         } while (op != 0);
     }

@@ -47,12 +47,12 @@ public class GUI {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
                 if (opcao < 1 || opcao > 3) {
-                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 1 e 3.");
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 1 e 3.");
                 }
             } else {
                 // Limpa o buffer do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
-                System.out.println("Entrada inválida! Por favor, digite um número (1, 2 ou 3).");
+                System.out.println("\nEntrada inválida! Por favor, digite um número (1, 2 ou 3).");
             }
         }
 
@@ -87,12 +87,12 @@ public class GUI {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
                 if (opcao < 0 || opcao > 9) {
-                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 9.");
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 9.");
                 }
             } else {
                 // Limpa o buffer do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
-                System.out.println("Entrada inválida!");
+                System.out.println("\nEntrada inválida!");
             }
         }
 
@@ -122,12 +122,12 @@ public class GUI {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
                 if (opcao < 0 || opcao > 4) {
-                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
                 }
             } else {
                 // Limpa o buffer do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
-                System.out.println("Entrada inválida! Por favor, digite um número (0, 1, 2, 3, 4 ou 5).");
+                System.out.println("\nEntrada inválida! Por favor, digite um número (0, 1, 2, 3, 4 ou 5).");
             }
         }
 
@@ -156,12 +156,12 @@ public class GUI {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
                 if (opcao < 0 || opcao > 3) {
-                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 3.");
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 3.");
                 }
             } else {
                 // Limpa o buffer do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
-                System.out.println("Entrada inválida!");
+                System.out.println("\nEntrada inválida!");
             }
         }
 
@@ -199,12 +199,12 @@ public class GUI {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
                 if (opcao < 0 || opcao > 12) {
-                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 12.");
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 12.");
                 }
             } else {
                 // Limpa o buffer do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
-                System.out.println("Entrada inválida!");
+                System.out.println("\nEntrada inválida!");
             }
         }
 
@@ -212,7 +212,7 @@ public class GUI {
     }
 
     public int opEvento() {
-        int opcao = -1; // inicializa com um valor inválido
+        int opcao = -1;
 
         while (opcao < 0 || opcao > 5) {
             builder.setLength(0);
@@ -234,12 +234,11 @@ public class GUI {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
                 if (opcao < 0 || opcao > 5) {
-                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
                 }
             } else {
-                // Limpa o buffer do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
-                System.out.println("Entrada inválida!");
+                System.out.println("\nEntrada inválida!");
             }
         }
 
@@ -247,7 +246,7 @@ public class GUI {
     }
 
     public int opFornecedor() {
-        int opcao = -1; // inicializa com um valor inválido
+        int opcao = -1;
 
         while (opcao < 0 || opcao > 5) {
             builder.setLength(0);
@@ -269,12 +268,11 @@ public class GUI {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
                 if (opcao < 0 || opcao > 5) {
-                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
                 }
             } else {
-                // Limpa o buffer do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
-                System.out.println("Entrada inválida!");
+                System.out.println("\nEntrada inválida!");
             }
         }
 
@@ -282,7 +280,7 @@ public class GUI {
     }
 
     public int opConvites() {
-        int opcao = -1; // inicializa com um valor inválido
+        int opcao = -1;
 
         while (opcao < 0 || opcao > 2) {
             builder.setLength(0);
@@ -301,12 +299,11 @@ public class GUI {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
                 if (opcao < 0 || opcao > 2) {
-                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 2.");
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 2.");
                 }
             } else {
-                // Limpa o buffer do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
-                System.out.println("Entrada inválida!");
+                System.out.println("\nEntrada inválida!");
             }
         }
 
@@ -314,7 +311,7 @@ public class GUI {
     }
 
     public int opConvitesIndividual() {
-        int opcao = -1; // inicializa com um valor inválido
+        int opcao = -1;
 
         while (opcao < 0 || opcao > 5) {
             builder.setLength(0);
@@ -336,12 +333,11 @@ public class GUI {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
                 if (opcao < 0 || opcao > 5) {
-                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
                 }
             } else {
-                // Limpa o buffer do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
-                System.out.println("Entrada inválida!");
+                System.out.println("\nEntrada inválida!");
             }
         }
 
@@ -349,7 +345,7 @@ public class GUI {
     }
 
     public int opConvitesFamilia() {
-        int opcao = -1; // inicializa com um valor inválido
+        int opcao = -1;
 
         while (opcao < 0 || opcao > 5) {
             builder.setLength(0);
@@ -371,12 +367,76 @@ public class GUI {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
                 if (opcao < 0 || opcao > 5) {
-                    System.out.println("Opção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
                 }
             } else {
-                // Limpa o buffer do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
-                System.out.println("Entrada inválida!");
+                System.out.println("\nEntrada inválida!");
+            }
+        }
+
+        return opcao;
+    }
+
+    public int opPresentes() {
+        int opcao = -1;
+
+        while (opcao < 0 || opcao > 5) {
+            builder.setLength(0);
+            builder.append("\n----------------------------------------");
+            builder.append("\n|  * -> Gerenciamento de Presentes     |");
+            builder.append("\n|                                      |");
+            builder.append("\n|  1 - Criar um presente               |");
+            builder.append("\n|  2 - Lista de presentes              |");
+            builder.append("\n|  3 - Busca de presente pelo [ID]     |");
+            builder.append("\n|  4 - Atualizar um presente           |");
+            builder.append("\n|  5 - Excluir um presente             |");
+            builder.append("\n|  0 - Sair                            |");
+            builder.append("\n|                                      |");
+            builder.append("\n----------------------------------------");
+            builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 0 || opcao > 5) {
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                }
+            } else {
+                this.scanner.nextLine();
+                System.out.println("\nEntrada inválida!");
+            }
+        }
+
+        return opcao;
+    }
+
+    public int opPresentesConvidados() {
+        int opcao = -1;
+
+        while (opcao < 0 || opcao > 2) {
+            builder.setLength(0);
+            builder.append("\n-----------------------------------");
+            builder.append("\n|  * -> Presentes                 |");
+            builder.append("\n|                                 |");
+            builder.append("\n|  1 - Dar um presente            |");
+            builder.append("\n|  2 - Lista de presentes         |");
+            builder.append("\n|  0 - Sair                       |");
+            builder.append("\n|                                 |");
+            builder.append("\n-----------------------------------");
+            builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 0 || opcao > 2) {
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 2.");
+                }
+            } else {
+                this.scanner.nextLine();
+                System.out.println("\nEntrada inválida! Escolha entre 0, 1 ou 2.");
             }
         }
 
@@ -559,7 +619,6 @@ public class GUI {
                 convidadoFamiliaDAO.criarFamilia(novoConviteFamiliar);
                 nCi.setFamilia(novoConviteFamiliar);
             }
-
         }
 
         System.out.println("\nQual o parentesco do convidado com algum dos noivos?");
@@ -593,5 +652,29 @@ public class GUI {
             this.cadastraConviteFamiliar();
         }
         return null;
+    }
+
+    //TODO Formulário para criar um presente
+    public Presentes cadastraPresente() {
+        System.out.println("\nDigite qual será o presente: ");
+        String nomePresente = scanner.nextLine();
+
+        System.out.println("\nInforme o tipo de presente: ");
+        System.out.println("\n-> Tipos: 1 [Cozinha/Geral]\n" +
+                "   2 [Cozinha/Eletrodomésticos]\n" +
+                "   3 [Decoração/Cama/Mesa/Banho]\n" +
+                "   4 [Moveis/Eletronicos]\n" +
+                "   5 [Dinheiro]\n");
+        int tipoPresente = Integer.parseInt(scanner.nextLine());
+
+        while (tipoPresente < 1 || tipoPresente > 5) {
+            System.out.println("\nTipo inválido, tente novamente:");
+            tipoPresente = Integer.parseInt(scanner.nextLine());
+        }
+
+        System.out.println("\nInfome o valor do presente: ");
+        double valorPresente = Double.parseDouble(scanner.nextLine());
+
+        return new Presentes(nomePresente, tipoPresente, valorPresente);
     }
 }

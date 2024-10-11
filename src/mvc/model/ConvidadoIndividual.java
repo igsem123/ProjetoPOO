@@ -8,14 +8,14 @@ public class ConvidadoIndividual {
     public long id;
     public static int totalConvidados = 0;
     Pessoa pessoa;
-    public String familia;
+    ConvidadoFamilia familia;
     public String parentesco;
     public boolean confirmacao; // false = não confirmado, true = confirmado
     private final LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
     // Construtor com parâmetros
-    public ConvidadoIndividual(Pessoa pessoa, String familia, String parentesco) {
+    public ConvidadoIndividual(Pessoa pessoa, ConvidadoFamilia familia, String parentesco) {
         this.id = pessoa.getId();
         this.pessoa = pessoa;
         this.familia = familia;
@@ -43,9 +43,9 @@ public class ConvidadoIndividual {
         this.dataModificacao = LocalDateTime.now();
     }
 
-    public String getFamilia() { return familia; }
+    public ConvidadoFamilia getFamilia() { return familia; }
 
-    public void setFamilia(String familia) {
+    public void setFamilia(ConvidadoFamilia familia) {
         this.familia = familia;
         this.dataModificacao = LocalDateTime.now();
     }
@@ -135,12 +135,12 @@ public class ConvidadoIndividual {
         StringBuilder sb = new StringBuilder();
         sb.append("================== Convidado ID {" + getId() + "} ==================\n");
         sb.append(String.format("Nome                : %s\n", pessoa.getNome()));
-        sb.append(String.format("Familia             : %s\n", familia));
+        sb.append(String.format("Familia             : %s\n", familia.getNomeFamilia()));
         sb.append(String.format("Parentesco          : %s\n", parentesco));
         sb.append(String.format("Confirmacao         : %s\n", getConfirmacao()));
         sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
-        sb.append("=====================================================\n");
+        sb.append("======================================================\n");
         return sb.toString();
     }
 }

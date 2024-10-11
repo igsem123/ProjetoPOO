@@ -1,5 +1,6 @@
 package mvc.dao;
 
+import mvc.model.ConvidadoFamilia;
 import mvc.model.ConvidadoIndividual;
 import mvc.model.Pessoa;
 
@@ -9,25 +10,29 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
     public ConvidadoIndividual[] convidados;
     private int totalConvidados = 0;
 
-    public ConvidadoIndividualDAOMemoria(PessoaDAO pessoaDAO, int capacidade) {
+    public ConvidadoIndividualDAOMemoria(PessoaDAO pessoaDAO, ConvidadoFamiliaDAO convidadoFamiliaDAO, int capacidade) {
         convidados = new ConvidadoIndividual[capacidade];
         this.totalConvidados = 0;
 
         // Armazenando os convidados individuais de exemplo
         Pessoa convidado1 = pessoaDAO.buscaPorId(3L);
-        ConvidadoIndividual cI1 = new ConvidadoIndividual(convidado1, "Reis", "Mãe");
+        ConvidadoIndividual cI1 = new ConvidadoIndividual(convidado1, convidadoFamiliaDAO.buscarPorId(0L), "Mãe");
         this.criarConvidado(cI1);
 
         Pessoa convidado2 = pessoaDAO.buscaPorId(4L);
-        ConvidadoIndividual cI2 = new ConvidadoIndividual(convidado2, "Moreira", "Irmã");
+        ConvidadoIndividual cI2 = new ConvidadoIndividual(convidado2, convidadoFamiliaDAO.buscarPorId(0L), "Irmã");
         this.criarConvidado(cI2);
+    }
+
+    public ConvidadoIndividual[] getConvidados() {
+        return convidados;
     }
 
     // Criar
     public void criarConvidado(ConvidadoIndividual convidado) {
         if (totalConvidados < convidados.length) {
             convidados[totalConvidados++] = convidado;
-            System.out.println("Convidado criado com sucesso: \n\n" + convidado.toString());
+            System.out.println("\nConvidado criado com sucesso: \n\n" + convidado.toString());
         } else {
             System.out.println("\nCapacidade máxima de convidados atingida.");
         }
@@ -105,7 +110,7 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
     public void exibirConvidadosSimples() {
         for (ConvidadoIndividual convidado : convidados) {
             if (convidado != null) {
-                System.out.println(convidado.getId() + " - " + convidado.getPessoa().getNome() + " - " + convidado.getFamilia() + " - " + convidado.getDataModificacao());
+                System.out.println("ID: [" + convidado.getId() + "] - Nome: " + convidado.getPessoa().getNome() + " - Família: " + convidado.getFamilia().getNomeFamilia());
             }
         }
     }

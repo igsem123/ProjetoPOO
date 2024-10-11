@@ -1,5 +1,6 @@
 package mvc.model;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Random;
 
@@ -20,18 +21,26 @@ public class ConvidadoFamilia {
         this.dataModificacao = LocalDateTime.now();
     }
 
-    // Construtor vazio
-    public ConvidadoFamilia() {
+    // Construtor vazio sem acesso familiar definido
+    public ConvidadoFamilia(String nomeFamilia) {
         this.id = (totalConvitesFamiliares++);
+        this.nomeFamilia = nomeFamilia;
         this.dataCriacao = LocalDateTime.now();
         this.dataModificacao = LocalDateTime.now();
     }
 
     private String gerarAcesso(String noivo1, String noivo2, String data) {
-        Random random = new Random();
-        String letrasAleatorias = String.format("%04d", random.nextInt(10000));
+        String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder letrasAleatorias = new StringBuilder();
+        Random random = new Random(); // Utilizei o random
+
+        for (int i = 0; i < 4; i++) {
+            int index = random.nextInt(letras.length());
+            letrasAleatorias.append(letras.charAt(index));
+        }
+
         this.dataModificacao = LocalDateTime.now();
-        return noivo1 + noivo2 + data + letrasAleatorias;
+        return (noivo1 + noivo2 + data + letrasAleatorias).trim().replace(" ", "").replace("-", "");
     }
 
     // Getters e Setters
@@ -75,12 +84,12 @@ public class ConvidadoFamilia {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("=============== Convidado Família ID {" + getId() + "} ===============\n");
+        sb.append("============= Convidado Família ID {" + getId() + "} =============\n");
         sb.append(String.format("Nome da Família     : %s\n", nomeFamilia));
         sb.append(String.format("Acesso              : %s\n", acesso));
-        sb.append(String.format("Data de Criação     : %s\n", dataCriacao));
-        sb.append(String.format("Data de Modificação : %s\n", dataModificacao));
-        sb.append("=====================================================\n");
+        sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+        sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+        sb.append("====================================================\n");
         return sb.toString();
     }
 }

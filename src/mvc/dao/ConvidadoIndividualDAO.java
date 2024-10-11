@@ -11,4 +11,5 @@ public interface ConvidadoIndividualDAO {
     void exibirConvidadosSimples();
     void confirmarConvidado(ConvidadoIndividual convidado);
     void confirmarPresencaPelaPessoa(ConvidadoIndividual convidado);
+    ConvidadoIndividual[] getConvidados();
 }

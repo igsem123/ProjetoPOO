@@ -14,10 +14,11 @@ public class Main {
     PessoaDAO pessoaDAO = new PessoaDAOMemoria();
     FornecedorDAO fornecedorDAO = new FornecedorDAOMemoria();
     EventoDAO eventoDAO = new EventoDAOMemoria(pessoaDAO, 100);
-    ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(pessoaDAO, 100);
+    ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaDAOMemoria(100, pessoaDAO, eventoDAO);
+    ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(pessoaDAO, convidadoFamiliaDAO, 100);
 
     // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
-    GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO, convidadoIndividualDAO);
+    GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO, convidadoIndividualDAO, convidadoFamiliaDAO);
 
     // Scanner pode ser utilizado para interações no console, se necessário
     Scanner s = new Scanner(System.in);
@@ -142,6 +143,15 @@ public class Main {
 
                         break;
                     case 5:
+                        // Opção confirmar a presença de todos os convites individuais atrelados ao respectivo convite familiar
+                        ConvidadoIndividual[] convidados = convidadoIndividualDAO.getConvidados(); // Tive que criar um getter dentro do DAOMemoria para poder acessar os arrays
+                        ConvidadoFamilia[] familias = convidadoFamiliaDAO.getFamilias();
+                        System.out.println("\nDigite o acesso da família para confirmar seus integrantes: ");
+                        String acesso = s.nextLine();
+
+                        if (!acesso.isEmpty()) {
+                            convidadoFamiliaDAO.confirmarPresenca(acesso, convidados, familias);
+                        }
                         break;
                     case 0:
                         System.out.println("0 - Sair");
@@ -633,7 +643,7 @@ public class Main {
                         opConviteInd = gui.opConvitesIndividual();
                         switch(opConviteInd) {
                             case 1:
-                                ConvidadoIndividual criaConv = gui.cadastrarConviteIndividual();
+                                ConvidadoIndividual criaConv = gui.cadastrarConviteIndividual(convidadoFamiliaDAO);
                                 convidadoIndividualDAO.criarConvidado(criaConv);
                                 break;
 
@@ -655,7 +665,7 @@ public class Main {
                                 System.out.println("\nLista de convidados individuais cadastrados no sistema: ");
                                 convidadoIndividualDAO.exibirConvidadosSimples();
 
-                                System.out.println("\nDigite o [ID] de qual evento deseja editar: ");
+                                System.out.println("\nDigite o [ID] de qual convidado deseja editar: ");
                                 long convidadoEditarId = Long.parseLong(s.nextLine());
 
                                 ConvidadoIndividual convidadoEditar = convidadoIndividualDAO.buscarPorId(convidadoEditarId);
@@ -673,14 +683,18 @@ public class Main {
                                         convidadoEditar.setPessoa(novoConvidado);
                                     }
 
-                                    System.out.println("\nDeseja mudar a familia de qual o convidado faz parte (ou pressione ENTER para manter a familia atual)" + convidadoEditar.getFamilia());
-                                    String novaFamilia = s.nextLine();
+                                    System.out.println("\nDeseja mudar a familia de qual o convidado faz parte (ou pressione ENTER para manter a familia atual): " + convidadoEditar.getFamilia().getNomeFamilia());
+                                    System.out.println("\nLista de Famílias cadastradas no sistema: ");
+                                    convidadoFamiliaDAO.listarFamilias();
+                                    System.out.println("\nDigite o [ID] ou pressione ENTER para manter: ");
+                                    long idNovaFam = Long.parseLong(s.nextLine());
+                                    ConvidadoFamilia novaFamiliaEditar = convidadoFamiliaDAO.buscarPorId(idNovaFam);
 
-                                    if (novaFamilia != null) {
-                                        convidadoEditar.setFamilia(novaFamilia);
+                                    if (novaFamiliaEditar != null) {
+                                        convidadoEditar.setFamilia(novaFamiliaEditar);
                                     }
 
-                                    System.out.println("\nDeseja mudar o parentesco do convidado (ou pressione ENTER para manter o parentesco atual)" + convidadoEditar.getParentesco());
+                                    System.out.println("\nDeseja mudar o parentesco do convidado (ou pressione ENTER para manter o parentesco atual): " + convidadoEditar.getParentesco());
                                     String novoParentesco = s.nextLine();
 
                                     if(novoParentesco != null) {
@@ -689,8 +703,6 @@ public class Main {
 
                                     convidadoIndividualDAO.atualizarConvidado(convidadoEditarId, convidadoEditar);
                                     System.out.println("\nConvidado com os dados atualizados:\n\n" + convidadoEditar.toString());
-                                } else {
-                                    System.out.println("\nConvidado não encontrado para atualizar!");
                                 }
                                 break;
 
@@ -701,17 +713,71 @@ public class Main {
                                 long idRemover = Long.parseLong(s.nextLine());
                                 convidadoIndividualDAO.removerConvidado(idRemover);
                                 break;
-
+                            case 0:
+                                System.out.println("\nSaindo do modulo de gerenciamento dos convites individuais!");
+                                break;
                         }
 
                     } while (opConviteInd != 0);
-
                     break;
-                case 2:
 
+                case 2:
                     int opConviteFam = -1;
                     do {
-                        //opConviteFam = gui.opConvitesFamilia();
+                        opConviteFam = gui.opConvitesFamilia();
+                        switch (opConviteFam) {
+                            case 1:
+                                ConvidadoFamilia criaConvFam = gui.cadastraConviteFamiliar();
+                                convidadoFamiliaDAO.criarFamilia(criaConvFam);
+                                break;
+
+                            case 2:
+                                ConvidadoIndividual[] convidados = convidadoIndividualDAO.getConvidados();
+                                ConvidadoFamilia[] familias = convidadoFamiliaDAO.getFamilias();
+                                System.out.println("\nDigite o acesso da família para confirmar seus integrantes: ");
+                                String acesso = s.nextLine();
+
+                                if (!acesso.isEmpty()) {
+                                    convidadoFamiliaDAO.confirmarPresenca(acesso, convidados, familias);
+                                }
+                                break;
+
+                            case 3:
+                                System.out.println("\nLista de Famílias cadastradas no sistema: \n");
+                                convidadoFamiliaDAO.exibirFamilias();
+                                break;
+
+                            case 4:
+                                System.out.println("\nLista de Famílias cadastradas no sistema: ");
+                                convidadoFamiliaDAO.listarFamilias();
+                                System.out.println("\nDigite o [ID] da família que deseja editar: ");
+                                long idFam = Long.parseLong(s.nextLine());
+                                ConvidadoFamilia editar = convidadoFamiliaDAO.buscarPorId(idFam);
+
+                                if (editar != null) {
+                                    System.out.println("\nDigite o novo nome da família: (Nome atual: " + editar.getNomeFamilia() + ")");
+                                    String nome = s.nextLine();
+                                    if(!nome.isEmpty()) {
+                                        editar.setNomeFamilia(nome);
+                                    }
+                                    convidadoFamiliaDAO.atualizarFamilia(idFam, editar);
+                                }
+                                break;
+
+                            case 5:
+                                System.out.println("\nLista de Famílias cadastradas no sistema: ");
+                                convidadoFamiliaDAO.listarFamilias();
+                                System.out.println("\nDigite o [ID] da família que deseja remover: ");
+                                long idFamRemover = Long.parseLong(s.nextLine());
+                                convidadoFamiliaDAO.removerFamilia(idFamRemover);
+                                break;
+
+                            case 0:
+                                System.out.println("\nSaindo do modulo de gerenciamento dos convites familiar!");
+                                break;
+
+                        }
+
                     } while (opConviteFam != 0);
 
                     break;

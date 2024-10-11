@@ -124,7 +124,7 @@ public class ConvidadoIndividual {
         return "\n|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
                 "\n| Perfil do Convidado: " + this.pessoa.getNome() + "\n|\n|" +
                 "\n| ID                 : " + this.id +
-                "\n| Familia            : " + this.familia +
+                "\n| Familia            : " + this.familia.getNomeFamilia() +
                 "\n| Parentesco         : " + this.parentesco +
                 "\n| Confirmacao        : " + getConfirmacao() +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";

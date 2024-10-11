@@ -13,13 +13,15 @@ public class GUI {
     private FornecedorDAO fornecedorDAO;
     private EventoDAO eventoDAO;
     private ConvidadoIndividualDAO convidadoIndividualDAO;
+    private ConvidadoFamiliaDAO convidadoFamiliaDAO;
 
     // Construtor que recebe as instâncias dos DAOs
-    public GUI(PessoaDAO pessoaDAO, FornecedorDAO fornecedorDAO, EventoDAO eventoDAO, ConvidadoIndividualDAO convidadoIndividualDAO) {
+    public GUI(PessoaDAO pessoaDAO, FornecedorDAO fornecedorDAO, EventoDAO eventoDAO, ConvidadoIndividualDAO convidadoIndividualDAO, ConvidadoFamiliaDAO convidadoFamiliaDAO) {
         this.pessoaDAO = pessoaDAO;
         this.fornecedorDAO = fornecedorDAO;
         this.eventoDAO = eventoDAO;
         this.convidadoIndividualDAO = convidadoIndividualDAO;
+        this.convidadoFamiliaDAO = convidadoFamiliaDAO;
         this.scanner = new Scanner(System.in);
         this.builder = new StringBuilder();
     }
@@ -497,9 +499,9 @@ public class GUI {
     }
 
     // TODO Formulário para criar um convite individual
-    public ConvidadoIndividual cadastrarConviteIndividual() {
+    public ConvidadoIndividual cadastrarConviteIndividual(ConvidadoFamiliaDAO convidadoFamiliaDAO) {
         ConvidadoIndividual nCi = new ConvidadoIndividual();
-        System.out.println("\nLista de pessoas/convidados cadastrados no sistema: ");
+        System.out.println("\nLista de pessoas/convidados cadastrados no sistema: \n");
         pessoaDAO.buscaConvidados();
         System.out.println("\nInforme o ID do convidado(a): ");
         long convidadoId = Long.parseLong(scanner.nextLine());
@@ -507,14 +509,58 @@ public class GUI {
 
         if(ci.getTipoUsuario() != 4) {
             System.out.println("\nUsuário digitado inválido!");
-            return this.cadastrarConviteIndividual();
+            return this.cadastrarConviteIndividual(convidadoFamiliaDAO);
         } else {
             nCi.setPessoa(ci);
         }
 
-        System.out.println("\nQual o nome da família que você faz parte?");
-        String nomeFamilia = scanner.nextLine();
-        nCi.setFamilia(nomeFamilia);
+        System.out.println("\nLista de famílias cadastradas no sistema:\n");
+        convidadoFamiliaDAO.listarFamilias();
+        System.out.println("\nQual o [ID] da família?");
+        long idFamilia = Long.parseLong(scanner.nextLine());
+        ConvidadoFamilia familia = convidadoFamiliaDAO.buscarPorId(idFamilia);
+
+        if (familia != null)
+        {
+            nCi.setFamilia(familia); // Setando a família informada
+        } else {
+            System.out.println("\nFamília não identificada.");
+            System.out.println("\nDigite o nome da sua família: ");
+            String nomeFamiliaInd = scanner.nextLine();
+
+            while (nomeFamiliaInd.isEmpty()) {
+                System.out.println("\nNome da família não informado, tente novamente!");
+                nomeFamiliaInd = scanner.nextLine();
+            }
+
+            System.out.println("\nDeseja criar um acesso familiar?");
+            System.out.println("\n-> Digite [0] para SIM ou [1] para NÃO.");
+            int escolha = Integer.parseInt(scanner.nextLine());
+
+            if (escolha == 0) { // Criando o convite familiar com um acesso gerado
+                System.out.println("\nPara qual evento você deseja criar o convite familiar?\n");
+                eventoDAO.exibirListaEventosSimples();
+                System.out.println("\nDigite o [ID]: ");
+                long id = Integer.parseInt(scanner.nextLine());
+
+                Evento evento = eventoDAO.buscarPorId(id);
+                if (evento != null) {
+                    String noivo1 = evento.getPessoaNoivo1().getNome();
+                    String noivo2 = evento.getPessoaNoivo1().getNome();
+                    String data = evento.getDataEvento();
+                    ConvidadoFamilia novoConviteFamiliar = new ConvidadoFamilia(nomeFamiliaInd ,noivo1, noivo2, data);
+                    convidadoFamiliaDAO.criarFamilia(novoConviteFamiliar);
+                    nCi.setFamilia(novoConviteFamiliar);
+                }
+            } else {
+                // Criar convite familiar sem o acesso gerado
+                System.out.println("\nConvite familiar criado sem acesso de confirmação. Contate o administrador!");
+                ConvidadoFamilia novoConviteFamiliar = new ConvidadoFamilia(nomeFamiliaInd);
+                convidadoFamiliaDAO.criarFamilia(novoConviteFamiliar);
+                nCi.setFamilia(novoConviteFamiliar);
+            }
+
+        }
 
         System.out.println("\nQual o parentesco do convidado com algum dos noivos?");
         String parentesco = scanner.nextLine();
@@ -526,4 +572,26 @@ public class GUI {
     }
 
     //TODO Formulário para criar um convite família
+    public ConvidadoFamilia cadastraConviteFamiliar() {
+        System.out.println("\nDigite o nome da família: ");
+        String nomeFamilia = scanner.nextLine();
+
+        System.out.println("\nPara gerar o acesso da família, precisamos das seguintes informações: ");
+        System.out.println("\nLista de eventos cadastrados no sistema: ");
+        eventoDAO.exibirListaEventosSimples();
+        System.out.println("\nInforme o [ID] do evento: ");
+        long idEvento = Long.parseLong(scanner.nextLine());
+        Evento eventoDoConvite = eventoDAO.buscarPorId(idEvento);
+
+        if(eventoDoConvite != null) {
+            String noivo = eventoDoConvite.getPessoaNoivo1().getNome();
+            String noiva = eventoDoConvite.getPessoaNoivo2().getNome();
+            String data = eventoDoConvite.getDataEvento();
+            return new ConvidadoFamilia(nomeFamilia, noivo, noiva, data);
+        } else {
+            System.out.println("\nEvento informado inválido. Tente novamente!");
+            this.cadastraConviteFamiliar();
+        }
+        return null;
+    }
 }

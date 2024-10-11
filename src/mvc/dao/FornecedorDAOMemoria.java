@@ -90,7 +90,6 @@ public class FornecedorDAOMemoria implements FornecedorDAO {
         } else {
             for (int i = 0; i < totalFornecedores; i++) {
                 System.out.println(listaFornecedores[i].toString());
-                System.out.println("-------------------------------------------------");
             }
         }
     }

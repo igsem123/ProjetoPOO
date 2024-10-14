@@ -359,7 +359,7 @@ public class Main {
                     if (pessoaDAO.alterarNascimento(editaNascimento, novoNascimento)) {
                         System.out.println("\n Pessoa alterada!");
                         novoNascimento = pessoaDAO.buscaPessoa(editaNascimento).getDataNascimento();
-                        System.out.println(" Nova data de nascimento: " + novoNascimento);
+                        System.out.println("Nova data de nascimento: " + novoNascimento);
                     } else {
                         System.out.println("\n Pessoa nao alterada!");
                     }
@@ -389,7 +389,7 @@ public class Main {
                     if (pessoaDAO.alterarSenha(editaSenha, novaSenha)) {
                         System.out.println("\nPessoa alterada!");
                         novaSenha = pessoaDAO.buscaPessoa(editaSenha).getSenha();
-                        System.out.println("Novo email: " + novaSenha);
+                        System.out.println("Nova senha: " + novaSenha);
                     } else {
                         System.out.println("\nPessoa nao alterada!");
                     }
@@ -505,7 +505,7 @@ public class Main {
                         System.out.println("\nDigite o novo valor em débito com a empresa (ou pressione ENTER para manter o valor atual): " + fornecedorEditar.getValorAPagar());
                         String valorAPagar = this.s.nextLine();
                         if(!valorAPagar.isEmpty()) {
-                            fornecedorEditar.setValorAPagar(Long.parseLong(valorAPagar));
+                            fornecedorEditar.setValorAPagar(Double.parseDouble(valorAPagar));
                         }
 
                         System.out.println("\nDigite a nova quantidade de parcelas (ou pressione ENTER para manter a parcela atual): " + fornecedorEditar.getParcelas());

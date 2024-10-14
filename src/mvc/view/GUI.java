@@ -520,6 +520,11 @@ public class GUI {
         System.out.println("\nDigite o tipo de usuário: ");
         System.out.println("Escolha um número -> 1 - Noivo(a) | 2 - Cerimonialista | 3 - Administrador | 4 - Convidado");
         int tipo = Integer.parseInt(this.scanner.nextLine());
+
+        while (tipo < 1 || tipo > 4) {
+            System.out.println("\nTipo inválido, tente novamente:");
+            tipo = Integer.parseInt(scanner.nextLine());
+        }
         novaPessoa.setTipoUsuario(tipo);
 
         return novaPessoa;
@@ -545,7 +550,7 @@ public class GUI {
         nF.setEmail(email);
 
         System.out.println("\nQual o valor em débito com a empresa?");
-        long valor = Long.parseLong(scanner.nextLine());
+        double valor = Long.parseLong(scanner.nextLine());
         nF.setValorAPagar(valor);
 
         System.out.println("\nEm quantas parcelas pagará?");

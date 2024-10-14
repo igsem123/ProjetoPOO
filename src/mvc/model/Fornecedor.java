@@ -11,14 +11,14 @@ public class Fornecedor {
     private String CNPJ;
     private String telefone;
     private String email;
-    private long valorAPagar;
+    private double valorAPagar;
     private int parcelas;
     private String estado;
     private final LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
     // Construtor com parâmetros
-    public Fornecedor(String nome, String CNPJ, String telefone, long valorAPagar, int parcelas, String estado, String email) {
+    public Fornecedor(String nome, String CNPJ, String telefone, double valorAPagar, int parcelas, String estado, String email) {
         this.id = (totalFornecedores++);
         this.nome = nome;
         this.CNPJ = CNPJ;
@@ -78,11 +78,11 @@ public class Fornecedor {
         this.dataModificacao = Util.getDia();
     }
 
-    public long getValorAPagar() {
+    public double getValorAPagar() {
         return this.valorAPagar;
     }
 
-    public void setValorAPagar(long valorAPagar) {
+    public void setValorAPagar(double valorAPagar) {
         this.valorAPagar = valorAPagar;
         this.dataModificacao = Util.getDia();
     }
@@ -147,12 +147,12 @@ public class Fornecedor {
     public String perfil() {
         return "\n|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
                 "\n| Perfil do Fornecedor: " + this.nome + "\n|\n|" +
-                "\n| ID                 : " + this.id +
-                "\n| CNPJ               : " + this.CNPJ +
-                "\n| Telefone           : " + this.telefone +
-                "\n| Email              : " + this.email +
-                "\n| Data de Criação    : " + this.dataCriacao +
-                "\n| Total Fornecedores : " + Fornecedor.totalFornecedores +
+                "\n| ID                  : " + this.id +
+                "\n| CNPJ                : " + this.CNPJ +
+                "\n| Telefone            : " + this.telefone +
+                "\n| Email               : " + this.email +
+                "\n| Data de Criação     : " + this.dataCriacao +
+                "\n| Total Fornecedores  : " + Fornecedor.totalFornecedores +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 

@@ -39,7 +39,7 @@ public class FornecedorDAOMemoria implements FornecedorDAO {
             System.out.println("Fornecedor cadastrado com sucesso:\n\n" + fornecedor);
             return true;
         } else {
-            System.out.println("Erro: Não há espaço para mais fornecedores.");
+            System.out.println("\nErro: Não há espaço para mais fornecedores.");
             return false;
         }
     }
@@ -51,7 +51,7 @@ public class FornecedorDAOMemoria implements FornecedorDAO {
                 return listaFornecedores[i];
             }
         }
-        System.out.println("Fornecedor não encontrada.");
+        System.out.println("\nFornecedor não encontrada.");
         return null;
     }
 
@@ -62,11 +62,10 @@ public class FornecedorDAOMemoria implements FornecedorDAO {
             if (listaFornecedores[i].getId() == fornecedor.getId()) {
                 listaFornecedores[i] = fornecedor;
                 fornecedor.setDataModificacao(LocalDateTime.now());
-                System.out.println("Fornecedor atualizada: " + fornecedor);
                 return;
             }
         }
-        System.out.println("Fornecedor não encontrado.");
+        System.out.println("\nFornecedor não encontrado.");
     }
 
     @Override
@@ -77,16 +76,16 @@ public class FornecedorDAOMemoria implements FornecedorDAO {
                     listaFornecedores[j] = listaFornecedores[j + 1];  // Move os itens para trás no array
                 }
                 totalFornecedores--;
-                System.out.println("Fornecedor deletado com sucesso.");
+                System.out.println("\nFornecedor deletado com sucesso.");
                 return;
             }
         }
-        System.out.println("Fornecedor não encontrado.");
+        System.out.println("\nFornecedor não encontrado.");
     }
 
     public void listarFornecedores() {
         if (totalFornecedores == 0) {
-            System.out.println("Nenhum fornecedor cadastrado.");
+            System.out.println("\nNenhum fornecedor cadastrado.");
         } else {
             for (int i = 0; i < totalFornecedores; i++) {
                 System.out.println(listaFornecedores[i].toString());
@@ -96,7 +95,7 @@ public class FornecedorDAOMemoria implements FornecedorDAO {
 
     public void exibeFornecedoresSimples() {
         if (totalFornecedores == 0) {
-            System.out.println("Nenhum fornecedor cadastrado.");
+            System.out.println("\nNenhum fornecedor cadastrado.");
         } else {
             for (int i = 0; i < totalFornecedores; i++) {
                 System.out.println(listaFornecedores[i].getId() + " - " + listaFornecedores[i].getCNPJ() + " - " + listaFornecedores[i].getNome());
@@ -111,7 +110,7 @@ public class FornecedorDAOMemoria implements FornecedorDAO {
                 return fornecedor;
             }
         }
-        System.out.println("Fornecedor não encontrado.");
+        System.out.println("\nFornecedor não encontrado.");
         return null; // Se não encontrar, retorna null
     }
 }

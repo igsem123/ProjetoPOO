@@ -14,6 +14,7 @@ public class Evento {
     public String cartorio;
     Pessoa pessoaNoivo1;
     Pessoa pessoaNoivo2;
+    private String nomeDoEvento;
     private final LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
@@ -26,6 +27,7 @@ public class Evento {
         this.cartorio = cartorio;
         this.pessoaNoivo1 = pessoaNoivo1;
         this.pessoaNoivo2 = pessoaNoivo2;
+        this.nomeDoEvento = gerarNomeDoEvento(pessoaNoivo1, pessoaNoivo2);
         this.dataCriacao = Util.getDia();
         this.dataModificacao = Util.getDia();
     }
@@ -49,6 +51,13 @@ public class Evento {
     public void setDataEvento(String dataEvento) {
         this.dataModificacao = LocalDateTime.now();
         this.dataEvento = Util.formataData(dataEvento);
+    }
+
+    private String gerarNomeDoEvento(Pessoa pessoaNoivo1, Pessoa pessoaNoivo2) {
+        String nomeDoEvento = ("Casamento de " + pessoaNoivo1.getNome() + " e " + pessoaNoivo2.getNome() +" em " + this.getDataEvento());
+        this.dataModificacao = LocalDateTime.now();
+
+        return nomeDoEvento;
     }
 
     public Pessoa getCerimonial() {
@@ -89,6 +98,10 @@ public class Evento {
 
     public void setPessoaNoivo2(Pessoa pessoaNoivo2) {
         this.pessoaNoivo2 = pessoaNoivo2;
+    }
+
+    public String getNomeDoEvento() {
+        return nomeDoEvento;
     }
 
     public String getDataCriacao() {
@@ -140,6 +153,7 @@ public class Evento {
         sb.append(String.format("Cartorio            : %s\n", cartorio));
         sb.append(String.format("Noivo(a)            : %s\n", pessoaNoivo1.getNome()));
         sb.append(String.format("Noivo(a)            : %s\n", pessoaNoivo2.getNome()));
+        sb.append(String.format("Nome do Evento      : %s\n", nomeDoEvento));
         sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append("=====================================================\n");

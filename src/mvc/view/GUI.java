@@ -14,14 +14,18 @@ public class GUI {
     private EventoDAO eventoDAO;
     private ConvidadoIndividualDAO convidadoIndividualDAO;
     private ConvidadoFamiliaDAO convidadoFamiliaDAO;
+    private PresentesDAO presentesDAO;
+    private MuralRecadosDAO muralRecadosDAO;
 
     // Construtor que recebe as instâncias dos DAOs
-    public GUI(PessoaDAO pessoaDAO, FornecedorDAO fornecedorDAO, EventoDAO eventoDAO, ConvidadoIndividualDAO convidadoIndividualDAO, ConvidadoFamiliaDAO convidadoFamiliaDAO) {
+    public GUI(PessoaDAO pessoaDAO, FornecedorDAO fornecedorDAO, EventoDAO eventoDAO, ConvidadoIndividualDAO convidadoIndividualDAO, ConvidadoFamiliaDAO convidadoFamiliaDAO, PresentesDAO presentesDAO, MuralRecadosDAO muralRecadosDAO) {
         this.pessoaDAO = pessoaDAO;
         this.fornecedorDAO = fornecedorDAO;
         this.eventoDAO = eventoDAO;
         this.convidadoIndividualDAO = convidadoIndividualDAO;
         this.convidadoFamiliaDAO = convidadoFamiliaDAO;
+        this.presentesDAO = presentesDAO;
+        this.muralRecadosDAO = muralRecadosDAO;
         this.scanner = new Scanner(System.in);
         this.builder = new StringBuilder();
     }
@@ -443,6 +447,41 @@ public class GUI {
         return opcao;
     }
 
+    public int opRecados() {
+        int opcao = -1;
+
+        while (opcao < 0 || opcao > 6) {
+            builder.setLength(0);
+            builder.append("\n----------------------------------------");
+            builder.append("\n|  * -> Gerenciamento de Recados       |");
+            builder.append("\n|                                      |");
+            builder.append("\n|  1 - Registrar um recado             |");
+            builder.append("\n|  2 - Lista de recados no sistema     |");
+            builder.append("\n|  3 - Lista de recados por evento     |");
+            builder.append("\n|  4 - Buscar recado de convidado      |");
+            builder.append("\n|  5 - Editar um recado                |");
+            builder.append("\n|  6 - Excluir um recado               |");
+            builder.append("\n|  0 - Sair                            |");
+            builder.append("\n|                                      |");
+            builder.append("\n----------------------------------------");
+            builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 0 || opcao > 6) {
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 6.");
+                }
+            } else {
+                this.scanner.nextLine();
+                System.out.println("\nEntrada inválida!");
+            }
+        }
+
+        return opcao;
+    }
+
     // =-=-=-=-==-=-=-=-=-=-=-=-=-=-= CRIACOES =-=-=-=-==-=-=-=-=-=-=-=-=-=-= //
     // TODO Formulário para cadastrar uma nova pessoa
     public Pessoa cadastrarPessoa() {
@@ -563,7 +602,7 @@ public class GUI {
         ConvidadoIndividual nCi = new ConvidadoIndividual();
         System.out.println("\nLista de pessoas/convidados cadastrados no sistema: \n");
         pessoaDAO.buscaConvidados();
-        System.out.println("\nInforme o ID do convidado(a): ");
+        System.out.println("\nInforme o [ID] do convidado(a): ");
         long convidadoId = Long.parseLong(scanner.nextLine());
         Pessoa ci = pessoaDAO.buscaPorId(convidadoId);
 
@@ -576,7 +615,8 @@ public class GUI {
 
         System.out.println("\nLista de famílias cadastradas no sistema:\n");
         convidadoFamiliaDAO.listarFamilias();
-        System.out.println("\nQual o [ID] da família?");
+        System.out.println("\nQual o [ID] da família que o convidado faz parte?");
+        System.out.println("\n->Se não possui uma família cadastrada, digite [-1] para poder cadastrar uma nova.");
         long idFamilia = Long.parseLong(scanner.nextLine());
         ConvidadoFamilia familia = convidadoFamiliaDAO.buscarPorId(idFamilia);
 
@@ -585,7 +625,7 @@ public class GUI {
             nCi.setFamilia(familia); // Setando a família informada
         } else {
             System.out.println("\nFamília não identificada.");
-            System.out.println("\nDigite o nome da sua família: ");
+            System.out.println("\nDigite o nome da sua família para cadastrá-la no sistema: ");
             String nomeFamiliaInd = scanner.nextLine();
 
             while (nomeFamiliaInd.isEmpty()) {
@@ -593,7 +633,7 @@ public class GUI {
                 nomeFamiliaInd = scanner.nextLine();
             }
 
-            System.out.println("\nDeseja criar um acesso familiar?");
+            System.out.println("\nDeseja gerar um acesso familiar?");
             System.out.println("\n-> Digite [0] para SIM ou [1] para NÃO.");
             int escolha = Integer.parseInt(scanner.nextLine());
 
@@ -676,5 +716,19 @@ public class GUI {
         double valorPresente = Double.parseDouble(scanner.nextLine());
 
         return new Presentes(nomePresente, tipoPresente, valorPresente);
+    }
+
+    //TODO Formulário para cadastro de um comentário/recado no mural
+    public MuralRecados cadastraRecados() {
+        System.out.println("\nLista de eventos cadastrados no sistema: ");
+        eventoDAO.exibirListaEventosSimples();
+        System.out.println("\nDigite para qual evento deseja deixar um recado: ");
+        long idEvento = Long.parseLong(scanner.nextLine());
+        Evento eventoDoRecado = eventoDAO.buscarPorId(idEvento);
+
+        System.out.println("\nQual mensagem você deseja escrever para os noivos de recado: ");
+        String recado = scanner.nextLine();
+
+        return new MuralRecados(recado, Util.getPessoaLogada(), eventoDoRecado);
     }
 }

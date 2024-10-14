@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v1.1">
-      <change afterPath="$PROJECT_DIR$/src/mvc/dao/PresentesDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mvc/dao/PresentesDAOMemoria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mvc/model/MuralRecados.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mvc/model/Presentes.java" afterDir="false" />
+    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v1.3">
+      <change afterPath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosDAOMemoria.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PresentesDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PresentesDAOMemoria.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Evento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/MuralRecados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/MuralRecados.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/Presentes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Presentes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,15 +28,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="raphael/Criacao-e-Implementacao-CRUD-Presentes" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -75,7 +81,7 @@
     "Application.mvc.controller.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "raphael/Criacao-e-Implementacao-CRUD-MuralRecados",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/rnmoreira/Documents/Projetos Faculdade/academia_parte1",
@@ -175,6 +181,7 @@
       <workItem from="1728471247960" duration="10225000" />
       <workItem from="1728557480647" duration="18179000" />
       <workItem from="1728643991989" duration="16009000" />
+      <workItem from="1728904411865" duration="16873000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -240,7 +247,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728587392368</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="v1.3">
+      <option name="closed" value="true" />
+      <created>1728678857330</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1728678857330</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,6 +311,7 @@
     <MESSAGE value="v0.8" />
     <MESSAGE value="v0.9" />
     <MESSAGE value="v1.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.1" />
+    <MESSAGE value="v1.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.3" />
   </component>
 </project>

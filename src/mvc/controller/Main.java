@@ -17,9 +17,10 @@ public class Main {
     ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaDAOMemoria(100, pessoaDAO, eventoDAO);
     ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(pessoaDAO, convidadoFamiliaDAO, 100);
     PresentesDAO presentesDAO = new PresentesDAOMemoria(pessoaDAO, 500);
+    MuralRecadosDAO muralRecadosDAO = new MuralRecadosDAOMemoria(pessoaDAO, eventoDAO, 1000);
 
     // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
-    GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO, convidadoIndividualDAO, convidadoFamiliaDAO);
+    GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO, convidadoIndividualDAO, convidadoFamiliaDAO, presentesDAO, muralRecadosDAO);
 
     // Scanner pode ser utilizado para interações no console, se necessário
     Scanner s = new Scanner(System.in);
@@ -95,7 +96,7 @@ public class Main {
                         menuPresentes();
                         break;
                     case 7:
-                        //menuRecados();
+                        menuRecados();
                         break;
                     case 8:
                         //menuPagamentos();
@@ -149,15 +150,16 @@ public class Main {
 
                         break;
                     case 3:
-                        //menuRecados()
+                        MuralRecados novoRecado = gui.cadastraRecados();
+                        muralRecadosDAO.criarRecado(novoRecado);
                         break;
                     case 4:
                         long idPessoaLogada = Util.getPessoaLogada().getId();
-                        System.out.println("\nDeseja confirmar sua presença no evento?");
-                        System.out.println("\n->Digite [0] para SIM ou [1] para NÃO");
+                        System.out.println("\nDeseja confirmar ou desconfirmar sua presença no evento?");
+                        System.out.println("\n->Digite [1] para SIM ou [0] para CANCELAR");
                         int opPresenca = Integer.parseInt(s.nextLine());
 
-                        if(opPresenca == 0) {
+                        if(opPresenca == 1) {
                             ConvidadoIndividual convidadoConfirmar = convidadoIndividualDAO.buscarPorId(idPessoaLogada);
                             convidadoIndividualDAO.confirmarPresencaPelaPessoa(convidadoConfirmar);
                         } else {
@@ -244,10 +246,10 @@ public class Main {
                             }
 
                             pessoaDAO.atualizarPessoa(editar);
-                            System.out.println("Pessoa alterada com sucesso, alterações:\n");
+                            System.out.println("\nPessoa alterada com sucesso, alterações:\n");
                             System.out.println(editar.toString());
                         } else {
-                            System.out.println("Não foi possível alterar o seu perfil!");
+                            System.out.println("\nNão foi possível alterar o seu perfil!");
                         }
                         break;
 
@@ -256,11 +258,11 @@ public class Main {
                         break;
 
                     case 0:
-                        System.out.println("0 - Sair");
+                        System.out.println("\n0 - Sair");
                         break;
 
                     default:
-                        System.out.println("Digite uma opcao valida");
+                        System.out.println("\nDigite uma opcao valida");
                         break;
 
                 }
@@ -296,7 +298,7 @@ public class Main {
                     if(achou != null) {
                         System.out.println(achou.toString());
                     } else {
-                        System.out.println("Pessoa nao encontrada!");
+                        System.out.println("\nPessoa nao encontrada!");
                     }
                     break;
 
@@ -519,10 +521,12 @@ public class Main {
                             fornecedorEditar.setEstado(novoEstado);
                         }
 
+                        fornecedorDAO.atualizarFornecedor(fornecedorEditar.getCNPJ());
+
                         if(!semEditar.equals(fornecedorEditar)) {
-                            System.out.println("Fornecedor nao foi alterado!");
+                            System.out.println("\nFornecedor nao foi alterado!");
                         } else {
-                            System.out.println("Fornecedor alterado com sucesso, alteracoes: ");
+                            System.out.println("\nFornecedor alterado com sucesso, alteracoes: ");
                             System.out.println(fornecedorEditar.toString());
                         }
                     }
@@ -888,6 +892,106 @@ public class Main {
                     presentesDAO.removerPresente(idPresenteRemover);
                     break;
 
+                case 0:
+                    System.out.println("\nSaindo do modulo de gerenciamento dos presentes!");
+                    break;
+
+            }
+        } while (op != 0);
+    }
+
+    public void menuRecados() {
+        int op;
+        do {
+            op = gui.opRecados();
+            switch(op) {
+                case 1:
+                    MuralRecados novoRecado = gui.cadastraRecados();
+                    muralRecadosDAO.criarRecado(novoRecado);
+                    break;
+
+                case 2:
+                    System.out.println("\nLista de recados cadastrados no sistema: \n");
+                    muralRecadosDAO.exibeListaDeRecados();
+                    break;
+
+                case 3:
+                    System.out.println("\nDe qual evento deseja visualizar os recados? ");
+                    eventoDAO.exibirListaEventosSimples();
+                    System.out.println("\nInforme o [ID]: ");
+                    long idEventoDoRecado = Long.parseLong(s.nextLine());
+                    Evento eventoDoRecado = eventoDAO.buscarPorId(idEventoDoRecado);
+
+                    if (eventoDoRecado != null) {
+                        System.out.println("\nRecados registrados para o " + eventoDoRecado.getNomeDoEvento() + "\n");
+                        muralRecadosDAO.exibeListaDeRecadosPorEvento(eventoDoRecado);
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("\nDe qual convidado você deseja visualizar o recado escrito? ");
+                    pessoaDAO.buscaConvidados();
+                    System.out.println("\nInforme o [ID] do convidado: ");
+                    long idPessoaQueEscreveu = Long.parseLong(s.nextLine());
+                    Pessoa quemEscreveu = pessoaDAO.buscaPorId(idPessoaQueEscreveu);
+                    if (quemEscreveu != null) {
+                        muralRecadosDAO.buscaRecadoPorPessoa(quemEscreveu);
+                    }
+
+                    break;
+
+                case 5:
+                    System.out.println("\nQual recado deseja editar? ");
+                    muralRecadosDAO.exibeListaDeRecados();
+                    System.out.println("\nInforme o [Nº] do recado: ");
+                    long idRecadoEditar = Long.parseLong(s.nextLine());
+                    MuralRecados recadoEditar = muralRecadosDAO.buscarPorId(idRecadoEditar);
+
+                    if (recadoEditar != null) {
+                        System.out.println("\nFoi esse convidado(a) quem escreveu o recado? Ou deseja alterá-lo? (pressione ENTER para manter o convidado(a) atual: " + recadoEditar.getPessoa().getNome());
+                        System.out.println("\n->Se deseja alterá-lo digite [1], se não pressione ENTER");
+                        int opcaoAlterarRecado = Integer.parseInt(s.nextLine());
+
+                        if (opcaoAlterarRecado == 1) {
+                            System.out.println("\nLista de convidados cadastrados no sistema: ");
+                            pessoaDAO.buscaConvidados();
+                            System.out.println("\nInforme o [ID] do convidado(a) correto: ");
+                            long idConvidado = Long.parseLong(s.nextLine());
+
+                            while (pessoaDAO.buscaPorId(idConvidado) == null) {
+                                System.out.println("\n[ID] informado inválido, tente novamente informando o convidado(a) correto: ");
+                                idConvidado = Long.parseLong(s.nextLine());
+                            }
+
+                            Pessoa convidadoCorretoDoRecado = pessoaDAO.buscaPorId(idConvidado);
+                            recadoEditar.setPessoa(convidadoCorretoDoRecado);
+                        }
+
+                        System.out.println("\nDigite um novo comentário (ou pressione ENTER para manter o recado atual)");
+                        String novoComentario = s.nextLine();
+
+                        if (!novoComentario.isEmpty()) {
+                            recadoEditar.setComentario(novoComentario);
+                        }
+
+                        muralRecadosDAO.editaRecado(recadoEditar);
+                    }
+                    break;
+                case 6:
+                    System.out.println("\nLista de recados cadastrados no sistema: ");
+                    muralRecadosDAO.exibeListaDeRecados();
+                    System.out.println("\nInforme o [Nº] do recado: ");
+                    long idRecadoRemover = Long.parseLong(s.nextLine());
+                    MuralRecados recadoRemovido = muralRecadosDAO.buscarPorId(idRecadoRemover);
+
+                    if (recadoRemovido != null) {
+                        muralRecadosDAO.removeRecado(recadoRemovido);
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("\nSaindo do modulo de gerenciamento do mural de recados!");
+                    break;
             }
         } while (op != 0);
     }

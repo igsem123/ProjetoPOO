@@ -61,9 +61,13 @@ public class ConvidadoIndividual {
         if (this.confirmacao) {
             System.out.println("\nConfirmado(a) no evento!");
         } else {
-            System.out.println("\nPresença no evento não confirmada!");
+            System.out.println("\nPresença desconfirmada no evento!");
         }
 
+        return this.confirmacao;
+    }
+
+    public boolean getConfirmacaoPrimitivo() {
         return this.confirmacao;
     }
 

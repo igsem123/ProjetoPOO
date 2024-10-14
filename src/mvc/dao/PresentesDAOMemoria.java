@@ -202,6 +202,10 @@ public class PresentesDAOMemoria implements PresentesDAO{
         for (Presentes presente : presentes) {
             if (presente != null) {
                 System.out.println("\nID: ["+ presente.getId() +"] Nome: " + presente.getNome() + "\nValor: " + presente.getValor());
+
+                if (presente.getPessoa() != null) {
+                    System.out.println("-> Este presente já foi presenteado aos noivos por: " + presente.getPessoa().getNome());
+                }
             }
         }
     }

@@ -15,11 +15,11 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
         this.totalConvidados = 0;
 
         // Armazenando os convidados individuais de exemplo
-        Pessoa convidado1 = pessoaDAO.buscaPorId(3L);
+        Pessoa convidado1 = pessoaDAO.buscaPorId(11L);
         ConvidadoIndividual cI1 = new ConvidadoIndividual(convidado1, convidadoFamiliaDAO.buscarPorId(0L), "Mãe");
         this.criarConvidado(cI1);
 
-        Pessoa convidado2 = pessoaDAO.buscaPorId(4L);
+        Pessoa convidado2 = pessoaDAO.buscaPorId(12L);
         ConvidadoIndividual cI2 = new ConvidadoIndividual(convidado2, convidadoFamiliaDAO.buscarPorId(0L), "Irmã");
         this.criarConvidado(cI2);
     }
@@ -50,16 +50,19 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
         System.out.println("\nConvidado não confirmado!");
     }
 
-    // Confirmar presença pela pessoa que possui o convite
+    // Confirmar ou desconfirmar presença pela pessoa que possui o convite
     public void confirmarPresencaPelaPessoa(ConvidadoIndividual convidado) {
         for (ConvidadoIndividual convidadoConfirmar : convidados) {
             if (convidadoConfirmar != null && convidadoConfirmar.getPessoa().equals(convidado.getPessoa())) {
-                convidado.setConfirmacao(true);
-                convidado.isConfirmacao();
+                // Alterna o estado de confirmação
+                boolean novoEstado = !convidadoConfirmar.getConfirmacaoPrimitivo();
+                convidadoConfirmar.setConfirmacao(novoEstado);
+
+                // Exibe mensagem de acordo com o novo estado
+                convidadoConfirmar.isConfirmacao();
                 return;
             }
         }
-        System.out.println("\nConvidado não confirmado!");
     }
 
     // Buscar por ID

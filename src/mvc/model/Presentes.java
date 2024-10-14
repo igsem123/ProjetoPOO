@@ -1,8 +1,5 @@
 package mvc.model;
 
-import mvc.dao.PresentesDAO;
-
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -129,18 +126,14 @@ public class Presentes {
         sb.append(String.format("Nome do presente    : %s\n", nome));
         sb.append(String.format("Tipo de presente    : %s\n", tipoDePresente(getTipo())));
         sb.append(String.format("Valor do presente   : %.2f\n", valor));
-
-        // Verificando se a pessoa é nula
-        if (pessoa != null) {
+        if (pessoa != null) { // Verificando se a pessoa é nula na criação do toString
             sb.append(String.format("Quem deu o presente : %s\n", pessoa.getNome()));
         } else {
             sb.append("Quem deu o presente : Não definido\n");
         }
-
         sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append("============================================\n");
         return sb.toString();
     }
-
 }

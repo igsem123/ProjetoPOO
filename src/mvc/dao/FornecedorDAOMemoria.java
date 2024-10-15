@@ -73,7 +73,7 @@ public class FornecedorDAOMemoria implements FornecedorDAO {
         for (int i = 0; i < totalFornecedores; i++) {
             if (listaFornecedores[i].getId() == id) {
                 for (int j = i; j < totalFornecedores - 1; j++) {
-                    listaFornecedores[j] = listaFornecedores[j + 1];  // Move os itens para trás no array
+                    listaFornecedores[j] = listaFornecedores[j + 1];  // Move os itens para trás no array reorganizando
                 }
                 totalFornecedores--;
                 System.out.println("\nFornecedor deletado com sucesso.");

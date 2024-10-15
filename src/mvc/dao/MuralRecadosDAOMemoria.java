@@ -133,10 +133,19 @@ public class MuralRecadosDAOMemoria implements MuralRecadosDAO{
             if (recadosCriados[i] != null && recadosCriados[i].getId() == recadoRemover.getId())
             {
                 recadosCriados[i] = null;
+                reorganizarArray(i);
                 System.out.println("\nRecado excluído com sucesso!");
                 return;
             }
         }
         System.out.println("\nRecado não encontrado para remoção!");
+    }
+
+    private void reorganizarArray(int posicaoRemovida) {
+        for (int i = posicaoRemovida; i < recadosCriados.length - 1; i++) {
+            recadosCriados[i] = recadosCriados[i + 1];
+        }
+        recadosCriados[recadosCriados.length - 1] = null;
+        indice--;
     }
 }

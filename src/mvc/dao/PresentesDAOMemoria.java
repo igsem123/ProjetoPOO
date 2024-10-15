@@ -228,10 +228,19 @@ public class PresentesDAOMemoria implements PresentesDAO{
         for (int i = 0; i < presentes.length; i++) {
             if (presentes[i] != null && presentes[i].getId() == id) {
                 presentes[i] = null;
+                reorganizarArray(i);
                 System.out.println("\nPresente removido com sucesso!");
                 return;
             }
         }
         System.out.println("\nPresente não encontrado para remoção!");
+    }
+
+    private void reorganizarArray(int posicaoRemovida) {
+        for (int i = posicaoRemovida; i < presentes.length - 1; i++) {
+            presentes[i] = presentes[i + 1];
+        }
+        presentes[presentes.length - 1] = null;
+        indice--;
     }
 }

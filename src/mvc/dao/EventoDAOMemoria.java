@@ -28,7 +28,6 @@ public class EventoDAOMemoria implements EventoDAO {
         this.criarEvento(evento2);
     }
 
-    // Criar um novo evento
     public void criarEvento(Evento evento) {
         if (totalEventos < eventos.length) {
             eventos[totalEventos++] = evento;
@@ -38,32 +37,30 @@ public class EventoDAOMemoria implements EventoDAO {
         }
     }
 
-    // Buscar evento por ID
     public Evento buscarPorId(long id) {
         for (Evento evento : eventos) {
             if (evento != null && evento.getId() == id) {
                 return evento;
             }
         }
-        return null;  // Retorna null se o evento não for encontrado
+        return null;
     }
 
-    // Atualizar um evento existente
     public void atualizarEvento(long id, Evento eventoAtualizado) {
         for (int i = 0; i < eventos.length; i++) {
             if (eventos[i] != null && eventos[i].getId() == id) {
                 eventos[i] = eventoAtualizado;
-                eventos[i].setDataModificacao(Util.getDia());  // Atualiza a data de modificação
+                eventos[i].setDataModificacao(Util.getDia());
                 return;
             }
         }
     }
 
-    // Remover evento por ID
     public void removerEvento(long id) {
         for (int i = 0; i < eventos.length; i++) {
             if (eventos[i] != null && eventos[i].getId() == id) {
-                eventos[i] = null;  // Remove o evento
+                eventos[i] = null;
+                reorganizarArray(i);
                 System.out.println("\nEvento removido.");
                 return;
             }
@@ -71,17 +68,22 @@ public class EventoDAOMemoria implements EventoDAO {
         System.out.println("\nEvento não encontrado.");
     }
 
-    // Listar todos os eventos
+    private void reorganizarArray(int posicaoRemovida) {
+        for (int i = posicaoRemovida; i < eventos.length - 1; i++) {
+            eventos[i] = eventos[i + 1];
+        }
+        eventos[eventos.length - 1] = null;
+        totalEventos--;
+    }
+
     public void listarEventos() {
         for (Evento evento : eventos) {
             if (evento != null) {
                 System.out.println(evento.toString());
-                System.out.println("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
             }
         }
     }
 
-    // Exibir lista de eventos simples
     public void exibirListaEventosSimples() {
         for (Evento evento : eventos) {
             if (evento != null) {

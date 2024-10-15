@@ -1,31 +1,32 @@
 package mvc.model;
 
-import java.util.Calendar;
-import java.util.TimeZone;
 
-public class Calendario extends Calendar{
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-    private Calendar dataAtual;
+public class Calendario {
+    private LocalDate dataAtual;
 
     // Construtor
-    public Calendario(Calendar dataInicial) {
+    public Calendario(LocalDate dataInicial) {
         this.dataAtual = dataInicial;
     }
 
-    // Atualiza o calendário manualmente (administrador pode alterar a data)
-    public void atualizarData(Calendar novaData) {
+    // Atualiza o calendário (pode ser feito manualmente pelo administrador)
+    public void atualizarData(LocalDate novaData) {
         this.dataAtual = novaData;
     }
 
-    // Verifica os pagamentos agendados para a data atual
-    public void verificarPagamentosAgendados(Pagamento[] pagamentos) {
-        for (Pagamento pagamento : pagamentos) {
-            // Comparação de datas com Calendar
-            if (pagamento.isAgendado() && pagamento.getDataPagamento().getTime().equals(this.dataAtual.getTime())) {
-                pagamento.setParcela(0); // Marca o pagamento como completo
-                pagamento.setDataModificacao(Calendar.getInstance()); // Atualiza a data de modificação
+    public void avancarDia(Pagamento[] pagamentos) {
+        dataAtual = dataAtual.plusDays(1);
 
-                // Se todas as parcelas forem pagas, altera o estado do fornecedor
+        // Verifica pagamentos agendados para a data atual
+        for (Pagamento pagamento : pagamentos) {
+            if (pagamento.isAgendado() && pagamento.getDataPagamento().equals(this.dataAtual)) {
+                pagamento.setParcela(0); // Marca pagamento como completo
+                pagamento.setDataModificacao(LocalDateTime.now());
+
+                // Se todas as parcelas foram pagas, atualiza o estado do fornecedor
                 if (pagamento.isPagoCompleto()) {
                     pagamento.getFornecedor().setEstado("Pago Completo");
                 }
@@ -33,44 +34,23 @@ public class Calendario extends Calendar{
         }
     }
 
-    @Override
-    protected void computeTime() {
-
+    public void avancarDias(int dias, Pagamento[] pagamentos) {
+        for (int i = 0; i < dias; i++) {
+            avancarDia(pagamentos);
+        }
     }
 
-    @Override
-    protected void computeFields() {
-
+    // Exibe a data atual do calendário
+    public void exibirDataAtual() {
+        System.out.println("Data atual do calendário: " + dataAtual);
     }
 
-    @Override
-    public void add(int field, int amount) {
-
+    // Getters e Setters
+    public LocalDate getDataAtual() {
+        return dataAtual;
     }
 
-    @Override
-    public void roll(int field, boolean up) {
-
+    public void setDataAtual(LocalDate dataAtual) {
+        this.dataAtual = dataAtual;
     }
-
-    @Override
-    public int getMinimum(int field) {
-        return 0;
-    }
-
-    @Override
-    public int getMaximum(int field) {
-        return 0;
-    }
-
-    @Override
-    public int getGreatestMinimum(int field) {
-        return 0;
-    }
-
-    @Override
-    public int getLeastMaximum(int field) {
-        return 0;
-    }
-
 }

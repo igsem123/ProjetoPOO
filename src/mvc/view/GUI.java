@@ -736,4 +736,78 @@ public class GUI {
 
         return new MuralRecados(recado, Util.getPessoaLogada(), eventoDoRecado);
     }
+
+    //TODO Formulário para cadastrar um novo pagamento a ser feito pelo sistema
+    public Pagamento cadastraPagamento() {
+        System.out.println("\nQuem fará o pagamento: ");
+        pessoaDAO.buscaNoivos();
+        System.out.println("\nInforme o [ID] do noivo(a) que está efetuando o pagamento: ");
+        long idNoivoPagamento = Long.parseLong(scanner.nextLine());
+        Pessoa noivoPagando = pessoaDAO.buscaPorId(idNoivoPagamento);
+
+        System.out.println("\nPara qual fornecedor o pagamento está sendo feito? ");
+        fornecedorDAO.listarFornecedores();
+        System.out.println("\nInforme o [ID] do fornecedor que está recebendo o pagamento: ");
+        long idFornecedorPagamento = Long.parseLong(scanner.nextLine());
+        Fornecedor fornecedorPagamento = fornecedorDAO.buscaPorId(idFornecedorPagamento);
+
+        // Obtenção do valor do débito e parcelas restantes
+        double valorEmAberto = fornecedorPagamento.getValorAPagar();
+        int parcelasRestantes = fornecedorPagamento.getParcelas();
+
+        if (valorEmAberto <= 0) {
+            System.out.println("\nO fornecedor já foi pago integralmente.");
+            return null; // Caso o fornecedor já tenha sido pago, retornamos null
+        }
+
+        System.out.println("\nQual a descrição do pagamento? ");
+        String descricao = scanner.nextLine();
+
+        System.out.println("\nO débito com o fornecedor foi encontrado, segue informações abaixo: ");
+        System.out.println("-> O valor em aberto é: " + valorEmAberto);
+        System.out.printf("-> Restam %d parcelas. ", parcelasRestantes);
+
+        System.out.println("\nQuantas parcelas deseja pagar?");
+        int parcelasPagas = Integer.parseInt(scanner.nextLine());
+
+        // Cálculo do valor de cada parcela baseado no valor em aberto
+        double valorParcela = valorEmAberto / parcelasRestantes; //TODO Mudar isso porque torna os valores das parcelas inconsistente, isso precisa ser fornecido na classe FORNECEDOR
+        double valorTotalPagamento = parcelasPagas * valorParcela;
+
+        System.out.println("\nO valor de cada parcela é: " + valorParcela);
+        System.out.println("O valor total deste pagamento será: " + valorTotalPagamento);
+
+        // Verifica se o pagamento será agendado
+        System.out.println("\nDeseja pagar agora ou agendar uma data para o pagamento?");
+        System.out.println("-> Digite [0] para PAGAR AGORA ou [1] para AGENDAR");
+        int opcaoAgendar = Integer.parseInt(scanner.nextLine());
+        boolean foiAgendado;
+
+        Pagamento novoPagamento;
+
+        if (opcaoAgendar == 1) {
+            foiAgendado = true;
+            System.out.println("\nEm que data será efetuado o pagamento?");
+            String dataPagamentoString = scanner.nextLine();
+            LocalDate dataPagamento = Util.formataData(dataPagamentoString);
+            novoPagamento = new Pagamento(noivoPagando, fornecedorPagamento, descricao, valorTotalPagamento, parcelasPagas, true, dataPagamento);
+        } else {
+            foiAgendado = false;
+            novoPagamento = new Pagamento(noivoPagando, fornecedorPagamento, descricao, valorTotalPagamento, parcelasPagas, false, LocalDate.now());
+        }
+
+        // Atualiza o valor a pagar e as parcelas do fornecedor
+        fornecedorPagamento.setValorAPagar(valorEmAberto - valorTotalPagamento);
+        fornecedorPagamento.setParcelas(parcelasRestantes - parcelasPagas);
+
+        // Verifica se todas as parcelas foram pagas e atualiza o estado do fornecedor
+        if (fornecedorPagamento.getValorAPagar() <= 0) {
+            fornecedorPagamento.setEstado("Pago Completo");
+            System.out.println("O fornecedor " + fornecedorPagamento.getNome() + " foi totalmente pago.");
+        } else {
+            System.out.println("O fornecedor ainda possui um saldo de: " + fornecedorPagamento.getValorAPagar());
+        }
+
+        return novoPagamento;
+    }
 }

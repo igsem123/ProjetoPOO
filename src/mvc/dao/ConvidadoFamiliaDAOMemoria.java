@@ -20,7 +20,6 @@ public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
         return familias;
     }
 
-    // Criar
     public void criarFamilia(ConvidadoFamilia familia) {
         if (contador < familias.length) {
             familias[contador++] = familia;
@@ -30,7 +29,6 @@ public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
         }
     }
 
-    // Buscar por ID
     public ConvidadoFamilia buscarPorId(long id) {
         for (ConvidadoFamilia familia : familias) {
             if (familia != null && familia.getId() == id) {
@@ -75,8 +73,6 @@ public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
         }
     }
 
-
-    // Atualizar
     public void atualizarFamilia(long id, ConvidadoFamilia familiaAtualizada) {
         for (int i = 0; i < familias.length; i++) {
             if (familias[i] != null && familias[i].getId() == id) {
@@ -89,11 +85,11 @@ public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
         System.out.println("\nConvite família não encontrada para alterar seus dados.");
     }
 
-    // Remover
     public void removerFamilia(long id) {
         for (int i = 0; i < familias.length; i++) {
             if (familias[i] != null && familias[i].getId() == id) {
                 familias[i] = null; // Remove a família
+                reorganizarArray(i);
                 System.out.println("\nConvite família removida.");
                 return;
             }
@@ -117,5 +113,13 @@ public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
                 System.out.println("\nID: [" + familia.getId() + "] - Nome da Família: " + familia.getNomeFamilia());
             }
         }
+    }
+
+    private void reorganizarArray(int posicaoRemovida) { // Metódo para reorganizar o array após remoção
+        for (int i = posicaoRemovida; i < familias.length - 1; i++) {
+            familias[i] = familias[i + 1];
+        }
+        familias[familias.length - 1] = null;
+        contador--;
     }
 }

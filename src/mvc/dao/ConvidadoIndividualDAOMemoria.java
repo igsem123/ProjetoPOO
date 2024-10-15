@@ -92,12 +92,21 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
     public void removerConvidado(long id) {
         for (int i = 0; i < convidados.length; i++) {
             if (convidados[i] != null && convidados[i].getId() == id) {
-                convidados[i] = null; // Remove o convidado
+                convidados[i] = null;
+                reorganizarArray(i);
                 System.out.println("\nConvidado removido.");
                 return;
             }
         }
         System.out.println("\nConvidado não encontrado.");
+    }
+
+    private void reorganizarArray(int posicaoRemovida) { // Metódo para reorganizar o array após remoção
+        for (int i = posicaoRemovida; i < convidados.length - 1; i++) {
+            convidados[i] = convidados[i + 1];
+        }
+        convidados[convidados.length - 1] = null;
+        totalConvidados--;
     }
 
     // Listar todos

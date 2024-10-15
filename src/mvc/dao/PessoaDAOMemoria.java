@@ -118,7 +118,7 @@ public class PessoaDAOMemoria implements PessoaDAO {
         for (int i = 0; i < totalPessoas; i++) {
             if (listaPessoas[i].getCpf().equals(cpf)) {
                 for (int j = i; j < totalPessoas - 1; j++) {
-                    listaPessoas[j] = listaPessoas[j + 1];  // Move os itens para trás no array
+                    listaPessoas[j] = listaPessoas[j + 1];  // Move os itens para trás no array reorganizando
                 }
                 totalPessoas--;
                 return true;

@@ -111,9 +111,13 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
 
     // Listar todos
     public void listarConvidados() {
-        for (ConvidadoIndividual convidado : convidados) {
-            if (convidado != null) {
-                System.out.println(convidado.toString());
+        if (totalConvidados == 0) {
+            System.out.println("\nNenhum convidado cadastrado.");
+        } else {
+            for (ConvidadoIndividual convidado : convidados) {
+                if (convidado != null) {
+                    System.out.println(convidado.toString());
+                }
             }
         }
     }

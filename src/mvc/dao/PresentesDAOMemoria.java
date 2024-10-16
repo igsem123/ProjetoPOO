@@ -199,12 +199,16 @@ public class PresentesDAOMemoria implements PresentesDAO{
 
     @Override
     public void exibeListaPresentesSimples() {
-        for (Presentes presente : presentes) {
-            if (presente != null) {
-                System.out.println("\nID: ["+ presente.getId() +"] Nome: " + presente.getNome() + "\nValor: " + presente.getValor());
+        if (indice == 0) {
+            System.out.println("\nNenhum presente cadastrado no sistema.");
+        } else {
+            for (Presentes presente : presentes) {
+                if (presente != null) {
+                    System.out.println("\nID: [" + presente.getId() + "] Nome: " + presente.getNome() + "\nValor: " + presente.getValor());
 
-                if (presente.getPessoa() != null) {
-                    System.out.println("-> Este presente já foi presenteado aos noivos por: " + presente.getPessoa().getNome());
+                    if (presente.getPessoa() != null) {
+                        System.out.println("-> Este presente já foi presenteado aos noivos por: " + presente.getPessoa().getNome());
+                    }
                 }
             }
         }

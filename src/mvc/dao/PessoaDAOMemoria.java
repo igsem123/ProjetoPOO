@@ -158,25 +158,37 @@ public class PessoaDAOMemoria implements PessoaDAO {
     }
 
     public void buscaCerimonialistas() {
-        for (Pessoa pessoa : listaPessoas) {
-            if (pessoa != null && pessoa.getTipoUsuario() == 2){
-                System.out.println("Cerimonialista: " + pessoa.getNome() + " cadastrado sob o ID: [" + pessoa.getId() + "]");
+        if (totalPessoas == 0) {
+            System.out.println("\nNenhum cerimonialista cadastrado(a).");
+        } else {
+            for (Pessoa pessoa : listaPessoas) {
+                if (pessoa != null && pessoa.getTipoUsuario() == 2) {
+                    System.out.println("Cerimonialista: " + pessoa.getNome() + " cadastrado sob o ID: [" + pessoa.getId() + "]");
+                }
             }
         }
     }
 
     public void buscaNoivos() {
-        for (Pessoa pessoa : listaPessoas) {
-            if (pessoa != null && pessoa.getTipoUsuario() == 1){
-                System.out.println("Noivo(a): " + pessoa.getNome() + " cadastrado sob o ID: [" + pessoa.getId() + "]");
+        if (totalPessoas == 0) {
+            System.out.println("\nNenhum noivo(a) cadastrado(a).");
+        } else {
+            for (Pessoa pessoa : listaPessoas) {
+                if (pessoa != null && pessoa.getTipoUsuario() == 1) {
+                    System.out.println("Noivo(a): " + pessoa.getNome() + " cadastrado sob o ID: [" + pessoa.getId() + "]");
+                }
             }
         }
     }
 
     public void buscaConvidados() {
-        for (Pessoa pessoa : listaPessoas) {
-            if (pessoa != null && pessoa.getTipoUsuario() == 4){
-                System.out.println("Convidado(a): " + pessoa.getNome() + " cadastrado sob o ID: [" + pessoa.getId() + "]");
+        if (totalPessoas == 0) {
+            System.out.println("\nNenhum convidado cadastrado.");
+        } else {
+            for (Pessoa pessoa : listaPessoas) {
+                if (pessoa != null && pessoa.getTipoUsuario() == 4) {
+                    System.out.println("Convidado(a): " + pessoa.getNome() + " cadastrado sob o ID: [" + pessoa.getId() + "]");
+                }
             }
         }
     }

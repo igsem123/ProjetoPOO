@@ -16,9 +16,10 @@ public class GUI {
     private ConvidadoFamiliaDAO convidadoFamiliaDAO;
     private PresentesDAO presentesDAO;
     private MuralRecadosDAO muralRecadosDAO;
+    private PagamentoDAO pagamentoDAO;
 
     // Construtor que recebe as instâncias dos DAOs
-    public GUI(PessoaDAO pessoaDAO, FornecedorDAO fornecedorDAO, EventoDAO eventoDAO, ConvidadoIndividualDAO convidadoIndividualDAO, ConvidadoFamiliaDAO convidadoFamiliaDAO, PresentesDAO presentesDAO, MuralRecadosDAO muralRecadosDAO) {
+    public GUI(PessoaDAO pessoaDAO, FornecedorDAO fornecedorDAO, EventoDAO eventoDAO, ConvidadoIndividualDAO convidadoIndividualDAO, ConvidadoFamiliaDAO convidadoFamiliaDAO, PresentesDAO presentesDAO, MuralRecadosDAO muralRecadosDAO, PagamentoDAO pagamentoDAO) {
         this.pessoaDAO = pessoaDAO;
         this.fornecedorDAO = fornecedorDAO;
         this.eventoDAO = eventoDAO;
@@ -26,6 +27,7 @@ public class GUI {
         this.convidadoFamiliaDAO = convidadoFamiliaDAO;
         this.presentesDAO = presentesDAO;
         this.muralRecadosDAO = muralRecadosDAO;
+        this.pagamentoDAO = pagamentoDAO;
         this.scanner = new Scanner(System.in);
         this.builder = new StringBuilder();
     }
@@ -66,32 +68,33 @@ public class GUI {
     public int menuPrincipal() {
         int opcao = -1; // inicializa com um valor inválido
 
-        while (opcao < 0 || opcao > 9) {
+        while (opcao < 0 || opcao > 10) {
             this.builder.setLength(0);
-            this.builder.append("\n-----------------------------------");
-            this.builder.append("\n|          MENU PRINCIPAL         |");
-            this.builder.append("\n|     Bem vindo ao gerenciador    |");
-            this.builder.append("\n|                                 |");
-            this.builder.append("\n| 1 - Perfil                      |");
-            this.builder.append("\n| 2 - Pessoas / Usuários          |");
-            this.builder.append("\n| 3 - Evento                      |");
-            this.builder.append("\n| 4 - Fornecedores                |");
-            this.builder.append("\n| 5 - Convites                    |");
-            this.builder.append("\n| 6 - Presentes                   |");
-            this.builder.append("\n| 7 - Mural de Recados            |");
-            this.builder.append("\n| 8 - Pagamento                   |");
-            this.builder.append("\n| 9 - Relatórios                  |");
-            this.builder.append("\n| 0 - Sair                        |");
-            this.builder.append("\n|                                 |");
-            this.builder.append("\n-----------------------------------");
+            this.builder.append("\n------------------------------------");
+            this.builder.append("\n|           MENU PRINCIPAL         |");
+            this.builder.append("\n|      Bem vindo ao gerenciador    |");
+            this.builder.append("\n|                                  |");
+            this.builder.append("\n| 1  - Perfil                      |");
+            this.builder.append("\n| 2  - Pessoas / Usuários          |");
+            this.builder.append("\n| 3  - Evento                      |");
+            this.builder.append("\n| 4  - Fornecedores                |");
+            this.builder.append("\n| 5  - Convites                    |");
+            this.builder.append("\n| 6  - Presentes                   |");
+            this.builder.append("\n| 7  - Mural de Recados            |");
+            this.builder.append("\n| 8  - Pagamento                   |");
+            this.builder.append("\n| 9  - Relatórios                  |");
+            this.builder.append("\n| 10 - Calendário                  |");
+            this.builder.append("\n| 0  - Sair                        |");
+            this.builder.append("\n|                                  |");
+            this.builder.append("\n------------------------------------");
             this.builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
             if (this.scanner.hasNextInt()) {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
-                if (opcao < 0 || opcao > 9) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 9.");
+                if (opcao < 0 || opcao > 10) {
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 10.");
                 }
             } else {
                 // Limpa o buffer do scanner e avisa sobre a entrada inválida
@@ -482,6 +485,71 @@ public class GUI {
         return opcao;
     }
 
+    public int opPagamentos() {
+        int opcao = -1;
+
+        while (opcao < 0 || opcao > 5) {
+            builder.setLength(0);
+            builder.append("\n-----------------------------------------------");
+            builder.append("\n|  * -> Gerenciador de Pagamentos             |");
+            builder.append("\n|                                             |");
+            builder.append("\n|  1 - Pagar ou agendar um pagamento          |");
+            builder.append("\n|  2 - Buscar um registro de pagamento        |");
+            builder.append("\n|  3 - Listar pagamentos feitos no sistema    |");
+            builder.append("\n|  4 - Atualizar um pagamento                 |");
+            builder.append("\n|  5 - Excluir um pagamento do sistema        |");
+            builder.append("\n|  0 - Sair                                   |");
+            builder.append("\n|                                             |");
+            builder.append("\n-----------------------------------------------");
+            builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 0 || opcao > 5) {
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                }
+            } else {
+                this.scanner.nextLine();
+                System.out.println("\nEntrada inválida!");
+            }
+        }
+
+        return opcao;
+    }
+
+    public int opCalendario() {
+        int opcao = -1;
+
+        while (opcao < 0 || opcao > 2) {
+            builder.setLength(0);
+            builder.append("\n--------------------------------------------------");
+            builder.append("\n|  * -> Calendário do Sistema                    |");
+            builder.append("\n|                                                |");
+            builder.append("\n|  1 - Verificar pagamentos agendados para hoje  |");
+            builder.append("\n|  2 - Modificar data do calendário              |");
+            builder.append("\n|  0 - Sair                                      |");
+            builder.append("\n|                                                |");
+            builder.append("\n--------------------------------------------------");
+            builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 0 || opcao > 2) {
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 2.");
+                }
+            } else {
+                this.scanner.nextLine();
+                System.out.println("\nEntrada inválida! Escolha entre 0, 1 ou 2.");
+            }
+        }
+
+        return opcao;
+    }
+
     // =-=-=-=-==-=-=-=-=-=-=-=-=-=-= CRIACOES =-=-=-=-==-=-=-=-=-=-=-=-=-=-= //
     // TODO Formulário para cadastrar uma nova pessoa
     public Pessoa cadastrarPessoa() {
@@ -739,14 +807,14 @@ public class GUI {
 
     //TODO Formulário para cadastrar um novo pagamento a ser feito pelo sistema
     public Pagamento cadastraPagamento() {
-        System.out.println("\nQuem fará o pagamento: ");
+        System.out.println("\nQuem fará o pagamento: \n\nLista de noivos cadastrados no sistema: \n");
         pessoaDAO.buscaNoivos();
         System.out.println("\nInforme o [ID] do noivo(a) que está efetuando o pagamento: ");
         long idNoivoPagamento = Long.parseLong(scanner.nextLine());
         Pessoa noivoPagando = pessoaDAO.buscaPorId(idNoivoPagamento);
 
-        System.out.println("\nPara qual fornecedor o pagamento está sendo feito? ");
-        fornecedorDAO.listarFornecedores();
+        System.out.println("\nPara qual fornecedor o pagamento está sendo feito? \n");
+        fornecedorDAO.exibeFornecedoresSimples();
         System.out.println("\nInforme o [ID] do fornecedor que está recebendo o pagamento: ");
         long idFornecedorPagamento = Long.parseLong(scanner.nextLine());
         Fornecedor fornecedorPagamento = fornecedorDAO.buscaPorId(idFornecedorPagamento);
@@ -764,48 +832,45 @@ public class GUI {
         String descricao = scanner.nextLine();
 
         System.out.println("\nO débito com o fornecedor foi encontrado, segue informações abaixo: ");
-        System.out.println("-> O valor em aberto é: " + valorEmAberto);
-        System.out.printf("-> Restam %d parcelas. ", parcelasRestantes);
+        System.out.printf("-> O valor em aberto é: %.2f", valorEmAberto);
+        System.out.printf("\n-> Restam %d parcelas. ", parcelasRestantes);
 
-        System.out.println("\nQuantas parcelas deseja pagar?");
+        System.out.println("\n\nQuantas parcelas deseja pagar?");
         int parcelasPagas = Integer.parseInt(scanner.nextLine());
 
         // Cálculo do valor de cada parcela baseado no valor em aberto
-        double valorParcela = valorEmAberto / parcelasRestantes; //TODO Mudar isso porque torna os valores das parcelas inconsistente, isso precisa ser fornecido na classe FORNECEDOR
-        double valorTotalPagamento = parcelasPagas * valorParcela;
+        double valorParcela = fornecedorPagamento.getValorParcela(); // Agr faço dentro do fornecedor e só pego de volta
+        double valorTotalPagamento = parcelasPagas * valorParcela; //Fiz assim pra poder mostrar o quanto estaria sendo pago nesse ciclo
 
-        System.out.println("\nO valor de cada parcela é: " + valorParcela);
-        System.out.println("O valor total deste pagamento será: " + valorTotalPagamento);
+        System.out.printf("\n-> O valor de cada parcela é: %.2f", valorParcela);
+        System.out.printf("\n-> O valor total deste pagamento será: %.2f", valorTotalPagamento);
 
         // Verifica se o pagamento será agendado
-        System.out.println("\nDeseja pagar agora ou agendar uma data para o pagamento?");
+        System.out.println("\n\nDeseja pagar agora ou agendar uma data para o pagamento?");
         System.out.println("-> Digite [0] para PAGAR AGORA ou [1] para AGENDAR");
         int opcaoAgendar = Integer.parseInt(scanner.nextLine());
-        boolean foiAgendado;
 
         Pagamento novoPagamento;
 
         if (opcaoAgendar == 1) {
-            foiAgendado = true;
             System.out.println("\nEm que data será efetuado o pagamento?");
             String dataPagamentoString = scanner.nextLine();
             LocalDate dataPagamento = Util.formataData(dataPagamentoString);
             novoPagamento = new Pagamento(noivoPagando, fornecedorPagamento, descricao, valorTotalPagamento, parcelasPagas, true, dataPagamento);
         } else {
-            foiAgendado = false;
+            // Atualizando o valor a pagar e as parcelas do fornecedor, setando já direto após a criação do pagamento
+            fornecedorPagamento.setValorAPagar(valorEmAberto - valorTotalPagamento);
+            fornecedorPagamento.setParcelas(parcelasRestantes - parcelasPagas);
+
             novoPagamento = new Pagamento(noivoPagando, fornecedorPagamento, descricao, valorTotalPagamento, parcelasPagas, false, LocalDate.now());
         }
 
-        // Atualiza o valor a pagar e as parcelas do fornecedor
-        fornecedorPagamento.setValorAPagar(valorEmAberto - valorTotalPagamento);
-        fornecedorPagamento.setParcelas(parcelasRestantes - parcelasPagas);
-
-        // Verifica se todas as parcelas foram pagas e atualiza o estado do fornecedor
+        // Verificando se todas as parcelas foram pagas e atualiza o estado do fornecedor
         if (fornecedorPagamento.getValorAPagar() <= 0) {
-            fornecedorPagamento.setEstado("Pago Completo");
-            System.out.println("O fornecedor " + fornecedorPagamento.getNome() + " foi totalmente pago.");
+            fornecedorPagamento.setEstado("Pago!");
+            System.out.println("\nO fornecedor " + fornecedorPagamento.getNome() + " foi totalmente pago.");
         } else {
-            System.out.println("O fornecedor ainda possui um saldo de: " + fornecedorPagamento.getValorAPagar());
+            System.out.println("\nO fornecedor ainda possui um saldo aberto de: " + fornecedorPagamento.getValorAPagar());
         }
 
         return novoPagamento;

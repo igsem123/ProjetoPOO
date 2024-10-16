@@ -18,12 +18,16 @@ public class Main {
     ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(pessoaDAO, convidadoFamiliaDAO, 100);
     PresentesDAO presentesDAO = new PresentesDAOMemoria(pessoaDAO, 500);
     MuralRecadosDAO muralRecadosDAO = new MuralRecadosDAOMemoria(pessoaDAO, eventoDAO, 1000);
+    PagamentoDAO pagamentoDAO = new PagamentoDAOMemoria(pessoaDAO, fornecedorDAO, 1000);
 
     // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
-    GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO, convidadoIndividualDAO, convidadoFamiliaDAO, presentesDAO, muralRecadosDAO);
+    GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO, convidadoIndividualDAO, convidadoFamiliaDAO, presentesDAO, muralRecadosDAO, pagamentoDAO);
 
     // Scanner pode ser utilizado para interações no console, se necessário
     Scanner s = new Scanner(System.in);
+
+    // Calendário do sistema
+    Calendario calendario = new Calendario(Util.getDia2());
 
     public Main() {
         int opcao = -1;
@@ -99,10 +103,13 @@ public class Main {
                         menuRecados();
                         break;
                     case 8:
-                        //menuPagamentos();
+                        menuPagamentos();
                         break;
                     case 9:
                         //menuRelatorios();
+                        break;
+                    case 10:
+                        menuCalendario();
                         break;
                     case 0:
                         System.out.println("\nSaindo do menu principal!");
@@ -948,7 +955,7 @@ public class Main {
                     MuralRecados recadoEditar = muralRecadosDAO.buscarPorId(idRecadoEditar);
 
                     if (recadoEditar != null) {
-                        System.out.println("\nFoi esse convidado(a) quem escreveu o recado? Ou deseja alterá-lo? (pressione ENTER para manter o convidado(a) atual: " + recadoEditar.getPessoa().getNome());
+                        System.out.println("\nFoi esse convidado(a) quem escreveu o recado? Ou deseja alterá-lo? (pressione ENTER para manter o convidado(a) atual: " + recadoEditar.getPessoa().getNome() + ")");
                         System.out.println("\n->Se deseja alterá-lo digite [1], se não pressione ENTER");
                         int opcaoAlterarRecado = Integer.parseInt(s.nextLine());
 
@@ -991,6 +998,218 @@ public class Main {
 
                 case 0:
                     System.out.println("\nSaindo do modulo de gerenciamento do mural de recados!");
+                    break;
+            }
+        } while (op != 0);
+    }
+
+    public void menuPagamentos() {
+        int op;
+        do {
+            op = gui.opPagamentos();
+            switch(op) {
+                case 1:
+                    Pagamento novoPagamento = gui.cadastraPagamento();
+                    if (pagamentoDAO.criarPagamento(novoPagamento)) {
+                        System.out.println("\nPagamento feito ou agendado com sucesso! ");
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("\nExibindo lista de pagamentos registrados no sistema: \n");
+                    pagamentoDAO.exibirListaSimplesPagamentos();
+                    System.out.println("\nInforme o [ID] do pagamento que deseja buscar informações completas: ");
+                    long idPagamento = Long.parseLong(s.nextLine());
+                    pagamentoDAO.buscarPagamentoPorId(idPagamento);
+                    break;
+
+                case 3:
+                    System.out.println("\nLista de pagamentos registrados pelo sistema: ");
+                    pagamentoDAO.listarPagamentos();
+                    break;
+
+                case 4:
+                    System.out.println("\nLista de pagamentos registrados no sistema: ");
+                    pagamentoDAO.exibirListaSimplesPagamentos();
+                    System.out.println("\nInforme o [ID] do pagamento que deseja atualizar: ");
+                    long idPagamentoAtualizar = Long.parseLong(s.nextLine());
+
+                    Pagamento pagamentoEditar = pagamentoDAO.buscarPagamentoPorId(idPagamentoAtualizar);
+
+                    while (pagamentoEditar == null) {
+                        System.out.println("\nO [ID] informado é inválido! Digite novamente: ");
+                        idPagamentoAtualizar = Long.parseLong(s.nextLine());
+                        pagamentoEditar = pagamentoDAO.buscarPagamentoPorId(idPagamentoAtualizar);
+                    }
+
+                    System.out.println("\nFoi registrado o pagador correto? (pressione [1] para manter o pagador atual: " + pagamentoEditar.getPessoa().getNome() + ")");
+                    System.out.println("\n->Digite [1] para SIM ou [0] para NÃO.");
+                    int opcaoPagador = Integer.parseInt(s.nextLine());
+
+                    if (opcaoPagador == 0) {
+                        System.out.println("\nLista de noivos cadastrados no sistema: ");
+                        pessoaDAO.buscaNoivos();
+                        System.out.println("\nDigite o [ID] do noivo que realizou este pagamento: ");
+                        long idNoivoPagamento = Long.parseLong(s.nextLine());
+                        Pessoa noivoQuePagou = pessoaDAO.buscaPorId(idNoivoPagamento);
+
+                        while (noivoQuePagou.getTipoUsuario() != 1 || pessoaDAO.buscaPorId(idNoivoPagamento) == null) {
+                            System.out.println("\nTente novamente, o [ID] informado não é de um noivo(a).");
+                            System.out.println("\nInforme um [ID] de uma pessoa que se encontra na lista:");
+                            idNoivoPagamento = Long.parseLong(s.nextLine());
+                            noivoQuePagou = pessoaDAO.buscaPorId(idNoivoPagamento);
+                        }
+
+                        pagamentoEditar.setPessoa(noivoQuePagou);
+                    }
+
+                    System.out.println("\nFoi registrado o fornecedor correto? (pressione [1] para manter o fornecedor atual: " + pagamentoEditar.getFornecedor().getNome() + ")");
+                    System.out.println("\n->Digite [1] para SIM ou [0] para NÃO.");
+                    int opcaoFornecedor = Integer.parseInt(s.nextLine());
+
+                    if (opcaoFornecedor == 0) {
+                        System.out.println("\nLista de fornecedores cadastrados no sistema: ");
+                        fornecedorDAO.exibeFornecedoresSimples();
+                        System.out.println("\nDigite o [ID] do fornecedor que recebeu este pagamento: ");
+                        long idFornecedorPagamento = Long.parseLong(s.nextLine());
+                        Fornecedor fornecedorQueRecebeu = fornecedorDAO.buscaPorId(idFornecedorPagamento);
+
+                        while (fornecedorQueRecebeu == null) {
+                            System.out.println("\nTente novamente, o [ID] informado é inválido.");
+                            System.out.println("\nInforme um [ID] de um fornecedor que se encontra na lista:");
+                            idFornecedorPagamento = Long.parseLong(s.nextLine());
+                            fornecedorQueRecebeu = fornecedorDAO.buscaPorId(idFornecedorPagamento);
+                        }
+
+                        pagamentoEditar.setFornecedor(fornecedorQueRecebeu);
+                    }
+
+                    System.out.println("\nDigite uma nova descrição (ou pressione ENTER para manter a descrição atual) ");
+                    String descricao = s.nextLine();
+
+                    if (!descricao.isEmpty()) {
+                        pagamentoEditar.setDescricao(descricao);
+                    }
+
+                    System.out.println("\nAs parcelas foram registradas corretamente? As parcelas informadas foram: " + pagamentoEditar.getParcela());
+                    System.out.println("Digite [1] para SIM ou [0] para NÃO?");
+                    int opcaoParcela = Integer.parseInt(s.nextLine());
+
+                    if (opcaoParcela == 0) {
+                        double valorInicial = pagamentoEditar.getFornecedor().getValorInicial();
+                        int parcelaInicial = pagamentoEditar.getFornecedor().getParcelaInicial();
+                        double valorDaParcelaInicial = (valorInicial / parcelaInicial);
+
+                        System.out.println("\nO débito inicial foi encontrado em nosso sistema, era de R$ " + valorInicial + ".");
+                        System.out.println("\nO noivo(a) havia escolhido pagar em " + parcelaInicial + " parcela(s).");
+                        System.out.printf("\nO valor da(s) parcela(s) é de R$ " + valorDaParcelaInicial + ".");
+
+                        System.out.println("\nQual o número correto de parcelas pagas pelo noivo(a) neste ciclo? ");
+                        int parcelaCorreta = Integer.parseInt(s.nextLine());
+                        pagamentoEditar.setParcela(parcelaCorreta);
+
+                        // Cálculo do valor correto deste pagamento com base nos valores iniciais
+                        double valorTotalPagamento = parcelaCorreta * valorDaParcelaInicial;
+
+                        System.out.println("\nApós essa atualização, o valor correto total deste pagamento será: " + valorTotalPagamento);
+                        pagamentoEditar.setValor(valorTotalPagamento);
+
+                        System.out.println("\nO pagamento foi agendado ou não?");
+                        System.out.println("Digite [1] para SIM ou [0] para NÃO?");
+                        int opcaoAgendado = Integer.parseInt(s.nextLine());
+
+                        if (opcaoAgendado == 1) {
+                            System.out.println("\nQual a nova data para o pagamento? (ou pressione ENTER para manter a data atual: " + pagamentoEditar.getDataPagamento() + ")");
+                            String novaData = s.nextLine();
+
+                            if (!novaData.isEmpty()) {
+                                LocalDate novaDataDePagamento = Util.formataData(novaData);
+                                pagamentoEditar.setDataPagamento(novaDataDePagamento);
+                                pagamentoEditar.setAgendado(true);
+                            }
+                        } else {
+                            // Atualizações do fornecedor
+                            pagamentoEditar.getFornecedor().setValorAPagar(pagamentoEditar.getFornecedor().getValorAPagar() - valorTotalPagamento);
+                            pagamentoEditar.getFornecedor().setParcelas(pagamentoEditar.getFornecedor().getParcelas() - parcelaCorreta);
+
+                            pagamentoEditar.setAgendado(false);
+                            pagamentoEditar.setDataPagamento(LocalDate.now());
+                        }
+
+                        // Se todas as parcelas foram pagas, atualiza o estado do fornecedor
+                        if (pagamentoEditar.getFornecedor().getValorAPagar() <= 0) {
+                            pagamentoEditar.getFornecedor().setEstado("Pago Completo");
+                            System.out.println("O fornecedor " + pagamentoEditar.getFornecedor().getNome() + " foi totalmente pago.");
+                        } else {
+                            System.out.println("O fornecedor " + pagamentoEditar.getFornecedor().getNome() + " ainda possui saldo em aberto: " + pagamentoEditar.getFornecedor().getValorAPagar());
+                        }
+
+                        // Comentário para o professor: não sei se precisava atualizar um pagamento, mas tentei fazer
+                        pagamentoDAO.atualizarPagamento(pagamentoEditar); // aq atualizo os dados com parcela editada e/ou agendamento editado
+                    } else {
+
+                        System.out.println("\nO pagamento foi agendado ou não?");
+                        System.out.println("Digite [1] para SIM ou [0] para NÃO?");
+                        int opcaoAgendado = Integer.parseInt(s.nextLine());
+
+                        if (opcaoAgendado == 1) {
+                            System.out.println("\nQual a nova data para o pagamento? (ou pressione ENTER para manter a data atual: " + pagamentoEditar.getDataPagamento() + ")");
+                            String novaData = s.nextLine();
+
+                            if (!novaData.isEmpty()) {
+                                LocalDate novaDataDePagamento = Util.formataData(novaData);
+                                pagamentoEditar.setDataPagamento(novaDataDePagamento);
+                            }
+                        } else {
+                            pagamentoEditar.setDataPagamento(LocalDate.now());
+                        }
+                        // Atualizando o pagamento sem a parcela editada / mas com possivelmente o agendamento editado
+                        pagamentoDAO.atualizarPagamento(pagamentoEditar); // Fiz essa buçanha sem ir testando, se não funcionar eu me **** e dou um update :DDD
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("\nLista de pagamentos registrados no sistema: ");
+                    pagamentoDAO.exibirListaSimplesPagamentos();
+                    System.out.println("\nInforme o [ID] do pagamento que deseja remover dos registros: ");
+                    long idPagamentoRemover = Long.parseLong(s.nextLine());
+
+                    if (pagamentoDAO.removerPagamento(idPagamentoRemover)) {
+                        System.out.println("\nPagamento removido dos registros com sucesso!");
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("\nSaindo do modulo de gerenciamento dos pagamentos!");
+                    break;
+
+            }
+        } while (op != 0);
+    }
+
+    public void menuCalendario() {
+        // Métodos intrinsecos do calendário, vão funcionar ao abrir a opção
+        calendario.notificarPagamentosProximos(pagamentoDAO.getPagamentos(), 5); // Setando dia de antecência para notificar o adm sobre um pagamento agendado em data próx
+        calendario.notificarPagamentosAtrasados(pagamentoDAO.getPagamentos());
+
+        int op;
+        do {
+            op = gui.opCalendario();
+            switch(op) {
+                case 1:
+                    calendario.verificarPagamentosAgendados(pagamentoDAO.getPagamentos());
+                    break;
+
+                case 2:
+                    calendario.exibirDataAtual();
+                    System.out.println("\nDigite a nova data do sistema (dd/MM/yyyy):");
+                    String novaData = s.next();
+                    LocalDate dataModificada = Util.formataData(novaData);
+                    calendario.atualizarData(dataModificada);
+                    break;
+
+                case 0:
+                    System.out.println("\nSaindo do modulo calendario!");
                     break;
             }
         } while (op != 0);

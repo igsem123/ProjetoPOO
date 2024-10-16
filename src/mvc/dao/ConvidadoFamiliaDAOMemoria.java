@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
     private ConvidadoFamilia[] familias;
-    private int contador = 0;
+    private int totalFamilias = 0;
 
 
     public ConvidadoFamiliaDAOMemoria(int capacidade, PessoaDAO pessoaDAO, EventoDAO eventoDAO) {
@@ -21,8 +21,8 @@ public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
     }
 
     public void criarFamilia(ConvidadoFamilia familia) {
-        if (contador < familias.length) {
-            familias[contador++] = familia;
+        if (totalFamilias < familias.length) {
+            familias[totalFamilias++] = familia;
             System.out.println("\nConvite família criada com sucesso!\n\n" + familia.toString());
         } else {
             System.out.println("\nCapacidade máxima atingida.");
@@ -99,18 +99,26 @@ public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
 
     // Mostrar todos os convites família
     public void exibirFamilias() {
-        for (ConvidadoFamilia familia : familias) {
-            if (familia != null) {
-                System.out.println(familia.toString());
+        if (totalFamilias == 0) {
+            System.out.println("\nNenhum convite familiar cadastrado.");
+        } else {
+            for (ConvidadoFamilia familia : familias) {
+                if (familia != null) {
+                    System.out.println(familia.toString());
+                }
             }
         }
     }
 
     // Listar todos os convites família de maneira simples
     public void listarFamilias() {
-        for (ConvidadoFamilia familia : familias) {
-            if (familia != null) {
-                System.out.println("\nID: [" + familia.getId() + "] - Nome da Família: " + familia.getNomeFamilia());
+        if (totalFamilias == 0) {
+            System.out.println("\nNenhum convite familiar cadastrado.");
+        } else {
+            for (ConvidadoFamilia familia : familias) {
+                if (familia != null) {
+                    System.out.println("\nID: [" + familia.getId() + "] - Nome da Família: " + familia.getNomeFamilia());
+                }
             }
         }
     }
@@ -120,6 +128,6 @@ public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
             familias[i] = familias[i + 1];
         }
         familias[familias.length - 1] = null;
-        contador--;
+        totalFamilias--;
     }
 }

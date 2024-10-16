@@ -11,6 +11,7 @@ public class Util {
     private static LocalDateTime diaAtual;
     private static LocalDateTime dia;
     private static LocalDate dia2;
+    private static LocalDate diaInicioDoSistema;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static Pessoa getPessoaLogada() {
@@ -31,6 +32,10 @@ public class Util {
 
     public static LocalDate getDia2() {
         return dia2;
+    }
+
+    public static LocalDate getDiaInicioDoSistema() {
+        return diaInicioDoSistema;
     }
 
     public static int getDiaDoMes() {
@@ -54,5 +59,6 @@ public class Util {
         diaAtual = LocalDateTime.of(2024, Month.OCTOBER, 10, 22, 5);
         dia = LocalDateTime.now();
         dia2 = LocalDate.now();
+        diaInicioDoSistema = LocalDate.of(2024, Month.OCTOBER, 1);
     }
 }

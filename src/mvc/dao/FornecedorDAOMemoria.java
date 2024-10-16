@@ -15,19 +15,19 @@ public class FornecedorDAOMemoria implements FornecedorDAO {
 
         // Criando fornecedores de exemplo
         Fornecedor f1 = new Fornecedor("Empresa XYZ", "12.345.678/0001-90", "(11) 99999-8888",
-                10000, 8, "Não Pago", "contato@empresaxyz.com");
+                10000.0, 8, "Não Pago", "contato@empresaxyz.com");
         this.criarFornecedor(f1);
 
         Fornecedor f2 = new Fornecedor("Fotografia ABC", "98.765.432/0001-10", "(21) 88888-7777",
-                20000, 12, "Pago", "contato@fotografiabc.com");
+                20000.0, 12, "Pago", "contato@fotografiabc.com");
         this.criarFornecedor(f2);
 
         Fornecedor f3 = new Fornecedor("Decorações Elegantes", "33.222.111/0001-33", "(31) 77777-6666",
-                15000, 10, "Parcialmente Pago", "contato@decoracoes.com");
+                15000.0, 10, "Parcialmente Pago", "contato@decoracoes.com");
         this.criarFornecedor(f3);
 
         Fornecedor f4 = new Fornecedor("Buffet Gourmet", "44.333.222/0001-44", "(41) 66666-5555",
-                25000, 15, "Não Pago", "contato@buffetgourmet.com");
+                25000.0, 15, "Não Pago", "contato@buffetgourmet.com");
         this.criarFornecedor(f4);
     }
 

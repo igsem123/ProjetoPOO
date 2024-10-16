@@ -77,17 +77,25 @@ public class EventoDAOMemoria implements EventoDAO {
     }
 
     public void listarEventos() {
-        for (Evento evento : eventos) {
-            if (evento != null) {
-                System.out.println(evento.toString());
+        if (totalEventos == 0) {
+            System.out.println("Nenhum eventro cadastrado no sistema!");
+        } else {
+            for (Evento evento : eventos) {
+                if (evento != null) {
+                    System.out.println(evento.toString());
+                }
             }
         }
     }
 
     public void exibirListaEventosSimples() {
-        for (Evento evento : eventos) {
-            if (evento != null) {
-                System.out.println(evento.getId() + " - " + evento.getDataEvento() + " - " + evento.getIgreja() + " - " + evento.getPessoaNoivo1().getNome() + " - " + evento.getPessoaNoivo2().getNome());
+        if (totalEventos == 0) {
+            System.out.println("Nenhum eventro cadastrado no sistema!");
+        } else {
+            for (Evento evento : eventos) {
+                if (evento != null) {
+                    System.out.println(evento.getId() + " - " + evento.getDataEvento() + " - " + evento.getIgreja() + " - " + evento.getPessoaNoivo1().getNome() + " - " + evento.getPessoaNoivo2().getNome());
+                }
             }
         }
     }

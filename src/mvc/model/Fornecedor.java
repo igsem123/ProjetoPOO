@@ -11,14 +11,17 @@ public class Fornecedor {
     private String CNPJ;
     private String telefone;
     private String email;
-    private double valorAPagar;
+    private Double valorAPagar;
+    private Double valorParcela;
     private int parcelas;
     private String estado;
+    private Double valorInicial;
+    private int parcelaInicial;
     private final LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
     // Construtor com parâmetros
-    public Fornecedor(String nome, String CNPJ, String telefone, double valorAPagar, int parcelas, String estado, String email) {
+    public Fornecedor(String nome, String CNPJ, String telefone, Double valorAPagar, int parcelas, String estado, String email) {
         this.id = (totalFornecedores++);
         this.nome = nome;
         this.CNPJ = CNPJ;
@@ -27,6 +30,9 @@ public class Fornecedor {
         this.valorAPagar = valorAPagar;
         this.parcelas = parcelas;
         this.estado = estado;
+        this.valorParcela = criaValorDaParcela(valorAPagar, parcelas);
+        this.valorInicial = valorAPagar;
+        this.parcelaInicial = parcelas;
         this.dataCriacao = Util.getDia();
         this.dataModificacao = Util.getDia();
     }
@@ -36,6 +42,11 @@ public class Fornecedor {
         this.id = (totalFornecedores++);
         this.dataCriacao = Util.getDia();
         this.dataModificacao = Util.getDia();
+    }
+
+    private double criaValorDaParcela(Double valorAPagar, int parcelas) {
+        Double valorParcela = valorAPagar / parcelas;
+        return valorParcela;
     }
 
     public long getId() {
@@ -82,9 +93,13 @@ public class Fornecedor {
         return this.valorAPagar;
     }
 
-    public void setValorAPagar(double valorAPagar) {
-        this.valorAPagar = valorAPagar;
+    public Double getValorInicial() {
+        return valorInicial;
+    }
+
+    public void setValorParcela(Double valorParcela) {
         this.dataModificacao = Util.getDia();
+        this.valorParcela = valorParcela;
     }
 
     public int getParcelas() {
@@ -94,6 +109,18 @@ public class Fornecedor {
     public void setParcelas(int parcelas) {
         this.parcelas = parcelas;
         this.dataModificacao = Util.getDia();
+    }
+
+    public int getParcelaInicial() {
+        return parcelaInicial;
+    }
+
+    public void setValorAPagar(Double valorAPagar) {
+        this.valorAPagar = valorAPagar;
+    }
+
+    public Double getValorParcela() {
+        return valorParcela;
     }
 
     public String getEstado() {
@@ -164,6 +191,9 @@ public class Fornecedor {
         sb.append(String.format("CNPJ                : %s\n", CNPJ));
         sb.append(String.format("Telefone            : %s\n", telefone));
         sb.append(String.format("Email               : %s\n", email));
+        sb.append(String.format("Valor devido        : %.2f\n", valorAPagar));
+        sb.append(String.format("Parcelas            : %d\n", parcelas));
+        sb.append(String.format("Valor das Parcelas  : %.2f\n", valorParcela));
         sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append("=====================================================\n");

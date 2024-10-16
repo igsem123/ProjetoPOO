@@ -1,20 +1,29 @@
 package mvc.dao;
 
 import mvc.model.Pagamento;
+import mvc.model.Util;
 
 public class PagamentoDAOMemoria implements PagamentoDAO{
     private final Pagamento[] pagamentos;
-    private int totalEventos;
+    private int totalPagamentos;
 
-    public PagamentoDAOMemoria(int capacidade) {
+    public PagamentoDAOMemoria(PessoaDAO pessoaDAO, FornecedorDAO fornecedorDAO, int capacidade) {
         this.pagamentos = new Pagamento[capacidade];
-        this.totalEventos = 0;
+        this.totalPagamentos = 0;
+
+        Pagamento p1 = new Pagamento(pessoaDAO.buscaPorId(0L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa.", 2500.0,2, true, Util.formataData("21/10/2024"));
+        this.criarPagamento(p1);
+    }
+
+    public Pagamento[] getPagamentos() {
+        return pagamentos;
     }
 
     public boolean criarPagamento(Pagamento pagamento) {
-        if (totalEventos < pagamentos.length) {
-            pagamentos[totalEventos] = pagamento;
-            totalEventos++;
+        if (totalPagamentos < pagamentos.length) {
+            pagamentos[totalPagamentos] = pagamento;
+            totalPagamentos++;
+            System.out.println("\nDados do pagamento: \n\n" + pagamento.toString());
             return true;
         } else {
             System.out.println("\nCapacidade máxima atingida.");
@@ -25,6 +34,7 @@ public class PagamentoDAOMemoria implements PagamentoDAO{
     public Pagamento buscarPagamentoPorId(long id) {
         for (Pagamento pagamento : pagamentos) {
             if (pagamento != null && pagamento.getId() == id) {
+                System.out.println(pagamento.toString());
                 return pagamento;
             }
         }
@@ -60,15 +70,26 @@ public class PagamentoDAOMemoria implements PagamentoDAO{
             pagamentos[i] = pagamentos[i + 1];
         }
         pagamentos[pagamentos.length - 1] = null;
-        totalEventos--;
+        totalPagamentos--;
     }
 
     public void listarPagamentos() {
-        for (Pagamento pagamento : pagamentos) {
-            if (pagamento != null) {
-                System.out.println(pagamento);
+        if (totalPagamentos == 0) {
+            System.out.println("\nNenhum pagamento registrado!");
+        } else {
+            for (Pagamento pagamento : pagamentos) {
+                if (pagamento != null) {
+                    System.out.println(pagamento);
+                }
             }
         }
     }
 
+    public void exibirListaSimplesPagamentos() {
+        for (Pagamento pagamento : pagamentos) {
+            if (pagamento != null) {
+                System.out.println("ID do Pagamento [" + pagamento.getId() + "] - Pagador: " + pagamento.getPessoa().getNome() + " - Fornecedor: " + pagamento.getFornecedor().getNome());
+            }
+        }
+    }
 }

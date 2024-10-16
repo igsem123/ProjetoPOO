@@ -1,6 +1,7 @@
 package mvc.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 public class Pagamento {
@@ -100,6 +101,17 @@ public class Pagamento {
         return agendado;
     }
 
+    public String getAgendamento() {
+        String agendamento;
+        if (this.agendado) {
+            agendamento = "Agendado!";
+            return agendamento;
+        } else {
+            agendamento = "Não agendado!";
+            return agendamento;
+        }
+    }
+
     public void setAgendado(boolean agendado) {
         this.dataModificacao = LocalDateTime.now();
         this.agendado = agendado;
@@ -115,5 +127,22 @@ public class Pagamento {
 
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("================= Pagamento ID {" + getId() + "} =================\n");
+        sb.append(String.format("Quem fez o pagamento     : %s\n", this.getPessoa().getNome()));
+        sb.append(String.format("Quem recebeu o pagamento : %s\n", this.getFornecedor().getNome()));
+        sb.append(String.format("Descrição do pagamento   : %s\n", descricao));
+        sb.append(String.format("Valor pago               : %.2f\n", valor));
+        sb.append(String.format("Parcelas pagas           : %d\n", parcela));
+        sb.append(String.format("Foi agendado             : %s\n", this.getAgendamento()));
+        sb.append(String.format("Data do pagamento        : %s\n", dataPagamento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+        sb.append(String.format("Data de Criação          : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+        sb.append(String.format("Data de Modificação      : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+        sb.append("====================================================\n");
+        return sb.toString();
     }
 }

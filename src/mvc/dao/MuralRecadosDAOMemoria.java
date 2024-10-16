@@ -4,10 +4,10 @@ import mvc.model.*;
 
 public class MuralRecadosDAOMemoria implements MuralRecadosDAO{
     private MuralRecados[] recadosCriados;
-    private int indice;
+    private int totalRecados;
 
     public MuralRecadosDAOMemoria(PessoaDAO pessoaDAO, EventoDAO eventoDAO, int capacidade) {
-        this.indice = 0;
+        this.totalRecados = 0;
         this.recadosCriados = new MuralRecados[capacidade];
 
         // Recados de ex.:
@@ -57,9 +57,9 @@ public class MuralRecadosDAOMemoria implements MuralRecadosDAO{
 
     @Override
     public void criarRecado(MuralRecados recado) {
-        if (indice < recadosCriados.length) {
-            recadosCriados[indice] = recado;
-            indice++;
+        if (totalRecados < recadosCriados.length) {
+            recadosCriados[totalRecados] = recado;
+            totalRecados++;
             System.out.println("\nRecado registrado com sucesso: \n\n" + recado.toString());
         } else {
             System.out.println("\nCapacidade máxima de recados atingida!");
@@ -97,9 +97,13 @@ public class MuralRecadosDAOMemoria implements MuralRecadosDAO{
 
     @Override
     public void exibeListaDeRecados() {
-        for (MuralRecados recado : recadosCriados) {
-            if (recado != null) {
-                System.out.println(recado);
+        if (totalRecados == 0) {
+            System.out.println("\nNenhum recado cadastrado no mural.");
+        } else {
+            for (MuralRecados recado : recadosCriados) {
+                if (recado != null) {
+                    System.out.println(recado);
+                }
             }
         }
     }
@@ -117,8 +121,8 @@ public class MuralRecadosDAOMemoria implements MuralRecadosDAO{
     public void editaRecado(MuralRecados recadoAtualizado) {
         for (MuralRecados recados : recadosCriados) {
             if (recados != null && recados.getId() == recadoAtualizado.getId()) {
-                recadosCriados[indice] = recadoAtualizado;
-                recadosCriados[indice].setDataModificacao();
+                recadosCriados[totalRecados] = recadoAtualizado;
+                recadosCriados[totalRecados].setDataModificacao();
                 System.out.println("\nRecado editado com sucesso: \n\n" + recadoAtualizado.getComentario());
                 return;
             }
@@ -146,6 +150,6 @@ public class MuralRecadosDAOMemoria implements MuralRecadosDAO{
             recadosCriados[i] = recadosCriados[i + 1];
         }
         recadosCriados[recadosCriados.length - 1] = null;
-        indice--;
+        totalRecados--;
     }
 }

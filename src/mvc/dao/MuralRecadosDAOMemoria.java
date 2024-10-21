@@ -13,7 +13,7 @@ public class MuralRecadosDAOMemoria implements MuralRecadosDAO{
         // Recados de ex.:
         MuralRecados recado1 = new MuralRecados(
                 "Que emoção participar desse momento tão especial! Desejo toda felicidade do mundo para vocês!",
-                null,
+                "Joao",
                 eventoDAO.buscarPorId(0L)
         );
         this.criarRecado(recado1);
@@ -34,7 +34,7 @@ public class MuralRecadosDAOMemoria implements MuralRecadosDAO{
 
         MuralRecados recado4 = new MuralRecados(
                 "Ana Paula e Carlos, desejo a vocês um casamento repleto de momentos lindos e inesquecíveis!",
-                null,
+                "Paulo",
                 eventoDAO.buscarPorId(1L) // Ana Paula e Carlos Alberto
         );
         this.criarRecado(recado4);
@@ -111,7 +111,7 @@ public class MuralRecadosDAOMemoria implements MuralRecadosDAO{
     @Override
     public void exibeListaDeRecadosPorEvento(Evento evento) {
         for (MuralRecados recado : recadosCriados) {
-            if (recado != null && recado.getNomeDoEvento().equals(evento.getNomeDoEvento())) {
+            if (recado != null && recado.getEvento().getNomeDoEvento().equals(evento.getNomeDoEvento())) {
                 System.out.println(recado);
             }
         }

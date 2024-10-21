@@ -43,7 +43,8 @@ public class GUI {
             this.builder.append("\n|                          |");
             this.builder.append("\n| 1 - Login no Sistema     |");
             this.builder.append("\n| 2 - Cadastrar            |");
-            this.builder.append("\n| 3 - Sair do Programa     |");
+            this.builder.append("\n| 3 - Entrar sem Login     |");
+            this.builder.append("\n| 4 - Sair do Programa     |");
             this.builder.append("\n|                          |");
             this.builder.append("\n----------------------------");
             this.builder.append("\n\nQual sua opcao? R: ");
@@ -164,6 +165,38 @@ public class GUI {
 
                 if (opcao < 0 || opcao > 3) {
                     System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 3.");
+                }
+            } else {
+                // Limpa o buffer do scanner e avisa sobre a entrada inválida
+                this.scanner.nextLine();
+                System.out.println("\nEntrada inválida!");
+            }
+        }
+
+        return opcao;
+    }
+    
+    public int menuSemLogin() {
+        int opcao = -1; // inicializa com um valor inválido
+
+        while (opcao < 1 || opcao > 3) {
+            this.builder.setLength(0);
+            this.builder.append("\n----------------------------------------");
+            this.builder.append("\n|          BEM VINDO CONVIDADO         |");
+            this.builder.append("\n|                                      |");
+            this.builder.append("\n| 1 - Presentes                        |");
+            this.builder.append("\n| 2 - Mural de Recados                 |");
+            this.builder.append("\n| 3 - Sair                             |");
+            this.builder.append("\n|                                      |");
+            this.builder.append("\n----------------------------------------");
+            this.builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 1 || opcao > 3) {
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 1 e 3.");
                 }
             } else {
                 // Limpa o buffer do scanner e avisa sobre a entrada inválida
@@ -550,6 +583,41 @@ public class GUI {
         return opcao;
     }
 
+    public int opRelatorios() {
+    	int opcao = -1;
+
+        while (opcao < 0 || opcao > 6) {
+            builder.setLength(0);
+            builder.append("\n-----------------------------------------------");
+            builder.append("\n|  * -> Gerenciador de Relatorios             |");
+            builder.append("\n|                                             |");
+            builder.append("\n|  1 - Recados Recebidos                      |");
+            builder.append("\n|  2 - Convite Individual                     |");
+            builder.append("\n|  3 - Convite para Familia                   |");
+            builder.append("\n|  4 - Pagamentos Realizados pelos noivos     |");
+            builder.append("\n|  5 - Lista Total de Convidados              |");
+            builder.append("\n|  6 - Lista Total de Convidados Confirmados  |");
+            builder.append("\n|  0 - Sair                                   |");
+            builder.append("\n|                                             |");
+            builder.append("\n-----------------------------------------------");
+            builder.append("\n\nQual sua opcao? R: ");
+            System.out.print(this.builder.toString());
+
+            if (this.scanner.hasNextInt()) {
+                opcao = Integer.parseInt(this.scanner.nextLine());
+
+                if (opcao < 0 || opcao > 6) {
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 6.");
+                }
+            } else {
+                this.scanner.nextLine();
+                System.out.println("\nEntrada inválida!");
+            }
+        }
+
+        return opcao;
+    }
+    
     // =-=-=-=-==-=-=-=-=-=-=-=-=-=-= CRIACOES =-=-=-=-==-=-=-=-=-=-=-=-=-=-= //
     // TODO Formulário para cadastrar uma nova pessoa
     public Pessoa cadastrarPessoa() {
@@ -798,11 +866,15 @@ public class GUI {
         System.out.println("\nDigite para qual evento deseja deixar um recado: ");
         long idEvento = Long.parseLong(scanner.nextLine());
         Evento eventoDoRecado = eventoDAO.buscarPorId(idEvento);
-
+        
         System.out.println("\nQual mensagem você deseja escrever para os noivos de recado: ");
         String recado = scanner.nextLine();
-
-        return new MuralRecados(recado, Util.getPessoaLogada(), eventoDoRecado);
+        
+        if(Util.getPessoaLogada() == null) {
+        	System.out.println("\nQual é o seu nome: ");
+            String nome = scanner.nextLine();
+            return new MuralRecados(recado, nome, eventoDoRecado);
+        } else return new MuralRecados(recado, Util.getPessoaLogada(), eventoDoRecado);
     }
 
     //TODO Formulário para cadastrar um novo pagamento a ser feito pelo sistema

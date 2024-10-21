@@ -32,7 +32,7 @@ public class Main {
     public Main() {
         int opcao = -1;
 
-        while(opcao != 3) {
+        while(opcao != 4) {  // Continua o loop enquanto não for a opção de sair (4)
             opcao = gui.menuBoasVindas();
             switch (opcao) {
                 case 1:
@@ -60,23 +60,71 @@ public class Main {
                     Pessoa criar = gui.cadastrarPessoa();
                     pessoaDAO.criarPessoa(criar);
                     break;
-                case 3:
+                case 3:  // Entrar sem login
+                	Util.setPessoaLogada(null); // Seta null para os casos de ter feito login antes
+                    this.menuSemLogin();  // Método responsável pelo menu sem login
+                    break;
+                case 4:
                     System.out.println("\nVolte sempre!!");
                     break;
                 default:
-                    System.out.println("\nDigite um numero valido!");
+                    System.out.println("\nDigite um número válido!");
                     break;
             }
         }
     }
 
+    // Método responsável pelo menu sem login
+    public void menuSemLogin() {
+        int opcaoPrincipal = -1;
+        do {
+            opcaoPrincipal = gui.menuSemLogin();
+            switch (opcaoPrincipal) {
+                case 1:
+                    int opcaoPresentes = gui.opPresentesConvidados();
+                    switch (opcaoPresentes) {
+                        case 1:
+                            System.out.println("\nPresentes na lista dos noivos: ");
+                            presentesDAO.exibeListaPresentesSimples();
+                            System.out.println("\nDigite o [ID] do presente que você deseja dar aos noivos: ");
+                            long idPresentear = Long.parseLong(s.nextLine());
+                            System.out.println("\nDigite o seu nome: ");
+                            String nome = s.nextLine();
+                            presentesDAO.darPresente(idPresentear, nome);
+                            break;
+                        case 2:
+                            presentesDAO.exibeListaPresentesSimples();
+                            break;
+                        case 0:
+                            System.out.println("\nRetornando ao menu de convidados!");
+                            break;
+                        default:
+                            System.out.println("\nDigite uma opção válida.");
+                            break;
+                    }
+                    break;
+                case 2:
+                    MuralRecados novoRecado = gui.cadastraRecados();
+                    muralRecadosDAO.criarRecado(novoRecado);
+                    break;
+                case 3:
+                    System.out.println("\nRetornando ao menu inicial.");
+                    // O loop do `menuSemLogin` será encerrado e voltará ao loop principal
+                    break;
+                default:
+                    System.out.println("\nDigite uma opção válida.");
+                    break;
+            }
+        } while (opcaoPrincipal != 3);  // Sai do menu sem login quando o usuário escolhe "Sair"
+    }
+
     public static void main(String[] args) {
         Main main = new Main();
     }
-
+    
     public void menuPrincipal() {
         int opcaoPrincipal = -1;
-
+        
         if(Util.getPessoaLogada().getTipoUsuario() == 1 || Util.getPessoaLogada().getTipoUsuario() == 2 || Util.getPessoaLogada().getTipoUsuario() == 3) {
             while (opcaoPrincipal != 0) {
                 opcaoPrincipal = gui.menuPrincipal();
@@ -106,7 +154,7 @@ public class Main {
                         menuPagamentos();
                         break;
                     case 9:
-                        //menuRelatorios();
+                        menuRelatorios();
                         break;
                     case 10:
                         menuCalendario();
@@ -194,7 +242,7 @@ public class Main {
                         break;
                 }
             }
-        } else {
+           } else {
             while (opcaoPrincipal != 0) {
                 opcaoPrincipal = gui.menuUsuarioDefault();
                 switch (opcaoPrincipal) {
@@ -1271,5 +1319,35 @@ public class Main {
         } else {
             System.out.println("\nPessoa nao encontrada para alterar!");
         }
+    }
+
+    private void menuRelatorios() {
+    	int op;
+    	do {
+    		op = gui.opRelatorios();
+    		switch (op) {
+			case 1:
+				
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				
+				break;
+			case 4:
+				
+				break;
+			case 5:
+				
+				break;
+			case 6:
+				
+				break;
+			case 0:
+				System.out.println("\nSaindo do modulo de relatorios!");
+				break;
+			}
+    	} while (op != 0);
     }
 }

@@ -188,8 +188,37 @@ public class PresentesDAOMemoria implements PresentesDAO{
     public void darPresente(long id, Pessoa pessoa) {
         for (Presentes presente : presentes) {
             if (presente != null && presente.getId() == id) {
-                presente.setPessoa(pessoa);
-                System.out.println("\nPresente selecionado: \n\n" + presente.toString() + "\nPresente registrado aos noivos com sucesso!!");
+            	if (presente.getPessoa() != null) {
+                    System.out.println("-> Este presente já foi presenteado aos noivos por: " + presente.getPessoa().getNome());
+                    System.out.println("-> Escolha outro presente para dar aos noivos :)!");
+                } else if(presente.getNomePessoa() != null) {
+                	System.out.println("-> Este presente já foi presenteado aos noivos por: " + presente.getNomePessoa());
+                	System.out.println("-> Escolha outro presente para dar aos noivos :)!");
+                } else {
+                	presente.setPessoa(pessoa);
+                    System.out.println("\nPresente selecionado: \n\n" + presente.toString() + "\nPresente registrado aos noivos com sucesso!!");
+                }
+                return;
+            }
+        }
+
+        System.out.println("\nPresente não encontrado com o ID: " + id);
+    }
+    
+    @Override
+    public void darPresente(long id, String nomePessoa) {
+        for (Presentes presente : presentes) {
+            if (presente != null && presente.getId() == id) {
+            	if (presente.getPessoa() != null) {
+                    System.out.println("-> Este presente já foi presenteado aos noivos por: " + presente.getPessoa().getNome());
+                    System.out.println("-> Escolha outro presente para dar aos noivos :)!");
+                } else if(presente.getNomePessoa() != null) {
+                	System.out.println("-> Este presente já foi presenteado aos noivos por: " + presente.getNomePessoa());
+                	System.out.println("-> Escolha outro presente para dar aos noivos :)!");
+                } else {
+	                presente.setNomePessoa(nomePessoa);
+	                System.out.println("\nPresente selecionado: \n\n" + presente.toString() + "\nPresente registrado aos noivos com sucesso!!");
+                }
                 return;
             }
         }
@@ -208,6 +237,8 @@ public class PresentesDAOMemoria implements PresentesDAO{
 
                     if (presente.getPessoa() != null) {
                         System.out.println("-> Este presente já foi presenteado aos noivos por: " + presente.getPessoa().getNome());
+                    } else if(presente.getNomePessoa() != null) {
+                    	System.out.println("-> Este presente já foi presenteado aos noivos por: " + presente.getNomePessoa());
                     }
                 }
             }

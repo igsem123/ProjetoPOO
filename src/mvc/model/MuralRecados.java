@@ -8,17 +8,27 @@ public class MuralRecados {
     private long id;
     public static int serial = 0;
     private Pessoa pessoa;
-    private String nomeDoEvento;
+    private String nomePessoa;
+    private Evento evento;
     private String comentario;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
     // Construtor cheio
-    public MuralRecados (String comentario, Pessoa pessoa, Evento nomeDoEvento) {
+    public MuralRecados (String comentario, Pessoa pessoa, Evento evento) {
         this.id = (serial++);
         this.pessoa = pessoa;
         this.comentario = comentario;
-        this.nomeDoEvento = nomeDoEvento.getNomeDoEvento();
+        this.evento = evento;
+        this.dataCriacao = LocalDateTime.now();
+        this.dataModificacao = LocalDateTime.now();
+    }
+    
+    public MuralRecados (String comentario, String nome, Evento evento) {
+        this.id = (serial++);
+        this.nomePessoa = nome;
+        this.comentario = comentario;
+        this.evento = evento;
         this.dataCriacao = LocalDateTime.now();
         this.dataModificacao = LocalDateTime.now();
     }
@@ -44,14 +54,23 @@ public class MuralRecados {
         this.dataModificacao = LocalDateTime.now();
         this.pessoa = pessoa;
     }
-
-    public String getNomeDoEvento() {
-        return nomeDoEvento;
+    
+    public String getNomePessoa() {
+        return nomePessoa;
     }
 
-    public void setNomeDoEvento(String nomeDoEvento) {
+    public void setNomePessoa(String nomePessoa) {
         this.dataModificacao = LocalDateTime.now();
-        this.nomeDoEvento = nomeDoEvento;
+        this.nomePessoa = nomePessoa;
+    }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.dataModificacao = LocalDateTime.now();
+        this.evento = evento;
     }
 
     public String getDataCriacao() {
@@ -88,10 +107,12 @@ public class MuralRecados {
         sb.append("========================================== Comentário Nº.: {" + getId() + "} ==========================================\n");
         if (pessoa != null) { // Verificando se a pessoa é nula na criação do toString
             sb.append(String.format("Quem comentou       : %s\n", pessoa.getNome()));
+        } else if(nomePessoa != null){ // Verificando se nomePessoa é nulo na criação do toString
+        	sb.append(String.format("Quem comentou       : %s\n", nomePessoa));
         } else {
             sb.append("Quem comentou       : Não definido\n");
         }
-        sb.append(String.format("Evento              : [- %s -]\n", nomeDoEvento));
+        sb.append(String.format("Evento              : [- %s -]\n", evento.getNomeDoEvento()));
         sb.append(String.format("Comentário          : %s\n", comentario));
         sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));

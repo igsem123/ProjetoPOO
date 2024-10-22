@@ -7,6 +7,7 @@ public interface PresentesDAO {
     void adicionarPresente(Presentes presente);
     Presentes buscarPorId(long id);
     void darPresente(long id, Pessoa pessoa);
+    void darPresente(long id, String nomePessoa);
     void exibeListaPresentesSimples();
     void atualizarPresente(long id, Presentes presente);
     void removerPresente(long id);

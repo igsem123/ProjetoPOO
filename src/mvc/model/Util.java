@@ -59,6 +59,6 @@ public class Util {
         diaAtual = LocalDateTime.of(2024, Month.OCTOBER, 10, 22, 5);
         dia = LocalDateTime.now();
         dia2 = LocalDate.now();
-        diaInicioDoSistema = LocalDate.of(2024, Month.OCTOBER, 1);
+        diaInicioDoSistema = LocalDate.of(2024, Month.MAY, 1);
     }
 }

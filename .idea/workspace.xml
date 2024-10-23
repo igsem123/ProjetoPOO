@@ -7,15 +7,7 @@
     <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v1.6">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PresentesDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PresentesDAOMemoria.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/model/Calendario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Calendario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/model/Fornecedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Fornecedor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/model/Pagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Pagamento.java" afterDir="false" />
@@ -52,7 +44,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/igsem123/ProjetoPOO.git&quot;,
-    &quot;accountId&quot;: &quot;6948aaf8-1890-4146-bf08-431d82cfa30a&quot;
+    &quot;accountId&quot;: &quot;d50dd616-959b-483c-8621-e7628a16486a&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -76,27 +68,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.GUI.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.mvc.controller.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;raphael/Criacao-CRUD-Pagamentos-e-Calendario&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/rnmoreira/Documents/Projetos Faculdade/academia_parte1&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/rnath/Documents/IdeaProjects/ProjetoPOO/src/Main.java&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.GUI.executor": "Debug",
+    "Application.Main.executor": "Run",
+    "Application.mvc.controller.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/rnmoreira/Documents/Projetos Faculdade/academia_parte1",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/rnath/Documents/IdeaProjects/ProjetoPOO/src/Main.java",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="mvc.dao" />
@@ -158,8 +150,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.300" />
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.300" />
       </set>
     </attachedChunks>
   </component>
@@ -186,6 +178,8 @@
       <workItem from="1728904411865" duration="22858000" />
       <workItem from="1728990004451" duration="17338000" />
       <workItem from="1729075862490" duration="22365000" />
+      <workItem from="1729635073908" duration="602000" />
+      <workItem from="1729635688756" duration="8058000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -344,5 +338,9 @@
     <MESSAGE value="v1.5" />
     <MESSAGE value="v1.6" />
     <option name="LAST_COMMIT_MESSAGE" value="v1.6" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

@@ -18,53 +18,74 @@ public class Calendario {
         this.dataAtual = novaData;
     }
 
-    public void avancarDia(Pagamento[] pagamentos) {
+    public LocalDateTime avancarDia(LocalDateTime dataRecebida) {
         // Avança a data atual em um dia
-        dataAtual = dataAtual.plusDays(1);
-
-        // Verifica pagamentos agendados para a data atual
-        verificarPagamentosAgendados(pagamentos);
+        return dataRecebida.plusDays(1);
     }
 
-    public void avancarDias(int dias, Pagamento[] pagamentos) {
-        for (int i = 0; i < dias; i++) {
-            avancarDia(pagamentos);
+    // Pegar dia inicial do sistema e avançar para a data atual
+    public void avancarDiasEconferirPagamentos(Pagamento[] pagamentos) {
+        LocalDateTime diaInicialDoSistema = Util.getDiaInicioDoSistema().atStartOfDay();
+        LocalDateTime diaAtual = Util.getDia();
+
+        do {
+            diaInicialDoSistema = avancarDia(diaInicialDoSistema);
+            if (verificarPagamentosAgendados(diaInicialDoSistema, pagamentos)) {
+                System.out.println("\nPagamento feito em data: " + diaInicialDoSistema.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                System.out.println("\n--------------------------------------------------");
+            }
+        } while (diaInicialDoSistema.isBefore(diaAtual)) ;
+
+        if (!verificarPagamentosAgendados(diaInicialDoSistema, pagamentos)) {
+            System.out.println("\nNão há mais pagamentos agendados para serem efetuados.");
         }
+
+        // Notificar pagamentos próximos
+        notificarPagamentosProximos(pagamentos, 3);
     }
 
     // Verifica pagamentos agendados para a data atual
-    public void verificarPagamentosAgendados(Pagamento[] pagamentos) {
-        // Verifica pagamentos agendados para a data atual
+    public boolean verificarPagamentosAgendados(LocalDateTime data, Pagamento[] pagamentos) {
+        // Processa os pagamentos agendados para a data atual
         for (Pagamento pagamento : pagamentos) {
-            if (pagamento != null && pagamento.isAgendado() && pagamento.getDataPagamento().equals(this.dataAtual)) {
+            if (pagamento != null && pagamento.isAgendado() && pagamento.getDataPagamento().equals(data.toLocalDate())
+                    && pagamento.getFornecedor().getValorAPagar() > 0) {
                 // Obter o fornecedor relacionado ao pagamento
                 Fornecedor fornecedor = pagamento.getFornecedor();
 
-                // Calcular valor das parcelas a serem pagas
-                double valorAPagar = pagamento.getValor(); // Valor total do pagamento
-                int parcelasRestantes = fornecedor.getParcelas(); // Parcelas restantes do fornecedor
-
-                // Calcular o valor de cada parcela
-                double valorParcela = fornecedor.getValorParcela();
-                double valorPago = valorParcela * pagamento.getParcela();
-
-                // Atualiza o valor do fornecedor após o pagamento
-                fornecedor.setValorAPagar(fornecedor.getValorAPagar() - valorPago);
-                fornecedor.setParcelas(parcelasRestantes - pagamento.getParcela());
-
-                // Atualiza o pagamento como concluído
-                pagamento.setParcela(0); // Marca o pagamento como concluído para esse ciclo
-                pagamento.setDataModificacao(LocalDateTime.now());
-
-                // Se todas as parcelas foram pagas, atualiza o estado do fornecedor
-                if (fornecedor.getValorAPagar() <= 0) {
-                    fornecedor.setEstado("Pago Completo");
-                    System.out.println("\nO fornecedor " + fornecedor.getNome() + " foi totalmente pago.");
+                if (fornecedor.getValorAPagar() == 0) {
+                    System.out.println("\nO fornecedor " + fornecedor.getNome() + " já foi totalmente pago.");
                 } else {
-                    System.out.println("\nO fornecedor " + fornecedor.getNome() + " ainda possui saldo em aberto: " + fornecedor.getValorAPagar());
+                    // Calcular valor das parcelas a serem pagas
+                    double valorAPagar = pagamento.getValor(); // Valor total do pagamento
+                    int parcelasRestantes = fornecedor.getParcelas(); // Parcelas restantes do fornecedor
+
+                    // Calcular o valor de cada parcela
+                    double valorParcela = fornecedor.getValorParcela();
+                    double valorPago = valorParcela * pagamento.getParcela();
+
+                    // Atualiza o valor do fornecedor após o pagamento
+                    fornecedor.setValorAPagar(fornecedor.getValorAPagar() - valorPago);
+                    fornecedor.setParcelas(parcelasRestantes - pagamento.getParcela());
+
+                    // Atualiza o pagamento como concluído
+                    pagamento.setParcela(1);
+                    pagamento.setAgendado(false);
+                    pagamento.setDataModificacao(LocalDateTime.now());
+
+                    // Se todas as parcelas foram pagas, atualiza o estado do fornecedor
+                    if (fornecedor.getValorAPagar() <= 0) {
+                        fornecedor.setEstado("Pago Completo");
+                        System.out.println("\nO fornecedor " + fornecedor.getNome() + " foi totalmente pago.");
+                    } else {
+                        System.out.println("\nTransação efetuada com sucesso! O fornecedor " + fornecedor.getNome() + " ainda possui saldo em aberto de R$ " + fornecedor.getValorAPagar() + ".");
+                    }
+
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     public void notificarPagamentosProximos(Pagamento[] pagamentos, int diasAntecedencia) {
@@ -103,5 +124,14 @@ public class Calendario {
     // Getters e Setters
     public LocalDate getDataAtual() {
         return dataAtual;
+    }
+
+    // Exibe os pagamentos agendados para a data atual
+    public void exibirPagamentosAgendados(LocalDateTime dataAtual, Pagamento[] pagamentos) {
+        for (Pagamento pagamento : pagamentos) {
+            if (pagamento != null && pagamento.getDataPagamento().equals(dataAtual.toLocalDate())) {
+                System.out.println("\n" + pagamento);
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ import mvc.model.*;
 import mvc.view.GUI;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
@@ -1245,10 +1246,27 @@ public class Main {
             op = gui.opCalendario();
             switch(op) {
                 case 1:
-                    calendario.verificarPagamentosAgendados(pagamentoDAO.getPagamentos());
+                    LocalDateTime dataAtual = calendario.getDataAtual().atStartOfDay();
+
+                    if (calendario.verificarPagamentosAgendados(dataAtual, pagamentoDAO.getPagamentos())) {
+                        System.out.println("\nExistem pagamentos feitos com sucesso para hoje, deseja visualizá-los?");
+                        System.out.println("Digite [1] para SIM e [0] para NÃO.");
+                        int opcao = Integer.parseInt(s.nextLine());
+
+                        if (opcao == 1) {
+                            calendario.exibirPagamentosAgendados(dataAtual, pagamentoDAO.getPagamentos());
+                        }
+                    } else {
+                        System.out.println("\nNão existem pagamentos agendados para hoje.");
+                    }
                     break;
 
                 case 2:
+                    System.out.println("\nConferindo se existem pagamentos a serem feitos e realizando-os:");
+                    calendario.avancarDiasEconferirPagamentos(pagamentoDAO.getPagamentos());
+                    break;
+
+                case 3:
                     calendario.exibirDataAtual();
                     System.out.println("\nDigite a nova data do sistema (dd/MM/yyyy):");
                     String novaData = s.next();

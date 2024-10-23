@@ -36,7 +36,7 @@ public class GUI {
     public int menuBoasVindas() {
         int opcao = -1; // inicializa com um valor inválido
 
-        while (opcao < 1 || opcao > 3) {
+        while (opcao < 1 || opcao > 4) {
             this.builder.setLength(0);
             this.builder.append("\n----------------------------");
             this.builder.append("\n|   GESTÃO DE CASAMENTOS   |");
@@ -53,13 +53,13 @@ public class GUI {
             if (this.scanner.hasNextInt()) {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
-                if (opcao < 1 || opcao > 3) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 1 e 3.");
+                if (opcao < 1 || opcao > 4) {
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 1 e 4.");
                 }
             } else {
                 // Limpa o buffer do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
-                System.out.println("\nEntrada inválida! Por favor, digite um número (1, 2 ou 3).");
+                System.out.println("\nEntrada inválida! Por favor, digite um número (1, 2, 3 ou 4).");
             }
         }
 
@@ -555,13 +555,14 @@ public class GUI {
     public int opCalendario() {
         int opcao = -1;
 
-        while (opcao < 0 || opcao > 2) {
+        while (opcao < 0 || opcao > 3) {
             builder.setLength(0);
             builder.append("\n--------------------------------------------------");
             builder.append("\n|  * -> Calendário do Sistema                    |");
             builder.append("\n|                                                |");
             builder.append("\n|  1 - Verificar pagamentos agendados para hoje  |");
-            builder.append("\n|  2 - Modificar data do calendário              |");
+            builder.append("\n|  2 - Verificar pagamentos agendados e pagar    |");
+            builder.append("\n|  3 - Modificar data do calendário              |");
             builder.append("\n|  0 - Sair                                      |");
             builder.append("\n|                                                |");
             builder.append("\n--------------------------------------------------");
@@ -571,12 +572,12 @@ public class GUI {
             if (this.scanner.hasNextInt()) {
                 opcao = Integer.parseInt(this.scanner.nextLine());
 
-                if (opcao < 0 || opcao > 2) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 2.");
+                if (opcao < 0 || opcao > 3) {
+                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 3.");
                 }
             } else {
                 this.scanner.nextLine();
-                System.out.println("\nEntrada inválida! Escolha entre 0, 1 ou 2.");
+                System.out.println("\nEntrada inválida! Escolha entre 0, 1, 2 ou 3.");
             }
         }
 

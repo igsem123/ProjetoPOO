@@ -1,5 +1,3 @@
-Aqui está a versão atualizada do seu README com base nas funcionalidades mais recentes do projeto:
-
 ---
 
 # Gestão de Casamentos

@@ -11,8 +11,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import com.itextpdf.text.pdf.BaseFont;
 
 public class RelatorioDAOMemoria implements RelatorioDAO {
+
+    // Criação das Fontes de Texto
+    private static final String FONT = "fonts/CaviarDreams.ttf";
+    private static final String FONT_BOLD = "fonts/CaviarDreams_Bold.ttf";
+    private static final String FONT_ITALIC = "fonts/CaviarDreams_Italic.ttf";
+    private static final String FONT_BOLD_ITALIC = "fonts/CaviarDreams_BoldItalic.ttf";
+
+    // Criação das Fontes de Título
+    private static final String FONT_TITLE = "fonts/Stalysta.ttf";
 
 	@Override
     public void recadosRecebidosPDF(MuralRecados[] recados, String evento, String path) {
@@ -23,19 +33,29 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.open();
 
             // Adiciona a imagem de fundo
-            Image background = Image.getInstance("images/moldura_reports_convidados.png");
+            Image background = Image.getInstance("images/moldura_reports_convidados_segundo_tipo.png");
             background.setAbsolutePosition(0, 0);
             background.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
             document.add(background);
 
+            // Carregar a fonte personalizada
+            BaseFont bf = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            Font font = new Font(bf, 12, Font.NORMAL, new BaseColor(128, 0, 128));
+            BaseFont bfBold = BaseFont.createFont(FONT_BOLD, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont bfItalic = BaseFont.createFont(FONT_ITALIC, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont bfBoldItalic = BaseFont.createFont(FONT_BOLD_ITALIC, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+            /*BaseFont bfTitle = BaseFont.createFont(FONT_TITLE, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            Font fontTitle2 = new Font(bfTitle, 16, Font.NORMAL, new BaseColor(128, 0, 128));*/
+
             // Configuração de fontes
-            Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLDOBLIQUE, 16);
+            Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLDOBLIQUE, 16, new BaseColor(128, 0, 128));
             Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10);
             Font fontMaior = FontFactory.getFont(FontFactory.HELVETICA, 12);
             Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 10);
 
             // Adicionando título
-            Paragraph title = new Paragraph("Relatório - Recados Recebidos do Evento: ", fontTitle);
+            Paragraph title = new Paragraph("Relatório - Recados Recebidos do Evento: ", font);
             title.setAlignment(Element.ALIGN_CENTER);
             title.setSpacingBefore(18f);
             document.add(title);

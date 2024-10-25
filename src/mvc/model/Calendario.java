@@ -31,7 +31,7 @@ public class Calendario {
         do {
             diaInicialDoSistema = avancarDia(diaInicialDoSistema);
             if (verificarPagamentosAgendados(diaInicialDoSistema, pagamentos)) {
-                System.out.println("\nPagamento feito em data: " + diaInicialDoSistema.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                System.out.println("\nPagamento agendado para '" + diaInicialDoSistema.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "' foi efetuado com sucesso em '" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "'.");
                 System.out.println("\n--------------------------------------------------");
             }
         } while (diaInicialDoSistema.isBefore(diaAtual)) ;

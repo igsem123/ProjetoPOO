@@ -12,6 +12,8 @@ public interface MuralRecadosDAO {
 
     MuralRecados buscarPorId(long id);
 
+    MuralRecados[] buscarTodosPorEvento(Evento evento);
+    
     void exibeListaDeRecados();
 
     void exibeListaDeRecadosPorEvento(Evento evento);

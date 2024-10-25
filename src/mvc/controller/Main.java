@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import com.itextpdf.text.DocumentException;
+
 public class Main {
     // Inicializa os DAOs uma única vez
     PessoaDAO pessoaDAO = new PessoaDAOMemoria();
@@ -20,7 +22,8 @@ public class Main {
     PresentesDAO presentesDAO = new PresentesDAOMemoria(pessoaDAO, 500);
     MuralRecadosDAO muralRecadosDAO = new MuralRecadosDAOMemoria(pessoaDAO, eventoDAO, 1000);
     PagamentoDAO pagamentoDAO = new PagamentoDAOMemoria(pessoaDAO, fornecedorDAO, 1000);
-
+    RelatorioDAOMemoria relatorio = new RelatorioDAOMemoria();
+    
     // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
     GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO, convidadoIndividualDAO, convidadoFamiliaDAO, presentesDAO, muralRecadosDAO, pagamentoDAO);
 
@@ -1345,7 +1348,17 @@ public class Main {
     		op = gui.opRelatorios();
     		switch (op) {
 			case 1:
-				
+				System.out.println("\nDe qual evento deseja extrair o relatorio? ");
+                eventoDAO.exibirListaEventosSimples();
+                System.out.println("\nInforme o [ID]: ");
+                long idEventoDoRecado = Long.parseLong(s.nextLine());
+                Evento eventoDoRecado = eventoDAO.buscarPorId(idEventoDoRecado);
+
+                if (eventoDoRecado != null) {
+                    MuralRecados[] recados = muralRecadosDAO.buscarTodosPorEvento(eventoDoRecado);
+                    relatorio.recadosRecebidosPDF(recados, eventoDoRecado.getNomeDoEvento(), "RelatorioRecadosRecebidos.pdf");
+                }
+                
 				break;
 			case 2:
 				
@@ -1357,10 +1370,12 @@ public class Main {
 				
 				break;
 			case 5:
-				
+				ConvidadoIndividual[] convidados = convidadoIndividualDAO.buscarTodos();
+				relatorio.listaConvidadosPDF(convidados, "ListaDeConvidados.pdf");
 				break;
 			case 6:
-				
+				ConvidadoIndividual[] convidadosConfirmados = convidadoIndividualDAO.buscarTodosConfirmados();
+				relatorio.listaConvidadosPDF(convidadosConfirmados, "ListaDeConvidadosConfirmados.pdf");
 				break;
 			case 0:
 				System.out.println("\nSaindo do modulo de relatorios!");

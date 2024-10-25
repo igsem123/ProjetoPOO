@@ -1377,7 +1377,7 @@ public class Main {
 
                 case 6:
                     ConvidadoIndividual[] convidadosConfirmados = convidadoIndividualDAO.buscarTodosConfirmados();
-                    reportPath = "reports/ListaDeConvidados.pdf";
+                    reportPath = "reports/ListaDeConvidadosConfirmados.pdf";
                     relatorio.listaConvidadosPDF(convidadosConfirmados, reportPath);
                     break;
 

@@ -59,6 +59,29 @@ public class PagamentoDAOMemoria implements PagamentoDAO{
         System.out.println("\nPagamento com ID [" + id + "] não encontrado.");
         return null;
     }
+    
+    public Pagamento[] buscarTodos() {
+    	// Conta número de pagamentos válidos
+        int count = 0;
+        for (Pagamento pagamento : pagamentos) {
+            if (pagamento != null) {
+                count++;
+            }
+        }
+
+        // Array do tamanho exato dos pagamentos válidos
+        Pagamento[] pagamentosValidos = new Pagamento[count];
+        int index = 0;
+
+        // Adiciona apenas os pagamentos válidos no array
+        for (Pagamento pagamento : pagamentos) {
+            if (pagamento != null) {
+            	pagamentosValidos[index++] = pagamento;
+            }
+        }
+        
+        return pagamentosValidos;
+    }
 
     public boolean atualizarPagamento(Pagamento pagamentoAtualizado) {
         for (int i = 0; i < pagamentos.length; i++) {

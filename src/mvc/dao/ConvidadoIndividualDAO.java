@@ -5,6 +5,8 @@ import mvc.model.ConvidadoIndividual;
 public interface ConvidadoIndividualDAO {
     void criarConvidado(ConvidadoIndividual convidado);
     ConvidadoIndividual buscarPorId(long id);
+    ConvidadoIndividual[] buscarTodos();
+    ConvidadoIndividual[] buscarTodosConfirmados();
     void atualizarConvidado(long id, ConvidadoIndividual convidadoAtualizado);
     void removerConvidado(long id);
     void listarConvidados();

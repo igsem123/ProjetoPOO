@@ -94,6 +94,30 @@ public class MuralRecadosDAOMemoria implements MuralRecadosDAO{
 
         return null;
     }
+    
+    @Override
+    public MuralRecados[] buscarTodosPorEvento(Evento evento) {
+        // Conta o número de recados válidos
+        int count = 0;
+        for (MuralRecados recado : recadosCriados) {
+            if (recado != null && recado.getEvento().getNomeDoEvento().equals(evento.getNomeDoEvento())) {
+                count++;
+            }
+        }
+
+        // Array do tamanho exato dos recados válidos
+        MuralRecados[] recadosValidos = new MuralRecados[count];
+        int index = 0;
+
+        // Adiciona apenas os recados válidos ao array
+        for (MuralRecados recado : recadosCriados) {
+            if (recado != null && recado.getEvento().getNomeDoEvento().equals(evento.getNomeDoEvento())) {
+                recadosValidos[index++] = recado;
+            }
+        }
+
+        return recadosValidos;
+    }
 
     @Override
     public void exibeListaDeRecados() {

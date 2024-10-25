@@ -74,6 +74,54 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
         }
         return null;
     }
+    
+    //Buscar Todos
+    public ConvidadoIndividual[] buscarTodos() {
+        // Conta número de convidados válidos
+        int count = 0;
+        for (ConvidadoIndividual convidado : convidados) {
+            if (convidado != null) {
+                count++;
+            }
+        }
+
+        // Array do tamanho exato dos convidados válidos
+        ConvidadoIndividual[] convidadosValidos = new ConvidadoIndividual[count];
+        int index = 0;
+
+        // Adiciona apenas os convidados válidos no array
+        for (ConvidadoIndividual convidado : convidados) {
+            if (convidado != null) {
+                convidadosValidos[index++] = convidado;
+            }
+        }
+        
+        return convidadosValidos;
+    }
+    
+    //Buscar Todos Confirmados
+    public ConvidadoIndividual[] buscarTodosConfirmados() {
+        // Conta número de convidados válidos
+        int count = 0;
+        for (ConvidadoIndividual convidado : convidados) {
+            if (convidado != null && convidado.confirmacao) {
+                count++;
+            }
+        }
+
+        // Array do tamanho exato dos convidados válidos
+        ConvidadoIndividual[] convidadosValidos = new ConvidadoIndividual[count];
+        int index = 0;
+
+        // Adiciona apenas os convidados válidos e confirmados no array
+        for (ConvidadoIndividual convidado : convidados) {
+            if (convidado != null && convidado.confirmacao) {
+                convidadosValidos[index++] = convidado;
+            }
+        }
+        
+        return convidadosValidos;
+    }
 
     // Atualizar
     public void atualizarConvidado(long id, ConvidadoIndividual convidadoAtualizado) {

@@ -7,6 +7,7 @@ import mvc.model.*;
 import mvc.view.GUI;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import com.itextpdf.text.DocumentException;
@@ -22,7 +23,7 @@ public class Main {
     MuralRecadosDAO muralRecadosDAO = new MuralRecadosDAOMemoria(pessoaDAO, eventoDAO, 1000);
     PagamentoDAO pagamentoDAO = new PagamentoDAOMemoria(pessoaDAO, fornecedorDAO, 1000);
     RelatorioDAOMemoria relatorio = new RelatorioDAOMemoria();
-    
+
     // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
     GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO, convidadoIndividualDAO, convidadoFamiliaDAO, presentesDAO, muralRecadosDAO, pagamentoDAO);
 
@@ -64,7 +65,7 @@ public class Main {
                     pessoaDAO.criarPessoa(criar);
                     break;
                 case 3:  // Entrar sem login
-                	Util.setPessoaLogada(null); // Seta null para os casos de ter feito login antes
+                    Util.setPessoaLogada(null); // Seta null para os casos de ter feito login antes
                     this.menuSemLogin();  // Método responsável pelo menu sem login
                     break;
                 case 4:
@@ -124,10 +125,10 @@ public class Main {
     public static void main(String[] args) {
         Main main = new Main();
     }
-    
+
     public void menuPrincipal() {
         int opcaoPrincipal = -1;
-        
+
         if(Util.getPessoaLogada().getTipoUsuario() == 1 || Util.getPessoaLogada().getTipoUsuario() == 2 || Util.getPessoaLogada().getTipoUsuario() == 3) {
             while (opcaoPrincipal != 0) {
                 opcaoPrincipal = gui.menuPrincipal();
@@ -245,7 +246,7 @@ public class Main {
                         break;
                 }
             }
-           } else {
+        } else {
             while (opcaoPrincipal != 0) {
                 opcaoPrincipal = gui.menuUsuarioDefault();
                 switch (opcaoPrincipal) {
@@ -1248,10 +1249,25 @@ public class Main {
             op = gui.opCalendario();
             switch(op) {
                 case 1:
-                    calendario.verificarPagamentosAgendados(pagamentoDAO.getPagamentos());
+                    calendario.verificarPagamentosAgendados(Util.getDia(), pagamentoDAO.getPagamentos());
+                    LocalDateTime dataAtual = calendario.getDataAtual().atStartOfDay();
+                    if (calendario.verificarPagamentosAgendados(dataAtual, pagamentoDAO.getPagamentos())) {
+                        System.out.println("\nExistem pagamentos feitos com sucesso para hoje, deseja visualizá-los?");
+                        System.out.println("Digite [1] para SIM e [0] para NÃO.");
+                        int opcao = Integer.parseInt(s.nextLine());
+                        if (opcao == 1) {
+                            calendario.exibirPagamentosAgendados(dataAtual, pagamentoDAO.getPagamentos());
+                        }
+                    } else {
+                        System.out.println("\nNão existem pagamentos agendados para hoje.");
+                    }
                     break;
 
                 case 2:
+                    System.out.println("\nConferindo se existem pagamentos a serem feitos e realizando-os:");
+                    calendario.avancarDiasEconferirPagamentos(pagamentoDAO.getPagamentos());
+                    break;
+                case 3:
                     calendario.exibirDataAtual();
                     System.out.println("\nDigite a nova data do sistema (dd/MM/yyyy):");
                     String novaData = s.next();
@@ -1325,44 +1341,50 @@ public class Main {
     }
 
     private void menuRelatorios() {
-    	int op;
-    	do {
-    		op = gui.opRelatorios();
-    		switch (op) {
-			case 1:
-				System.out.println("\nDe qual evento deseja extrair o relatorio? ");
-                eventoDAO.exibirListaEventosSimples();
-                System.out.println("\nInforme o [ID]: ");
-                long idEventoDoRecado = Long.parseLong(s.nextLine());
-                Evento eventoDoRecado = eventoDAO.buscarPorId(idEventoDoRecado);
+        int op;
+        String reportPath; // Caminho do relatório
+        do {
+            op = gui.opRelatorios();
+            switch (op) {
+                case 1:
+                    System.out.println("\nDe qual evento deseja extrair o relatorio? ");
+                    eventoDAO.exibirListaEventosSimples();
+                    System.out.println("\nInforme o [ID]: ");
+                    long idEventoDoRecado = Long.parseLong(s.nextLine());
+                    Evento eventoDoRecado = eventoDAO.buscarPorId(idEventoDoRecado);
+                    reportPath = "reports/RelatorioRecadosRecebidos.pdf";
 
-                if (eventoDoRecado != null) {
-                    MuralRecados[] recados = muralRecadosDAO.buscarTodosPorEvento(eventoDoRecado);
-                    relatorio.recadosRecebidosPDF(recados, eventoDoRecado.getNomeDoEvento(), "RelatorioRecadosRecebidos.pdf");
-                }
-                
-				break;
-			case 2:
-				
-				break;
-			case 3:
-				
-				break;
-			case 4:
-				
-				break;
-			case 5:
-				ConvidadoIndividual[] convidados = convidadoIndividualDAO.buscarTodos();
-				relatorio.listaConvidadosPDF(convidados, "ListaDeConvidados.pdf");
-				break;
-			case 6:
-				ConvidadoIndividual[] convidadosConfirmados = convidadoIndividualDAO.buscarTodosConfirmados();
-				relatorio.listaConvidadosPDF(convidadosConfirmados, "ListaDeConvidadosConfirmados.pdf");
-				break;
-			case 0:
-				System.out.println("\nSaindo do modulo de relatorios!");
-				break;
-			}
-    	} while (op != 0);
+                    if (eventoDoRecado != null) {
+                        MuralRecados[] recados = muralRecadosDAO.buscarTodosPorEvento(eventoDoRecado);
+                        relatorio.recadosRecebidosPDF(recados, eventoDoRecado.getNomeDoEvento(), reportPath);
+                    }
+                    break;
+
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+                case 5:
+                    ConvidadoIndividual[] convidados = convidadoIndividualDAO.buscarTodos();
+                    reportPath = "reports/ListaDeConvidados.pdf";
+                    relatorio.listaConvidadosPDF(convidados, reportPath);
+                    break;
+
+                case 6:
+                    ConvidadoIndividual[] convidadosConfirmados = convidadoIndividualDAO.buscarTodosConfirmados();
+                    reportPath = "reports/ListaDeConvidados.pdf";
+                    relatorio.listaConvidadosPDF(convidadosConfirmados, reportPath);
+                    break;
+
+                case 0:
+                    System.out.println("\nSaindo do modulo de relatorios!");
+                    break;
+            }
+        } while (op != 0);
     }
 }

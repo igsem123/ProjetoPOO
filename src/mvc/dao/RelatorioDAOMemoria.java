@@ -8,6 +8,7 @@ import com.itextpdf.text.pdf.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -21,8 +22,14 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             PdfWriter.getInstance(document, new FileOutputStream(path));
             document.open();
 
+            // Adiciona a imagem de fundo
+            Image background = Image.getInstance("images/moldura_reports_convidados.png");
+            background.setAbsolutePosition(0, 0);
+            background.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
+            document.add(background);
+
             // Configuração de fontes
-            Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16);
+            Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLDOBLIQUE, 16);
             Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10);
             Font fontMaior = FontFactory.getFont(FontFactory.HELVETICA, 12);
             Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 10);
@@ -30,6 +37,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             // Adicionando título
             Paragraph title = new Paragraph("Relatório - Recados Recebidos do Evento: ", fontTitle);
             title.setAlignment(Element.ALIGN_CENTER);
+            title.setSpacingBefore(18f);
             document.add(title);
             
             // Adicionando subtítulo
@@ -47,7 +55,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
 
             // Criando uma tabela para os recados
             PdfPTable table = new PdfPTable(5); // 5 colunas
-            table.setWidthPercentage(100); // Largura total da página
+            table.setWidthPercentage(90); // Largura total da página
             table.setSpacingBefore(10f); // Espaço antes da tabela
 
             // Definindo a largura das colunas
@@ -80,9 +88,9 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.add(table); // Adiciona a tabela ao documento
             document.close(); // Fecha o documento
 
-            System.out.println("PDF gerado com sucesso no caminho: " + path);
+            System.out.println("\nPDF gerado com sucesso no caminho: " + path);
 
-        } catch (FileNotFoundException | DocumentException e) {
+        } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -171,7 +179,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.add(table); // Adiciona a tabela ao documento
             document.close(); // Fecha o documento
 
-            System.out.println("PDF gerado com sucesso no caminho: " + path);
+            System.out.println("\nPDF gerado com sucesso no caminho: " + path);
 
         } catch (FileNotFoundException | DocumentException e) {
             e.printStackTrace();
@@ -186,6 +194,12 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             Document document = new Document(PageSize.A4);
             PdfWriter.getInstance(document, new FileOutputStream(path));
             document.open();
+
+            // Adiciona a imagem de fundo
+            Image background = Image.getInstance("images/moldura_reports_convidados.png");
+            background.setAbsolutePosition(0, 0);
+            background.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
+            document.add(background);
 
             // Configuração de fontes
             Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16);
@@ -236,9 +250,9 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.add(table); // Adiciona a tabela ao documento
             document.close(); // Fecha o documento
 
-            System.out.println("PDF gerado com sucesso no caminho: " + path);
+            System.out.println("\nPDF gerado com sucesso no caminho: " + path);
 
-        } catch (FileNotFoundException | DocumentException e) {
+        } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
 	}

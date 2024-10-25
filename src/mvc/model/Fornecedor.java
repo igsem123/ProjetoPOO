@@ -17,6 +17,7 @@ public class Fornecedor {
     private String estado;
     private Double valorInicial;
     private int parcelaInicial;
+    private int totalParcelasPagas = 0;
     private final LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
@@ -194,9 +195,18 @@ public class Fornecedor {
         sb.append(String.format("Valor devido        : %.2f\n", valorAPagar));
         sb.append(String.format("Parcelas            : %d\n", parcelas));
         sb.append(String.format("Valor das Parcelas  : %.2f\n", valorParcela));
+        sb.append(String.format("Parcelas Pagas      : %d\n", totalParcelasPagas));
         sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append("=====================================================\n");
         return sb.toString();
+    }
+
+    public int getTotalParcelasPagas() {
+        return totalParcelasPagas;
+    }
+
+    public void setTotalParcelasPagas(int totalParcelasPagas) {
+        this.totalParcelasPagas = totalParcelasPagas;
     }
 }

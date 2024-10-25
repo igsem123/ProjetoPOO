@@ -42,9 +42,7 @@ public class Pagamento {
         this.dataModificacao = LocalDateTime.now(); // Atualiza a data de modificação
     }
 
-    // Exemplo de como verificar se o pagamento está completo
     public boolean isPagoCompleto() {
-        // Implementação para verificar se todas as parcelas foram pagas
         return this.parcela == 0;
     }
 
@@ -107,8 +105,19 @@ public class Pagamento {
             agendamento = "Agendado!";
             return agendamento;
         } else {
-            agendamento = "Não agendado!";
-            return agendamento;
+            if (this.dataPagamento.isBefore(LocalDate.now())) {
+                agendamento = "Pago com atraso!";
+                return agendamento;
+            } else if (this.dataPagamento.isEqual(LocalDate.now())) {
+                agendamento = "Pago!";
+                return agendamento;
+            } else if (this.dataPagamento.isAfter(LocalDate.now())) {
+                agendamento = "Pagamento próximo!";
+                return agendamento;
+            } else {
+                agendamento = "Não agendado!";
+                return agendamento;
+            }
         }
     }
 

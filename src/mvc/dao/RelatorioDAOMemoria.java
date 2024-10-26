@@ -285,6 +285,9 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             table.addCell(createCell("Valor", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
             table.addCell(createCell("Data Pagamento", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
 
+            // Variável para somar o valor total dos pagamentos
+            double totalValor = 0.0;
+            
             // Adicionando os pagamentos na tabela
             for (Pagamento pagamento : pagamentos) {
                 table.addCell(createCell(String.valueOf(pagamento.getId()), fontNormal, BaseColor.WHITE, Element.ALIGN_CENTER));
@@ -293,10 +296,22 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
                 table.addCell(createCell(pagamento.getDescricao(), fontNormal, BaseColor.WHITE, Element.ALIGN_LEFT));
                 table.addCell(createCell(String.format("%.2f", pagamento.getValor()), fontNormal, BaseColor.WHITE, Element.ALIGN_RIGHT));
                 table.addCell(createCell(pagamento.getDataPagamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), fontNormal, BaseColor.WHITE, Element.ALIGN_CENTER));
+                
+                // Acumula o valor do pagamento no total
+                totalValor += pagamento.getValor();
             }
 
             // Adiciona a tabela ao documento
             document.add(table);
+            
+         
+            document.add(new Paragraph("\n\n\n")); // Espaçamento
+
+            // Adiciona o total ao final do documento
+            Paragraph total = new Paragraph("Valor Total Gasto: R$ " + String.format("%.2f", totalValor), fontMaior);
+            total.setAlignment(Element.ALIGN_RIGHT);
+            document.add(total);
+            
             document.close(); // Fecha o documento
 
             System.out.println("\nPDF gerado com sucesso no caminho: " + path);
@@ -391,7 +406,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
 
     @Override
     public void listaConvidadosConfirmadosPDF(ConvidadoIndividual[] convidados, String path) {
-        try {
+    	try {
             // Cria o documento A4
             Document document = new Document(PageSize.A4);
             PdfWriter.getInstance(document, new FileOutputStream(path));
@@ -407,8 +422,6 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             Font fontNormal = new Font(CaviarDreams, 10, Font.NORMAL, BaseColor.BLACK);
             Font fontMaior = new Font(CaviarDreams, 12, Font.NORMAL, new BaseColor(162, 25, 255));
             Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, new BaseColor(128, 0, 128));
-            Font fontNormalItalic = new Font(CaviarDreamsItalic, 10, Font.ITALIC, new BaseColor(128, 0, 128));
-            Font fontBoldItalic = new Font(CaviarDreamsBoldItalic, 10, Font.BOLDITALIC, new BaseColor(128, 0, 128));
             Font fontTitle = new Font(bfTitle, 30, Font.ITALIC, new BaseColor(128, 0, 128));
 
             // Adicionando título
@@ -449,9 +462,30 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             table.addCell(createCell("Família", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
             table.addCell(createCell("Confirmação", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
 
-            // Adiciona os convidados na tabela
+            // Variável para calcular o total de pontos
+            double totalPontos = 0.0;
+
+            // Adiciona os convidados na tabela e calcula os pontos
             for (ConvidadoIndividual convidado : convidados) {
-                if (convidado != null) {
+                if (convidado != null && convidado.getConfirmacaoPrimitivo()) { // Verifica se o convidado confirmou
+                    int idade = convidado.getPessoa().getIdade();
+                    double pontos = 0.0;
+
+                    // Calcula os pontos com base na idade e no tipo de convidado
+                    if (idade <= 8) {
+                        pontos = 0.0; // Crianças até 8 anos não contam
+                    } else if (idade >= 9 && idade <= 13) {
+                        pontos = 0.5; // Crianças de 9 a 13 anos contam como 50%
+                    } else if (idade >= 14) {
+                        pontos = 1.0; // Pessoas com 14 anos ou mais contam como adulto
+                    }
+                    
+                    if (convidado.getParentesco().equalsIgnoreCase("Fornecedor")) {
+                        pontos *= 0.5; // Fornecedores contam como 50% do valor de um adulto
+                    }
+
+                    totalPontos += pontos; // Soma os pontos
+
                     // Adicionando dados dos convidados à tabela
                     table.addCell(createCell(String.valueOf(convidado.getId()), fontNormal, BaseColor.WHITE, Element.ALIGN_CENTER));
                     table.addCell(createCell(convidado.getPessoa().getNome(), fontNormal, BaseColor.WHITE, Element.ALIGN_LEFT));
@@ -461,11 +495,18 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
                 }
             }
 
-            document.add(table); // Adiciona a tabela ao documento
+            // Adiciona a tabela ao documento
+            document.add(table);
+
+            // Adiciona o total de pontos ao final do documento
+            document.add(new Paragraph("\n"));
+            Paragraph totalParagraph = new Paragraph("Total de Pontos de Convidados Confirmados: " + String.format("%.2f", totalPontos), fontMaior);
+            totalParagraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(totalParagraph);
+
             document.close(); // Fecha o documento
 
             System.out.println("\nPDF gerado com sucesso no caminho: " + path);
-
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }

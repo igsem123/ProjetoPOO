@@ -234,7 +234,105 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
 
     @Override
     public void conviteIndividualFamiliaPDF(ConvidadoFamilia convidado, Evento evento, String path) {
+        try {
+            // Cria o documento A4 na horizontal (paisagem)
+            Document document = new Document(PageSize.A4.rotate());
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
+            document.open();  // Documento é aberto aqui
 
+            // Adiciona a imagem de fundo
+            Image background = Image.getInstance("images/reports_convite_familia.png");
+
+            // Escala a imagem para cobrir a página
+            background.scaleAbsolute(PageSize.A4.getHeight(), PageSize.A4.getWidth());  // Corrige para A4 horizontal
+
+            // Posiciona a imagem no canto inferior esquerdo
+            background.setAbsolutePosition(0, 0);
+
+            // Adiciona a imagem ao documento
+            document.add(background);
+
+            // Configuração de cores
+            BaseColor corRoxoClaro = new BaseColor(209, 196, 233);
+            BaseColor corMagentaEscuro = new BaseColor(128, 0, 128);
+
+            // Configuração de fontes
+            Font fontPequena = new Font(CaviarDreams, 10, Font.NORMAL, BaseColor.BLACK);
+            Font fontNormal = new Font(CaviarDreams, 16, Font.NORMAL, BaseColor.BLACK);
+            Font fontMaior = new Font(CaviarDreams, 17, Font.NORMAL, BaseColor.BLACK);
+            Font fontTitle = new Font(bfTitle, 32, Font.ITALIC, corMagentaEscuro);
+            Font fontSubtitle = new Font(bfTitle, 28, Font.ITALIC, corMagentaEscuro);
+            Font fontFamily = new Font(bfTitle, 28, Font.ITALIC, new BaseColor(128, 0, 128));
+            // Adicionando espaçamento antes do conteúdo
+            document.add(new Paragraph("\n\n\n"));
+
+            // Adicionando o título (nomes dos noivos)
+            Paragraph title = new Paragraph(evento.getPessoaNoivo1().getNome() + " & " + evento.getPessoaNoivo2().getNome(), fontTitle);
+            title.setAlignment(Element.ALIGN_CENTER);
+            title.setSpacingBefore(30f);
+            document.add(title);
+
+            document.add(new Paragraph("\n\n\n")); // Espaçamento
+
+            // Adicionando uma frase convite
+            Paragraph invitationText = new Paragraph("Têm a honra de convidar a família " + convidado.getNomeFamilia() + " para celebrar este momento especial", fontMaior);
+            invitationText.setAlignment(Element.ALIGN_CENTER);
+            document.add(invitationText);
+
+            document.add(new Paragraph("\n\n\n")); // Espaçamento
+
+            // Adicionando a data do casamento
+            Paragraph weddingDate = new Paragraph("Data: " + evento.getDataEvento(), fontNormal);
+            weddingDate.setAlignment(Element.ALIGN_CENTER);
+            document.add(weddingDate);
+
+            document.add(new Paragraph("\n")); // Espaçamento
+
+            // Adicionando o local do casamento (igreja ou cartório)
+            String local = evento.getIgreja() != null ? evento.getIgreja() : evento.getCartorio();
+            Paragraph weddingLocation = new Paragraph("Local: " + local, fontNormal);
+            weddingLocation.setAlignment(Element.ALIGN_CENTER);
+            document.add(weddingLocation);
+
+            document.add(new Paragraph("\n\n")); // Espaçamento
+
+            // Adicionando o nome da família
+            Paragraph familyName = new Paragraph("Família " + convidado.getNomeFamilia(), fontFamily);
+            familyName.setAlignment(Element.ALIGN_CENTER);
+            document.add(familyName);
+
+            // Linha decorativa
+            document.add(new Paragraph("\n"));
+            PdfPTable lineTable = new PdfPTable(1);
+            PdfPCell lineCell = new PdfPCell();
+            lineCell.setBorderColor(corMagentaEscuro);
+            lineCell.setBorderWidth(1f);
+            lineTable.setWidthPercentage(50);
+            lineCell.setFixedHeight(2f);
+            lineCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            lineCell.setBorder(Rectangle.BOTTOM);
+            lineTable.addCell(lineCell);
+            document.add(lineTable);
+            
+            // Adicionando o código de acesso
+            Paragraph accessCode = new Paragraph("Código de Acesso: " + convidado.getAcesso(), fontPequena);
+            accessCode.setAlignment(Element.ALIGN_CENTER);
+            document.add(accessCode);
+
+            // Mensagem final
+            Paragraph finalText = new Paragraph("Esperamos celebrar com vocês este momento tão especial", fontNormal);
+            finalText.setAlignment(Element.ALIGN_CENTER);
+            finalText.setSpacingBefore(5f);
+            document.add(finalText);
+
+            // Fechar o documento
+            document.close();
+
+            System.out.println("Convite Familiar PDF gerado com sucesso no caminho: " + path);
+
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -243,10 +341,6 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             // Cria o documento A4
             Document document = new Document(PageSize.A4);
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
-
-            // Adiciona o event listener para o fundo
-            /*BackgroundImage background = new BackgroundImage("images/moldura_reports_recados_segundo_tipo.png");
-            writer.setPageEvent(background);*/
 
             document.open();
 
@@ -308,7 +402,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.add(new Paragraph("\n\n\n")); // Espaçamento
 
             // Adiciona o total ao final do documento
-            Paragraph total = new Paragraph("Valor Total Gasto: R$ " + String.format("%.2f", totalValor), fontMaior);
+            Paragraph total = new Paragraph("Valor Total Gasto: R$ " + String.format("%.2f", totalValor), fontHeader);
             total.setAlignment(Element.ALIGN_RIGHT);
             document.add(total);
             

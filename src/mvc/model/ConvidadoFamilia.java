@@ -63,6 +63,8 @@ public class ConvidadoFamilia {
     public void setDataModificacao() {
         this.dataModificacao = LocalDateTime.now();
     }
+    
+    public Evento getEvento() { return evento; }
 
     @Override
     public boolean equals(Object o) {

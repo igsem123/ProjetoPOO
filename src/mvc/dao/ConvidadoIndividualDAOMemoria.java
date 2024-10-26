@@ -188,4 +188,13 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
             }
         }
     }
+    
+    // Exibir lista por evento
+    public void exibirConvidadosPorEvento(Long idEvento) {
+        for (ConvidadoIndividual convidado : convidados) {
+            if (convidado != null && convidado.getEvento().getId() == idEvento) {
+                System.out.println("ID: [" + convidado.getId() + "] - Nome: " + convidado.getPessoa().getNome() + " - Família: " + convidado.getFamilia().getNomeFamilia() + " - Casamento: " + convidado.getEvento().getNomeDoEvento());
+            }
+        }
+    }
 }

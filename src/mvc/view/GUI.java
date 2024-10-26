@@ -585,7 +585,7 @@ public class GUI {
     }
 
     public int opRelatorios() {
-    	int opcao = -1;
+        int opcao = -1;
 
         while (opcao < 0 || opcao > 6) {
             builder.setLength(0);
@@ -611,8 +611,7 @@ public class GUI {
                     System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 6.");
                 }
             } else {
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida!");
+                System.out.println("\nEntrada inválida! Por favor, digite um número entre 0 e 6.");
             }
         }
 
@@ -755,6 +754,19 @@ public class GUI {
             nCi.setPessoa(ci);
         }
 
+        System.out.println("\nPara qual evento você deseja criar o convite?");
+        eventoDAO.exibirListaEventosSimples();
+        System.out.println("\nInforme o [ID] do evento: ");
+        long idEvento = Long.parseLong(scanner.nextLine());
+        Evento eventoCi = eventoDAO.buscarPorId(idEvento);
+
+        if (eventoCi != null) {
+            nCi.setEvento(eventoCi);
+        } else {
+            System.out.println("\nEvento não identificado.");
+            return this.cadastrarConviteIndividual(convidadoFamiliaDAO);
+        }
+
         System.out.println("\nLista de famílias cadastradas no sistema:\n");
         convidadoFamiliaDAO.listarFamilias();
         System.out.println("\nQual o [ID] da família que o convidado faz parte?");
@@ -790,7 +802,7 @@ public class GUI {
                     String noivo1 = evento.getPessoaNoivo1().getNome();
                     String noivo2 = evento.getPessoaNoivo1().getNome();
                     String data = evento.getDataEvento();
-                    ConvidadoFamilia novoConviteFamiliar = new ConvidadoFamilia(nomeFamiliaInd ,noivo1, noivo2, data);
+                    ConvidadoFamilia novoConviteFamiliar = new ConvidadoFamilia(nomeFamiliaInd ,noivo1, noivo2, data, evento);
                     convidadoFamiliaDAO.criarFamilia(novoConviteFamiliar);
                     nCi.setFamilia(novoConviteFamiliar);
                 }
@@ -828,7 +840,7 @@ public class GUI {
             String noivo = eventoDoConvite.getPessoaNoivo1().getNome();
             String noiva = eventoDoConvite.getPessoaNoivo2().getNome();
             String data = eventoDoConvite.getDataEvento();
-            return new ConvidadoFamilia(nomeFamilia, noivo, noiva, data);
+            return new ConvidadoFamilia(nomeFamilia, noivo, noiva, data, eventoDoConvite);
         } else {
             System.out.println("\nEvento informado inválido. Tente novamente!");
             this.cadastraConviteFamiliar();

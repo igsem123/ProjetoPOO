@@ -18,7 +18,7 @@ public class Main {
     FornecedorDAO fornecedorDAO = new FornecedorDAOMemoria();
     EventoDAO eventoDAO = new EventoDAOMemoria(pessoaDAO, 100);
     ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaDAOMemoria(100, pessoaDAO, eventoDAO);
-    ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(pessoaDAO, convidadoFamiliaDAO, 100);
+    ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(pessoaDAO, convidadoFamiliaDAO, eventoDAO, 100);
     PresentesDAO presentesDAO = new PresentesDAOMemoria(pessoaDAO, 500);
     MuralRecadosDAO muralRecadosDAO = new MuralRecadosDAOMemoria(pessoaDAO, eventoDAO, 1000);
     PagamentoDAO pagamentoDAO = new PagamentoDAOMemoria(pessoaDAO, fornecedorDAO, 1000);
@@ -1386,15 +1386,31 @@ public class Main {
                     break;
                     
                 case 5:
-                    ConvidadoIndividual[] convidados = convidadoIndividualDAO.buscarTodos();
-                    reportPath = "reports/ListaDeConvidados.pdf";
-                    relatorio.listaConvidadosPDF(convidados, reportPath);
+                    System.out.println("\nDe qual evento deseja extrair o relatorio de convidados? ");
+                    eventoDAO.exibirListaEventosSimples();
+                    System.out.println("\nInforme o [ID]: ");
+                    long idEventoDoRecadoConv = Long.parseLong(s.nextLine());
+                    Evento eventoDoRecadoConv = eventoDAO.buscarPorId(idEventoDoRecadoConv);
+
+                    if (eventoDoRecadoConv != null) {
+                        ConvidadoIndividual[] convidados = convidadoIndividualDAO.buscarTodos(eventoDoRecadoConv);
+                        reportPath = "reports/ListaDeConvidados.pdf";
+                        relatorio.listaConvidadosPDF(convidados, reportPath);
+                    }
                     break;
 
                 case 6:
-                    ConvidadoIndividual[] convidadosConfirmados = convidadoIndividualDAO.buscarTodosConfirmados();
-                    reportPath = "reports/ListaDeConvidadosConfirmados.pdf";
-                    relatorio.listaConvidadosConfirmadosPDF(convidadosConfirmados, reportPath);
+                    System.out.println("\nDe qual evento deseja extrair o relatorio de convidados confirmados? ");
+                    eventoDAO.exibirListaEventosSimples();
+                    System.out.println("\nInforme o [ID]: ");
+                    long idEventoDoRecadoConvConf = Long.parseLong(s.nextLine());
+                    Evento eventoDoRecadoConvConf = eventoDAO.buscarPorId(idEventoDoRecadoConvConf);
+
+                    if (eventoDoRecadoConvConf != null) {
+                        ConvidadoIndividual[] convidadosConfirmados = convidadoIndividualDAO.buscarTodosConfirmados(eventoDoRecadoConvConf);
+                        reportPath = "reports/ListaDeConvidadosConfirmados.pdf";
+                        relatorio.listaConvidadosConfirmadosPDF(convidadosConfirmados, reportPath);
+                    }
                     break;
 
                 case 0:

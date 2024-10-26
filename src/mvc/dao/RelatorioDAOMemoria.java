@@ -130,118 +130,120 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
         }
     }
 
-	@Override
-	public void conviteIndividualPDF(ConvidadoIndividual convidado, Evento evento, String path) {
-	    try {
-	        // Cria o documento A4 na horizontal (paisagem)
-	        Document document = new Document(PageSize.A4.rotate());
-	        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
-	        document.open();  // Documento é aberto aqui
-	        
-	        // Adiciona a imagem de fundo
-	        Image background = Image.getInstance("images/moldura_reports_recados_segundo_tipo.png");
-	        
-	        // Escala a imagem para cobrir a página
-	        background.scaleAbsolute(PageSize.A4.getHeight(), PageSize.A4.getWidth());  // Corrige para A4 horizontal
-	        
-	        // Posiciona a imagem no canto inferior esquerdo
-	        background.setAbsolutePosition(0, 0);  // Garantir que ela comece do canto inferior esquerdo
-	        
-	        // Adiciona a imagem ao documento
-	        document.add(background);
+    @Override
+    public void conviteIndividualPDF(ConvidadoIndividual convidado, Evento evento, String path) {
+        try {
+            // Cria o documento A4 na horizontal (paisagem)
+            Document document = new Document(PageSize.A4.rotate());
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
+            document.open();  // Documento é aberto aqui
 
-	        // Configuração de cores
-	        BaseColor corRoxoClaro = new BaseColor(209, 196, 233); // #D1C4E9
-	        BaseColor corRoxoEscuro = new BaseColor(74, 20, 140);  // #4A148C
-	        BaseColor corRoxoIntermediario = new BaseColor(106, 27, 154); // #6A1B9A
+            // Adiciona a imagem de fundo
+            Image background = Image.getInstance("images/reports_convite_individual.png");
 
-	        // Configuração de fontes
-            Font fontNormal = new Font(CaviarDreams, 10, Font.NORMAL, new BaseColor(162, 25, 255));
-            Font fontMaior = new Font(CaviarDreams, 12, Font.NORMAL, BaseColor.BLACK);
-            Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, new BaseColor(128, 0, 128));
-            Font fontNormalItalic = new Font(CaviarDreamsItalic, 10, Font.ITALIC, new BaseColor(128, 0, 128));
+            // Escala a imagem para cobrir a página
+            background.scaleAbsolute(PageSize.A4.getHeight(), PageSize.A4.getWidth());  // Corrige para A4 horizontal
+
+            // Posiciona a imagem no canto inferior esquerdo
+            background.setAbsolutePosition(0, 0);  // Garantir que ela comece do canto inferior esquerdo
+
+            // Adiciona a imagem ao documento
+            document.add(background);
+
+            // Configuração de cores
+            BaseColor corRoxoClaro = new BaseColor(209, 196, 233); // #D1C4E9
+            BaseColor corRoxoEscuro = new BaseColor(74, 20, 140);  // #4A148C
+            BaseColor corRoxoIntermediario = new BaseColor(106, 27, 154); // #6A1B9A
+            BaseColor corMagentaEscuro = new BaseColor(128, 0, 128); // #6A1B9A
+
+            // Configuração de fontes
+            Font fontNormal = new Font(CaviarDreams, 16, Font.NORMAL, BaseColor.BLACK);
+            Font fontMaior = new Font(CaviarDreams, 17, Font.NORMAL, BaseColor.BLACK);
+            Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, corMagentaEscuro);
+            Font fontNormalItalic = new Font(CaviarDreamsItalic, 15, Font.ITALIC, corMagentaEscuro);
             Font fontBoldItalic = new Font(CaviarDreamsBoldItalic, 10, Font.BOLDITALIC, new BaseColor(128, 0, 128));
-            Font fontTitle = new Font(bfTitle, 30, Font.ITALIC, new BaseColor(128, 0, 128));
-            Font fontSubtitle = new Font(bfTitle, 25, Font.ITALIC, new BaseColor(128, 0, 128));
+            Font fontTitle = new Font(bfTitle, 32, Font.ITALIC, corMagentaEscuro);
+            Font fontSubtitle = new Font(bfTitle, 28, Font.ITALIC, new BaseColor(128, 0, 128));
 
-	        // Adicionando espaçamento antes do conteúdo
-	        document.add(new Paragraph("\n\n\n"));
+            // Adicionando espaçamento antes do conteúdo
+            document.add(new Paragraph("\n\n\n"));
 
-	        // Adicionando o título (nomes dos noivos)
-	        Paragraph title = new Paragraph(evento.getPessoaNoivo1().getNome() + " & " + evento.getPessoaNoivo2().getNome(), fontTitle);
-	        title.setAlignment(Element.ALIGN_CENTER);
-	        document.add(title);
-	        
-	        document.add(new Paragraph("\n\n\n")); // Espaçamento
+            // Adicionando o título (nomes dos noivos)
+            Paragraph title = new Paragraph(evento.getPessoaNoivo1().getNome() + " & " + evento.getPessoaNoivo2().getNome(), fontTitle);
+            title.setAlignment(Element.ALIGN_CENTER);
+            title.setSpacingBefore(30f);
+            document.add(title);
 
-	        // Adicionando uma frase convite
-	        Paragraph invitationText = new Paragraph("Têm a honra de convidá-lo para celebrar este momento especial", fontMaior);
-	        invitationText.setAlignment(Element.ALIGN_CENTER);
-	        document.add(invitationText);
+            document.add(new Paragraph("\n\n\n")); // Espaçamento
 
-	        document.add(new Paragraph("\n\n\n")); // Espaçamento
+            // Adicionando uma frase convite
+            Paragraph invitationText = new Paragraph("Têm a honra de convidá-lo para celebrar este momento especial", fontMaior);
+            invitationText.setAlignment(Element.ALIGN_CENTER);
+            document.add(invitationText);
 
-	        // Adicionando a data do casamento
-	        Paragraph weddingDate = new Paragraph("Data: " + evento.getDataEvento(), fontNormal);
-	        weddingDate.setAlignment(Element.ALIGN_CENTER);
-	        document.add(weddingDate);
+            document.add(new Paragraph("\n\n\n")); // Espaçamento
 
-	        document.add(new Paragraph("\n")); // Espaçamento
-	        
-	        // Adicionando o local do casamento (igreja ou cartório)
-	        String local = evento.getIgreja() != null ? evento.getIgreja() : evento.getCartorio();
-	        Paragraph weddingLocation = new Paragraph("Local: " + local, fontNormal);
-	        weddingLocation.setAlignment(Element.ALIGN_CENTER);
-	        document.add(weddingLocation);
+            // Adicionando a data do casamento
+            Paragraph weddingDate = new Paragraph("Data: " + evento.getDataEvento(), fontNormal);
+            weddingDate.setAlignment(Element.ALIGN_CENTER);
+            document.add(weddingDate);
 
-	        document.add(new Paragraph("\n\n\n")); // Espaçamento
+            document.add(new Paragraph("\n")); // Espaçamento
 
-	        // Adicionando um texto específico para o convidado
-	        Paragraph guestText = new Paragraph(convidado.getPessoa().getNome(), fontSubtitle);
-	        guestText.setAlignment(Element.ALIGN_CENTER);
-	        document.add(guestText);
+            // Adicionando o local do casamento (igreja ou cartório)
+            String local = evento.getIgreja() != null ? evento.getIgreja() : evento.getCartorio();
+            Paragraph weddingLocation = new Paragraph("Local: " + local, fontNormal);
+            weddingLocation.setAlignment(Element.ALIGN_CENTER);
+            document.add(weddingLocation);
 
-	        // Linha decorativa
-	        /*document.add(new Paragraph("\n"));
-	        PdfPTable lineTable = new PdfPTable(1);
-	        PdfPCell lineCell = new PdfPCell();
-	        lineCell.setBorderColor(corRoxoEscuro);
-	        lineCell.setBorderWidth(2f);
-	        lineCell.setFixedHeight(2f);
-	        lineCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	        lineCell.setBorder(Rectangle.BOTTOM);
-	        lineTable.addCell(lineCell);
-	        document.add(lineTable);*/
+            document.add(new Paragraph("\n\n")); // Espaçamento
 
-	        document.add(new Paragraph("\n\n\n\n")); // Espaçamento
-	        
-	        // Mensagem final
-	        Paragraph finalText = new Paragraph("Esperamos celebrar com você este momento tão especial.", fontMaior);
-	        finalText.setAlignment(Element.ALIGN_CENTER);
-	        document.add(finalText);
+            // Adicionando um texto específico para o convidado
+            Paragraph guestText = new Paragraph(convidado.getPessoa().getNome(), fontSubtitle);
+            guestText.setAlignment(Element.ALIGN_CENTER);
+            document.add(guestText);
 
-	        // Fechar o documento
-	        document.close();
+            // Linha decorativa
+            document.add(new Paragraph("\n"));
+            PdfPTable lineTable = new PdfPTable(1);
+            PdfPCell lineCell = new PdfPCell();
+            lineCell.setBorderColor(corMagentaEscuro);
+            lineCell.setBorderWidth(1f);
+            lineTable.setWidthPercentage(50);
+            lineCell.setFixedHeight(2f);
+            lineCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            lineCell.setBorder(Rectangle.BOTTOM);
+            lineTable.addCell(lineCell);
+            document.add(lineTable);
 
-	        System.out.println("Convite PDF gerado com sucesso no caminho: " + path);
+            // Mensagem final
+            Paragraph finalText = new Paragraph("Esperamos celebrar com você este momento tão especial", fontNormal);
+            finalText.setAlignment(Element.ALIGN_CENTER);
+            finalText.setSpacingBefore(5f);
+            document.add(finalText);
 
-	    } catch (DocumentException | IOException e) {
-	        e.printStackTrace();
-	    }
-	}
+            // Fechar o documento
+            document.close();
 
-	@Override
-	public void conviteIndividualFamiliaPDF(ConvidadoFamilia convidado, Evento evento, String path) {
-		
-	}
+            System.out.println("Convite PDF gerado com sucesso no caminho: " + path);
 
-	@Override
-	public void pagamentosRealizadosPDF(Pagamento[] pagamentos, String path) {
-		try {
-			// Cria o documento A4
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void conviteIndividualFamiliaPDF(ConvidadoFamilia convidado, Evento evento, String path) {
+
+    }
+
+    @Override
+    public void pagamentosRealizadosPDF(Pagamento[] pagamentos, String path) {
+        try {
+            // Cria o documento A4
             Document document = new Document(PageSize.A4);
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
-            
+
             // Adiciona o event listener para o fundo
             /*BackgroundImage background = new BackgroundImage("images/moldura_reports_recados_segundo_tipo.png");
             writer.setPageEvent(background);*/
@@ -249,10 +251,9 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.open();
 
             // Configuração de fontes
-            Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLDOBLIQUE, 16);
-            Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10);
-            Font fontMaior = FontFactory.getFont(FontFactory.HELVETICA, 12);
-            Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 10);
+            Font fontNormal = new Font(CaviarDreams, 10, Font.NORMAL, BaseColor.BLACK);
+            Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, BaseColor.BLACK);
+            Font fontTitle = new Font(CaviarDreamsBold, 20, Font.BOLD, BaseColor.BLACK);
 
             // Adicionando título
             Paragraph title = new Paragraph("Relatório - Pagamentos Recebidos do Evento: ", fontTitle);
@@ -270,7 +271,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
 
             // Criando uma tabela para os pagamentos
             PdfPTable table = new PdfPTable(6); // 6 colunas
-            table.setWidthPercentage(90); // Largura total da página
+            table.setWidthPercentage(100); // Largura total da página
             table.setSpacingBefore(10f); // Espaço antes da tabela
 
             // Definindo a largura das colunas
@@ -317,7 +318,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
-	}
+    }
 
     @Override
     public void listaConvidadosPDF(ConvidadoIndividual[] convidados, String path) {
@@ -334,7 +335,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.add(background);
 
             // Configuração de fontes
-            Font fontNormal = new Font(CaviarDreams, 10, Font.NORMAL, new BaseColor(162, 25, 255));
+            Font fontNormal = new Font(CaviarDreams, 10, Font.NORMAL, BaseColor.BLACK);
             Font fontMaior = new Font(CaviarDreams, 12, Font.NORMAL, new BaseColor(162, 25, 255));
             Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, new BaseColor(128, 0, 128));
             Font fontNormalItalic = new Font(CaviarDreamsItalic, 10, Font.ITALIC, new BaseColor(128, 0, 128));
@@ -347,9 +348,18 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             title.setSpacingBefore(35f);
             document.add(title);
 
+            document.add(new Paragraph("\n"));  // Espaçamento
+
+            // Adicionando nome do evento
+            Paragraph evento = new Paragraph("Evento: " + convidados[0].getEvento().getNomeDoEvento(), fontNormal);
+            evento.setAlignment(Element.ALIGN_CENTER);
+            evento.setSpacingBefore(10f);
+            evento.setSpacingAfter(5f);
+            document.add(evento);
+
             // Adicionando data de geração do relatório
             LocalDateTime dataAtual = LocalDateTime.now();
-            Paragraph date = new Paragraph("Data: " + dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), fontNormal);
+            Paragraph date = new Paragraph("Data do Evento e Horário: " + dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), fontNormal);
             date.setAlignment(Element.ALIGN_CENTER);
             document.add(date);
 
@@ -409,7 +419,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.add(background);
 
             // Configuração de fontes
-            Font fontNormal = new Font(CaviarDreams, 10, Font.NORMAL, new BaseColor(162, 25, 255));
+            Font fontNormal = new Font(CaviarDreams, 10, Font.NORMAL, BaseColor.BLACK);
             Font fontMaior = new Font(CaviarDreams, 12, Font.NORMAL, new BaseColor(162, 25, 255));
             Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, new BaseColor(128, 0, 128));
             Font fontTitle = new Font(bfTitle, 30, Font.ITALIC, new BaseColor(128, 0, 128));
@@ -420,9 +430,18 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             title.setSpacingBefore(35f);
             document.add(title);
 
+            document.add(new Paragraph("\n"));  // Espaçamento
+
+            // Adicionando nome do evento
+            Paragraph evento = new Paragraph("Evento: " + convidados[0].getEvento().getNomeDoEvento(), fontNormal);
+            evento.setAlignment(Element.ALIGN_CENTER);
+            evento.setSpacingBefore(10f);
+            evento.setSpacingAfter(5f);
+            document.add(evento);
+
             // Adicionando data de geração do relatório
             LocalDateTime dataAtual = LocalDateTime.now();
-            Paragraph date = new Paragraph("Data: " + dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), fontNormal);
+            Paragraph date = new Paragraph("Data do Evento e Horário: " + dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), fontNormal);
             date.setAlignment(Element.ALIGN_CENTER);
             document.add(date);
 
@@ -501,7 +520,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
         cell.setPadding(5f); // Margem interna
         return cell;
     }
-    
+
     class BackgroundImage extends PdfPageEventHelper {
         private Image background;
 

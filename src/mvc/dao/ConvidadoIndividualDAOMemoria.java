@@ -2,6 +2,7 @@ package mvc.dao;
 
 import mvc.model.ConvidadoFamilia;
 import mvc.model.ConvidadoIndividual;
+import mvc.model.Evento;
 import mvc.model.Pessoa;
 
 import java.time.LocalDateTime;
@@ -10,18 +11,27 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
     public ConvidadoIndividual[] convidados;
     private int totalConvidados = 0;
 
-    public ConvidadoIndividualDAOMemoria(PessoaDAO pessoaDAO, ConvidadoFamiliaDAO convidadoFamiliaDAO, int capacidade) {
+    public ConvidadoIndividualDAOMemoria(PessoaDAO pessoaDAO, ConvidadoFamiliaDAO convidadoFamiliaDAO, EventoDAO eventoDAO, int capacidade) {
         convidados = new ConvidadoIndividual[capacidade];
         this.totalConvidados = 0;
 
         // Armazenando os convidados individuais de exemplo
         Pessoa convidado1 = pessoaDAO.buscaPorId(11L);
-        ConvidadoIndividual cI1 = new ConvidadoIndividual(convidado1, convidadoFamiliaDAO.buscarPorId(0L), "Mãe");
+        Evento evento1 = eventoDAO.buscarPorId(0L);
+        ConvidadoIndividual cI1 = new ConvidadoIndividual(convidado1, convidadoFamiliaDAO.buscarPorId(0L), evento1, "Mãe", true);
         this.criarConvidado(cI1);
 
         Pessoa convidado2 = pessoaDAO.buscaPorId(12L);
-        ConvidadoIndividual cI2 = new ConvidadoIndividual(convidado2, convidadoFamiliaDAO.buscarPorId(0L), "Irmã");
+        ConvidadoIndividual cI2 = new ConvidadoIndividual(convidado2, convidadoFamiliaDAO.buscarPorId(0L), evento1, "Irmã", true);
         this.criarConvidado(cI2);
+
+        Pessoa convidado3 = pessoaDAO.buscaPorId(13L);
+        ConvidadoIndividual cI3 = new ConvidadoIndividual(convidado3, convidadoFamiliaDAO.buscarPorId(0L), evento1, "Amigo");
+        this.criarConvidado(cI3);
+
+        Pessoa convidado4 = pessoaDAO.buscaPorId(14L);
+        ConvidadoIndividual cI4 = new ConvidadoIndividual(convidado4, convidadoFamiliaDAO.buscarPorId(1L), evento1, "Mãe");
+        this.criarConvidado(cI4);
     }
 
     public ConvidadoIndividual[] getConvidados() {
@@ -76,11 +86,11 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
     }
     
     //Buscar Todos
-    public ConvidadoIndividual[] buscarTodos() {
+    public ConvidadoIndividual[] buscarTodos(Evento eventoDoRecadoConv) {
         // Conta número de convidados válidos
         int count = 0;
         for (ConvidadoIndividual convidado : convidados) {
-            if (convidado != null) {
+            if (convidado != null && convidado.getEvento().equals(eventoDoRecadoConv)) {
                 count++;
             }
         }
@@ -91,7 +101,7 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
 
         // Adiciona apenas os convidados válidos no array
         for (ConvidadoIndividual convidado : convidados) {
-            if (convidado != null) {
+            if (convidado != null && convidado.getEvento().equals(eventoDoRecadoConv)) {
                 convidadosValidos[index++] = convidado;
             }
         }
@@ -100,11 +110,11 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
     }
     
     //Buscar Todos Confirmados
-    public ConvidadoIndividual[] buscarTodosConfirmados() {
+    public ConvidadoIndividual[] buscarTodosConfirmados(Evento eventoDoRecadoConv) {
         // Conta número de convidados válidos
         int count = 0;
         for (ConvidadoIndividual convidado : convidados) {
-            if (convidado != null && convidado.confirmacao) {
+            if (convidado != null && convidado.confirmacao && convidado.getEvento().equals(eventoDoRecadoConv)) {
                 count++;
             }
         }
@@ -115,7 +125,7 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
 
         // Adiciona apenas os convidados válidos e confirmados no array
         for (ConvidadoIndividual convidado : convidados) {
-            if (convidado != null && convidado.confirmacao) {
+            if (convidado != null && convidado.confirmacao && convidado.getEvento().equals(eventoDoRecadoConv)) {
                 convidadosValidos[index++] = convidado;
             }
         }

@@ -284,6 +284,9 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             table.addCell(createCell("Valor", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
             table.addCell(createCell("Data Pagamento", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
 
+            // Variável para somar o valor total dos pagamentos
+            double totalValor = 0.0;
+            
             // Adicionando os pagamentos na tabela
             for (Pagamento pagamento : pagamentos) {
                 table.addCell(createCell(String.valueOf(pagamento.getId()), fontNormal, BaseColor.WHITE, Element.ALIGN_CENTER));
@@ -292,10 +295,22 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
                 table.addCell(createCell(pagamento.getDescricao(), fontNormal, BaseColor.WHITE, Element.ALIGN_LEFT));
                 table.addCell(createCell(String.format("%.2f", pagamento.getValor()), fontNormal, BaseColor.WHITE, Element.ALIGN_RIGHT));
                 table.addCell(createCell(pagamento.getDataPagamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), fontNormal, BaseColor.WHITE, Element.ALIGN_CENTER));
+                
+                // Acumula o valor do pagamento no total
+                totalValor += pagamento.getValor();
             }
 
             // Adiciona a tabela ao documento
             document.add(table);
+            
+         
+            document.add(new Paragraph("\n\n\n")); // Espaçamento
+
+            // Adiciona o total ao final do documento
+            Paragraph total = new Paragraph("Valor Total Gasto: R$ " + String.format("%.2f", totalValor), fontMaior);
+            total.setAlignment(Element.ALIGN_RIGHT);
+            document.add(total);
+            
             document.close(); // Fecha o documento
 
             System.out.println("\nPDF gerado com sucesso no caminho: " + path);

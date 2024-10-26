@@ -9,6 +9,7 @@ public interface ConvidadoFamiliaDAO {
     void atualizarFamilia(long id, ConvidadoFamilia familiaAtualizada);
     void removerFamilia(long id);
     void exibirFamilias();
+    void exibirFamiliasPorEvento(Long idEvento);
     void listarFamilias();
     ConvidadoFamilia[] getFamilias();
     void confirmarPresenca(String acessoFamilia, ConvidadoIndividual[] convidadosIndividuais, ConvidadoFamilia[] convidadosFamilia);

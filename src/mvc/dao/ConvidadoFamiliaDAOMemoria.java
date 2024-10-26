@@ -115,6 +115,19 @@ public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
             }
         }
     }
+    
+    // Mostrar todos os convites família por evento
+    public void exibirFamiliasPorEvento(Long idEvento) {
+        if (totalFamilias == 0) {
+            System.out.println("\nNenhum convite familiar cadastrado.");
+        } else {
+            for (ConvidadoFamilia familia : familias) {
+                if (familia != null && familia.getEvento().getId() == idEvento) {
+                	System.out.println("ID: [" + familia.getId() + "] - Familia: " + familia.getNomeFamilia() + " - Casamento: " + familia.getEvento().getNomeDoEvento());
+                }
+            }
+        }
+    }
 
     // Listar todos os convites família de maneira simples
     public void listarFamilias() {

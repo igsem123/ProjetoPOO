@@ -1361,22 +1361,33 @@ public class Main {
                     break;
 
                 case 2:
-                    System.out.println("\nLista de convidados cadastrados no sistema: ");
-                    convidadoIndividualDAO.exibirConvidadosSimples();
-                    System.out.println("\nDigite o [ID] do convidado que deseja gerar o convite: ");
-                    long id = Long.parseLong(s.nextLine());
-                    ConvidadoIndividual convite = convidadoIndividualDAO.buscarPorId(id);
-                    System.out.println("\nDe qual evento é o convite? ");
+                	System.out.println("\nDe qual evento é o convite? ");
                     eventoDAO.exibirListaEventosSimples();
                     System.out.println("\nInforme o [ID]: ");
                     long idEventoDoConvite = Long.parseLong(s.nextLine());
                     Evento eventoDoConvite = eventoDAO.buscarPorId(idEventoDoConvite);
+                    System.out.println("\nLista de convidados cadastrados no sistema: ");
+                    convidadoIndividualDAO.exibirConvidadosPorEvento(idEventoDoConvite);
+                    System.out.println("\nDigite o [ID] do convidado que deseja gerar o convite: ");
+                    long id = Long.parseLong(s.nextLine());
+                    ConvidadoIndividual convite = convidadoIndividualDAO.buscarPorId(id);
                     reportPath = "reports/ConviteDeCasamento.pdf";
                     relatorio.conviteIndividualPDF(convite, eventoDoConvite, reportPath);
                     break;
                     
                 case 3:
-
+                	System.out.println("\nDe qual evento é o convite? ");
+                    eventoDAO.exibirListaEventosSimples();
+                    System.out.println("\nInforme o [ID]: ");
+                    long idEventoDoConviteFamilia = Long.parseLong(s.nextLine());
+                    Evento eventoDoConviteFalimia = eventoDAO.buscarPorId(idEventoDoConviteFamilia);
+                    System.out.println("\nLista das familias cadastradas no sistema: ");
+                    convidadoFamiliaDAO.exibirFamiliasPorEvento(idEventoDoConviteFamilia);
+                    System.out.println("\nDigite o [ID] da familia que deseja gerar o convite: ");
+                    long idFamilia = Long.parseLong(s.nextLine());
+                    ConvidadoFamilia conviteFamilia = convidadoFamiliaDAO.buscarPorId(idFamilia);
+                    reportPath = "reports/ConviteDeCasamentoParaFamilia.pdf";
+                    relatorio.conviteIndividualFamiliaPDF(conviteFamilia, eventoDoConviteFalimia, reportPath);
                     break;
                     
                 case 4:

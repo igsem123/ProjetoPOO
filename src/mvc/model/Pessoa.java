@@ -2,6 +2,7 @@ package mvc.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
@@ -128,6 +129,13 @@ public class Pessoa {
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
         this.dataModificacao = Util.getDia();
+    }
+    
+    public int getIdade() {
+        if (this.dataNascimento == null) {
+            throw new IllegalStateException("Data de nascimento não está definida para a pessoa: " + this.nome);
+        }
+        return Period.between(this.dataNascimento, LocalDate.now()).getYears();
     }
 
     public String tipoUsuario(int tipo) {

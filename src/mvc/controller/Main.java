@@ -1361,14 +1361,30 @@ public class Main {
                     break;
 
                 case 2:
-
+                    System.out.println("\nLista de convidados cadastrados no sistema: ");
+                    convidadoIndividualDAO.exibirConvidadosSimples();
+                    System.out.println("\nDigite o [ID] do convidado que deseja gerar o convite: ");
+                    long id = Long.parseLong(s.nextLine());
+                    ConvidadoIndividual convite = convidadoIndividualDAO.buscarPorId(id);
+                    System.out.println("\nDe qual evento é o convite? ");
+                    eventoDAO.exibirListaEventosSimples();
+                    System.out.println("\nInforme o [ID]: ");
+                    long idEventoDoConvite = Long.parseLong(s.nextLine());
+                    Evento eventoDoConvite = eventoDAO.buscarPorId(idEventoDoConvite);
+                    reportPath = "reports/ConviteDeCasamento.pdf";
+                    relatorio.conviteIndividualPDF(convite, eventoDoConvite, reportPath);
                     break;
+                    
                 case 3:
 
                     break;
+                    
                 case 4:
-
+                	Pagamento[] pagamentos = pagamentoDAO.buscarTodos();
+                	reportPath = "reports/PagamentosDosNoivos.pdf";
+                	relatorio.pagamentosRealizadosPDF(pagamentos, reportPath);
                     break;
+                    
                 case 5:
                     ConvidadoIndividual[] convidados = convidadoIndividualDAO.buscarTodos();
                     reportPath = "reports/ListaDeConvidados.pdf";

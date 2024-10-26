@@ -2,7 +2,10 @@ package mvc.dao;
 
 import mvc.model.ConvidadoFamilia;
 import mvc.model.ConvidadoIndividual;
+import mvc.model.Evento;
 import mvc.model.MuralRecados;
+import mvc.model.Pagamento;
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 
@@ -127,32 +130,179 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
         }
     }
 
-    // Método auxiliar para criar células com formatação
-    private PdfPCell createCell(String content, Font font, BaseColor bgColor, int alignment) {
-        PdfPCell cell = new PdfPCell(new Phrase(content, font));
-        cell.setBackgroundColor(bgColor);
-        cell.setHorizontalAlignment(alignment);
-        cell.setPadding(5f); // Margem interna
-        return cell;
-    }
+	@Override
+	public void conviteIndividualPDF(ConvidadoIndividual convidado, Evento evento, String path) {
+	    try {
+	        // Cria o documento A4 na horizontal (paisagem)
+	        Document document = new Document(PageSize.A4.rotate());
+	        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
+	        document.open();  // Documento é aberto aqui
+	        
+	        // Adiciona a imagem de fundo
+	        Image background = Image.getInstance("images/moldura_reports_recados_segundo_tipo.png");
+	        
+	        // Escala a imagem para cobrir a página
+	        background.scaleAbsolute(PageSize.A4.getHeight(), PageSize.A4.getWidth());  // Corrige para A4 horizontal
+	        
+	        // Posiciona a imagem no canto inferior esquerdo
+	        background.setAbsolutePosition(0, 0);  // Garantir que ela comece do canto inferior esquerdo
+	        
+	        // Adiciona a imagem ao documento
+	        document.add(background);
 
-    @Override
-    public void conviteIndividualPDF() {
-        // TODO Auto-generated method stub
+	        // Configuração de cores
+	        BaseColor corRoxoClaro = new BaseColor(209, 196, 233); // #D1C4E9
+	        BaseColor corRoxoEscuro = new BaseColor(74, 20, 140);  // #4A148C
+	        BaseColor corRoxoIntermediario = new BaseColor(106, 27, 154); // #6A1B9A
 
-    }
+	        // Configuração de fontes
+            Font fontNormal = new Font(CaviarDreams, 10, Font.NORMAL, new BaseColor(162, 25, 255));
+            Font fontMaior = new Font(CaviarDreams, 12, Font.NORMAL, BaseColor.BLACK);
+            Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, new BaseColor(128, 0, 128));
+            Font fontNormalItalic = new Font(CaviarDreamsItalic, 10, Font.ITALIC, new BaseColor(128, 0, 128));
+            Font fontBoldItalic = new Font(CaviarDreamsBoldItalic, 10, Font.BOLDITALIC, new BaseColor(128, 0, 128));
+            Font fontTitle = new Font(bfTitle, 30, Font.ITALIC, new BaseColor(128, 0, 128));
+            Font fontSubtitle = new Font(bfTitle, 25, Font.ITALIC, new BaseColor(128, 0, 128));
 
-    @Override
-    public void conviteIndividualFamiliaPDF() {
-        // TODO Auto-generated method stub
+	        // Adicionando espaçamento antes do conteúdo
+	        document.add(new Paragraph("\n\n\n"));
 
-    }
+	        // Adicionando o título (nomes dos noivos)
+	        Paragraph title = new Paragraph(evento.getPessoaNoivo1().getNome() + " & " + evento.getPessoaNoivo2().getNome(), fontTitle);
+	        title.setAlignment(Element.ALIGN_CENTER);
+	        document.add(title);
+	        
+	        document.add(new Paragraph("\n\n\n")); // Espaçamento
 
-    @Override
-    public void pagamentosRealizadosPDF() {
-        // TODO Auto-generated method stub
+	        // Adicionando uma frase convite
+	        Paragraph invitationText = new Paragraph("Têm a honra de convidá-lo para celebrar este momento especial", fontMaior);
+	        invitationText.setAlignment(Element.ALIGN_CENTER);
+	        document.add(invitationText);
 
-    }
+	        document.add(new Paragraph("\n\n\n")); // Espaçamento
+
+	        // Adicionando a data do casamento
+	        Paragraph weddingDate = new Paragraph("Data: " + evento.getDataEvento(), fontNormal);
+	        weddingDate.setAlignment(Element.ALIGN_CENTER);
+	        document.add(weddingDate);
+
+	        document.add(new Paragraph("\n")); // Espaçamento
+	        
+	        // Adicionando o local do casamento (igreja ou cartório)
+	        String local = evento.getIgreja() != null ? evento.getIgreja() : evento.getCartorio();
+	        Paragraph weddingLocation = new Paragraph("Local: " + local, fontNormal);
+	        weddingLocation.setAlignment(Element.ALIGN_CENTER);
+	        document.add(weddingLocation);
+
+	        document.add(new Paragraph("\n\n\n")); // Espaçamento
+
+	        // Adicionando um texto específico para o convidado
+	        Paragraph guestText = new Paragraph(convidado.getPessoa().getNome(), fontSubtitle);
+	        guestText.setAlignment(Element.ALIGN_CENTER);
+	        document.add(guestText);
+
+	        // Linha decorativa
+	        /*document.add(new Paragraph("\n"));
+	        PdfPTable lineTable = new PdfPTable(1);
+	        PdfPCell lineCell = new PdfPCell();
+	        lineCell.setBorderColor(corRoxoEscuro);
+	        lineCell.setBorderWidth(2f);
+	        lineCell.setFixedHeight(2f);
+	        lineCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        lineCell.setBorder(Rectangle.BOTTOM);
+	        lineTable.addCell(lineCell);
+	        document.add(lineTable);*/
+
+	        document.add(new Paragraph("\n\n\n\n")); // Espaçamento
+	        
+	        // Mensagem final
+	        Paragraph finalText = new Paragraph("Esperamos celebrar com você este momento tão especial.", fontMaior);
+	        finalText.setAlignment(Element.ALIGN_CENTER);
+	        document.add(finalText);
+
+	        // Fechar o documento
+	        document.close();
+
+	        System.out.println("Convite PDF gerado com sucesso no caminho: " + path);
+
+	    } catch (DocumentException | IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	@Override
+	public void conviteIndividualFamiliaPDF(ConvidadoFamilia convidado, Evento evento, String path) {
+		
+	}
+
+	@Override
+	public void pagamentosRealizadosPDF(Pagamento[] pagamentos, String path) {
+		try {
+			// Cria o documento A4
+            Document document = new Document(PageSize.A4);
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
+            
+            // Adiciona o event listener para o fundo
+            /*BackgroundImage background = new BackgroundImage("images/moldura_reports_recados_segundo_tipo.png");
+            writer.setPageEvent(background);*/
+
+            document.open();
+
+            // Configuração de fontes
+            Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLDOBLIQUE, 16);
+            Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10);
+            Font fontMaior = FontFactory.getFont(FontFactory.HELVETICA, 12);
+            Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 10);
+
+            // Adicionando título
+            Paragraph title = new Paragraph("Relatório - Pagamentos Recebidos do Evento: ", fontTitle);
+            title.setAlignment(Element.ALIGN_CENTER);
+            title.setSpacingBefore(18f);
+            document.add(title);
+
+            // Adicionando data de geração do relatório
+            LocalDateTime dataAtual = LocalDateTime.now();
+            Paragraph date = new Paragraph("Data de Geração: " + dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), fontNormal);
+            date.setAlignment(Element.ALIGN_CENTER);
+            document.add(date);
+
+            document.add(new Paragraph("\n"));  // Espaçamento
+
+            // Criando uma tabela para os pagamentos
+            PdfPTable table = new PdfPTable(6); // 6 colunas
+            table.setWidthPercentage(90); // Largura total da página
+            table.setSpacingBefore(10f); // Espaço antes da tabela
+
+            // Definindo a largura das colunas
+            table.setWidths(new float[]{10f, 25f, 25f, 15f, 10f, 15f});
+
+            // Cabeçalhos da tabela
+            table.addCell(createCell("ID", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
+            table.addCell(createCell("Pessoa", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
+            table.addCell(createCell("Fornecedor", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
+            table.addCell(createCell("Descrição", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
+            table.addCell(createCell("Valor", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
+            table.addCell(createCell("Data Pagamento", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
+
+            // Adicionando os pagamentos na tabela
+            for (Pagamento pagamento : pagamentos) {
+                table.addCell(createCell(String.valueOf(pagamento.getId()), fontNormal, BaseColor.WHITE, Element.ALIGN_CENTER));
+                table.addCell(createCell(pagamento.getPessoa().getNome(), fontNormal, BaseColor.WHITE, Element.ALIGN_LEFT));
+                table.addCell(createCell(pagamento.getFornecedor().getNome(), fontNormal, BaseColor.WHITE, Element.ALIGN_LEFT));
+                table.addCell(createCell(pagamento.getDescricao(), fontNormal, BaseColor.WHITE, Element.ALIGN_LEFT));
+                table.addCell(createCell(String.format("%.2f", pagamento.getValor()), fontNormal, BaseColor.WHITE, Element.ALIGN_RIGHT));
+                table.addCell(createCell(pagamento.getDataPagamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), fontNormal, BaseColor.WHITE, Element.ALIGN_CENTER));
+            }
+
+            // Adiciona a tabela ao documento
+            document.add(table);
+            document.close(); // Fecha o documento
+
+            System.out.println("\nPDF gerado com sucesso no caminho: " + path);
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+	}
 
     @Override
     public void listaConvidadosPDF(ConvidadoIndividual[] convidados, String path) {
@@ -302,4 +452,32 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
         }
     }
 
+    // Método auxiliar para criar células com formatação
+    private PdfPCell createCell(String content, Font font, BaseColor bgColor, int alignment) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        cell.setBackgroundColor(bgColor);
+        cell.setHorizontalAlignment(alignment);
+        cell.setPadding(5f); // Margem interna
+        return cell;
+    }
+    
+    class BackgroundImage extends PdfPageEventHelper {
+        private Image background;
+
+        public BackgroundImage(String imagePath) throws IOException, DocumentException {
+            background = Image.getInstance(imagePath);
+            background.setAbsolutePosition(0, 0);
+            background.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
+        }
+
+        @Override
+        public void onEndPage(PdfWriter writer, Document document) {
+            try {
+                PdfContentByte canvas = writer.getDirectContentUnder();
+                canvas.addImage(background); // Adiciona a imagem de fundo
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

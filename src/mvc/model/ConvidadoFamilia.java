@@ -9,14 +9,16 @@ public class ConvidadoFamilia {
     public static int totalConvitesFamiliares = 0;
     private String nomeFamilia;
     private String acesso;
+    private Evento evento;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
     // Construtor cheio
-    public ConvidadoFamilia(String nomeFamilia, String noivo, String noiva, String data) {
+    public ConvidadoFamilia(String nomeFamilia, String noivo, String noiva, String data, Evento evento) {
         this.id = (totalConvitesFamiliares++);
         this.nomeFamilia = nomeFamilia;
         this.acesso = gerarAcesso(noivo, noiva, data);
+        this.evento = evento;
         this.dataCriacao = LocalDateTime.now();
         this.dataModificacao = LocalDateTime.now();
     }

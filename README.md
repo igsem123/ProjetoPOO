@@ -103,4 +103,4 @@ O sistema foi desenvolvido em **Java** com uma arquitetura modularizada para fac
 
 ---
 
-Por.: Igsem123
+Por.: Igsem123 e JoaoGabrielDB

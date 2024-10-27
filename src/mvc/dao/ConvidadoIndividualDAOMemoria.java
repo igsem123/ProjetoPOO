@@ -32,6 +32,19 @@ public class ConvidadoIndividualDAOMemoria implements ConvidadoIndividualDAO {
         Pessoa convidado4 = pessoaDAO.buscaPorId(14L);
         ConvidadoIndividual cI4 = new ConvidadoIndividual(convidado4, convidadoFamiliaDAO.buscarPorId(1L), evento1, "Mãe");
         this.criarConvidado(cI4);
+
+        // Criando convites individuais para as crianças
+        ConvidadoIndividual conviteCrianca1 = new ConvidadoIndividual(pessoaDAO.buscaPorId(18L), convidadoFamiliaDAO.buscarPorId(0L), evento1, "Filho", true);
+        this.criarConvidado(conviteCrianca1);
+
+        ConvidadoIndividual conviteCrianca2 = new ConvidadoIndividual(pessoaDAO.buscaPorId(19L), convidadoFamiliaDAO.buscarPorId(0L), evento1, "Filha", true);
+        this.criarConvidado(conviteCrianca2);
+
+        ConvidadoIndividual conviteCrianca3 = new ConvidadoIndividual(pessoaDAO.buscaPorId(20L), convidadoFamiliaDAO.buscarPorId(0L), evento1, "Filho", true);
+        this.criarConvidado(conviteCrianca3);
+
+        ConvidadoIndividual conviteCrianca4 = new ConvidadoIndividual(pessoaDAO.buscaPorId(21L), convidadoFamiliaDAO.buscarPorId(0L), evento1, "Filha", true);
+        this.criarConvidado(conviteCrianca4);
     }
 
     public ConvidadoIndividual[] getConvidados() {

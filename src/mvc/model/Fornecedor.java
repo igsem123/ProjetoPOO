@@ -194,7 +194,7 @@ public class Fornecedor {
         sb.append(String.format("Email               : %s\n", email));
         sb.append(String.format("Valor devido        : %.2f\n", valorAPagar));
         sb.append(String.format("Parcelas            : %d\n", parcelas));
-        sb.append(String.format("Valor das Parcelas  : %.2f\n", valorParcela));
+        sb.append(String.format("Valor das Parcelas  : %.2f\n", valorParcela != null ? valorParcela : 0.0));
         sb.append(String.format("Parcelas Pagas      : %d\n", totalParcelasPagas));
         sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));

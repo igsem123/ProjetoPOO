@@ -15,11 +15,12 @@ public class Evento {
     Pessoa pessoaNoivo1;
     Pessoa pessoaNoivo2;
     private String nomeDoEvento;
+    private Fornecedor[] fornecedores;
     private final LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
     // Construtor com parâmetros
-    public Evento(LocalDate dataEvento, Pessoa cerimonial, String igreja, String cartorio, Pessoa pessoaNoivo1, Pessoa pessoaNoivo2) {
+    public Evento(LocalDate dataEvento, Pessoa cerimonial, String igreja, String cartorio, Pessoa pessoaNoivo1, Pessoa pessoaNoivo2, Fornecedor[] fornecedores) {
         this.id = (totalEventos++);
         this.dataEvento = dataEvento;
         this.cerimonial = cerimonial;
@@ -27,9 +28,10 @@ public class Evento {
         this.cartorio = cartorio;
         this.pessoaNoivo1 = pessoaNoivo1;
         this.pessoaNoivo2 = pessoaNoivo2;
-        this.nomeDoEvento = gerarNomeDoEvento(pessoaNoivo1, pessoaNoivo2);
+        this.fornecedores = fornecedores;
         this.dataCriacao = Util.getDia();
         this.dataModificacao = Util.getDia();
+        this.nomeDoEvento = gerarNomeDoEvento(pessoaNoivo1, pessoaNoivo2);
     }
 
     // Construtor vazio
@@ -53,11 +55,18 @@ public class Evento {
         this.dataEvento = Util.formataData(dataEvento);
     }
 
-    private String gerarNomeDoEvento(Pessoa pessoaNoivo1, Pessoa pessoaNoivo2) {
-        String nomeDoEvento = ("Casamento de " + pessoaNoivo1.getNome() + " e " + pessoaNoivo2.getNome() +" em " + this.getDataEvento());
+    public String gerarNomeDoEvento(Pessoa pessoaNoivo1, Pessoa pessoaNoivo2) {
+        if (pessoaNoivo1 == null || pessoaNoivo2 == null || dataEvento == null) {
+            return "Evento sem nome";
+        }
+        String nomeDoEvento = "Casamento de " + pessoaNoivo1.getNome() + " e " + pessoaNoivo2.getNome() + " em " + getDataEvento();
         this.dataModificacao = LocalDateTime.now();
-
         return nomeDoEvento;
+    }
+
+    public void setNomeDoEvento(String nomeDoEvento) {
+        this.dataModificacao = LocalDateTime.now();
+        this.nomeDoEvento = nomeDoEvento;
     }
 
     public Pessoa getCerimonial() {
@@ -102,6 +111,22 @@ public class Evento {
 
     public String getNomeDoEvento() {
         return nomeDoEvento;
+    }
+
+    public void addFornecedor(Fornecedor fornecedor) {
+        this.dataModificacao = LocalDateTime.now();
+        if (this.fornecedores == null) {
+            this.fornecedores = new Fornecedor[]{fornecedor};
+        } else {
+            Fornecedor[] novoFornecedores = new Fornecedor[this.fornecedores.length + 1];
+            System.arraycopy(this.fornecedores, 0, novoFornecedores, 0, this.fornecedores.length);
+            novoFornecedores[this.fornecedores.length] = fornecedor;
+            this.fornecedores = novoFornecedores;
+        }
+    }
+
+    public Fornecedor[] getFornecedores() {
+        return fornecedores;
     }
 
     public String getDataCriacao() {
@@ -153,7 +178,13 @@ public class Evento {
         sb.append(String.format("Cartorio            : %s\n", cartorio));
         sb.append(String.format("Noivo(a)            : %s\n", pessoaNoivo1.getNome()));
         sb.append(String.format("Noivo(a)            : %s\n", pessoaNoivo2.getNome()));
-        sb.append(String.format("Nome do Evento      : %s\n", nomeDoEvento));
+        sb.append(String.format("Nome do Evento      : %s\n", nomeDoEvento != null ? nomeDoEvento : "N/A"));
+        sb.append("Fornecedores        :\n");
+        if (fornecedores != null) {
+            for (Fornecedor fornecedor : fornecedores) {
+                sb.append(String.format("  - %s\n", fornecedor.getNome()));
+            }
+        }
         sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append("=====================================================\n");

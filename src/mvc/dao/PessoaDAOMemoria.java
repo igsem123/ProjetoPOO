@@ -87,6 +87,28 @@ public class PessoaDAOMemoria implements PessoaDAO {
         Pessoa p9 = new Pessoa("Maria Oliveira", "Feminino", LocalDate.of(1995, 2, 12),
                 "+55 34 9125-4550","maria@email.com" , "maria123", 1, "987.654.321-00");
         this.criarPessoa(p9);
+
+        Pessoa p10 = new Pessoa("José Silva", "Masculino", LocalDate.of(1985, 3, 23),
+                "+55 34 9874-1234","jose@email.com" , "jose123", 4, "456.789.123-00");
+        this.criarPessoa(p10);
+
+        // Crianças de 7 e 8 anos
+        Pessoa crianca1 = new Pessoa("Pedro Silva", "Masculino", Util.formataData("15/08/2016"),
+                "+55 34 9 1234-5678", "pedro.silva@gmail.com", "pedro123", 4, "111.222.333-01");
+        this.criarPessoa(crianca1);
+
+        Pessoa crianca2 = new Pessoa("Maria Souza", "Feminino", Util.formataData("20/11/2015"),
+                "+55 34 9 8765-4321", "maria.souza@gmail.com", "maria123", 4, "222.333.444-02");
+        this.criarPessoa(crianca2);
+
+        // Crianças de 9 a 13 anos
+        Pessoa crianca3 = new Pessoa("João Pereira", "Masculino", Util.formataData("05/05/2014"),
+                "+55 34 9 1122-3344", "joao.pereira@gmail.com", "joao123", 4, "333.444.555-03");
+        this.criarPessoa(crianca3);
+
+        Pessoa crianca4 = new Pessoa("Ana Costa", "Feminino", Util.formataData("12/09/2010"),
+                "+55 34 9 5566-7788", "ana.costa@gmail.com", "ana123", 4, "444.555.666-04");
+        this.criarPessoa(crianca4);
     }
 
     @Override
@@ -94,7 +116,7 @@ public class PessoaDAOMemoria implements PessoaDAO {
         if (totalPessoas < TAMANHO_MAXIMO) {
             listaPessoas[totalPessoas] = pessoa;
             totalPessoas++;
-            System.out.println("Pessoa cadastrada com sucesso:\n\n" + pessoa.toString());
+            System.out.println("\nPessoa cadastrada com sucesso:\n\n" + pessoa.toString());
             return true;
         } else {
             System.out.println("\nErro: Não há espaço para mais pessoas.");

@@ -2,21 +2,18 @@ package mvc.controller;
 
 import mvc.dao.*;
 import mvc.model.*;
-
-//Importações das Views
 import mvc.view.GUI;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Scanner;
-
-import com.itextpdf.text.DocumentException;
 
 public class Main {
     // Inicializa os DAOs uma única vez
     PessoaDAO pessoaDAO = new PessoaDAOMemoria();
     FornecedorDAO fornecedorDAO = new FornecedorDAOMemoria();
-    EventoDAO eventoDAO = new EventoDAOMemoria(pessoaDAO, 100);
+    EventoDAO eventoDAO = new EventoDAOMemoria(pessoaDAO, fornecedorDAO, 100);
     ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaDAOMemoria(100, pessoaDAO, eventoDAO);
     ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(pessoaDAO, convidadoFamiliaDAO, eventoDAO, 100);
     PresentesDAO presentesDAO = new PresentesDAOMemoria(pessoaDAO, 500);
@@ -651,23 +648,29 @@ public class Main {
                             editarEvento.setDataEvento(dataEvento);
                         }
 
-                        System.out.println("\nEscolha o novo cerimonialista do evento (ou pressione ENTER para manter o cerimonialista atual)" + editarEvento.getCerimonial().getNome());
-                        System.out.println("\nLista de cerimonialistas cadastrados no sistema: \n");
-                        pessoaDAO.buscaCerimonialistas();
-                        System.out.println("\nDigite o [ID] abaixo: ");
-                        long cerimonialId = Long.parseLong(s.nextLine());
-                        Pessoa cerimonialista = pessoaDAO.buscaPorId(cerimonialId);
-                        if (cerimonialista != null) {
-                            editarEvento.setCerimonial(cerimonialista);
+                        System.out.println("\nAinda é o mesmo cerimonialista? (ou pressione [0] para manter o cerimonialista atual): " + editarEvento.getCerimonial().getNome());
+                        System.out.println("\nDigite 1 para [SIM] ou 0 para [NAO]");
+                        int respostaCerimonial = Integer.parseInt(s.nextLine());
+
+                        if(respostaCerimonial == 0) {
+                            System.out.println("\nEscolha o novo cerimonialista do evento: ");
+                            System.out.println("\nLista de cerimonialistas cadastrados no sistema: \n");
+                            pessoaDAO.buscaCerimonialistas();
+                            System.out.println("\nDigite o [ID] abaixo: ");
+                            long cerimonialId = Long.parseLong(s.nextLine());
+                            Pessoa cerimonialista = pessoaDAO.buscaPorId(cerimonialId);
+                            if (cerimonialista != null) {
+                                editarEvento.setCerimonial(cerimonialista);
+                            }
                         }
 
-                        System.out.println("\nDigite a nova igreja em que será realizado o casamento (ou pressione ENTER para manter a igreja atual)" + editarEvento.getIgreja());
+                        System.out.println("\nDigite a nova igreja em que será realizado o casamento (ou pressione ENTER para manter a igreja atual): " + editarEvento.getIgreja());
                         String igrejaEvento = s.nextLine();
                         if(!igrejaEvento.isEmpty()) {
                             editarEvento.setIgreja(igrejaEvento);
                         }
 
-                        System.out.println("\nDigite qual o novo cartório que cadastrará o matrimônio (ou pressione ENTER para manter o cartório atual)" + editarEvento.getCartorio());
+                        System.out.println("\nDigite qual o novo cartório que cadastrará o matrimônio (ou pressione ENTER para manter o cartório atual): " + editarEvento.getCartorio());
                         String cartorioEvento  = s.nextLine();
                         if(!cartorioEvento.isEmpty()) {
                             editarEvento.setCartorio(cartorioEvento);
@@ -697,12 +700,17 @@ public class Main {
                                 editarEvento.setPessoaNoivo2(noivo2);
                             }
 
-                            eventoDAO.atualizarEvento(editarId, editarEvento);
+                            atualizarListaDeFornecedoresNoEvento(editarId, editarEvento); // Metodo para atualizar a lista de fornecedores caso haja alteração nos noivos
                             System.out.println("\nEvento atualizado com sucesso!");
                             System.out.println("\nEvento com os dados atualizados:\n\n" + editarEvento.toString());
+
+                        } else {
+                            atualizarListaDeFornecedoresNoEvento(editarId, editarEvento); // Metodo para atualizar a lista de fornecedores caso não haja alteração nos noivos
+                            System.out.println("\nEvento com os dados atualizados:\n\n" + editarEvento.toString());
                         }
+
                     } else {
-                        System.out.println("\nEvento não encontrado para atualizar!");
+                        System.out.println("\nEvento nao encontrado!");
                     }
                     break;
 
@@ -716,6 +724,49 @@ public class Main {
 
             }
         } while (op != 0);
+    }
+
+    private void atualizarListaDeFornecedoresNoEvento(long editarId, Evento editarEvento) {
+        System.out.println("\nAinda são os mesmos fornecedores?");
+        System.out.println("\nDigite 1 para [SIM] ou 0 para [NAO]");
+        int respostaFornecedores = Integer.parseInt(s.nextLine());
+
+        if(respostaFornecedores == 0) {
+            System.out.println("\nLista de fornecedores cadastrados no sistema: ");
+            fornecedorDAO.exibeFornecedoresSimples();
+
+            System.out.println("\nDigite o [ID] do fornecedor que deseja alterar (ou pressione ENTER para manter o fornecedor atual)" + Arrays.toString(editarEvento.getFornecedores()));
+            long fornecedorId = Long.parseLong(s.nextLine());
+
+            if(fornecedorId != 0) {
+                Fornecedor fornecedor = fornecedorDAO.buscaPorId(fornecedorId);
+                editarEvento.addFornecedor(fornecedor);
+            }
+
+            System.out.println("\nHá mais fornecedores para adicionar?");
+            System.out.println("\nDigite 1 para [SIM] ou 0 para [NAO]");
+            int respostaMaisFornecedores = Integer.parseInt(s.nextLine());
+
+            while (respostaMaisFornecedores == 1) {
+                System.out.println("\nLista de fornecedores cadastrados no sistema: ");
+                fornecedorDAO.exibeFornecedoresSimples();
+
+                System.out.println("\nDigite o [ID] do fornecedor que deseja adicionar: ");
+                long fornecedorIdAdicionar = Long.parseLong(s.nextLine());
+
+                if(fornecedorIdAdicionar != 0) {
+                    Fornecedor fornecedorAdicionar = fornecedorDAO.buscaPorId(fornecedorIdAdicionar);
+                    editarEvento.addFornecedor(fornecedorAdicionar);
+                }
+
+                System.out.println("\nHá mais fornecedores para adicionar?");
+                System.out.println("\nDigite 1 para [SIM] ou 0 para [NAO]");
+                respostaMaisFornecedores = Integer.parseInt(s.nextLine());
+            }
+        }
+
+        editarEvento.setNomeDoEvento(editarEvento.getNomeDoEvento());
+        eventoDAO.atualizarEvento(editarId, editarEvento); // Atualiza o evento com os fornecedores adicionados e outros dados atualizados
     }
 
     public void menuConvites() {
@@ -1361,7 +1412,7 @@ public class Main {
                     break;
 
                 case 2:
-                	System.out.println("\nDe qual evento é o convite? ");
+                    System.out.println("\nDe qual evento é o convite? ");
                     eventoDAO.exibirListaEventosSimples();
                     System.out.println("\nInforme o [ID]: ");
                     long idEventoDoConvite = Long.parseLong(s.nextLine());
@@ -1374,9 +1425,9 @@ public class Main {
                     reportPath = "reports/ConviteDeCasamento.pdf";
                     relatorio.conviteIndividualPDF(convite, eventoDoConvite, reportPath);
                     break;
-                    
+
                 case 3:
-                	System.out.println("\nDe qual evento é o convite? ");
+                    System.out.println("\nDe qual evento é o convite? ");
                     eventoDAO.exibirListaEventosSimples();
                     System.out.println("\nInforme o [ID]: ");
                     long idEventoDoConviteFamilia = Long.parseLong(s.nextLine());
@@ -1389,13 +1440,13 @@ public class Main {
                     reportPath = "reports/ConviteDeCasamentoParaFamilia.pdf";
                     relatorio.conviteIndividualFamiliaPDF(conviteFamilia, eventoDoConviteFalimia, reportPath);
                     break;
-                    
+
                 case 4:
-                	Pagamento[] pagamentos = pagamentoDAO.buscarTodos();
-                	reportPath = "reports/PagamentosDosNoivos.pdf";
-                	relatorio.pagamentosRealizadosPDF(pagamentos, reportPath);
+                    Pagamento[] pagamentos = pagamentoDAO.buscarTodos();
+                    reportPath = "reports/PagamentosDosNoivos.pdf";
+                    relatorio.pagamentosRealizadosPDF(pagamentos, reportPath);
                     break;
-                    
+
                 case 5:
                     System.out.println("\nDe qual evento deseja extrair o relatorio de convidados? ");
                     eventoDAO.exibirListaEventosSimples();

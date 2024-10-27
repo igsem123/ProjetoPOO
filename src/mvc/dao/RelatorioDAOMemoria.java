@@ -1,10 +1,6 @@
 package mvc.dao;
 
-import mvc.model.ConvidadoFamilia;
-import mvc.model.ConvidadoIndividual;
-import mvc.model.Evento;
-import mvc.model.MuralRecados;
-import mvc.model.Pagamento;
+import mvc.model.*;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
@@ -61,22 +57,24 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             background.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
             document.add(background);
 
+            // Configuração de cores
+            BaseColor corMagenta = new BaseColor(183,48,142);
+
             // Configuração de fontes
-            Font fontNormal = new Font(CaviarDreams, 10, Font.NORMAL, new BaseColor(162, 25, 255));
-            Font fontMaior = new Font(CaviarDreams, 12, Font.NORMAL, new BaseColor(162, 25, 255));
-            Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, new BaseColor(128, 0, 128));
-            Font fontNormalItalic = new Font(CaviarDreamsItalic, 10, Font.ITALIC, new BaseColor(128, 0, 128));
-            Font fontBoldItalic = new Font(CaviarDreamsBoldItalic, 10, Font.BOLDITALIC, new BaseColor(128, 0, 128));
-            Font fontTitle = new Font(bfTitle, 30, Font.ITALIC, new BaseColor(128, 0, 128));
+            Font fontNormal = new Font(CaviarDreams, 10, Font.NORMAL, BaseColor.BLACK);
+            Font fontMaior = new Font(CaviarDreams, 12, Font.NORMAL, BaseColor.BLACK);
+            Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, corMagenta);
+            Font fontTitle = new Font(bfTitle, 30, Font.ITALIC, corMagenta);
 
             // Adicionando título
             Paragraph title = new Paragraph("Relatório - Recados Recebidos do Evento: ", fontTitle);
             title.setAlignment(Element.ALIGN_CENTER);
-            title.setSpacingBefore(18f);
+            title.setSpacingBefore(70f);
             document.add(title);
 
             // Adicionando subtítulo
             Paragraph subtitle = new Paragraph(evento, fontMaior);
+            subtitle.setSpacingBefore(15f);
             subtitle.setAlignment(Element.ALIGN_CENTER);
             document.add(subtitle);
 
@@ -151,19 +149,13 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.add(background);
 
             // Configuração de cores
-            BaseColor corRoxoClaro = new BaseColor(209, 196, 233); // #D1C4E9
-            BaseColor corRoxoEscuro = new BaseColor(74, 20, 140);  // #4A148C
-            BaseColor corRoxoIntermediario = new BaseColor(106, 27, 154); // #6A1B9A
-            BaseColor corMagentaEscuro = new BaseColor(128, 0, 128); // #6A1B9A
+            BaseColor corMagenta = new BaseColor(183,48,142); // #B7308E
 
             // Configuração de fontes
             Font fontNormal = new Font(CaviarDreams, 16, Font.NORMAL, BaseColor.BLACK);
             Font fontMaior = new Font(CaviarDreams, 17, Font.NORMAL, BaseColor.BLACK);
-            Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, corMagentaEscuro);
-            Font fontNormalItalic = new Font(CaviarDreamsItalic, 15, Font.ITALIC, corMagentaEscuro);
-            Font fontBoldItalic = new Font(CaviarDreamsBoldItalic, 10, Font.BOLDITALIC, new BaseColor(128, 0, 128));
-            Font fontTitle = new Font(bfTitle, 32, Font.ITALIC, corMagentaEscuro);
-            Font fontSubtitle = new Font(bfTitle, 28, Font.ITALIC, new BaseColor(128, 0, 128));
+            Font fontTitle = new Font(bfTitle, 32, Font.ITALIC, corMagenta);
+            Font fontSubtitle = new Font(bfTitle, 28, Font.ITALIC, corMagenta);
 
             // Adicionando espaçamento antes do conteúdo
             document.add(new Paragraph("\n\n\n"));
@@ -207,7 +199,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.add(new Paragraph("\n"));
             PdfPTable lineTable = new PdfPTable(1);
             PdfPCell lineCell = new PdfPCell();
-            lineCell.setBorderColor(corMagentaEscuro);
+            lineCell.setBorderColor(corMagenta);
             lineCell.setBorderWidth(1f);
             lineTable.setWidthPercentage(50);
             lineCell.setFixedHeight(2f);
@@ -253,33 +245,32 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.add(background);
 
             // Configuração de cores
-            BaseColor corRoxoClaro = new BaseColor(209, 196, 233);
-            BaseColor corMagentaEscuro = new BaseColor(128, 0, 128);
+            BaseColor corMagenta = new BaseColor(183,48,142);
 
             // Configuração de fontes
             Font fontPequena = new Font(CaviarDreams, 10, Font.NORMAL, BaseColor.BLACK);
             Font fontNormal = new Font(CaviarDreams, 16, Font.NORMAL, BaseColor.BLACK);
             Font fontMaior = new Font(CaviarDreams, 17, Font.NORMAL, BaseColor.BLACK);
-            Font fontTitle = new Font(bfTitle, 32, Font.ITALIC, corMagentaEscuro);
-            Font fontSubtitle = new Font(bfTitle, 28, Font.ITALIC, corMagentaEscuro);
-            Font fontFamily = new Font(bfTitle, 28, Font.ITALIC, new BaseColor(128, 0, 128));
+            Font fontTitle = new Font(bfTitle, 32, Font.ITALIC, corMagenta);
+            Font fontFamily = new Font(bfTitle, 28, Font.ITALIC, corMagenta);
+
             // Adicionando espaçamento antes do conteúdo
             document.add(new Paragraph("\n\n\n"));
 
             // Adicionando o título (nomes dos noivos)
             Paragraph title = new Paragraph(evento.getPessoaNoivo1().getNome() + " & " + evento.getPessoaNoivo2().getNome(), fontTitle);
             title.setAlignment(Element.ALIGN_CENTER);
-            title.setSpacingBefore(30f);
+            title.setSpacingBefore(75f);
             document.add(title);
 
-            document.add(new Paragraph("\n\n\n")); // Espaçamento
+            document.add(new Paragraph("\n\n")); // Espaçamento
 
             // Adicionando uma frase convite
             Paragraph invitationText = new Paragraph("Têm a honra de convidar a família " + convidado.getNomeFamilia() + " para celebrar este momento especial", fontMaior);
             invitationText.setAlignment(Element.ALIGN_CENTER);
             document.add(invitationText);
 
-            document.add(new Paragraph("\n\n\n")); // Espaçamento
+            document.add(new Paragraph("\n")); // Espaçamento
 
             // Adicionando a data do casamento
             Paragraph weddingDate = new Paragraph("Data: " + evento.getDataEvento(), fontNormal);
@@ -294,7 +285,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             weddingLocation.setAlignment(Element.ALIGN_CENTER);
             document.add(weddingLocation);
 
-            document.add(new Paragraph("\n\n")); // Espaçamento
+            document.add(new Paragraph("\n")); // Espaçamento
 
             // Adicionando o nome da família
             Paragraph familyName = new Paragraph("Família " + convidado.getNomeFamilia(), fontFamily);
@@ -305,7 +296,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.add(new Paragraph("\n"));
             PdfPTable lineTable = new PdfPTable(1);
             PdfPCell lineCell = new PdfPCell();
-            lineCell.setBorderColor(corMagentaEscuro);
+            lineCell.setBorderColor(corMagenta);
             lineCell.setBorderWidth(1f);
             lineTable.setWidthPercentage(50);
             lineCell.setFixedHeight(2f);
@@ -428,18 +419,18 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             background.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
             document.add(background);
 
+            // Configuração de cores
+            BaseColor corMagenta = new BaseColor(183,48,142);
+
             // Configuração de fontes
             Font fontNormal = new Font(CaviarDreams, 10, Font.NORMAL, BaseColor.BLACK);
-            Font fontMaior = new Font(CaviarDreams, 12, Font.NORMAL, new BaseColor(162, 25, 255));
-            Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, new BaseColor(128, 0, 128));
-            Font fontNormalItalic = new Font(CaviarDreamsItalic, 10, Font.ITALIC, new BaseColor(128, 0, 128));
-            Font fontBoldItalic = new Font(CaviarDreamsBoldItalic, 10, Font.BOLDITALIC, new BaseColor(128, 0, 128));
-            Font fontTitle = new Font(bfTitle, 30, Font.ITALIC, new BaseColor(128, 0, 128));
+            Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, corMagenta);
+            Font fontTitle = new Font(bfTitle, 30, Font.ITALIC, corMagenta);
 
             // Adicionando título
             Paragraph title = new Paragraph("Lista de Convidados", fontTitle);
             title.setAlignment(Element.ALIGN_CENTER);
-            title.setSpacingBefore(35f);
+            title.setSpacingBefore(70f);
             document.add(title);
 
             document.add(new Paragraph("\n"));  // Espaçamento
@@ -447,8 +438,8 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             // Adicionando nome do evento
             Paragraph evento = new Paragraph("Evento: " + convidados[0].getEvento().getNomeDoEvento(), fontNormal);
             evento.setAlignment(Element.ALIGN_CENTER);
-            evento.setSpacingBefore(10f);
-            evento.setSpacingAfter(5f);
+            evento.setSpacingBefore(20f);
+            evento.setSpacingAfter(8f);
             document.add(evento);
 
             // Adicionando data de geração do relatório
@@ -512,16 +503,19 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             background.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
             document.add(background);
 
+            // Configuração de cores
+            BaseColor corMagenta = new BaseColor(183,48,142);
+
             // Configuração de fontes
             Font fontNormal = new Font(CaviarDreams, 10, Font.NORMAL, BaseColor.BLACK);
-            Font fontMaior = new Font(CaviarDreams, 12, Font.NORMAL, new BaseColor(162, 25, 255));
-            Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, new BaseColor(128, 0, 128));
-            Font fontTitle = new Font(bfTitle, 30, Font.ITALIC, new BaseColor(128, 0, 128));
+            Font fontMaior = new Font(CaviarDreams, 12, Font.NORMAL, corMagenta);
+            Font fontHeader = new Font(CaviarDreamsBold, 10, Font.BOLD, corMagenta);
+            Font fontTitle = new Font(bfTitle, 30, Font.ITALIC, corMagenta);
 
             // Adicionando título
             Paragraph title = new Paragraph("Lista de Convidados Confirmados", fontTitle);
             title.setAlignment(Element.ALIGN_CENTER);
-            title.setSpacingBefore(35f);
+            title.setSpacingBefore(70f);
             document.add(title);
 
             document.add(new Paragraph("\n"));  // Espaçamento
@@ -529,8 +523,8 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             // Adicionando nome do evento
             Paragraph evento = new Paragraph("Evento: " + convidados[0].getEvento().getNomeDoEvento(), fontNormal);
             evento.setAlignment(Element.ALIGN_CENTER);
-            evento.setSpacingBefore(10f);
-            evento.setSpacingAfter(5f);
+            evento.setSpacingBefore(20f);
+            evento.setSpacingAfter(8f);
             document.add(evento);
 
             // Adicionando data de geração do relatório
@@ -547,7 +541,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             table.setSpacingBefore(10f); // Espaço antes da tabela
 
             // Definindo a largura das colunas
-            table.setWidths(new float[]{5f, 25f, 15f, 10f, 20f});
+            table.setWidths(new float[]{5f, 25f, 15f, 15f, 20f});
 
             // Cabeçalhos da tabela
             table.addCell(createCell("ID", fontHeader, BaseColor.LIGHT_GRAY, Element.ALIGN_CENTER));
@@ -573,10 +567,6 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
                     } else if (idade >= 14) {
                         pontos = 1.0; // Pessoas com 14 anos ou mais contam como adulto
                     }
-                    
-                    if (convidado.getParentesco().equalsIgnoreCase("Fornecedor")) {
-                        pontos *= 0.5; // Fornecedores contam como 50% do valor de um adulto
-                    }
 
                     totalPontos += pontos; // Soma os pontos
 
@@ -587,6 +577,17 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
                     table.addCell(createCell(convidado.getFamilia().getNomeFamilia(), fontNormal, BaseColor.WHITE, Element.ALIGN_LEFT));
                     table.addCell(createCell(convidado.getConfirmacao(), fontNormal, BaseColor.WHITE, Element.ALIGN_CENTER));
                 }
+            }
+
+            for (Fornecedor fornecedor : convidados[0].getEvento().getFornecedores()) {
+                table.addCell(createCell(String.valueOf(fornecedor.getId()), fontNormal, BaseColor.WHITE, Element.ALIGN_CENTER));
+                table.addCell(createCell(fornecedor.getNome(), fontNormal, BaseColor.WHITE, Element.ALIGN_LEFT));
+                table.addCell(createCell("Fornecedor", fontNormal, BaseColor.WHITE, Element.ALIGN_LEFT));
+                table.addCell(createCell("Fornecedores", fontNormal, BaseColor.WHITE, Element.ALIGN_LEFT));
+                table.addCell(createCell("Confirmado", fontNormal, BaseColor.WHITE, Element.ALIGN_CENTER));
+
+                double pontos = 0.5; // Fornecedores contam como 50% do valor de um adulto
+                totalPontos += pontos; // Soma os pontos
             }
 
             // Adiciona a tabela ao documento

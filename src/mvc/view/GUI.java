@@ -624,33 +624,76 @@ public class GUI {
         Pessoa novaPessoa = new Pessoa();
         System.out.println("\nDigite seu nome: ");
         String nome = this.scanner.nextLine();
+
+        while (nome.length() < 3 || nome.length() > 100 || nome.contains("  ") || nome.isBlank()) {
+            System.out.println("\nNome inválido, tente novamente:");
+            nome = this.scanner.nextLine();
+        }
+
         novaPessoa.setNome(nome);
 
         System.out.println("\nDigite seu CPF: ");
         System.out.println("Digite desta forma -> 000.000.000-00");
         String CPF = this.scanner.nextLine();
+
+        while (CPF.length() != 14 || CPF.contains("  ") || CPF.isBlank()) {
+            System.out.println("\nCPF inválido, tente novamente:");
+            CPF = this.scanner.nextLine();
+        }
+
         novaPessoa.setCpf(CPF);
 
         System.out.println("\nDigite sua data de nascimento:");
         System.out.println("Digite desta forma -> dd/MM/yyyy");
         String data = this.scanner.nextLine();
+
+        while (data.length() != 10 || data.contains("  ") || data.isBlank()) {
+            System.out.println("\nData inválida, tente novamente:");
+            data = this.scanner.nextLine();
+        }
+
         novaPessoa.setDataNascimento(data);
 
         System.out.println("\nDigite seu sexo [Homem] - [Mulher]: ");
         String sexo = this.scanner.nextLine();
+
+        while (!sexo.equalsIgnoreCase("Homem") && !sexo.equalsIgnoreCase("Mulher")) {
+            System.out.println("\nSexo inválido, tente novamente:");
+            System.out.println("Digite seu sexo [Homem] - [Mulher]: ");
+            sexo = this.scanner.nextLine();
+        }
+
         novaPessoa.setSexo(sexo);
 
         System.out.println("\nDigite seu telefone: ");
         System.out.println("Digite desta forma -> +55 DDD X XXXX-XXXX");
         String telefone = this.scanner.nextLine();
+
+        while (telefone.length() < 14 || telefone.contains("  ") || telefone.isBlank()) {
+            System.out.println("\nTelefone inválido, tente novamente:");
+            telefone = this.scanner.nextLine();
+        }
+
         novaPessoa.setTelefone(telefone);
 
         System.out.println("\nDigite seu email [Login]: ");
         String email = this.scanner.nextLine();
+
+        while (email.length() < 5 || email.length() > 100 || email.contains("  ") || email.isBlank()) {
+            System.out.println("\nEmail inválido, tente novamente:");
+            email = this.scanner.nextLine();
+        }
+
         novaPessoa.setEmail(email);
 
         System.out.println("\nDigite a sua senha: ");
         String senha = this.scanner.nextLine();
+
+        while (senha.length() < 4 || senha.length() > 100 || senha.contains("  ") || senha.isBlank()) {
+            System.out.println("\nSenha inválida, tente novamente:");
+            senha = this.scanner.nextLine();
+        }
+
         novaPessoa.setSenha(senha);
 
         System.out.println("\nDigite o tipo de usuário: ");
@@ -734,6 +777,32 @@ public class GUI {
         long noivo2Id = Long.parseLong(scanner.nextLine());
         Pessoa noivo2 = pessoaDAO.buscaPorId(noivo2Id);
         nE.setPessoaNoivo2(noivo2);
+
+        System.out.println("\nQuais os fornecedores que estarão presentes no evento?");
+        System.out.println("\nLista de fornecedores cadastrados no sistema: \n");
+        fornecedorDAO.exibeFornecedoresSimples();
+        System.out.println("\nInforme o ID do fornecedor: ");
+        long fornecedorId = Long.parseLong(scanner.nextLine());
+        Fornecedor fornecedor = fornecedorDAO.buscaPorId(fornecedorId);
+        nE.addFornecedor(fornecedor);
+
+        while (true) {
+            System.out.println("\nDeseja adicionar mais fornecedores?");
+            System.out.println("\n-> Digite [0] para SIM ou [1] para NÃO.");
+            int escolha = Integer.parseInt(scanner.nextLine());
+
+            if (escolha == 0) {
+                System.out.println("\nInforme o ID do fornecedor: ");
+                long id = Long.parseLong(scanner.nextLine());
+                Fornecedor f = fornecedorDAO.buscaPorId(id);
+                nE.addFornecedor(f);
+            } else {
+                break;
+            }
+        }
+
+        // Gerar o nome do evento após inicializar todos os campos
+        nE.setNomeDoEvento(nE.gerarNomeDoEvento(noivo1, noivo2));
 
         return nE;
     }

@@ -1,6 +1,7 @@
 package mvc.dao;
 
 import mvc.model.Evento;
+import mvc.model.Fornecedor;
 import mvc.model.Pessoa;
 import mvc.model.Util;
 
@@ -10,7 +11,7 @@ public class EventoDAOMemoria implements EventoDAO {
     private final Evento[] eventos;
     private int totalEventos;
 
-    public EventoDAOMemoria(PessoaDAO pessoaDAO, int capacidade) {
+    public EventoDAOMemoria(PessoaDAO pessoaDAO, FornecedorDAO fornecedorDAO, int capacidade) {
         this.eventos = new Evento[capacidade];
         this.totalEventos = 0;
 
@@ -18,13 +19,15 @@ public class EventoDAOMemoria implements EventoDAO {
         Pessoa cerimonialista1 = pessoaDAO.buscaPorId(3L);
         Pessoa noivo1 = pessoaDAO.buscaPorId(0L);
         Pessoa noivo2 = pessoaDAO.buscaPorId(1L);
-        Evento evento1 = new Evento(LocalDate.now(), cerimonialista1, "Igreja Central", "Cartório Central", noivo1, noivo2);
+        Fornecedor[] fornecedor1 = new Fornecedor[]{fornecedorDAO.buscaPorId(0L), fornecedorDAO.buscaPorId(1L)};
+        Evento evento1 = new Evento(LocalDate.now(), cerimonialista1, "Igreja Central", "Cartório Central", noivo1, noivo2, fornecedor1);
         this.criarEvento(evento1);
 
         Pessoa cerimonialista2 = pessoaDAO.buscaPorId(4L);
         Pessoa noivo3 = pessoaDAO.buscaPorId(2L);
         Pessoa noivo4 = pessoaDAO.buscaPorId(3L);
-        Evento evento2 = new Evento(LocalDate.now().plusDays(30), cerimonialista2, "Igreja Nova", "Cartório Nova", noivo3, noivo4);
+        Fornecedor[] fornecedor2 = new Fornecedor[]{fornecedorDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(3L)};
+        Evento evento2 = new Evento(LocalDate.now().plusDays(30), cerimonialista2, "Igreja Nova", "Cartório Nova", noivo3, noivo4, fornecedor2);
         this.criarEvento(evento2);
     }
 

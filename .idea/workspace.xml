@@ -4,14 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v1.6">
+    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/moldura_reports_lista_convidados.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/moldura_reports_lista_convidados.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/moldura_reports_recados.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/moldura_reports_recados_segundo_tipo.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/moldura_reports_recados_segundo_tipo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/reports_convite_familia.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/reports_convite_familia.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/reports_convite_individual.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/reports_convite_individual.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/ConviteDeCasamento.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/ConviteDeCasamento.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/ListaDeConvidados.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/ListaDeConvidados.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/ListaDeConvidadosConfirmados.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/ListaDeConvidadosConfirmados.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/PagamentosDosNoivos.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/PagamentosDosNoivos.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/RelatorioRecadosRecebidos.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/RelatorioRecadosRecebidos.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Calendario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Calendario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Evento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/model/Fornecedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Fornecedor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Pagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Pagamento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Util.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,7 +41,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="raphael/Criacao-e-Implementacao-CRUD-MuralRecados" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -68,27 +79,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.GUI.executor": "Debug",
-    "Application.Main.executor": "Run",
-    "Application.mvc.controller.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/rnmoreira/Documents/Projetos Faculdade/academia_parte1",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/rnath/Documents/IdeaProjects/ProjetoPOO/src/Main.java",
-    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.GUI.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.mvc.controller.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/rnmoreira/Documents/Projetos Faculdade/academia_parte1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/rnath/Documents/IdeaProjects/ProjetoPOO/src/Main.java&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.github.copilot.settings.ApplicationConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="mvc.dao" />
@@ -150,8 +161,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.300" />
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.300" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
@@ -180,6 +191,8 @@
       <workItem from="1729075862490" duration="22365000" />
       <workItem from="1729635073908" duration="602000" />
       <workItem from="1729635688756" duration="8058000" />
+      <workItem from="1729973647287" duration="91000" />
+      <workItem from="1729975208185" duration="12569000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -277,7 +290,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729020882119</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="v2.0">
+      <option name="closed" value="true" />
+      <created>1729972502826</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1729972502826</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,7 +358,8 @@
     <MESSAGE value="v1.4" />
     <MESSAGE value="v1.5" />
     <MESSAGE value="v1.6" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.6" />
+    <MESSAGE value="v2.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="v2.0" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

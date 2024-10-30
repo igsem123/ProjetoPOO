@@ -6,23 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/moldura_reports_lista_convidados.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/moldura_reports_lista_convidados.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/moldura_reports_recados.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/moldura_reports_recados_segundo_tipo.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/moldura_reports_recados_segundo_tipo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/reports_convite_familia.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/reports_convite_familia.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/reports_convite_individual.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/reports_convite_individual.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reports/ConviteDeCasamento.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/ConviteDeCasamento.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reports/ListaDeConvidados.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/ListaDeConvidados.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reports/ListaDeConvidadosConfirmados.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/ListaDeConvidadosConfirmados.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reports/PagamentosDosNoivos.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/PagamentosDosNoivos.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reports/RelatorioRecadosRecebidos.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/RelatorioRecadosRecebidos.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/model/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Evento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Fornecedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Fornecedor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

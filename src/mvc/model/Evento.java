@@ -113,16 +113,21 @@ public class Evento {
         return nomeDoEvento;
     }
 
-    public void addFornecedor(Fornecedor fornecedor) {
+    public void addFornecedor(Fornecedor fornecedor) { // Adiciona um fornecedor à lista de fornecedores
         this.dataModificacao = LocalDateTime.now();
         if (this.fornecedores == null) {
-            this.fornecedores = new Fornecedor[]{fornecedor};
+            this.fornecedores = new Fornecedor[]{fornecedor}; // Se a lista de fornecedores for nula, cria um novo array com um único fornecedor
         } else {
-            Fornecedor[] novoFornecedores = new Fornecedor[this.fornecedores.length + 1];
-            System.arraycopy(this.fornecedores, 0, novoFornecedores, 0, this.fornecedores.length);
-            novoFornecedores[this.fornecedores.length] = fornecedor;
-            this.fornecedores = novoFornecedores;
+            Fornecedor[] novoFornecedores = new Fornecedor[this.fornecedores.length + 1]; // Cria um novo array com tamanho maior
+            System.arraycopy(this.fornecedores, 0, novoFornecedores, 0, this.fornecedores.length); // Copia os elementos do array antigo para o novo array criado por meio do arraycopy que é mais eficiente, indico o array de origem, a posição de início, o array de destino, a posição de início e a quantidade de elementos a serem copiados, sendo todos os elementos do array antigo
+            novoFornecedores[this.fornecedores.length] = fornecedor; // Adiciona o novo fornecedor ao final do novo array
+            this.fornecedores = novoFornecedores; // Atualiza a lista de fornecedores
         }
+    }
+
+    public void clearFornecedores() { // Limpa a lista de fornecedores
+        this.fornecedores = new Fornecedor[0]; // Cria um novo array vazio
+        this.dataModificacao = LocalDateTime.now();
     }
 
     public Fornecedor[] getFornecedores() {

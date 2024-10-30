@@ -66,7 +66,7 @@ public class Main {
                     this.menuSemLogin();  // Método responsável pelo menu sem login
                     break;
                 case 4:
-                    System.out.println("\nVolte sempre!!");
+                    System.out.println("\nFinalizando sessão no programa. Volte sempre!!");
                     break;
                 default:
                     System.out.println("\nDigite um número válido!");
@@ -162,7 +162,6 @@ public class Main {
                         break;
                     case 0:
                         System.out.println("\nSaindo do menu principal!");
-                        gui.menuBoasVindas();
                         break;
                     default:
                         System.out.println("\nDigite uma opcao valida");
@@ -315,6 +314,7 @@ public class Main {
 
                     case 0:
                         System.out.println("\n0 - Sair");
+                        Util.setPessoaLogada(null);
                         break;
 
                     default:
@@ -619,7 +619,7 @@ public class Main {
                         System.out.println("\nEvento encontrado com sucesso!\n");
                         System.out.println(achouE.toString());
                     } else {
-                        System.out.println("\nEvento nao encontrado!\n");
+                        System.out.println("\nEvento nao encontrado!");
                     }
                     break;
 
@@ -639,7 +639,7 @@ public class Main {
                     Evento editarEvento = eventoDAO.buscarPorId(editarId);
 
                     if (editarEvento != null) {
-                        System.out.println("\nEvento encontrado com sucesso!\n");
+                        System.out.println("\nEvento encontrado com sucesso!");
 
                         System.out.println("\nDigite a nova data do evento (ou pressione ENTER para manter a data atual): " + editarEvento.getDataEvento());
                         System.out.println("-> Digite desta forma: DD/MM/AAAA ");
@@ -732,10 +732,11 @@ public class Main {
         int respostaFornecedores = Integer.parseInt(s.nextLine());
 
         if(respostaFornecedores == 0) {
+            editarEvento.clearFornecedores(); // Limpa a lista de fornecedores
             System.out.println("\nLista de fornecedores cadastrados no sistema: ");
             fornecedorDAO.exibeFornecedoresSimples();
 
-            System.out.println("\nDigite o [ID] do fornecedor que deseja alterar (ou pressione ENTER para manter o fornecedor atual)" + Arrays.toString(editarEvento.getFornecedores()));
+            System.out.println("\nDigite o [ID] do fornecedor que deseja adicionar: ");
             long fornecedorId = Long.parseLong(s.nextLine());
 
             if(fornecedorId != 0) {
@@ -754,7 +755,7 @@ public class Main {
                 System.out.println("\nDigite o [ID] do fornecedor que deseja adicionar: ");
                 long fornecedorIdAdicionar = Long.parseLong(s.nextLine());
 
-                if(fornecedorIdAdicionar != 0) {
+                if (fornecedorIdAdicionar != 0) {
                     Fornecedor fornecedorAdicionar = fornecedorDAO.buscaPorId(fornecedorIdAdicionar);
                     editarEvento.addFornecedor(fornecedorAdicionar);
                 }
@@ -765,7 +766,7 @@ public class Main {
             }
         }
 
-        editarEvento.setNomeDoEvento(editarEvento.getNomeDoEvento());
+        editarEvento.setNomeDoEvento(editarEvento.getNomeDoEvento()); // Atualiza o nome do evento
         eventoDAO.atualizarEvento(editarId, editarEvento); // Atualiza o evento com os fornecedores adicionados e outros dados atualizados
     }
 
@@ -782,7 +783,12 @@ public class Main {
                         switch(opConviteInd) {
                             case 1:
                                 ConvidadoIndividual criaConv = gui.cadastrarConviteIndividual(convidadoFamiliaDAO);
-                                convidadoIndividualDAO.criarConvidado(criaConv);
+
+                                if (criaConv != null) {
+                                    convidadoIndividualDAO.criarConvidado(criaConv);
+                                } else {
+                                    System.out.println("\nNão foi possível criar o convite individual!");
+                                }
                                 break;
 
                             case 2:
@@ -958,11 +964,19 @@ public class Main {
                         presenteEditar = presentesDAO.buscarPorId(idPresenteAtualizar);
                     }
 
-                    System.out.println("Digite o novo nome do presente (ou pressione ENTER para manter o nome atual): " + presenteEditar.getNome());
+                    System.out.println("\nDigite o novo nome do presente (ou pressione ENTER para manter o nome atual): " + presenteEditar.getNome());
                     String presenteNome = s.nextLine();
 
                     if(!presenteNome.isEmpty()) {
                         presenteEditar.setNome(presenteNome);
+                    }
+
+                    System.out.println("\nDigite o novo tipo do presente (ou pressione ENTER para manter o tipo atual): " + presenteEditar.getTipo());
+                    System.out.println("->Digite desta forma: 1 - Cozinha/Geral | 2 - Cozinha/Eletrodomésticos | 3 - Decoração/Cama/Mesa/Banho | 4 - Moveis/Eletronicos | 5 - Dinheiro");
+                    String presenteTipo = s.nextLine();
+
+                    if(!presenteTipo.isEmpty()) {
+                        presenteEditar.setTipo(Integer.parseInt(presenteTipo));
                     }
 
                     System.out.println("\nDigite o novo valor do presente (ou pressione ENTER para manter o valor atual): " + presenteEditar.getValor());
@@ -1292,7 +1306,7 @@ public class Main {
 
     public void menuCalendario() {
         // Métodos intrinsecos do calendário, vão funcionar ao abrir a opção
-        calendario.notificarPagamentosProximos(pagamentoDAO.getPagamentos(), 5); // Setando dia de antecência para notificar o adm sobre um pagamento agendado em data próx
+        calendario.notificarPagamentosProximos(pagamentoDAO.getPagamentos(), 3); // Setando dia de antecência para notificar o adm sobre um pagamento agendado em data próx
         calendario.notificarPagamentosAtrasados(pagamentoDAO.getPagamentos());
 
         int op;

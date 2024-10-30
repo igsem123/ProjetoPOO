@@ -1,5 +1,6 @@
 package mvc.view;
 
+import mvc.controller.Main;
 import mvc.dao.*;
 import mvc.model.*;
 
@@ -175,7 +176,7 @@ public class GUI {
 
         return opcao;
     }
-    
+
     public int menuSemLogin() {
         int opcao = -1; // inicializa com um valor inválido
 
@@ -617,8 +618,8 @@ public class GUI {
 
         return opcao;
     }
-    
-    // =-=-=-=-==-=-=-=-=-=-=-=-=-=-= CRIACOES =-=-=-=-==-=-=-=-=-=-=-=-=-=-= //
+
+    // =-=-=-=-==-=-=-=-=-=-=-=-=-=-= CRIAÇÕES =-=-=-=-==-=-=-=-=-=-=-=-=-=-= //
     // TODO Formulário para cadastrar uma nova pessoa
     public Pessoa cadastrarPessoa() {
         Pessoa novaPessoa = new Pessoa();
@@ -714,27 +715,61 @@ public class GUI {
         Fornecedor nF = new Fornecedor();
         System.out.println("\nQual o nome da empresa? ");
         String nome = scanner.nextLine();
+
+        while (nome.length() < 3 || nome.length() > 100 || nome.contains("  ") || nome.isBlank()) {
+            System.out.println("\nNome inválido, tente novamente:");
+            nome = scanner.nextLine();
+        }
         nF.setNome(nome);
 
         System.out.println("\nQual o CNPJ da empresa? ");
+        System.out.println("Digite desta forma -> 00.000.000/0000-00");
         String CNPJ = scanner.nextLine();
+
+        while (CNPJ.length() != 18 || CNPJ.contains("  ") || CNPJ.isBlank()) {
+            System.out.println("\nCNPJ inválido, tente novamente:");
+            CNPJ = scanner.nextLine();
+        }
         nF.setCNPJ(CNPJ);
 
         System.out.println("\nQual o telefone da empresa? ");
+        System.out.println("Digite desta forma -> +55 DDD X XXXX-XXXX");
         String telefone = scanner.nextLine();
+
+        while (telefone.length() < 14 || telefone.contains("  ") || telefone.isBlank()) {
+            System.out.println("\nTelefone inválido, tente novamente:");
+            telefone = scanner.nextLine();
+        }
         nF.setTelefone(telefone);
 
         System.out.println("\nQual o email da empresa? ");
+        System.out.println("Digite desta forma -> nomedoemail@email.com");
         String email = scanner.nextLine();
+
+        while (email.length() < 5 || email.length() > 100 || email.contains("  ") || email.isBlank()) {
+            System.out.println("\nEmail inválido, tente novamente:");
+            email = scanner.nextLine();
+        }
         nF.setEmail(email);
 
         System.out.println("\nQual o valor em débito com a empresa?");
+        System.out.println("Digite desta forma -> 0000.00");
         double valor = Long.parseLong(scanner.nextLine());
+
+        while (valor < 0) {
+            System.out.println("\nValor inválido, tente novamente:");
+            valor = Long.parseLong(scanner.nextLine());
+        }
         nF.setValorAPagar(valor);
 
         System.out.println("\nEm quantas parcelas pagará?");
         System.out.println("\n -> Digite 0 se o pagamento for à vista!");
         int parcelas = Integer.parseInt(scanner.nextLine());
+
+        while (parcelas < 0) {
+            System.out.println("\nParcelas inválidas, tente novamente:");
+            parcelas = Integer.parseInt(scanner.nextLine());
+        }
         nF.setParcelas(parcelas);
 
         String estado = "Aberto";
@@ -747,43 +782,89 @@ public class GUI {
     public Evento cadastrarEvento() {
         Evento nE = new Evento();
         System.out.println("\nQual a data do evento? ");
-        System.out.println("-> Digite desta forma: DD/MM/AAAA ");
+        System.out.println("-> Digite desta forma: DD/MM/AAAA");
         String dataEvento = scanner.nextLine();
+
+        while (dataEvento.length() != 10 || dataEvento.contains("  ") || dataEvento.isBlank()) {
+            System.out.println("\nData inválida, tente novamente:");
+            dataEvento = scanner.nextLine();
+        }
         nE.setDataEvento(dataEvento);
 
         System.out.println("\nLista de cerimonialistas cadastrados no sistema: \n");
         pessoaDAO.buscaCerimonialistas();
-        System.out.println("\nInforme o ID do cerimonialista desejado: ");
+        System.out.println("\nInforme o [ID] do cerimonialista desejado: ");
         long cerimonialId = Long.parseLong(scanner.nextLine());
         Pessoa cerimonialista = pessoaDAO.buscaPorId(cerimonialId);
+
+        while (cerimonialista.getTipoUsuario() != 2) {
+            System.out.println("\nUsuário digitado inválido!");
+            System.out.println("\nInforme o [ID] do cerimonialista desejado: ");
+            cerimonialId = Long.parseLong(scanner.nextLine());
+            cerimonialista = pessoaDAO.buscaPorId(cerimonialId);
+        }
         nE.setCerimonial(cerimonialista);
 
         System.out.println("\nEm qual igreja será realizado o casamento? ");
         String igrejaEvento = scanner.nextLine();
+
+        while (igrejaEvento.length() < 3 || igrejaEvento.length() > 100 || igrejaEvento.contains("  ") || igrejaEvento.isBlank()) {
+            System.out.println("\nNome inválido, tente novamente:");
+            igrejaEvento = scanner.nextLine();
+        }
         nE.setIgreja(igrejaEvento);
 
         System.out.println("\nInforme em qual cartório será cadastro o matrimônio: ");
         String cartorioEvento  = scanner.nextLine();
+
+        while (cartorioEvento.length() < 3 || cartorioEvento.length() > 100 || cartorioEvento.contains("  ") || cartorioEvento.isBlank()) {
+            System.out.println("\nNome inválido, tente novamente:");
+            cartorioEvento = scanner.nextLine();
+        }
         nE.setCartorio(cartorioEvento);
 
         System.out.println("\nQuem serão os noivos?");
         System.out.println("\nLista de noivos cadastrados no sistema: \n");
         pessoaDAO.buscaNoivos();
-        System.out.println("\nInforme o ID do noivo(a): ");
+        System.out.println("\nInforme o [ID] do noivo(a): ");
         long noivo1Id = Long.parseLong(scanner.nextLine());
         Pessoa noivo1 = pessoaDAO.buscaPorId(noivo1Id);
+
+        while (noivo1.getTipoUsuario() != 1) {
+            System.out.println("\nUsuário digitado inválido!");
+            System.out.println("\nInforme o [ID] do noivo(a): ");
+            noivo1Id = Long.parseLong(scanner.nextLine());
+            noivo1 = pessoaDAO.buscaPorId(noivo1Id);
+        }
         nE.setPessoaNoivo1(noivo1);
-        System.out.println("\nAgora, informe ID do outro noivo(a): ");
+
+        System.out.println("\nAgora, informe [ID] do outro noivo(a): ");
         long noivo2Id = Long.parseLong(scanner.nextLine());
         Pessoa noivo2 = pessoaDAO.buscaPorId(noivo2Id);
+
+        while (noivo2.getTipoUsuario() != 1) {
+            System.out.println("\nUsuário digitado inválido!");
+            System.out.println("\nInforme o [ID] do noivo(a): ");
+            noivo2Id = Long.parseLong(scanner.nextLine());
+            noivo2 = pessoaDAO.buscaPorId(noivo2Id);
+        }
         nE.setPessoaNoivo2(noivo2);
 
         System.out.println("\nQuais os fornecedores que estarão presentes no evento?");
         System.out.println("\nLista de fornecedores cadastrados no sistema: \n");
         fornecedorDAO.exibeFornecedoresSimples();
-        System.out.println("\nInforme o ID do fornecedor: ");
+        System.out.println("\nInforme o [ID] do fornecedor: ");
         long fornecedorId = Long.parseLong(scanner.nextLine());
         Fornecedor fornecedor = fornecedorDAO.buscaPorId(fornecedorId);
+
+        while (fornecedor == null) {
+            System.out.println("\nFornecedor não identificado.");
+            System.out.println("\nInforme o [ID] do fornecedor: ");
+            fornecedorId = Long.parseLong(scanner.nextLine());
+            fornecedor = fornecedorDAO.buscaPorId(fornecedorId);
+        }
+
+        System.out.println("\nFornecedor adicionado com sucesso: " + fornecedor.getNome());
         nE.addFornecedor(fornecedor);
 
         while (true) {
@@ -792,10 +873,20 @@ public class GUI {
             int escolha = Integer.parseInt(scanner.nextLine());
 
             if (escolha == 0) {
-                System.out.println("\nInforme o ID do fornecedor: ");
+                System.out.println("\nInforme o [ID] do fornecedor: ");
                 long id = Long.parseLong(scanner.nextLine());
                 Fornecedor f = fornecedorDAO.buscaPorId(id);
+
+                while (f == null) {
+                    System.out.println("\nFornecedor não identificado.");
+                    System.out.println("\nInforme o [ID] do fornecedor: ");
+                    id = Long.parseLong(scanner.nextLine());
+                    f = fornecedorDAO.buscaPorId(id);
+                }
+
+                System.out.println("\nFornecedor adicionado com sucesso: " + f.getNome());
                 nE.addFornecedor(f);
+
             } else {
                 break;
             }
@@ -808,7 +899,7 @@ public class GUI {
     }
 
     // TODO Formulário para criar um convite individual
-    public ConvidadoIndividual cadastrarConviteIndividual(ConvidadoFamiliaDAO convidadoFamiliaDAO) {
+    public ConvidadoIndividual cadastrarConviteIndividual(ConvidadoFamiliaDAO convidadoFamiliaDAO) { // Passo o DAO para poder buscar a família
         ConvidadoIndividual nCi = new ConvidadoIndividual();
         System.out.println("\nLista de pessoas/convidados cadastrados no sistema: \n");
         pessoaDAO.buscaConvidados();
@@ -821,6 +912,19 @@ public class GUI {
             return this.cadastrarConviteIndividual(convidadoFamiliaDAO);
         } else {
             nCi.setPessoa(ci);
+        }
+
+        if (convidadoIndividualDAO.buscarPorId(convidadoId) != null) {
+            System.out.println("\nConvidado já cadastrado no sistema. Caso deseje alterar o convite, utilize a opção de alteração.");
+            System.out.println("\nDeseja cadastrar outro convidado?");
+            System.out.println("\n-> Digite [0] para SIM ou [1] para NÃO.");
+            int escolha = Integer.parseInt(scanner.nextLine());
+
+            if (escolha == 0) {
+                return this.cadastrarConviteIndividual(convidadoFamiliaDAO);
+            } else {
+                return null; // Retorna null para sair do metodo
+            }
         }
 
         System.out.println("\nPara qual evento você deseja criar o convite?");
@@ -836,10 +940,10 @@ public class GUI {
             return this.cadastrarConviteIndividual(convidadoFamiliaDAO);
         }
 
-        System.out.println("\nLista de famílias cadastradas no sistema:\n");
+        System.out.println("\nLista de famílias cadastradas no sistema:");
         convidadoFamiliaDAO.listarFamilias();
         System.out.println("\nQual o [ID] da família que o convidado faz parte?");
-        System.out.println("\n->Se não possui uma família cadastrada, digite [-1] para poder cadastrar uma nova.");
+        System.out.println("-> Se não possui uma família cadastrada, digite [-1] para poder cadastrar uma nova.");
         long idFamilia = Long.parseLong(scanner.nextLine());
         ConvidadoFamilia familia = convidadoFamiliaDAO.buscarPorId(idFamilia);
 
@@ -861,31 +965,30 @@ public class GUI {
             int escolha = Integer.parseInt(scanner.nextLine());
 
             if (escolha == 0) { // Criando o convite familiar com um acesso gerado
-                System.out.println("\nPara qual evento você deseja criar o convite familiar?\n");
-                eventoDAO.exibirListaEventosSimples();
-                System.out.println("\nDigite o [ID]: ");
-                long id = Integer.parseInt(scanner.nextLine());
 
-                Evento evento = eventoDAO.buscarPorId(id);
-                if (evento != null) {
-                    String noivo1 = evento.getPessoaNoivo1().getNome();
-                    String noivo2 = evento.getPessoaNoivo1().getNome();
-                    String data = evento.getDataEvento();
-                    ConvidadoFamilia novoConviteFamiliar = new ConvidadoFamilia(nomeFamiliaInd ,noivo1, noivo2, data, evento);
-                    convidadoFamiliaDAO.criarFamilia(novoConviteFamiliar);
-                    nCi.setFamilia(novoConviteFamiliar);
-                }
+                String noivo1 = eventoCi.getPessoaNoivo1().getNome();
+                String noivo2 = eventoCi.getPessoaNoivo1().getNome();
+                String data = eventoCi.getDataEvento();
+                ConvidadoFamilia novoConviteFamiliar = new ConvidadoFamilia(nomeFamiliaInd ,noivo1, noivo2, data, eventoCi);
+                convidadoFamiliaDAO.criarFamilia(novoConviteFamiliar);
+                nCi.setFamilia(novoConviteFamiliar);
+
             } else {
                 // Criar convite familiar sem o acesso gerado
-                System.out.println("\nConvite familiar criado sem acesso de confirmação. Contate o administrador!");
+                System.out.println("\nConvite familiar criado sem acesso de confirmação. Contate o administrador caso precise gerar em outro momento!");
                 ConvidadoFamilia novoConviteFamiliar = new ConvidadoFamilia(nomeFamiliaInd);
                 convidadoFamiliaDAO.criarFamilia(novoConviteFamiliar);
                 nCi.setFamilia(novoConviteFamiliar);
             }
         }
 
-        System.out.println("\nQual o parentesco do convidado com algum dos noivos?");
+        System.out.println("Qual o parentesco do convidado com algum dos noivos?");
         String parentesco = scanner.nextLine();
+
+        while (parentesco.isEmpty()) {
+            System.out.println("\nParentesco não informado, tente novamente!");
+            parentesco = scanner.nextLine();
+        }
         nCi.setParentesco(parentesco);
 
         nCi.setConfirmacao(false);
@@ -897,6 +1000,11 @@ public class GUI {
     public ConvidadoFamilia cadastraConviteFamiliar() {
         System.out.println("\nDigite o nome da família: ");
         String nomeFamilia = scanner.nextLine();
+
+        while (nomeFamilia.isEmpty()) {
+            System.out.println("\nNome da família não informado, tente novamente!");
+            nomeFamilia = scanner.nextLine();
+        }
 
         System.out.println("\nPara gerar o acesso da família, precisamos das seguintes informações: ");
         System.out.println("\nLista de eventos cadastrados no sistema: ");
@@ -922,6 +1030,11 @@ public class GUI {
         System.out.println("\nDigite qual será o presente: ");
         String nomePresente = scanner.nextLine();
 
+        while (nomePresente.isEmpty()) {
+            System.out.println("\nNome do presente não informado, tente novamente!");
+            nomePresente = scanner.nextLine();
+        }
+
         System.out.println("\nInforme o tipo de presente: ");
         System.out.println("\n-> Tipos: 1 [Cozinha/Geral]\n" +
                 "   2 [Cozinha/Eletrodomésticos]\n" +
@@ -938,6 +1051,11 @@ public class GUI {
         System.out.println("\nInfome o valor do presente: ");
         double valorPresente = Double.parseDouble(scanner.nextLine());
 
+        while (valorPresente < 0) {
+            System.out.println("\nValor inválido, tente novamente!");
+            valorPresente = Double.parseDouble(scanner.nextLine());
+        }
+
         return new Presentes(nomePresente, tipoPresente, valorPresente);
     }
 
@@ -948,13 +1066,29 @@ public class GUI {
         System.out.println("\nDigite para qual evento deseja deixar um recado: ");
         long idEvento = Long.parseLong(scanner.nextLine());
         Evento eventoDoRecado = eventoDAO.buscarPorId(idEvento);
-        
+
+        if(eventoDoRecado == null) {
+            System.out.println("\nEvento não identificado. Tente novamente!");
+            this.cadastraRecados();
+        }
+
         System.out.println("\nQual mensagem você deseja escrever para os noivos de recado: ");
         String recado = scanner.nextLine();
-        
+
+        while (recado.isEmpty()) {
+            System.out.println("\nRecado não foi digitado, tente novamente!");
+            recado = scanner.nextLine();
+        }
+
         if(Util.getPessoaLogada() == null) {
-        	System.out.println("\nQual é o seu nome: ");
+            System.out.println("\nQual é o seu nome: ");
             String nome = scanner.nextLine();
+
+            while (nome.isEmpty()) {
+                System.out.println("\nNome não foi digitado, tente novamente!");
+                nome = scanner.nextLine();
+            }
+
             return new MuralRecados(recado, nome, eventoDoRecado);
         } else return new MuralRecados(recado, Util.getPessoaLogada(), eventoDoRecado);
     }
@@ -967,11 +1101,25 @@ public class GUI {
         long idNoivoPagamento = Long.parseLong(scanner.nextLine());
         Pessoa noivoPagando = pessoaDAO.buscaPorId(idNoivoPagamento);
 
+        while (noivoPagando.getTipoUsuario() != 1) {
+            System.out.println("\nUsuário digitado inválido!");
+            System.out.println("\nInforme o [ID] do noivo(a) que está efetuando o pagamento: ");
+            idNoivoPagamento = Long.parseLong(scanner.nextLine());
+            noivoPagando = pessoaDAO.buscaPorId(idNoivoPagamento);
+        }
+
         System.out.println("\nPara qual fornecedor o pagamento está sendo feito? \n");
         fornecedorDAO.exibeFornecedoresSimples();
         System.out.println("\nInforme o [ID] do fornecedor que está recebendo o pagamento: ");
         long idFornecedorPagamento = Long.parseLong(scanner.nextLine());
         Fornecedor fornecedorPagamento = fornecedorDAO.buscaPorId(idFornecedorPagamento);
+
+        while (fornecedorPagamento == null) {
+            System.out.println("\nFornecedor não identificado.");
+            System.out.println("\nInforme o [ID] do fornecedor que está recebendo o pagamento: ");
+            idFornecedorPagamento = Long.parseLong(scanner.nextLine());
+            fornecedorPagamento = fornecedorDAO.buscaPorId(idFornecedorPagamento);
+        }
 
         // Obtenção do valor do débito e parcelas restantes
         double valorEmAberto = fornecedorPagamento.getValorAPagar();
@@ -985,12 +1133,22 @@ public class GUI {
         System.out.println("\nQual a descrição do pagamento? ");
         String descricao = scanner.nextLine();
 
+        while (descricao.isEmpty()) {
+            System.out.println("\nDescrição não informada, tente novamente!");
+            descricao = scanner.nextLine();
+        }
+
         System.out.println("\nO débito com o fornecedor foi encontrado, segue informações abaixo: ");
         System.out.printf("-> O valor em aberto é: %.2f", valorEmAberto);
         System.out.printf("\n-> Restam %d parcelas. ", parcelasRestantes);
 
         System.out.println("\n\nQuantas parcelas deseja pagar?");
         int parcelasPagas = Integer.parseInt(scanner.nextLine());
+
+        while (parcelasPagas < 0 || parcelasPagas > parcelasRestantes) {
+            System.out.println("\nQuantidade de parcelas inválida, tente novamente!");
+            parcelasPagas = Integer.parseInt(scanner.nextLine());
+        }
 
         // Cálculo do valor de cada parcela baseado no valor em aberto
         double valorParcela = fornecedorPagamento.getValorParcela(); // Agr faço dentro do fornecedor e só pego de volta
@@ -1004,11 +1162,23 @@ public class GUI {
         System.out.println("-> Digite [0] para PAGAR AGORA ou [1] para AGENDAR");
         int opcaoAgendar = Integer.parseInt(scanner.nextLine());
 
+        while (opcaoAgendar < 0 || opcaoAgendar > 1) {
+            System.out.println("\nOpção inválida, tente novamente!");
+            opcaoAgendar = Integer.parseInt(scanner.nextLine());
+        }
+
         Pagamento novoPagamento;
 
         if (opcaoAgendar == 1) {
             System.out.println("\nEm que data será efetuado o pagamento?");
+            System.out.println("-> Digite desta forma: DD/MM/AAAA");
             String dataPagamentoString = scanner.nextLine();
+
+            while (dataPagamentoString.length() != 10 || dataPagamentoString.contains("  ") || dataPagamentoString.isBlank()) {
+                System.out.println("\nData inválida, tente novamente!");
+                dataPagamentoString = scanner.nextLine();
+            }
+
             LocalDate dataPagamento = Util.formataData(dataPagamentoString);
             novoPagamento = new Pagamento(noivoPagando, fornecedorPagamento, descricao, valorTotalPagamento, parcelasPagas, true, dataPagamento);
         } else {

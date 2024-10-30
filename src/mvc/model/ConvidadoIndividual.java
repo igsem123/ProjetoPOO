@@ -54,6 +54,7 @@ public class ConvidadoIndividual {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+        this.id = pessoa.getId();
         this.dataModificacao = LocalDateTime.now();
     }
 

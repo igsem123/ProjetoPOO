@@ -136,7 +136,7 @@ public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
         } else {
             for (ConvidadoFamilia familia : familias) {
                 if (familia != null) {
-                    System.out.println("\nID: [" + familia.getId() + "] - Nome da Família: " + familia.getNomeFamilia());
+                    System.out.println("ID: [" + familia.getId() + "] - Nome da Família: " + familia.getNomeFamilia());
                 }
             }
         }

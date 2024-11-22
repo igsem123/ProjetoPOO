@@ -1,6 +1,7 @@
 package mvc.model;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactory {
@@ -14,12 +15,11 @@ public class ConnectionFactory {
             props.setProperty("password", "root");
             props.setProperty("useSSL", "false");
             props.setProperty("useTimezone", "true");
-            props.setProperty("serverTimezone", "UTC");
+            props.setProperty("serverTimezone", "America/Sao_Paulo");
             props.setProperty("allowPublicKeyRetrieval", "true");
-            String connectionString = "jdbc:mysql://localhost/";
-            System.out.println("Conexão com o banco de dados estabelecida.");
+            String connectionString = "jdbc:mysql://localhost:3306/db_casamentos";
             return java.sql.DriverManager.getConnection(connectionString, props);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

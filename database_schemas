@@ -1,0 +1,142 @@
+create database db_casamentos
+
+use db_casamentos
+
+CREATE TABLE Pessoa (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,                                           -- Identificador único
+    nome VARCHAR(255) NOT NULL,                                                     -- Nome da pessoa
+    sexo ENUM('Masculino', 'Feminino', 'Outro') DEFAULT 'Outro',                    -- Sexo com valores limitados
+    dataNascimento DATE,                                                            -- Data de nascimento
+    telefone VARCHAR(20),                                                           -- Telefone (formato livre)
+    login VARCHAR(100) NOT NULL UNIQUE,                                             -- Login único
+    senha VARCHAR(255) NOT NULL,                                                    -- Senha (deve ser armazenada criptografada)
+    tipoUsuario INT NOT NULL,                                                       -- Tipo de usuário (ex.: 1 = Noivo(a), 2 = Cerimonialista)
+    cpf CHAR(11) NOT NULL UNIQUE,                                                   -- CPF (formatado sem separadores, único)
+    dataCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,                        -- Data de criação do registro
+    dataModificacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  -- Última modificação
+);
+
+ALTER TABLE pessoa
+MODIFY COLUMN sexo ENUM('Homem', 'Mulher', 'Outro') DEFAULT 'Outro';
+
+DESCRIBE Pessoa;
+
+CREATE TABLE Fornecedor (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,                                           -- Identificador único do fornecedor
+    nome VARCHAR(255) NOT NULL,                                                     -- Nome do fornecedor
+    CNPJ CHAR(14) NOT NULL UNIQUE,                                                  -- CNPJ do fornecedor, único e sem formatação
+    telefone VARCHAR(20),                                                           -- Telefone do fornecedor
+    email VARCHAR(255),                                                             -- Email do fornecedor
+    valorAPagar DECIMAL(15, 2) DEFAULT 0.00,                                        -- Valor total a pagar
+    valorParcela DECIMAL(15, 2),                                                    -- Valor de cada parcela
+    parcelas INT,                                                                   -- Quantidade de parcelas
+    estado ENUM('A Pagar', 'Pago', 'Parcial') DEFAULT 'A Pagar',                    -- Estado do pagamento
+    valorInicial DECIMAL(15, 2) DEFAULT 0.00,                                       -- Valor inicial negociado
+    parcelaInicial INT DEFAULT 0,                                                   -- Número da parcela inicial
+    totalParcelasPagas INT DEFAULT 0,                                               -- Total de parcelas já pagas
+    dataCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,                        -- Data de criação do registro
+    dataModificacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  -- Última modificação
+);
+
+describe fornecedor;
+
+CREATE TABLE Evento (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,                                           -- Identificador único do evento
+    dataEvento DATE NOT NULL,                                                       -- Data do evento
+    cerimonial BIGINT,                                                              -- ID da pessoa cerimonialista
+    igreja VARCHAR(255),                                                            -- Nome da igreja
+    cartorio VARCHAR(255),                                                          -- Nome do cartório
+    pessoaNoivo1 BIGINT NOT NULL,                                                   -- ID da Pessoa noivo(a) 1
+    pessoaNoivo2 BIGINT NOT NULL,                                                   -- ID da Pessoa noivo(a) 2
+    nomeDoEvento VARCHAR(255) NOT NULL,                                             -- Nome do evento
+    dataCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,                        -- Data de criação
+    dataModificacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Última modificação
+    FOREIGN KEY (cerimonial) REFERENCES Pessoa(id),                                 -- Relação com Pessoa (cerimonialista)
+    FOREIGN KEY (pessoaNoivo1) REFERENCES Pessoa(id),                               -- Relação com Pessoa (noivo(a) 1)
+    FOREIGN KEY (pessoaNoivo2) REFERENCES Pessoa(id)                                -- Relação com Pessoa (noivo(a) 2)
+);
+
+describe evento
+
+CREATE TABLE Evento_Fornecedor (
+    eventoId BIGINT NOT NULL,                                                      -- ID do evento
+    fornecedorId BIGINT NOT NULL,                                                  -- ID do fornecedor
+    PRIMARY KEY (eventoId, fornecedorId),                                          -- Chave composta
+    FOREIGN KEY (eventoId) REFERENCES Evento(id) ON DELETE CASCADE,                -- Relaciona com Evento
+    FOREIGN KEY (fornecedorId) REFERENCES Fornecedor(id) ON DELETE CASCADE         -- Relaciona com Fornecedor
+);
+
+describe evento_fornecedor
+
+CREATE TABLE MuralRecados (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,                                           -- Identificador único do recado
+    pessoaId BIGINT NOT NULL,                                                       -- ID da Pessoa que fez o recado
+    nomePessoa VARCHAR(255) NOT NULL,                                               -- Nome da pessoa (duplicado para facilitar relatórios)
+    eventoId BIGINT NOT NULL,                                                       -- ID do evento relacionado
+    comentario TEXT NOT NULL,                                                       -- Conteúdo do recado
+    dataCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,                        -- Data de criação do recado
+    dataModificacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Última modificação
+    FOREIGN KEY (pessoaId) REFERENCES Pessoa(id) ON DELETE CASCADE,                 -- Relação com Pessoa
+    FOREIGN KEY (eventoId) REFERENCES Evento(id) ON DELETE CASCADE                  -- Relação com Evento
+);
+
+describe muralrecados
+
+CREATE TABLE ConvidadoFamilia (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,                                           -- Identificador único do convite familiar
+    nomeFamilia VARCHAR(255) NOT NULL,                                              -- Nome da família
+    acesso VARCHAR(100) NOT NULL UNIQUE,                                            -- Código de acesso único
+    eventoId BIGINT NOT NULL,                                                       -- ID do evento relacionado
+    dataCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,                        -- Data de criação do convite
+    dataModificacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Última modificação
+    FOREIGN KEY (eventoId) REFERENCES Evento(id) ON DELETE CASCADE                  -- Relaciona com Evento
+);
+
+describe convidadofamilia
+
+CREATE TABLE ConvidadoIndividual (
+    id BIGINT PRIMARY key AUTO_INCREMENT,                                           -- Identificador único do convidado individual
+    pessoaId BIGINT NOT NULL,                                                       -- ID da pessoa associada
+    familiaId BIGINT,                                                               -- ID da família associada (opcional)
+    eventoId BIGINT NOT NULL,                                                       -- ID do evento relacionado
+    parentesco VARCHAR(100),                                                        -- Parentesco com a família ou noivos
+    confirmacao BOOLEAN DEFAULT FALSE,                                              -- Status de confirmação (true = confirmado)
+    dataCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,                        -- Data de criação
+    dataModificacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Última modificação
+    FOREIGN KEY (pessoaId) REFERENCES Pessoa(id) ON DELETE CASCADE,                 -- Relação com Pessoa
+    FOREIGN KEY (familiaId) REFERENCES ConvidadoFamilia(id) ON DELETE SET NULL,     -- Relação opcional com ConvidadoFamilia
+    FOREIGN KEY (eventoId) REFERENCES Evento(id) ON DELETE CASCADE                  -- Relação com Evento
+);
+
+describe convidadoindividual
+
+CREATE TABLE Presentes (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,                                           -- Identificador único do presente
+    nome VARCHAR(255) NOT NULL,                                                     -- Nome do presente
+    tipo INT NOT NULL,                                                              -- Tipo do presente (1 a 5)
+    valor DECIMAL(10, 2) NOT NULL,                                                  -- Valor do presente
+    pessoaId BIGINT,                                                                -- ID da pessoa que ofereceu o presente (opcional)
+    nomePessoa VARCHAR(255),                                                        -- Nome da pessoa (duplicado para facilitar relatórios)
+    dataCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,                        -- Data de criação
+    dataModificacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Última modificação
+    FOREIGN KEY (pessoaId) REFERENCES Pessoa(id) ON DELETE SET NULL                 -- Relação opcional com Pessoa
+);
+
+describe presentes
+
+CREATE TABLE Pagamento (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,                                           -- Identificador único do pagamento
+    pessoaId BIGINT NOT NULL,                                                       -- ID da pessoa que realizou o pagamento
+    fornecedorId BIGINT NOT NULL,                                                   -- ID do fornecedor relacionado
+    descricao VARCHAR(255),                                                         -- Descrição do pagamento
+    valor DECIMAL(10, 2) NOT NULL,                                                  -- Valor do pagamento
+    parcela INT NOT NULL DEFAULT 1,                                                 -- Número da parcela (1 ou mais)
+    agendado BOOLEAN NOT NULL DEFAULT FALSE,                                        -- Indica se o pagamento foi agendado (true/false)
+    dataPagamento DATE NOT NULL,                                                    -- Data em que o pagamento foi ou será efetuado
+    dataCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,                        -- Data de criação do registro
+    dataModificacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Última modificação
+    FOREIGN KEY (pessoaId) REFERENCES Pessoa(id) ON DELETE CASCADE,                 -- Relação com Pessoa
+    FOREIGN KEY (fornecedorId) REFERENCES Fornecedor(id) ON DELETE CASCADE          -- Relação com Fornecedor
+);
+
+describe pagamento

@@ -4,6 +4,9 @@ import mvc.dao.*;
 import mvc.model.*;
 import mvc.view.GUI;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -24,16 +27,32 @@ public class Main {
     // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
     GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO, convidadoIndividualDAO, convidadoFamiliaDAO, presentesDAO, muralRecadosDAO, pagamentoDAO);
 
-    // Scanner pode ser utilizado para interações no console, se necessário
+    // Scanner pode ser utilizado para interações no terminal, se necessário
     Scanner s = new Scanner(System.in);
 
     // Calendário do sistema
     Calendario calendario = new Calendario(Util.getDia2());
 
-    public Main() {
+    // Strings de conexão com o banco de dados
+    private static final String URL = "jdbc:mysql://localhost:3306/db_casamentos";
+    private static final String USER = "root";
+    private static final String PASSWORD = "root";
+
+    public Main() throws SQLException {
+
+        try { // Carrega o driver MySQL
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Erro ao carregar o driver MySQL: " + e.getMessage());
+        }
+
+        // Conexão com o banco de dados
+        Connection conexao = DriverManager.getConnection(URL, USER, PASSWORD);
+        if (conexao != null) System.out.println("Conexão com o banco de dados estabelecida com sucesso!");
+
         int opcao = -1;
 
-        while(opcao != 4) {  // Continua o loop enquanto não for a opção de sair (4)
+        while(opcao != 4) {  // Continua o ‘loop’ enquanto não for a opção de sair (4)
             opcao = gui.menuBoasVindas();
             switch (opcao) {
                 case 1:
@@ -61,11 +80,13 @@ public class Main {
                     Pessoa criar = gui.cadastrarPessoa();
                     pessoaDAO.criarPessoa(criar);
                     break;
-                case 3:  // Entrar sem login
+                case 3:  // Entrar sem ‘login’
                     Util.setPessoaLogada(null); // Seta null para os casos de ter feito login antes
                     this.menuSemLogin();  // Método responsável pelo menu sem login
                     break;
                 case 4:
+                    assert conexao != null;
+                    conexao.close(); // Fecha a conexão com o banco de dados
                     System.out.println("\nFinalizando sessão no programa. Volte sempre!!");
                     break;
                 default:
@@ -119,7 +140,7 @@ public class Main {
         } while (opcaoPrincipal != 3);  // Sai do menu sem login quando o usuário escolhe "Sair"
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Main main = new Main();
     }
 

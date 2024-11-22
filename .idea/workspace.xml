@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.0">
+    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.2">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database_schemas" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/mysql-connector-j-9.0.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reports/ConviteDeCasamento.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/ConviteDeCasamento.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reports/ListaDeConvidados.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/ListaDeConvidados.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reports/ListaDeConvidadosConfirmados.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/ListaDeConvidadosConfirmados.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reports/PagamentosDosNoivos.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/PagamentosDosNoivos.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reports/RelatorioRecadosRecebidos.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/RelatorioRecadosRecebidos.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Evento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/ConnectionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/ConnectionFactory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +42,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/igsem123/ProjetoPOO.git&quot;,
-    &quot;accountId&quot;: &quot;d50dd616-959b-483c-8621-e7628a16486a&quot;
+    &quot;accountId&quot;: &quot;6948aaf8-1890-4146-bf08-431d82cfa30a&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -71,28 +66,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.GUI.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.mvc.controller.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/rnmoreira/Documents/Projetos Faculdade/academia_parte1&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/rnath/Documents/IdeaProjects/ProjetoPOO/src/Main.java&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.github.copilot.settings.ApplicationConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.GUI.executor": "Debug",
+    "Application.Main.executor": "Run",
+    "Application.mvc.controller.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/rnmoreira/IdeaProjects/ProjetoPOO/lib/mysql-connector-j-9.0.0.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/rnath/Documents/IdeaProjects/ProjetoPOO/src/Main.java",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rnmoreira\IdeaProjects\ProjetoPOO\lib" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="mvc.dao" />
       <recent name="mvc.model" />
@@ -153,8 +161,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
       </set>
     </attachedChunks>
   </component>
@@ -185,6 +193,13 @@
       <workItem from="1729635688756" duration="8058000" />
       <workItem from="1729973647287" duration="91000" />
       <workItem from="1729975208185" duration="12569000" />
+      <workItem from="1730804246811" duration="3281000" />
+      <workItem from="1732187315530" duration="3103000" />
+      <workItem from="1732195029001" duration="754000" />
+      <workItem from="1732274969476" duration="589000" />
+      <workItem from="1732275677904" duration="5889000" />
+      <workItem from="1732286714746" duration="451000" />
+      <workItem from="1732287255478" duration="148000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -290,7 +305,23 @@
       <option name="project" value="LOCAL" />
       <updated>1729972502826</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="v2.1">
+      <option name="closed" value="true" />
+      <created>1730307252621</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1730307252621</updated>
+    </task>
+    <task id="LOCAL-00015" summary="v2.2">
+      <option name="closed" value="true" />
+      <created>1732191834182</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732191834182</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,7 +382,9 @@
     <MESSAGE value="v1.5" />
     <MESSAGE value="v1.6" />
     <MESSAGE value="v2.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="v2.0" />
+    <MESSAGE value="v2.1" />
+    <MESSAGE value="v2.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="v2.2" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

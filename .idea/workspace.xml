@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.2">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database_schemas" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/mysql-connector-j-9.0.0.jar" afterDir="false" />
+    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/ConnectionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/ConnectionFactory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,9 +68,8 @@
     "Application.mvc.controller.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "raphael/Criação-Banco-de-Dados",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/rnmoreira/IdeaProjects/ProjetoPOO/lib/mysql-connector-j-9.0.0.jar",
@@ -88,7 +82,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
+    "settings.editor.selected.configurable": "CodeWithMe",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -199,7 +193,7 @@
       <workItem from="1732274969476" duration="589000" />
       <workItem from="1732275677904" duration="5889000" />
       <workItem from="1732286714746" duration="451000" />
-      <workItem from="1732287255478" duration="148000" />
+      <workItem from="1732287255478" duration="2003000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -321,7 +315,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732191834182</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="v2.3">
+      <option name="closed" value="true" />
+      <created>1732287708307</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1732287708307</updated>
+    </task>
+    <task id="LOCAL-00017" summary="v2.3">
+      <option name="closed" value="true" />
+      <created>1732287727728</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1732287727728</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -384,7 +394,8 @@
     <MESSAGE value="v2.0" />
     <MESSAGE value="v2.1" />
     <MESSAGE value="v2.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="v2.2" />
+    <MESSAGE value="v2.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="v2.3" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -81,11 +81,11 @@ public class Main {
                     pessoaDAO.criarPessoa(criar);
                     break;
                 case 3:  // Entrar sem ‘login’
-                    Util.setPessoaLogada(null); // Seta null para os casos de ter feito login antes
+                    Util.setPessoaLogada(null); // Seta null para os casos de ter feito ‘login’ antes
                     this.menuSemLogin();  // Método responsável pelo menu sem login
                     break;
                 case 4:
-                    assert conexao != null;
+                    assert conexao != null; // Verifica se a conexão não é nula
                     conexao.close(); // Fecha a conexão com o banco de dados
                     System.out.println("\nFinalizando sessão no programa. Volte sempre!!");
                     break;

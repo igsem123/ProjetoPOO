@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.3">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/ConnectionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConnectionFactory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +40,9 @@
     &quot;assignee&quot;: &quot;igsem123&quot;
   }
 }</component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="6948aaf8-1890-4146-bf08-431d82cfa30a" />
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/igsem123/ProjetoPOO.git&quot;,
@@ -68,6 +77,7 @@
     "Application.mvc.controller.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "extract.method.default.visibility": "private",
     "git-widget-placeholder": "raphael/Criação-Banco-de-Dados",
     "ignore.virus.scanning.warn.message": "true",
@@ -82,7 +92,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "CodeWithMe",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -194,6 +204,7 @@
       <workItem from="1732275677904" duration="5889000" />
       <workItem from="1732286714746" duration="451000" />
       <workItem from="1732287255478" duration="2003000" />
+      <workItem from="1732302844075" duration="4148000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -331,7 +342,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732287727728</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="v2.3">
+      <option name="closed" value="true" />
+      <created>1732303096791</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1732303096791</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

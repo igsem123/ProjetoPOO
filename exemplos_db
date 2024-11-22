@@ -1,0 +1,93 @@
+        // Noivos
+        Pessoa noivo1 = new Pessoa("Raphael Nathan Moreira", "Homem", Util.formataData("04/05/1999"),
+                "+55 34 9 9222-8686", "rnathan@gmail.com", "12345678", 1, "00078666602");
+        this.criarPessoa(noivo1);
+
+        Pessoa noivo2 = new Pessoa("Lucas Tobias de Sousa Machado", "Homem", Util.formataData("28/03/1994"),
+                "+55 34 9 9227-8858", "lucastobias@gmail.com", "lucas123", 1, "78514754201");
+        this.criarPessoa(noivo2);
+
+        Pessoa noivo3 = new Pessoa("Ana Paula Ferreira", "Mulher", Util.formataData("15/12/1993"),
+                "+55 34 9 9988-7766", "ana.paula@gmail.com", "ana123", 1, "32456778911");
+        this.criarPessoa(noivo3);
+
+        Pessoa noivo4 = new Pessoa("Carlos Alberto Pereira", "Homem", Util.formataData("23/09/1990"),
+                "+55 34 9 9876-5432", "carlos.pereira@gmail.com", "carlos456", 1, "21345678912");
+        this.criarPessoa(noivo4);
+
+        // Cerimonialistas
+        Pessoa cerimonialista1 = new Pessoa("Fernanda Silva", "Mulher", Util.formataData("18/07/1985"),
+                "+55 34 9 7788-6655", "fernanda.silva@gmail.com", "cerimonial123", 2, "55566677788");
+        this.criarPessoa(cerimonialista1);
+
+        Pessoa cerimonialista2 = new Pessoa("Gabriel Antunes", "Homem", Util.formataData("05/05/1989"),
+                "+55 34 9 2233-4455", "gabriel.antunes@gmail.com", "gabriel456", 2, "22233344455");
+        this.criarPessoa(cerimonialista2);
+
+        // Administradores
+        Pessoa administrador2 = new Pessoa("José Roberto", "Homem", Util.formataData("02/02/1980"),
+                "+55 34 9 5555-9999", "jose.admin@gmail.com", "admin456", 3, "44455566677");
+        this.criarPessoa(administrador2);
+
+        Pessoa p3 = new Pessoa("Admin", "Outro", Util.formataData("14/08/2024"),
+                        "+55 34 9 2222-5555", "admin", "admin", 3, "12345678910");
+                this.criarPessoa(p3);
+
+                // Convidados
+                Pessoa convidado1 = new Pessoa("Sofia Mendes", "Mulher", Util.formataData("27/03/2000"),
+                        "+55 34 9 2234-5678", "sofia.mendes@gmail.com", "sofia123", 4, "98712345678");
+                this.criarPessoa(convidado1);
+
+                Pessoa convidado2 = new Pessoa("Ricardo Barbosa", "Homem", Util.formataData("14/04/1987"),
+                        "+55 34 9 3344-5566", "ricardo.barbosa@gmail.com", "ricardo123", 4, "65432198700");
+                this.criarPessoa(convidado2);
+
+                Pessoa convidado3 = new Pessoa("Camila Rocha", "Mulher", Util.formataData("10/10/1995"),
+                        "+55 34 9 4455-6677", "camila.rocha@gmail.com", "camila456", 4, "12332145698");
+                this.criarPessoa(convidado3);
+
+                Pessoa p4 = new Pessoa("Adivâina dos Reis", "Mulher", Util.formataData("17/03/1972"),
+                        "+55 34 9 3333-5555", "adivaina@gmail.com", "adivaina123", 4, "85577766632");
+                this.criarPessoa(p4);
+
+                Pessoa p5 = new Pessoa("Jessica Moreira", "Mulher", Util.formataData("30/06/1992"),
+                        "+55 34 9 4444-7777", "jessica@gmail.com", "jessica123", 4, "78945612300");
+                this.criarPessoa(p5);
+
+                Pessoa p6 = new Pessoa("Anderson Alvarenga", "Homem", Util.formataData("01/05/1998"),
+                        "+55 34 9 1111-8888", "anderson@gmail.com", "anderson123", 4, "11122233344");
+                this.criarPessoa(p6);
+
+                Pessoa p7 = new Pessoa("Adriana Tobias Machado", "Mulher", Util.formataData("10/11/1976"),
+                        "+55 34 9 7777-9999", "adriana@gmail.com", "adriana123", 4, "14785201298");
+                this.criarPessoa(p7);
+
+                Pessoa p8 = new Pessoa("João das Neves", "Homem", LocalDate.of(1990, 1, 1),
+                        "+55 34 9978-8852","joao@email.com" , "joao123", 1, "12345678900");
+                this.criarPessoa(p8);
+
+                Pessoa p9 = new Pessoa("Maria Oliveira", "Mulher", LocalDate.of(1995, 2, 12),
+                        "+55 34 9125-4550","maria@email.com" , "maria123", 1, "98765432100");
+                this.criarPessoa(p9);
+
+                Pessoa p10 = new Pessoa("José Silva", "Homem", LocalDate.of(1985, 3, 23),
+                        "+55 34 9874-1234","jose@email.com" , "jose123", 4, "45678912300");
+                this.criarPessoa(p10);
+
+                // Crianças de 7 e 8 anos
+                Pessoa crianca1 = new Pessoa("Pedro Silva", "Homem", Util.formataData("15/08/2016"),
+                        "+55 34 9 1234-5678", "pedro.silva@gmail.com", "pedro123", 4, "11122233301");
+                this.criarPessoa(crianca1);
+
+                Pessoa crianca2 = new Pessoa("Maria Souza", "Mulher", Util.formataData("20/11/2015"),
+                        "+55 34 9 8765-4321", "maria.souza@gmail.com", "maria123", 4, "22233344402");
+                this.criarPessoa(crianca2);
+
+                // Crianças de 9 a 13 anos
+                Pessoa crianca3 = new Pessoa("João Pereira", "Homem", Util.formataData("05/05/2014"),
+                        "+55 34 9 1122-3344", "joao.pereira@gmail.com", "joao123", 4, "33344455503");
+                this.criarPessoa(crianca3);
+
+                Pessoa crianca4 = new Pessoa("Ana Costa", "Mulher", Util.formataData("12/09/2010"),
+                        "+55 34 9 5566-7788", "ana.costa@gmail.com", "ana123", 4, "44455566604");
+                this.criarPessoa(crianca4);

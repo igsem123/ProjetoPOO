@@ -9,12 +9,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     // Inicializa os DAOs uma única vez
-    PessoaDAO pessoaDAO = new PessoaDAOMemoria();
+    PessoaDAO pessoaDAO = new PessoaController();
     FornecedorDAO fornecedorDAO = new FornecedorDAOMemoria();
     EventoDAO eventoDAO = new EventoDAOMemoria(pessoaDAO, fornecedorDAO, 100);
     ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaDAOMemoria(100, pessoaDAO, eventoDAO);
@@ -676,7 +675,7 @@ public class Main {
                         if(respostaCerimonial == 0) {
                             System.out.println("\nEscolha o novo cerimonialista do evento: ");
                             System.out.println("\nLista de cerimonialistas cadastrados no sistema: \n");
-                            pessoaDAO.buscaCerimonialistas();
+                            pessoaDAO.uscaCerimonialistas();
                             System.out.println("\nDigite o [ID] abaixo: ");
                             long cerimonialId = Long.parseLong(s.nextLine());
                             Pessoa cerimonialista = pessoaDAO.buscaPorId(cerimonialId);

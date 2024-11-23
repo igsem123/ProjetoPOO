@@ -40,6 +40,10 @@ public class Pessoa {
         this.dataModificacao = Util.getDia();
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return this.id;
     }
@@ -71,6 +75,11 @@ public class Pessoa {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.dataNascimento = LocalDate.parse(dataNascimento, formatter);
         this.dataModificacao = Util.getDia();
+    }
+
+    public void setDataNascimentoDB(String dataNascimento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.dataNascimento = LocalDate.parse(dataNascimento, formatter);
     }
 
     public String getTelefone() {

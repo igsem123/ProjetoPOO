@@ -2,18 +2,16 @@ package mvc.dao;
 
 import mvc.model.Pessoa;
 
-import java.util.ArrayList;
-
 public interface PessoaDAO {
-    boolean criarPessoa(Pessoa pessoa);
-    ArrayList<Pessoa> listarPessoas();
+    void criarPessoa(Pessoa pessoa);
+    void listarPessoas();
     void atualizarPessoa(Pessoa pessoa);
     boolean deletarPessoa(String cpf);
     Pessoa buscaPessoaLogin(String email, String senha);
     Pessoa buscaPessoa(String cpf);
     Pessoa buscaPorId(Long id);
     void buscaCerimonialistas();
-    void buscaNoivos();
+    Pessoa buscaNoivos();
     void buscaConvidados();
     boolean alterarNome(String cpf, String novoNome);
     boolean alterarSexo(String cpf, String novoSexo);

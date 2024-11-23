@@ -32,7 +32,10 @@ public class Main {
     // Calendário do sistema
     Calendario calendario = new Calendario(Util.getDia2());
 
-    // Strings de conexão com o banco de dados
+    // Senha padrão para o administrador
+    public static final String SENHA_ADMIN = "admin";
+
+    // ‘Strings’ de conexão com o banco de dados
     private static final String URL = "jdbc:mysql://localhost:3306/db_casamentos";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
@@ -353,13 +356,7 @@ public class Main {
             switch (op) {
                 case 1:
                     Pessoa p = gui.cadastrarPessoa();
-
-                    boolean pessoaInserida = pessoaDAO.criarPessoa(p);
-                    if (pessoaInserida) {
-                        System.out.println("\nPessoa inserida com sucesso!");
-                    } else {
-                        System.out.println("\nPessoa nao inserida!");
-                    }
+                    pessoaDAO.criarPessoa(p);
                     break;
 
                 case 2:
@@ -675,7 +672,7 @@ public class Main {
                         if(respostaCerimonial == 0) {
                             System.out.println("\nEscolha o novo cerimonialista do evento: ");
                             System.out.println("\nLista de cerimonialistas cadastrados no sistema: \n");
-                            pessoaDAO.uscaCerimonialistas();
+                            pessoaDAO.buscaCerimonialistas();
                             System.out.println("\nDigite o [ID] abaixo: ");
                             long cerimonialId = Long.parseLong(s.nextLine());
                             Pessoa cerimonialista = pessoaDAO.buscaPorId(cerimonialId);

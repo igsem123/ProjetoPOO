@@ -176,13 +176,13 @@ public class Evento {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("================== Evento ID {" + getId() + "} ==================\n");
-        sb.append(String.format("Data do Evento      : %s\n", dataEvento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
-        sb.append(String.format("Cerimonial          : %s\n", cerimonial.getNome()));
-        sb.append(String.format("Igreja              : %s\n", igreja));
-        sb.append(String.format("Cartorio            : %s\n", cartorio));
-        sb.append(String.format("Noivo(a)            : %s\n", pessoaNoivo1.getNome()));
-        sb.append(String.format("Noivo(a)            : %s\n", pessoaNoivo2.getNome()));
+        sb.append("================== Evento ID {").append(getId()).append("} ==================\n");
+        sb.append(String.format("Data do Evento      : %s\n", dataEvento != null ? dataEvento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "N/A"));
+        sb.append(String.format("Cerimonial          : %s\n", cerimonial != null ? cerimonial.getNome() : "N/A"));
+        sb.append(String.format("Igreja              : %s\n", igreja != null ? igreja : "N/A"));
+        sb.append(String.format("Cartorio            : %s\n", cartorio != null ? cartorio : "N/A"));
+        sb.append(String.format("Noivo(a)            : %s\n", pessoaNoivo1 != null ? pessoaNoivo1.getNome() : "N/A"));
+        sb.append(String.format("Noivo(a)            : %s\n", pessoaNoivo2 != null ? pessoaNoivo2.getNome() : "N/A"));
         sb.append(String.format("Nome do Evento      : %s\n", nomeDoEvento != null ? nomeDoEvento : "N/A"));
         sb.append("Fornecedores        :\n");
         if (fornecedores != null) {
@@ -190,8 +190,8 @@ public class Evento {
                 sb.append(String.format("  - %s\n", fornecedor.getNome()));
             }
         }
-        sb.append(String.format("Data de Criação     : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
-        sb.append(String.format("Data de Modificação : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+        sb.append(String.format("Data de Criação     : %s\n", dataCriacao != null ? dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "N/A"));
+        sb.append(String.format("Data de Modificação : %s\n", dataModificacao != null ? dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "N/A"));
         sb.append("=====================================================\n");
         return sb.toString();
     }

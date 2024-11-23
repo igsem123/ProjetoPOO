@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.3">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/ConnectionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConnectionFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Evento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Pessoa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,12 +44,12 @@
   }
 }</component>
   <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="6948aaf8-1890-4146-bf08-431d82cfa30a" />
+    <option name="defaultAccountId" value="d50dd616-959b-483c-8621-e7628a16486a" />
   </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/igsem123/ProjetoPOO.git&quot;,
-    &quot;accountId&quot;: &quot;6948aaf8-1890-4146-bf08-431d82cfa30a&quot;
+    &quot;accountId&quot;: &quot;d50dd616-959b-483c-8621-e7628a16486a&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -79,7 +82,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "raphael/Criação-Banco-de-Dados",
+    "git-widget-placeholder": "raphael/Alteração-PessoaDAO-Database",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/rnmoreira/IdeaProjects/ProjetoPOO/lib/mysql-connector-j-9.0.0.jar",
@@ -92,7 +95,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -205,6 +208,8 @@
       <workItem from="1732286714746" duration="451000" />
       <workItem from="1732287255478" duration="2003000" />
       <workItem from="1732302844075" duration="4148000" />
+      <workItem from="1732324155444" duration="670000" />
+      <workItem from="1732380593354" duration="7732000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />

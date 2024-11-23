@@ -12,13 +12,13 @@ public class ConvidadoFamiliaDAOMemoria implements ConvidadoFamiliaDAO {
 
     public ConvidadoFamiliaDAOMemoria(int capacidade, PessoaDAO pessoaDAO, EventoDAO eventoDAO) {
         familias = new ConvidadoFamilia[capacidade];
-        ConvidadoFamilia convidadoFamilia = new ConvidadoFamilia("Reis", pessoaDAO.buscaPorId(0L).getNome(), pessoaDAO.buscaPorId(1L).getNome(), eventoDAO.buscarPorId(0L).getDataEvento(), eventoDAO.buscarPorId(0L));
+        ConvidadoFamilia convidadoFamilia = new ConvidadoFamilia("Reis", pessoaDAO.buscaPorId(1L).getNome(), pessoaDAO.buscaPorId(2L).getNome(), eventoDAO.buscarPorId(0L).getDataEvento(), eventoDAO.buscarPorId(0L));
         this.criarFamilia(convidadoFamilia);
 
-        ConvidadoFamilia convidadoFamilia2 = new ConvidadoFamilia("Ferreira", pessoaDAO.buscaPorId(2L).getNome(), pessoaDAO.buscaPorId(3L).getNome(), eventoDAO.buscarPorId(1L).getDataEvento(), eventoDAO.buscarPorId(1L));
+        ConvidadoFamilia convidadoFamilia2 = new ConvidadoFamilia("Ferreira", pessoaDAO.buscaPorId(3L).getNome(), pessoaDAO.buscaPorId(4L).getNome(), eventoDAO.buscarPorId(1L).getDataEvento(), eventoDAO.buscarPorId(1L));
         this.criarFamilia(convidadoFamilia2);
 
-        ConvidadoFamilia convidadoFamilia3 = new ConvidadoFamilia("Pereira", pessoaDAO.buscaPorId(2L).getNome(), pessoaDAO.buscaPorId(3L).getNome(), eventoDAO.buscarPorId(1L).getDataEvento(), eventoDAO.buscarPorId(1L));
+        ConvidadoFamilia convidadoFamilia3 = new ConvidadoFamilia("Pereira", pessoaDAO.buscaPorId(3L).getNome(), pessoaDAO.buscaPorId(4L).getNome(), eventoDAO.buscarPorId(1L).getDataEvento(), eventoDAO.buscarPorId(1L));
         this.criarFamilia(convidadoFamilia3);
     }
 

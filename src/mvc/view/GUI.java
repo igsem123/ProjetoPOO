@@ -7,6 +7,8 @@ import mvc.model.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+import static mvc.controller.Main.SENHA_ADMIN;
+
 public class GUI {
     private Scanner scanner;
     private StringBuilder builder;
@@ -642,6 +644,9 @@ public class GUI {
             CPF = this.scanner.nextLine();
         }
 
+        CPF = CPF.replace(".", "");
+        CPF = CPF.replace("-", "");
+
         novaPessoa.setCpf(CPF);
 
         System.out.println("\nDigite sua data de nascimento:");
@@ -704,6 +709,23 @@ public class GUI {
         while (tipo < 1 || tipo > 4) {
             System.out.println("\nTipo inválido, tente novamente:");
             tipo = Integer.parseInt(scanner.nextLine());
+        }
+
+        if (tipo == 3) {
+            System.out.println("\nPara criar um novo administrador, é necessário informar a senha de administrador global. \nSe deseja cancelar a operação, digite 0.");
+            System.out.println("Digite a senha de administrador: ");
+            String senhaAdmin = this.scanner.nextLine();
+
+            while (!senhaAdmin.equals(SENHA_ADMIN)) {
+                System.out.println("\nSenha de administrador inválida, tente novamente:");
+                senhaAdmin = this.scanner.nextLine();
+
+                if (senhaAdmin.equals("0")) {
+                    return null;
+                }
+            }
+
+            novaPessoa.setTipoUsuario(tipo);
         }
         novaPessoa.setTipoUsuario(tipo);
 

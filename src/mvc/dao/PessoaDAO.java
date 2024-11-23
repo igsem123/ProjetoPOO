@@ -3,7 +3,7 @@ package mvc.dao;
 import mvc.model.Pessoa;
 
 public interface PessoaDAO {
-    boolean criarPessoa(Pessoa pessoa);
+    void criarPessoa(Pessoa pessoa);
     void listarPessoas();
     void atualizarPessoa(Pessoa pessoa);
     boolean deletarPessoa(String cpf);
@@ -11,7 +11,7 @@ public interface PessoaDAO {
     Pessoa buscaPessoa(String cpf);
     Pessoa buscaPorId(Long id);
     void buscaCerimonialistas();
-    void buscaNoivos();
+    Pessoa buscaNoivos();
     void buscaConvidados();
     boolean alterarNome(String cpf, String novoNome);
     boolean alterarSexo(String cpf, String novoSexo);

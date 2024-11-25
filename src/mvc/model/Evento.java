@@ -44,6 +44,10 @@ public class Evento {
     public long getId() {
         return this.id;
     }
+    
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getDataEvento() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -53,6 +57,11 @@ public class Evento {
     public void setDataEvento(String dataEvento) {
         this.dataModificacao = LocalDateTime.now();
         this.dataEvento = Util.formataData(dataEvento);
+    }
+    
+    public void setDataEvento(LocalDate dataEvento) {
+        this.dataEvento = dataEvento;
+        this.dataModificacao = LocalDateTime.now();
     }
 
     public String gerarNomeDoEvento(Pessoa pessoaNoivo1, Pessoa pessoaNoivo2) {

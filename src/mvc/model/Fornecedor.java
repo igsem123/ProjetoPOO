@@ -53,6 +53,10 @@ public class Fornecedor {
     public long getId() {
         return this.id;
     }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return this.nome;
@@ -93,6 +97,10 @@ public class Fornecedor {
     public double getValorAPagar() {
         return this.valorAPagar;
     }
+    
+    public void setValorInicial(Double valorInicial) {
+        this.valorInicial = valorInicial;
+    }
 
     public Double getValorInicial() {
         return valorInicial;
@@ -114,6 +122,10 @@ public class Fornecedor {
 
     public int getParcelaInicial() {
         return parcelaInicial;
+    }
+    
+    public void setParcelaInicial(int parcelaInicial) {
+        this.parcelaInicial = parcelaInicial;
     }
 
     public void setValorAPagar(Double valorAPagar) {

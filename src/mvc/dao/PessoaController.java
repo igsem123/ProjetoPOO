@@ -201,8 +201,8 @@ public class PessoaController implements PessoaDAO {
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql))
         {
+        	stmt.execute();
             ResultSet rs = stmt.executeQuery();
-            stmt.execute();
 
             while (rs.next()) {
                 noivos.add(resultSetToPessoa(rs));
@@ -225,8 +225,8 @@ public class PessoaController implements PessoaDAO {
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql))
         {
+        	stmt.execute();
             ResultSet rs = stmt.executeQuery();
-            stmt.execute();
 
             while (rs.next()) {
                 convidados.add(resultSetToPessoa(rs));

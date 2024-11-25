@@ -53,6 +53,10 @@ public class Evento {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return dataEvento.format(formatter);
     }
+    
+    public LocalDate getDataEventoDate() {
+        return this.dataEvento;
+    }
 
     public void setDataEvento(String dataEvento) {
         this.dataModificacao = LocalDateTime.now();

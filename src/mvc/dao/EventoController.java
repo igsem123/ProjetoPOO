@@ -43,7 +43,7 @@ public class EventoController implements EventoDAO {
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sqlEvento, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setDate(1, Date.valueOf(evento.getDataEvento()));
+        	stmt.setDate(1, java.sql.Date.valueOf(evento.getDataEventoDate()));
             stmt.setObject(2, evento.getCerimonial() != null ? evento.getCerimonial().getId() : null);
             stmt.setString(3, evento.getIgreja());
             stmt.setString(4, evento.getCartorio());
@@ -110,7 +110,7 @@ public class EventoController implements EventoDAO {
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setDate(1, Date.valueOf(eventoAtualizado.getDataEvento()));
+            stmt.setDate(1, java.sql.Date.valueOf(eventoAtualizado.getDataEventoDate()));
             stmt.setObject(2, eventoAtualizado.getCerimonial() != null ? eventoAtualizado.getCerimonial().getId() : null);
             stmt.setString(3, eventoAtualizado.getIgreja());
             stmt.setString(4, eventoAtualizado.getCartorio());

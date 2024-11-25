@@ -776,11 +776,11 @@ public class GUI {
 
         System.out.println("\nQual o valor em débito com a empresa?");
         System.out.println("Digite desta forma -> 0000.00");
-        double valor = Long.parseLong(scanner.nextLine());
+        double valor = Double.parseDouble(scanner.nextLine());
 
         while (valor < 0) {
             System.out.println("\nValor inválido, tente novamente:");
-            valor = Long.parseLong(scanner.nextLine());
+            valor = Double.parseDouble(scanner.nextLine());
         }
         nF.setValorAPagar(valor);
 
@@ -793,10 +793,19 @@ public class GUI {
             parcelas = Integer.parseInt(scanner.nextLine());
         }
         nF.setParcelas(parcelas);
+        
+        if(parcelas == 0) {
+        	nF.setValorParcela(valor);
+        } else {
+        	double parcelado = valor / parcelas;
+        	nF.setValorParcela(parcelado);
+        }
 
-        String estado = "Aberto";
+        String estado = "A Pagar";
         nF.setEstado(estado);
 
+        nF.setValorInicial(valor);
+        
         return nF;
     }
 

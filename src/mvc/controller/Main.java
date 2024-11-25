@@ -14,8 +14,8 @@ import java.util.Scanner;
 public class Main {
     // Inicializa os DAOs uma única vez
     PessoaDAO pessoaDAO = new PessoaController();
-    FornecedorDAO fornecedorDAO = new FornecedorDAOMemoria();
-    EventoDAO eventoDAO = new EventoDAOMemoria(pessoaDAO, fornecedorDAO, 100);
+    FornecedorDAO fornecedorDAO = new FornecedorController();
+    EventoDAO eventoDAO = new EventoController();
     ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaDAOMemoria(100, pessoaDAO, eventoDAO);
     ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(pessoaDAO, convidadoFamiliaDAO, eventoDAO, 100);
     PresentesDAO presentesDAO = new PresentesDAOMemoria(pessoaDAO, 500);

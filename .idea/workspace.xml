@@ -4,29 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.3">
+    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database_schemas" beforeDir="false" afterPath="$PROJECT_DIR$/database_schemas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reports/ListaDeConvidados.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/ListaDeConvidados.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoFamiliaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/EventoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAOMemoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/RelatorioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/ConvidadoFamilia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/ConvidadoFamilia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Evento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Fornecedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Fornecedor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Pessoa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Util.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,13 +34,24 @@
     &quot;assignee&quot;: &quot;igsem123&quot;
   }
 }</component>
+  <component name="GitHubPullRequestState"><![CDATA[{
+  "prStates": [
+    {
+      "id": {
+        "id": "PR_kwDOM5PXyc6DXu_Y",
+        "number": 32
+      },
+      "lastSeen": 1732731213322
+    }
+  ]
+}]]></component>
   <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="6948aaf8-1890-4146-bf08-431d82cfa30a" />
+    <option name="defaultAccountId" value="21d90d5f-6faa-40bb-bb57-89876c2eeb2b" />
   </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/igsem123/ProjetoPOO.git&quot;,
-    &quot;accountId&quot;: &quot;e27ed59e-dd9e-4078-aac1-b2d5ee59a259&quot;
+    &quot;accountId&quot;: &quot;21d90d5f-6faa-40bb-bb57-89876c2eeb2b&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -107,7 +97,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "settings.editor.selected.configurable": "vcs.Git",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -223,6 +213,8 @@
       <workItem from="1732324155444" duration="670000" />
       <workItem from="1732380593354" duration="7732000" />
       <workItem from="1732706868879" duration="16718000" />
+      <workItem from="1732730394265" duration="788000" />
+      <workItem from="1732731200431" duration="196000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -368,7 +360,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732303096791</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="v2.4">
+      <option name="closed" value="true" />
+      <created>1732730536001</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1732730536001</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -432,7 +432,8 @@
     <MESSAGE value="v2.1" />
     <MESSAGE value="v2.2" />
     <MESSAGE value="v2.3" />
-    <option name="LAST_COMMIT_MESSAGE" value="v2.3" />
+    <MESSAGE value="v2.4" />
+    <option name="LAST_COMMIT_MESSAGE" value="v2.4" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

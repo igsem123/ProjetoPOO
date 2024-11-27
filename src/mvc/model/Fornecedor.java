@@ -21,6 +21,9 @@ public class Fornecedor {
     private final LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
+    // Instância de Util
+    private Util util = new Util();
+
     // Construtor com parâmetros
     public Fornecedor(String nome, String CNPJ, String telefone, Double valorAPagar, int parcelas, String estado, String email) {
         this.id = (totalFornecedores++);
@@ -188,11 +191,10 @@ public class Fornecedor {
         return "\n|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
                 "\n| Perfil do Fornecedor: " + this.nome + "\n|\n|" +
                 "\n| ID                  : " + this.id +
-                "\n| CNPJ                : " + this.CNPJ +
+                "\n| CNPJ                : " + util.formataCnpj(this.CNPJ) +
                 "\n| Telefone            : " + this.telefone +
                 "\n| Email               : " + this.email +
                 "\n| Data de Criação     : " + this.dataCriacao +
-                "\n| Total Fornecedores  : " + Fornecedor.totalFornecedores +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 
@@ -201,7 +203,7 @@ public class Fornecedor {
         StringBuilder sb = new StringBuilder();
         sb.append("================= Fornecedor ID {" + getId() + "} =================\n");
         sb.append(String.format("Nome                : %s\n", nome));
-        sb.append(String.format("CNPJ                : %s\n", CNPJ));
+        sb.append(String.format("CNPJ                : %s\n", util.formataCnpj(CNPJ)));
         sb.append(String.format("Telefone            : %s\n", telefone));
         sb.append(String.format("Email               : %s\n", email));
         sb.append(String.format("Valor devido        : %.2f\n", valorAPagar));

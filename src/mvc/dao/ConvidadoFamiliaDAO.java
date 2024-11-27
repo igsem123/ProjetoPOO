@@ -3,6 +3,8 @@ package mvc.dao;
 import mvc.model.ConvidadoFamilia;
 import mvc.model.ConvidadoIndividual;
 
+import java.util.ArrayList;
+
 public interface ConvidadoFamiliaDAO {
     void criarFamilia(ConvidadoFamilia familia);
     ConvidadoFamilia buscarPorId(long id);
@@ -11,6 +13,6 @@ public interface ConvidadoFamiliaDAO {
     void exibirFamilias();
     void exibirFamiliasPorEvento(Long idEvento);
     void listarFamilias();
-    ConvidadoFamilia[] getFamilias();
-    void confirmarPresenca(String acessoFamilia, ConvidadoIndividual[] convidadosIndividuais, ConvidadoFamilia[] convidadosFamilia);
+    ArrayList<ConvidadoFamilia> getFamilias();
+    void confirmarPresenca(String acessoFamilia, ArrayList<ConvidadoIndividual> convidadosIndividuais, ArrayList<ConvidadoFamilia> convidadosFamilia);
 }

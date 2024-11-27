@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -16,12 +18,12 @@ public class Main {
     PessoaDAO pessoaDAO = new PessoaController();
     FornecedorDAO fornecedorDAO = new FornecedorController();
     EventoDAO eventoDAO = new EventoController();
-    ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaDAOMemoria(100, pessoaDAO, eventoDAO);
-    ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualDAOMemoria(pessoaDAO, convidadoFamiliaDAO, eventoDAO, 100);
+    ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaController();
+    ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualController();
     PresentesDAO presentesDAO = new PresentesDAOMemoria(pessoaDAO, 500);
     MuralRecadosDAO muralRecadosDAO = new MuralRecadosDAOMemoria(pessoaDAO, eventoDAO, 1000);
     PagamentoDAO pagamentoDAO = new PagamentoDAOMemoria(pessoaDAO, fornecedorDAO, 1000);
-    RelatorioDAOMemoria relatorio = new RelatorioDAOMemoria();
+    RelatorioController relatorio = new RelatorioController();
 
     // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
     GUI gui = new GUI(pessoaDAO, fornecedorDAO, eventoDAO, convidadoIndividualDAO, convidadoFamiliaDAO, presentesDAO, muralRecadosDAO, pagamentoDAO);
@@ -31,6 +33,9 @@ public class Main {
 
     // Calendário do sistema
     Calendario calendario = new Calendario(Util.getDia2());
+
+    // Utilitário para manipulação de dados
+    Util util = new Util();
 
     // Senha padrão para o administrador
     public static final String SENHA_ADMIN = "admin";
@@ -248,8 +253,8 @@ public class Main {
                         break;
                     case 5:
                         // Opção confirmar a presença de todos os convites individuais atrelados ao respectivo convite familiar
-                        ConvidadoIndividual[] convidados = convidadoIndividualDAO.getConvidados(); // Tive que criar um getter dentro do DAOMemoria para poder acessar os arrays
-                        ConvidadoFamilia[] familias = convidadoFamiliaDAO.getFamilias();
+                        ArrayList<ConvidadoIndividual> convidados = convidadoIndividualDAO.getConvidados(); // Tive que criar um getter dentro do DAOMemoria para poder acessar os arrays
+                        ArrayList<ConvidadoFamilia> familias = convidadoFamiliaDAO.getFamilias();
                         System.out.println("\nDigite o acesso da família para confirmar seus integrantes: ");
                         String acesso = s.nextLine();
 
@@ -324,8 +329,6 @@ public class Main {
                             }
 
                             pessoaDAO.atualizarPessoa(editar);
-                            System.out.println("\nPessoa alterada com sucesso, alterações:\n");
-                            System.out.println(editar.toString());
                         } else {
                             System.out.println("\nNão foi possível alterar o seu perfil!");
                         }
@@ -377,6 +380,7 @@ public class Main {
 
                 case 4:
                     System.out.println("\nDigite o CPF da pessoa que deseja alterar: ");
+                    System.out.println("Ex: 000.000.000-00 ");
                     String cpfDaPessoa = s.nextLine();
                     atualizarPessoa(cpfDaPessoa);
                     break;
@@ -386,117 +390,79 @@ public class Main {
                     System.out.println("Ex: 000.000.000-00 ");
                     String cpfExclusao = s.nextLine();
 
-                    if (pessoaDAO.deletarPessoa(cpfExclusao)) {
-                        System.out.println("\nPessoa deletada com sucesso.");
-                    } else {
-                        System.out.println("\nPessoa nao encontrada!");
-                    }
+                    cpfExclusao = util.removeFormatacaoCpf(cpfExclusao); // Remove a formatação do CPF para evitar erros
+
+                    pessoaDAO.deletarPessoa(cpfExclusao);
                     break;
 
                 case 6:
                     System.out.println("\nDigite o CPF da pessoa que deseja alterar o nome: ");
+                    System.out.println("Ex: 000.000.000-00 ");
                     String editaNome = s.nextLine();
                     System.out.println("\nQual o novo nome? ");
                     String novoNome = s.nextLine();
 
-                    if (pessoaDAO.alterarNome(editaNome, novoNome)) {
-                        System.out.println("\nPessoa alterada!");
-                        novoNome = pessoaDAO.buscaPessoa(editaNome).getNome();
-                        System.out.println("Novo nome: " + novoNome);
-                    } else {
-                        System.out.println("\nPessoa nao alterada!");
-                    }
+                    pessoaDAO.alterarNome(editaNome, novoNome);
                     break;
 
                 case 7:
                     System.out.println("\nDigite o CPF da pessoa que deseja alterar o sexo: ");
+                    System.out.println("Ex: 000.000.000-00 ");
                     String editaSexo = s.nextLine();
                     System.out.println("\nQual o novo sexo? ");
                     String novoSexo = s.nextLine();
 
-                    if (pessoaDAO.alterarSexo(editaSexo, novoSexo)) {
-                        System.out.println("\nPessoa alterada!");
-                        novoSexo = pessoaDAO.buscaPessoa(editaSexo).getSexo();
-                        System.out.println("Novo sexo: " + novoSexo);
-                    } else {
-                        System.out.println("\nPessoa nao alterada!");
-                    }
+                    pessoaDAO.alterarSexo(editaSexo, novoSexo);
                     break;
 
                 case 8:
                     System.out.println("\nDigite o CPF da pessoa que deseja alterar a data de nascimento: ");
+                    System.out.println("Ex: 000.000.000-00 ");
                     String editaNascimento = s.nextLine();
                     System.out.println("\nQual a nova data de nascimento? ");
                     String novoNascimento = s.nextLine();
 
-                    if (pessoaDAO.alterarNascimento(editaNascimento, novoNascimento)) {
-                        System.out.println("\n Pessoa alterada!");
-                        novoNascimento = pessoaDAO.buscaPessoa(editaNascimento).getDataNascimento();
-                        System.out.println("Nova data de nascimento: " + novoNascimento);
-                    } else {
-                        System.out.println("\n Pessoa nao alterada!");
-                    }
+                    pessoaDAO.alterarNascimento(editaNascimento, novoNascimento);
                     break;
 
                 case 9:
                     System.out.println("\nDigite o CPF da pessoa que deseja alterar o email: ");
+                    System.out.println("Ex: 000.000.000-00 ");
                     String editaEmail = s.nextLine();
                     System.out.println("\nQual o novo email [Login]? ");
                     String novoEmail = s.nextLine();
 
-                    if (pessoaDAO.alterarEmail(editaEmail, novoEmail)) {
-                        System.out.println("\nPessoa alterada!");
-                        novoEmail = pessoaDAO.buscaPessoa(editaEmail).getEmail();
-                        System.out.println("Novo email: " + novoEmail);
-                    } else {
-                        System.out.println("\nPessoa nao alterada!");
-                    }
+                    pessoaDAO.alterarEmail(editaEmail, novoEmail);
                     break;
 
                 case 10:
                     System.out.println("\nDigite o CPF da pessoa que deseja alterar a senha: ");
+                    System.out.println("Ex: 000.000.000-00 ");
                     String editaSenha = s.nextLine();
                     System.out.println("\nQual a nova senha? ");
                     String novaSenha = s.nextLine();
 
-                    if (pessoaDAO.alterarSenha(editaSenha, novaSenha)) {
-                        System.out.println("\nPessoa alterada!");
-                        novaSenha = pessoaDAO.buscaPessoa(editaSenha).getSenha();
-                        System.out.println("Nova senha: " + novaSenha);
-                    } else {
-                        System.out.println("\nPessoa nao alterada!");
-                    }
+                    pessoaDAO.alterarSenha(editaSenha, novaSenha);
                     break;
 
                 case 11:
                     System.out.println("\nDigite o CPF da pessoa que deseja alterar o tipo de usuario: ");
+                    System.out.println("Ex: 000.000.000-00 ");
                     String editaTipoUsuario = s.nextLine();
                     System.out.println("\nQual o novo tipo de usuário? ");
                     System.out.println("Escolha um número -> 1 - Noivo(a) | 2 - Cerimonialista | 3 - Administrador | 4 - Convidado");
                     int novoTipoUsuario = Integer.parseInt(s.nextLine());
 
-                    if (pessoaDAO.alterarTipoUsuario(editaTipoUsuario, novoTipoUsuario)) {
-                        System.out.println("\nPessoa alterada!");
-                        novoTipoUsuario = pessoaDAO.buscaPessoa(editaTipoUsuario).getTipoUsuario();
-                        System.out.println("Novo tipo de usuário: " + novoTipoUsuario);
-                    } else {
-                        System.out.println("\nPessoa nao alterada!");
-                    }
-                    break
-                            ;
+                    pessoaDAO.alterarTipoUsuario(editaTipoUsuario, novoTipoUsuario);
+                    break;
                 case 12:
                     System.out.println("\nDigite o CPF da pessoa que deseja alterar o cadastro de pessoa fisica: ");
+                    System.out.println("Ex: 000.000.000-00 ");
                     String editaCPF = s.nextLine();
                     System.out.println("\nQual o novo CPF? ");
                     String novoCPF = s.nextLine();
 
-                    if (pessoaDAO.alterarCpf(editaCPF, novoCPF)) {
-                        System.out.println("\nPessoa alterada!");
-                        novoCPF = pessoaDAO.buscaPessoa(editaCPF).getCpf();
-                        System.out.println("Novo CPF: " + novoCPF);
-                    } else {
-                        System.out.println("\nPessoa nao alterada!");
-                    }
+                    pessoaDAO.alterarCpf(editaCPF, novoCPF);
                     break;
 
                 case 0:
@@ -893,8 +859,8 @@ public class Main {
                                 break;
 
                             case 2:
-                                ConvidadoIndividual[] convidados = convidadoIndividualDAO.getConvidados();
-                                ConvidadoFamilia[] familias = convidadoFamiliaDAO.getFamilias();
+                                ArrayList<ConvidadoIndividual> convidados = convidadoIndividualDAO.getConvidados();
+                                ArrayList<ConvidadoFamilia> familias = convidadoFamiliaDAO.getFamilias();
                                 System.out.println("\nDigite o acesso da família para confirmar seus integrantes: ");
                                 String acesso = s.nextLine();
 
@@ -1365,6 +1331,7 @@ public class Main {
     }
 
     private void atualizarPessoa(String cpfDaPessoa) {
+        cpfDaPessoa = util.removeFormatacaoCpf(cpfDaPessoa); // Remove a formatação do CPF, caso tenha, para buscar no banco
         Pessoa editar = pessoaDAO.buscaPessoa(cpfDaPessoa); // Retorna o objeto Pessoa e armazena
 
         if(editar != null) {
@@ -1411,12 +1378,12 @@ public class Main {
             System.out.println("\nDigite desta forma-> 000.000.000-00");
             String cpfNovo = s.nextLine();
             if(!cpfNovo.isEmpty()) {
+                cpfNovo = cpfNovo.replace(".", "");
+                cpfNovo = cpfNovo.replace("-", "");
                 editar.setCpf(cpfNovo);
             }
 
             pessoaDAO.atualizarPessoa(editar);
-            System.out.println("\nPessoa alterado com sucesso, alteracoes: \n\n");
-            System.out.println(editar.toString());
         } else {
             System.out.println("\nPessoa nao encontrada para alterar!");
         }
@@ -1486,7 +1453,7 @@ public class Main {
                     Evento eventoDoRecadoConv = eventoDAO.buscarPorId(idEventoDoRecadoConv);
 
                     if (eventoDoRecadoConv != null) {
-                        ConvidadoIndividual[] convidados = convidadoIndividualDAO.buscarTodos(eventoDoRecadoConv);
+                        ArrayList<ConvidadoIndividual> convidados = convidadoIndividualDAO.buscarTodos(eventoDoRecadoConv);
                         reportPath = "reports/ListaDeConvidados.pdf";
                         relatorio.listaConvidadosPDF(convidados, reportPath);
                     }
@@ -1500,7 +1467,7 @@ public class Main {
                     Evento eventoDoRecadoConvConf = eventoDAO.buscarPorId(idEventoDoRecadoConvConf);
 
                     if (eventoDoRecadoConvConf != null) {
-                        ConvidadoIndividual[] convidadosConfirmados = convidadoIndividualDAO.buscarTodosConfirmados(eventoDoRecadoConvConf);
+                        ArrayList<ConvidadoIndividual> convidadosConfirmados = convidadoIndividualDAO.buscarTodosConfirmados(eventoDoRecadoConvConf);
                         reportPath = "reports/ListaDeConvidadosConfirmados.pdf";
                         relatorio.listaConvidadosConfirmadosPDF(convidadosConfirmados, reportPath);
                     }

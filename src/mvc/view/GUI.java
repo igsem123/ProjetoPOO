@@ -752,6 +752,11 @@ public class GUI {
             System.out.println("\nCNPJ inválido, tente novamente:");
             CNPJ = scanner.nextLine();
         }
+
+        CNPJ = CNPJ.replace(".", "");
+        CNPJ = CNPJ.replace("/", "");
+        CNPJ = CNPJ.replace("-", "");
+
         nF.setCNPJ(CNPJ);
 
         System.out.println("\nQual o telefone da empresa? ");

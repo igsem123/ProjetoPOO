@@ -1,5 +1,8 @@
 package mvc.model;
 
+import mvc.dao.PessoaController;
+import mvc.dao.PessoaDAO;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -19,6 +22,9 @@ public class Pessoa {
     private String cpf;
     private final LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
+
+    // Instâncias para manipulação de dados
+    private Util util = new Util();
 
     public Pessoa(String nome, String sexo, LocalDate dataNascimento, String telefone, String login, String senha, int tipoUsuario, String cpf) {
         this.id = (totalPessoas++);
@@ -176,7 +182,7 @@ public class Pessoa {
                 "\n| Nascimento         : " + getDataNascimento() +
                 "\n| Email              : " + this.login +
                 "\n| Tipo de Usuario    : " + tipoUsuario(this.tipoUsuario) +
-                "\n| CPF                : " + this.cpf +
+                "\n| CPF                : " + util.formataCpf(this.cpf) +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 
@@ -233,7 +239,7 @@ public class Pessoa {
         sb.append(String.format("Nome                : %s\n", nome));
         sb.append(String.format("Sexo                : %s\n", sexo));
         sb.append(String.format("Data de Nascimento  : %s\n", dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
-        sb.append(String.format("CPF                 : %s\n", cpf));
+        sb.append(String.format("CPF                 : %s\n", util.formataCpf(cpf)));
         sb.append(String.format("Telefone            : %s\n", telefone));
         sb.append(String.format("Login               : %s\n", login));
         sb.append(String.format("Senha               : %s\n", senha));

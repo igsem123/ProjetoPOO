@@ -8,12 +8,13 @@ import com.itextpdf.text.pdf.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import com.itextpdf.text.pdf.BaseFont;
 
-public class RelatorioDAOMemoria implements RelatorioDAO {
+public class RelatorioController implements RelatorioDAO {
 
     // Criação das Fontes de Texto
     private static final String FONT = "fonts/CaviarDreams.ttf";
@@ -31,7 +32,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
     BaseFont CaviarDreamsBoldItalic;
     BaseFont bfTitle;
 
-    public RelatorioDAOMemoria() {
+    public RelatorioController() {
         try { // Tenta carregar as fontes de texto e título personalizadas
             CaviarDreams = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             CaviarDreamsBold = BaseFont.createFont(FONT_BOLD, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
@@ -406,7 +407,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
     }
 
     @Override
-    public void listaConvidadosPDF(ConvidadoIndividual[] convidados, String path) {
+    public void listaConvidadosPDF(ArrayList<ConvidadoIndividual> convidados, String path) {
         try {
             // Cria o documento A4
             Document document = new Document(PageSize.A4);
@@ -436,7 +437,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.add(new Paragraph("\n"));  // Espaçamento
 
             // Adicionando nome do evento
-            Paragraph evento = new Paragraph("Evento: " + convidados[0].getEvento().getNomeDoEvento(), fontNormal);
+            Paragraph evento = new Paragraph("Evento: " + convidados.getFirst().getEvento().getNomeDoEvento(), fontNormal);
             evento.setAlignment(Element.ALIGN_CENTER);
             evento.setSpacingBefore(20f);
             evento.setSpacingAfter(8f);
@@ -490,7 +491,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
     }
 
     @Override
-    public void listaConvidadosConfirmadosPDF(ConvidadoIndividual[] convidados, String path) {
+    public void listaConvidadosConfirmadosPDF(ArrayList<ConvidadoIndividual> convidados, String path) {
     	try {
             // Cria o documento A4
             Document document = new Document(PageSize.A4);
@@ -521,7 +522,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
             document.add(new Paragraph("\n"));  // Espaçamento
 
             // Adicionando nome do evento
-            Paragraph evento = new Paragraph("Evento: " + convidados[0].getEvento().getNomeDoEvento(), fontNormal);
+            Paragraph evento = new Paragraph("Evento: " + convidados.getFirst().getEvento().getNomeDoEvento(), fontNormal);
             evento.setAlignment(Element.ALIGN_CENTER);
             evento.setSpacingBefore(20f);
             evento.setSpacingAfter(8f);
@@ -579,7 +580,7 @@ public class RelatorioDAOMemoria implements RelatorioDAO {
                 }
             }
 
-            for (Fornecedor fornecedor : convidados[0].getEvento().getFornecedores()) {
+            for (Fornecedor fornecedor : convidados.getFirst().getEvento().getFornecedores()) {
                 table.addCell(createCell(String.valueOf(fornecedor.getId()), fontNormal, BaseColor.WHITE, Element.ALIGN_CENTER));
                 table.addCell(createCell(fornecedor.getNome(), fontNormal, BaseColor.WHITE, Element.ALIGN_LEFT));
                 table.addCell(createCell("Fornecedor", fontNormal, BaseColor.WHITE, Element.ALIGN_LEFT));

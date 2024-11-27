@@ -11,25 +11,25 @@ public class PagamentoDAOMemoria implements PagamentoDAO{
         this.pagamentos = new Pagamento[capacidade];
         this.totalPagamentos = 0;
 
-        Pagamento p1 = new Pagamento(pessoaDAO.buscaPorId(1L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, primeira parcela.", 1250.0,1, true, Util.formataData("21/06/2024"));
+        Pagamento p1 = new Pagamento(pessoaDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(1L), "Pagamento a empresa XZY das lonas da festa, primeira parcela.", 1250.0,1, true, Util.formataData("21/06/2024"));
         this.criarPagamento(p1);
-        Pagamento p2 = new Pagamento(pessoaDAO.buscaPorId(1L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, segunda parcela.", 1250.0,1, true, Util.formataData("01/07/2024"));
+        Pagamento p2 = new Pagamento(pessoaDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(1L), "Pagamento a empresa XZY das lonas da festa, segunda parcela.", 1250.0,1, true, Util.formataData("01/07/2024"));
         this.criarPagamento(p2);
-        Pagamento p3 = new Pagamento(pessoaDAO.buscaPorId(1L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, terceira parcela.", 1250.0,1, true, Util.formataData("15/07/2024"));
+        Pagamento p3 = new Pagamento(pessoaDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(1L), "Pagamento a empresa XZY das lonas da festa, terceira parcela.", 1250.0,1, true, Util.formataData("15/07/2024"));
         this.criarPagamento(p3);
-        Pagamento p4 = new Pagamento(pessoaDAO.buscaPorId(1L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, quarta parcela.", 1250.0,1, true, Util.formataData("01/08/2024"));
+        Pagamento p4 = new Pagamento(pessoaDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(1L), "Pagamento a empresa XZY das lonas da festa, quarta parcela.", 1250.0,1, true, Util.formataData("01/08/2024"));
         this.criarPagamento(p4);
-        Pagamento p5 = new Pagamento(pessoaDAO.buscaPorId(1L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, quinta parcela.", 1250.0,1, true, Util.formataData("15/08/2024"));
+        Pagamento p5 = new Pagamento(pessoaDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(1L), "Pagamento a empresa XZY das lonas da festa, quinta parcela.", 1250.0,1, true, Util.formataData("15/08/2024"));
         this.criarPagamento(p5);
-        Pagamento p6 = new Pagamento(pessoaDAO.buscaPorId(1L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, sexta parcela.", 1250.0,1, true, Util.formataData("01/09/2024"));
+        Pagamento p6 = new Pagamento(pessoaDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(1L), "Pagamento a empresa XZY das lonas da festa, sexta parcela.", 1250.0,1, true, Util.formataData("01/09/2024"));
         this.criarPagamento(p6);
-        Pagamento p7 = new Pagamento(pessoaDAO.buscaPorId(1L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, sétima parcela.", 1250.0,1, true, Util.formataData("15/09/2024"));
+        Pagamento p7 = new Pagamento(pessoaDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(1L), "Pagamento a empresa XZY das lonas da festa, sétima parcela.", 1250.0,1, true, Util.formataData("15/09/2024"));
         this.criarPagamento(p7);
-        Pagamento p8 = new Pagamento(pessoaDAO.buscaPorId(1L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, oitava e última parcela.", 1250.0,1, true, Util.formataData("01/10/2024"));
+        Pagamento p8 = new Pagamento(pessoaDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(1L), "Pagamento a empresa XZY das lonas da festa, oitava e última parcela.", 1250.0,1, true, Util.formataData("01/10/2024"));
         this.criarPagamento(p8);
-        Pagamento p9 = new Pagamento(pessoaDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(1L), "Pagamento a empresa ABC das bebidas da festa, primeira parcela.", 1500.0, 1, true, Util.formataData("22/10/2024"));
+        Pagamento p9 = new Pagamento(pessoaDAO.buscaPorId(3L), fornecedorDAO.buscaPorId(2L), "Pagamento a empresa ABC das bebidas da festa, primeira parcela.", 1500.0, 1, true, Util.formataData("22/10/2024"));
         this.criarPagamento(p9);
-        Pagamento p10 = new Pagamento(pessoaDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(1L), "Pagamento a empresa ABC das bebidas da festa, segunda e terceira parcela.", 3000.0, 2, true, Util.formataData("02/11/2024"));
+        Pagamento p10 = new Pagamento(pessoaDAO.buscaPorId(3L), fornecedorDAO.buscaPorId(2L), "Pagamento a empresa ABC das bebidas da festa, segunda e terceira parcela.", 3000.0, 2, true, Util.formataData("02/11/2024"));
         this.criarPagamento(p10);
     }
 

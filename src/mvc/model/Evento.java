@@ -3,6 +3,7 @@ package mvc.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Evento {
@@ -15,12 +16,12 @@ public class Evento {
     Pessoa pessoaNoivo1;
     Pessoa pessoaNoivo2;
     private String nomeDoEvento;
-    private Fornecedor[] fornecedores;
+    private ArrayList<Fornecedor> fornecedores;
     private final LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
     // Construtor com parâmetros
-    public Evento(LocalDate dataEvento, Pessoa cerimonial, String igreja, String cartorio, Pessoa pessoaNoivo1, Pessoa pessoaNoivo2, Fornecedor[] fornecedores) {
+    public Evento(LocalDate dataEvento, Pessoa cerimonial, String igreja, String cartorio, Pessoa pessoaNoivo1, Pessoa pessoaNoivo2, ArrayList<Fornecedor> fornecedores) {
         this.id = (totalEventos++);
         this.dataEvento = dataEvento;
         this.cerimonial = cerimonial;
@@ -125,21 +126,23 @@ public class Evento {
     public void addFornecedor(Fornecedor fornecedor) { // Adiciona um fornecedor à lista de fornecedores
         this.dataModificacao = LocalDateTime.now();
         if (this.fornecedores == null) {
-            this.fornecedores = new Fornecedor[]{fornecedor}; // Se a lista de fornecedores for nula, cria um novo array com um único fornecedor
+            ArrayList<Fornecedor> fornecedoresArrayList = new ArrayList<>();
+            fornecedoresArrayList.add(fornecedor);
+            this.fornecedores = fornecedoresArrayList;// Se a lista de fornecedores for nula, cria um novo array com um único fornecedor
         } else {
-            Fornecedor[] novoFornecedores = new Fornecedor[this.fornecedores.length + 1]; // Cria um novo array com tamanho maior
-            System.arraycopy(this.fornecedores, 0, novoFornecedores, 0, this.fornecedores.length); // Copia os elementos do array antigo para o novo array criado por meio do arraycopy que é mais eficiente, indico o array de origem, a posição de início, o array de destino, a posição de início e a quantidade de elementos a serem copiados, sendo todos os elementos do array antigo
-            novoFornecedores[this.fornecedores.length] = fornecedor; // Adiciona o novo fornecedor ao final do novo array
-            this.fornecedores = novoFornecedores; // Atualiza a lista de fornecedores
+            ArrayList<Fornecedor> fornecedoresArrayList = new ArrayList<>(this.fornecedores.size() + 1);
+            fornecedoresArrayList.addAll(this.fornecedores);
+            fornecedoresArrayList.add(fornecedor);
+            this.fornecedores = fornecedoresArrayList; // Se a lista de fornecedores não for nula, cria um array com um fornecedor a mais
         }
     }
 
     public void clearFornecedores() { // Limpa a lista de fornecedores
-        this.fornecedores = new Fornecedor[0]; // Cria um novo array vazio
+        this.fornecedores = new ArrayList<>(); // Cria um novo array vazio
         this.dataModificacao = LocalDateTime.now();
     }
 
-    public Fornecedor[] getFornecedores() {
+    public ArrayList<Fornecedor> getFornecedores() {
         return fornecedores;
     }
 

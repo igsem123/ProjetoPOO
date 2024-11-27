@@ -1,6 +1,8 @@
 package mvc.dao;
 
 import mvc.model.Fornecedor;
+import mvc.model.Util;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 
 public class FornecedorController implements FornecedorDAO {
     private final ArrayList<Fornecedor> listaFornecedores;
+    private Util util = new Util();
 
     public FornecedorController() {
         this.listaFornecedores = new ArrayList<>();
@@ -163,7 +166,7 @@ public class FornecedorController implements FornecedorDAO {
             while (rs.next()) {
                 System.out.println(
                     rs.getLong("id") + " - " +
-                    rs.getString("CNPJ") + " - " +
+                    util.formataCnpj(rs.getString("CNPJ")) + " - " +
                     rs.getString("nome")
                 );
             }

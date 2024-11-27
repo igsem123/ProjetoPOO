@@ -221,7 +221,7 @@ public class GUI {
             this.builder.append("\n|                                 |");
             this.builder.append("\n|                                 |");
             this.builder.append("\n| 1 - Criar nova pessoa           |");
-            this.builder.append("\n| 2 - Exibir pessoa               |");
+            this.builder.append("\n| 2 - Exibir lista de pessoas     |");
             this.builder.append("\n| 3 - Buscar pessoa               |");
             this.builder.append("\n| 4 - Atualizar pessoa            |");
             this.builder.append("\n| 5 - Deletar pessoa              |");
@@ -887,7 +887,7 @@ public class GUI {
         nE.setPessoaNoivo2(noivo2);
 
         System.out.println("\nQuais os fornecedores que estarão presentes no evento?");
-        System.out.println("\nLista de fornecedores cadastrados no sistema: \n");
+        System.out.println("\nLista de fornecedores cadastrados no sistema:");
         fornecedorDAO.exibeFornecedoresSimples();
         System.out.println("\nInforme o [ID] do fornecedor: ");
         long fornecedorId = Long.parseLong(scanner.nextLine());

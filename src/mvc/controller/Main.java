@@ -607,8 +607,8 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.println("\nO total de eventos no sistema é    : ["+ Evento.totalEventos +"] ");
-                    System.out.println("Esses são os eventos encontrados:\n");
+                    System.out.println("\nO total de eventos no sistema é: ["+ EventoController.totalEventos +"] ");
+                    System.out.println("Esses são os eventos encontrados :\n");
                     eventoDAO.listarEventos();
                     break;
 

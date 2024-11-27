@@ -19,9 +19,11 @@ public class EventoController implements EventoDAO {
     private final ArrayList<Evento> eventos;
     private final PessoaDAO pessoaDAO = new PessoaController();
     private final FornecedorDAO fornecedorDAO = new FornecedorController();
+    public static int totalEventos = 0;
 
     public EventoController() {
         this.eventos = new ArrayList<>();
+        this.contarTotalDeEventos();
     }
 
     // Método auxiliar para converter ResultSet em Evento
@@ -36,6 +38,24 @@ public class EventoController implements EventoDAO {
         evento.setPessoaNoivo2(new PessoaController().buscaPorId(rs.getLong("pessoaNoivo2")));
         evento.setNomeDoEvento(rs.getString("nomeDoEvento"));
         return evento;
+    }
+
+    public void contarTotalDeEventos() {
+        String sql = "SELECT COUNT(*) AS total FROM Evento";
+        totalEventos = 0;
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                totalEventos = rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("\nErro ao contar total de eventos.");
+            e.printStackTrace();
+        }
     }
     
     @Override
@@ -69,7 +89,7 @@ public class EventoController implements EventoDAO {
                 }
             }
 
-            System.out.println("Evento cadastrado com sucesso:\n" + evento);
+            System.out.println("\nEvento cadastrado com sucesso:\n\n" + evento);
 
         } catch (SQLException e) {
             System.out.println("\nErro ao cadastrar evento.");

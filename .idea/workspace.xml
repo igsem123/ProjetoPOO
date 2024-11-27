@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/EventoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/FornecedorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/FornecedorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Evento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,36 +40,36 @@
     &quot;assignee&quot;: &quot;igsem123&quot;
   }
 }</component>
-  <component name="GitHubPullRequestState"><![CDATA[{
-  "prStates": [
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
     {
-      "id": {
-        "id": "PR_kwDOM5PXyc6DXu_Y",
-        "number": 32
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOM5PXyc6DXu_Y&quot;,
+        &quot;number&quot;: 32
       },
-      "lastSeen": 1732731213322
+      &quot;lastSeen&quot;: 1732731213322
     }
   ]
-}]]></component>
+}</component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="03e1e3ca-8987-4c39-b9a8-6a864917580e" />
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/igsem123/ProjetoPOO.git",
-    "accountId": "03e1e3ca-8987-4c39-b9a8-6a864917580e"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/igsem123/ProjetoPOO.git&quot;,
+    &quot;accountId&quot;: &quot;03e1e3ca-8987-4c39-b9a8-6a864917580e&quot;
   },
-  "recentNewPullRequestHead": {
-    "server": {
-      "useHttp": false,
-      "host": "github.com",
-      "port": null,
-      "suffix": null
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
     },
-    "owner": "igsem123",
-    "repository": "ProjetoPOO"
+    &quot;owner&quot;: &quot;igsem123&quot;,
+    &quot;repository&quot;: &quot;ProjetoPOO&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -84,7 +90,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "raphael/Alteração-ConvidadoFamiliaController-e-ConvidadoIndividualController",
+    "git-widget-placeholder": "raphael/Correções-EventoController-e-FornecedorController",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/rnmoreira/IdeaProjects/ProjetoPOO/lib/mysql-connector-j-9.0.0.jar",
@@ -215,6 +221,7 @@
       <workItem from="1732706868879" duration="16718000" />
       <workItem from="1732730394265" duration="788000" />
       <workItem from="1732731200431" duration="453000" />
+      <workItem from="1732733607224" duration="3931000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -442,6 +449,16 @@
     <MESSAGE value="v2.3" />
     <MESSAGE value="v2.4" />
     <option name="LAST_COMMIT_MESSAGE" value="v2.4" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.sql.SQLException" package="java.sql" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

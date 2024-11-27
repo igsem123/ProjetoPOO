@@ -46,6 +46,11 @@ public class ConvidadoIndividual {
         this.dataModificacao = Util.getDia();
     }
 
+    // Getters e Setters
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return this.id;
     }
@@ -55,28 +60,24 @@ public class ConvidadoIndividual {
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
         this.id = pessoa.getId();
-        this.dataModificacao = LocalDateTime.now();
     }
 
     public Evento getEvento() { return evento; }
 
     public void setEvento(Evento evento) {
         this.evento = evento;
-        this.dataModificacao = LocalDateTime.now();
     }
 
     public ConvidadoFamilia getFamilia() { return familia; }
 
     public void setFamilia(ConvidadoFamilia familia) {
         this.familia = familia;
-        this.dataModificacao = LocalDateTime.now();
     }
 
     public String getParentesco() { return parentesco; }
 
     public void setParentesco(String parentesco) {
         this.parentesco = parentesco;
-        this.dataModificacao = LocalDateTime.now();
     }
 
     public boolean isConfirmacao() {
@@ -106,7 +107,6 @@ public class ConvidadoIndividual {
 
     public void setConfirmacao(boolean confirmacao) {
         this.confirmacao = confirmacao;
-        this.dataModificacao = LocalDateTime.now(); // Atualiza a data de modificação
     }
 
     public String getDataCriacao() {

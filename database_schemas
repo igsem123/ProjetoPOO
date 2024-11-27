@@ -19,12 +19,15 @@ CREATE TABLE Pessoa (
 ALTER TABLE pessoa
 MODIFY COLUMN sexo ENUM('Homem', 'Mulher', 'Outro') DEFAULT 'Outro';
 
+ALTER TABLE pessoa
+CHANGE COLUMN login email VARCHAR(100) NOT NULL UNIQUE;
+
 DESCRIBE Pessoa;
 
 CREATE TABLE Fornecedor (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,                                           -- Identificador único do fornecedor
     nome VARCHAR(255) NOT NULL,                                                     -- Nome do fornecedor
-    CNPJ CHAR(18) NOT NULL UNIQUE,                                                  -- CNPJ do fornecedor, único e sem formatação
+    CNPJ CHAR(14) NOT NULL UNIQUE,                                                  -- CNPJ do fornecedor, único e sem formatação
     telefone VARCHAR(20),                                                           -- Telefone do fornecedor
     email VARCHAR(255),                                                             -- Email do fornecedor
     valorAPagar DECIMAL(15, 2) DEFAULT 0.00,                                        -- Valor total a pagar

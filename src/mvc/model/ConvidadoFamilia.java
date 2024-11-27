@@ -31,6 +31,9 @@ public class ConvidadoFamilia {
         this.dataModificacao = LocalDateTime.now();
     }
 
+    // Construtor vazio
+    public ConvidadoFamilia() {}
+
     private String gerarAcesso(String noivo1, String noivo2, String data) {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder letrasAleatorias = new StringBuilder();
@@ -46,6 +49,11 @@ public class ConvidadoFamilia {
     }
 
     // Getters e Setters
+    public void setId(long id) {
+        this.id = id;
+        this.dataModificacao = LocalDateTime.now();
+    }
+
     public long getId() { return id; }
 
     public String getNomeFamilia() { return nomeFamilia; }
@@ -55,15 +63,30 @@ public class ConvidadoFamilia {
         this.nomeFamilia = nomeFamilia;
     }
 
+    public void setAcesso(String acesso) {
+        this.dataModificacao = LocalDateTime.now();
+        this.acesso = acesso;
+    }
+
     public String getAcesso() { return acesso; }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+        this.dataModificacao = LocalDateTime.now();
+    }
 
     public LocalDateTime getDataCriacao() { return dataCriacao; }
     public LocalDateTime getDataModificacao() { return dataModificacao; }
 
-    public void setDataModificacao() {
+    public void setDataModificacao(LocalDateTime dataModificacao) {
         this.dataModificacao = LocalDateTime.now();
     }
-    
+
+    public void setEvento(Evento evento) {
+        this.dataModificacao = LocalDateTime.now();
+        this.evento = evento;
+    }
+
     public Evento getEvento() { return evento; }
 
     @Override

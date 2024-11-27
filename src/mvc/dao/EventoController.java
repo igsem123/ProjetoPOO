@@ -11,11 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.sql.Date;
 
 public class EventoController implements EventoDAO {
     private final ArrayList<Evento> eventos;
+    private final PessoaDAO pessoaDAO = new PessoaController();
+    private final FornecedorDAO fornecedorDAO = new FornecedorController();
 
     public EventoController() {
         this.eventos = new ArrayList<>();
@@ -43,7 +46,7 @@ public class EventoController implements EventoDAO {
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sqlEvento, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setDate(1, Date.valueOf(evento.getDataEvento()));
+            stmt.setDate(1, Date.valueOf(LocalDate.parse(evento.getDataEvento(), DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString()));
             stmt.setObject(2, evento.getCerimonial() != null ? evento.getCerimonial().getId() : null);
             stmt.setString(3, evento.getIgreja());
             stmt.setString(4, evento.getCartorio());

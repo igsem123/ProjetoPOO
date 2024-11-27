@@ -6,18 +6,18 @@ public interface PessoaDAO {
     void criarPessoa(Pessoa pessoa);
     void listarPessoas();
     void atualizarPessoa(Pessoa pessoa);
-    boolean deletarPessoa(String cpf);
+    void deletarPessoa(String cpf);
     Pessoa buscaPessoaLogin(String email, String senha);
     Pessoa buscaPessoa(String cpf);
     Pessoa buscaPorId(Long id);
     void buscaCerimonialistas();
-    Pessoa buscaNoivos();
+    void buscaNoivos();
     void buscaConvidados();
-    boolean alterarNome(String cpf, String novoNome);
-    boolean alterarSexo(String cpf, String novoSexo);
-    boolean alterarNascimento(String cpf, String novoNascimento);
-    boolean alterarEmail(String cpf, String novoEmail);
-    boolean alterarSenha(String cpf, String novaSenha);
-    boolean alterarTipoUsuario(String cpf, int novoTipo);
-    boolean alterarCpf(String cpf, String novaCpf);
+    void alterarNome(String cpf, String novoNome);
+    void alterarSexo(String cpf, String novoSexo);
+    void alterarNascimento(String cpf, String novoNascimento);
+    void alterarEmail(String cpf, String novoEmail);
+    void alterarSenha(String cpf, String novaSenha);
+    void alterarTipoUsuario(String cpf, int novoTipo);
+    void alterarCpf(String cpf, String novaCpf);
 }

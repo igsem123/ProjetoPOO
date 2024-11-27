@@ -14,42 +14,42 @@ public class MuralRecadosDAOMemoria implements MuralRecadosDAO{
         MuralRecados recado1 = new MuralRecados(
                 "Que emoção participar desse momento tão especial! Desejo toda felicidade do mundo para vocês!",
                 "Joao",
-                eventoDAO.buscarPorId(0L)
+                eventoDAO.buscarPorId(1L)
         );
         this.criarRecado(recado1);
 
         MuralRecados recado2 = new MuralRecados(
                 "Parabéns Raphael e Lucas! Que essa nova fase seja repleta de amor e alegrias!",
-                pessoaDAO.buscaPorId(11L),
-                eventoDAO.buscarPorId(0L)
+                pessoaDAO.buscaPorId(12L),
+                eventoDAO.buscarPorId(1L)
         );
         this.criarRecado(recado2);
 
         MuralRecados recado3 = new MuralRecados(
                 "Estou muito feliz por vocês dois! Que Deus abençoe essa união!",
-                pessoaDAO.buscaPorId(12L),
-                eventoDAO.buscarPorId(0L)
+                pessoaDAO.buscaPorId(13L),
+                eventoDAO.buscarPorId(1L)
         );
         this.criarRecado(recado3);
 
         MuralRecados recado4 = new MuralRecados(
                 "Ana Paula e Carlos, desejo a vocês um casamento repleto de momentos lindos e inesquecíveis!",
                 "Paulo",
-                eventoDAO.buscarPorId(1L) // Ana Paula e Carlos Alberto
+                eventoDAO.buscarPorId(2L) // Ana Paula e Carlos Alberto
         );
         this.criarRecado(recado4);
 
         MuralRecados recado5 = new MuralRecados(
                 "Que alegria ver vocês se casando! Que sejam sempre felizes e abençoados!",
                 new Pessoa("Ricardo Barbosa", "Masculino", Util.formataData("14/04/1987"), "+55 34 9 3344-5566", "ricardo.barbosa@gmail.com", "ricardo123", 4, "654.321.987-00"),
-                eventoDAO.buscarPorId(1L)
+                eventoDAO.buscarPorId(2L)
         );
         this.criarRecado(recado5);
 
         MuralRecados recado6 = new MuralRecados(
                 "Parabéns Ana Paula e Carlos! Que esse seja o início de uma vida cheia de realizações!",
                 new Pessoa("Camila Rocha", "Feminino", Util.formataData("10/10/1995"), "+55 34 9 4455-6677", "camila.rocha@gmail.com", "camila456", 4, "123.321.456-98"),
-                eventoDAO.buscarPorId(1L)
+                eventoDAO.buscarPorId(2L)
         );
         this.criarRecado(recado6);
 

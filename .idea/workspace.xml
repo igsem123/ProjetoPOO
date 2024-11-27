@@ -46,24 +46,24 @@
   ]
 }]]></component>
   <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="21d90d5f-6faa-40bb-bb57-89876c2eeb2b" />
+    <option name="defaultAccountId" value="03e1e3ca-8987-4c39-b9a8-6a864917580e" />
   </component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/igsem123/ProjetoPOO.git&quot;,
-    &quot;accountId&quot;: &quot;21d90d5f-6faa-40bb-bb57-89876c2eeb2b&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/igsem123/ProjetoPOO.git",
+    "accountId": "03e1e3ca-8987-4c39-b9a8-6a864917580e"
   },
-  &quot;recentNewPullRequestHead&quot;: {
-    &quot;server&quot;: {
-      &quot;useHttp&quot;: false,
-      &quot;host&quot;: &quot;github.com&quot;,
-      &quot;port&quot;: null,
-      &quot;suffix&quot;: null
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
     },
-    &quot;owner&quot;: &quot;igsem123&quot;,
-    &quot;repository&quot;: &quot;ProjetoPOO&quot;
+    "owner": "igsem123",
+    "repository": "ProjetoPOO"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -97,7 +97,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "vcs.Git",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -214,7 +214,7 @@
       <workItem from="1732380593354" duration="7732000" />
       <workItem from="1732706868879" duration="16718000" />
       <workItem from="1732730394265" duration="788000" />
-      <workItem from="1732731200431" duration="196000" />
+      <workItem from="1732731200431" duration="453000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -368,7 +368,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732730536001</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="v2.4">
+      <option name="closed" value="true" />
+      <created>1732731432995</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1732731432995</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

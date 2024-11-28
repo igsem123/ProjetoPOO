@@ -144,7 +144,7 @@ public class Main {
                     System.out.println("\nDigite uma opção válida.");
                     break;
             }
-        } while (opcaoPrincipal != 3);  // Sai do menu sem login quando o usuário escolhe "Sair"
+        } while (opcaoPrincipal != 3);  // Sai do menu sem ‘login’ quando o usuário escolhe "Sair"
     }
 
     public static void main(String[] args) throws SQLException {
@@ -485,6 +485,13 @@ public class Main {
                     System.out.println("\nQual o CNPJ da empresa? ");
                     String cnpj = s.nextLine();
 
+                    if (cnpj.isEmpty()) {
+                        System.out.println("\nCNPJ invalido!");
+                        break;
+                    }
+
+                    cnpj = util.removeFormatacaoCnpj(cnpj); // Remove a formatação do CNPJ para evitar erros
+
                     Fornecedor achouF = fornecedorDAO.buscaFornecedor(cnpj);
                     if (achouF != null) {
                         System.out.println("\nFornecedor encontrado com sucesso!\n");
@@ -496,17 +503,11 @@ public class Main {
 
                 case 2:
                     Fornecedor f = gui.cadastrarFornecedor();
-
-                    boolean fornecedorInserido = fornecedorDAO.criarFornecedor(f);
-                    if (fornecedorInserido) {
-                        System.out.println("\nFornecedor inserido com sucesso!");
-                    } else {
-                        System.out.println("\nFornecedor nao inserido!");
-                    }
+                    fornecedorDAO.criarFornecedor(f);
                     break;
 
                 case 3:
-                    System.out.println("\nO total de fornecedores é          : ["+ Fornecedor.totalFornecedores +"] ");
+                    System.out.println("\nO total de fornecedores é            : ["+ fornecedorDAO.getTotalFornecedores() +"] ");
                     System.out.println("Esses são os fornecedores cadastrados:\n");
                     fornecedorDAO.listarFornecedores();
                     break;
@@ -515,11 +516,15 @@ public class Main {
                     System.out.println("\nPara atualizar, primeiro digite o CNPJ do fornecedor que deseja atualizar: ");
                     String fornecedorCNPJ = s.nextLine();
 
-                    Fornecedor fornecedorEditar = fornecedorDAO.buscaFornecedor(fornecedorCNPJ);
+                    if (fornecedorCNPJ.isEmpty()) {
+                        System.out.println("\nCNPJ invalido!");
+                        break;
+                    }
+
+                    fornecedorCNPJ = util.removeFormatacaoCnpj(fornecedorCNPJ); // Remove a formatação do CNPJ para evitar erros
 
                     if(fornecedorDAO.buscaFornecedor(fornecedorCNPJ) != null) {
-                        Fornecedor semEditar = fornecedorDAO.buscaFornecedor(fornecedorCNPJ); // Armazenando o fornecedor sem editar
-                        fornecedorEditar = fornecedorDAO.buscaFornecedor(fornecedorCNPJ);
+                        Fornecedor fornecedorEditar = fornecedorDAO.buscaFornecedor(fornecedorCNPJ);
 
                         System.out.println("\nDigite o novo nome da empresa (ou pressione ENTER para manter o nome atual): " + fornecedorEditar.getNome());
                         String novoNome = s.nextLine();
@@ -527,7 +532,7 @@ public class Main {
                             fornecedorEditar.setNome(novoNome);
                         }
 
-                        System.out.println("\nDigite o novo CNPJ (ou pressione ENTER para manter o CNPJ atual): " + fornecedorEditar.getCNPJ());
+                        System.out.println("\nDigite o novo CNPJ (ou pressione ENTER para manter o CNPJ atual): " + util.formataCnpj(fornecedorEditar.getCNPJ()));
                         System.out.println("Digite desta forma-> 00.000.000/0000-00");
                         String novoCnpj = s.nextLine();
                         if(!novoCnpj.isEmpty()) {
@@ -543,6 +548,7 @@ public class Main {
 
                         System.out.println("\nDigite o novo valor em débito com a empresa (ou pressione ENTER para manter o valor atual): " + fornecedorEditar.getValorAPagar());
                         String valorAPagar = this.s.nextLine();
+
                         if(!valorAPagar.isEmpty()) {
                             fornecedorEditar.setValorAPagar(Double.parseDouble(valorAPagar));
                         }
@@ -560,14 +566,7 @@ public class Main {
                             fornecedorEditar.setEstado(novoEstado);
                         }
 
-                        fornecedorDAO.atualizarFornecedor(fornecedorEditar.getCNPJ());
-
-                        if(!semEditar.equals(fornecedorEditar)) {
-                            System.out.println("\nFornecedor nao foi alterado!");
-                        } else {
-                            System.out.println("\nFornecedor alterado com sucesso, alteracoes: ");
-                            System.out.println(fornecedorEditar.toString());
-                        }
+                        fornecedorDAO.atualizarFornecedor(fornecedorEditar);
                     }
                     break;
 
@@ -607,7 +606,7 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.println("\nO total de eventos no sistema é    : ["+ Evento.totalEventos +"] ");
+                    System.out.println("\nO total de eventos no sistema é : ["+ eventoDAO.contarTotalDeEventos() +"]");
                     System.out.println("Esses são os eventos encontrados:\n");
                     eventoDAO.listarEventos();
                     break;
@@ -629,69 +628,80 @@ public class Main {
                         String dataEvento = s.nextLine();
                         if(dataEvento.equals(editarEvento.getDataEvento())) {
                             editarEvento.setDataEvento(dataEvento);
+                        } else {
+                            System.out.println("\nData mantida!");
                         }
 
                         System.out.println("\nAinda é o mesmo cerimonialista? (ou pressione [0] para manter o cerimonialista atual): " + editarEvento.getCerimonial().getNome());
                         System.out.println("\nDigite 1 para [SIM] ou 0 para [NAO]");
-                        int respostaCerimonial = Integer.parseInt(s.nextLine());
+                        String respostaCerimonial = s.nextLine();
 
-                        if(respostaCerimonial == 0) {
-                            System.out.println("\nEscolha o novo cerimonialista do evento: ");
-                            System.out.println("\nLista de cerimonialistas cadastrados no sistema: \n");
-                            pessoaDAO.buscaCerimonialistas();
-                            System.out.println("\nDigite o [ID] abaixo: ");
-                            long cerimonialId = Long.parseLong(s.nextLine());
-                            Pessoa cerimonialista = pessoaDAO.buscaPorId(cerimonialId);
-                            if (cerimonialista != null) {
-                                editarEvento.setCerimonial(cerimonialista);
+                        if (!respostaCerimonial.isEmpty()) {
+                            if (respostaCerimonial.equals("0")) {
+                                System.out.println("\nEscolha o novo cerimonialista do evento: ");
+                                System.out.println("\nLista de cerimonialistas cadastrados no sistema: \n");
+                                pessoaDAO.buscaCerimonialistas();
+                                System.out.println("\nDigite o [ID] abaixo: ");
+                                long cerimonialId = Long.parseLong(s.nextLine());
+                                Pessoa cerimonialista = pessoaDAO.buscaPorId(cerimonialId);
+                                if (cerimonialista != null) {
+                                    editarEvento.setCerimonial(cerimonialista);
+                                }
                             }
+                        } else {
+                            System.out.println("\nCerimonialista mantido!");
                         }
 
                         System.out.println("\nDigite a nova igreja em que será realizado o casamento (ou pressione ENTER para manter a igreja atual): " + editarEvento.getIgreja());
                         String igrejaEvento = s.nextLine();
                         if(!igrejaEvento.isEmpty()) {
                             editarEvento.setIgreja(igrejaEvento);
+                        } else {
+                            System.out.println("\nIgreja mantida!");
                         }
 
                         System.out.println("\nDigite qual o novo cartório que cadastrará o matrimônio (ou pressione ENTER para manter o cartório atual): " + editarEvento.getCartorio());
                         String cartorioEvento  = s.nextLine();
                         if(!cartorioEvento.isEmpty()) {
                             editarEvento.setCartorio(cartorioEvento);
+                        } else {
+                            System.out.println("\nCartório mantido!");
                         }
 
                         System.out.println("\nAinda são os mesmo noivos?");
                         System.out.println("\nDigite 1 para [SIM] ou 0 para [NAO]");
-                        int respostaNoivos = Integer.parseInt(s.nextLine());
+                        String respostaNoivos = s.nextLine();
 
-                        if(respostaNoivos == 0) {
-                            System.out.println("\nLista de noivos(a) cadastrados no sistema: ");
-                            pessoaDAO.buscaNoivos();
+                        if (!respostaNoivos.isEmpty()) {
+                            if (respostaNoivos.equals("0")) {
+                                System.out.println("\nLista de noivos(a) cadastrados no sistema: ");
+                                pessoaDAO.buscaNoivos();
 
-                            System.out.println("\nDigite qual o [ID] do noivo(a) (ou pressione ENTER para manter o noivo(a) atual)" + editarEvento.getPessoaNoivo1().getNome());
-                            long noivo1Id = Long.parseLong(s.nextLine());
+                                System.out.println("\nDigite qual o [ID] do noivo(a) (ou pressione ENTER para manter o noivo(a) atual)" + editarEvento.getPessoaNoivo1().getNome());
+                                long noivo1Id = Long.parseLong(s.nextLine());
 
-                            if(noivo1Id != 0) {
-                                Pessoa noivo1 = pessoaDAO.buscaPorId(noivo1Id);
-                                editarEvento.setPessoaNoivo1(noivo1);
+                                if (noivo1Id != 0) {
+                                    Pessoa noivo1 = pessoaDAO.buscaPorId(noivo1Id);
+                                    editarEvento.setPessoaNoivo1(noivo1);
+                                }
+
+                                System.out.println("\nAgora, digite qual o [ID] do outro(a) noivo(a) (ou pressione ENTER para manter o noivo(a) atual)" + editarEvento.getPessoaNoivo2().getNome());
+                                long noivo2Id = Long.parseLong(s.nextLine());
+
+                                if (noivo2Id != 0) {
+                                    Pessoa noivo2 = pessoaDAO.buscaPorId(noivo2Id);
+                                    editarEvento.setPessoaNoivo2(noivo2);
+                                }
+
+                                atualizarListaDeFornecedoresNoEvento(editarId, editarEvento); // Metodo para atualizar a lista de fornecedores caso TENHA alteração nos noivos
+                            } else {
+                                System.out.println("\nNoivos mantidos!");
+                                atualizarListaDeFornecedoresNoEvento(editarId, editarEvento); // Caso a resposta seja igual a 1, mantém os noivos e atualiza a lista de fornecedores
                             }
-
-                            System.out.println("\nAgora, digite qual o [ID] do outro(a) noivo(a) (ou pressione ENTER para manter o noivo(a) atual)" + editarEvento.getPessoaNoivo2().getNome());
-                            long noivo2Id = Long.parseLong(s.nextLine());
-
-                            if(noivo2Id != 0) {
-                                Pessoa noivo2 = pessoaDAO.buscaPorId(noivo2Id);
-                                editarEvento.setPessoaNoivo2(noivo2);
-                            }
-
-                            atualizarListaDeFornecedoresNoEvento(editarId, editarEvento); // Metodo para atualizar a lista de fornecedores caso haja alteração nos noivos
-                            System.out.println("\nEvento atualizado com sucesso!");
-                            System.out.println("\nEvento com os dados atualizados:\n\n" + editarEvento.toString());
-
                         } else {
-                            atualizarListaDeFornecedoresNoEvento(editarId, editarEvento); // Metodo para atualizar a lista de fornecedores caso não haja alteração nos noivos
-                            System.out.println("\nEvento com os dados atualizados:\n\n" + editarEvento.toString());
+                            System.out.println("\nNoivos mantidos!");
+                            atualizarListaDeFornecedoresNoEvento(editarId, editarEvento); // Caso a resposta seja vazia, mantém os noivos e atualiza a lista de fornecedores
                         }
-
                     } else {
                         System.out.println("\nEvento nao encontrado!");
                     }
@@ -704,7 +714,6 @@ public class Main {
                     long eventoId = Long.parseLong(s.nextLine());
                     eventoDAO.removerEvento(eventoId);
                     break;
-
             }
         } while (op != 0);
     }
@@ -712,41 +721,47 @@ public class Main {
     private void atualizarListaDeFornecedoresNoEvento(long editarId, Evento editarEvento) {
         System.out.println("\nAinda são os mesmos fornecedores?");
         System.out.println("\nDigite 1 para [SIM] ou 0 para [NAO]");
-        int respostaFornecedores = Integer.parseInt(s.nextLine());
+        String respostaFornecedores = s.nextLine();
 
-        if(respostaFornecedores == 0) {
-            editarEvento.clearFornecedores(); // Limpa a lista de fornecedores
-            System.out.println("\nLista de fornecedores cadastrados no sistema: ");
-            fornecedorDAO.exibeFornecedoresSimples();
-
-            System.out.println("\nDigite o [ID] do fornecedor que deseja adicionar: ");
-            long fornecedorId = Long.parseLong(s.nextLine());
-
-            if(fornecedorId != 0) {
-                Fornecedor fornecedor = fornecedorDAO.buscaPorId(fornecedorId);
-                editarEvento.addFornecedor(fornecedor);
-            }
-
-            System.out.println("\nHá mais fornecedores para adicionar?");
-            System.out.println("\nDigite 1 para [SIM] ou 0 para [NAO]");
-            int respostaMaisFornecedores = Integer.parseInt(s.nextLine());
-
-            while (respostaMaisFornecedores == 1) {
+        if (!respostaFornecedores.isEmpty()) {
+            if(respostaFornecedores.equals("0")) {
+                editarEvento.clearFornecedores(); // Limpa a lista de fornecedores
                 System.out.println("\nLista de fornecedores cadastrados no sistema: ");
                 fornecedorDAO.exibeFornecedoresSimples();
 
                 System.out.println("\nDigite o [ID] do fornecedor que deseja adicionar: ");
-                long fornecedorIdAdicionar = Long.parseLong(s.nextLine());
+                long fornecedorId = Long.parseLong(s.nextLine());
 
-                if (fornecedorIdAdicionar != 0) {
-                    Fornecedor fornecedorAdicionar = fornecedorDAO.buscaPorId(fornecedorIdAdicionar);
-                    editarEvento.addFornecedor(fornecedorAdicionar);
+                if(fornecedorId != 0) {
+                    Fornecedor fornecedor = fornecedorDAO.buscaPorId(fornecedorId);
+                    editarEvento.addFornecedor(fornecedor);
                 }
 
                 System.out.println("\nHá mais fornecedores para adicionar?");
                 System.out.println("\nDigite 1 para [SIM] ou 0 para [NAO]");
-                respostaMaisFornecedores = Integer.parseInt(s.nextLine());
+                String respostaMaisFornecedores = s.nextLine();
+
+                while (respostaMaisFornecedores.equals("1")) {
+                    System.out.println("\nLista de fornecedores cadastrados no sistema: ");
+                    fornecedorDAO.exibeFornecedoresSimples();
+
+                    System.out.println("\nDigite o [ID] do fornecedor que deseja adicionar: ");
+                    long fornecedorIdAdicionar = Long.parseLong(s.nextLine());
+
+                    if (fornecedorIdAdicionar != 0) {
+                        Fornecedor fornecedorAdicionar = fornecedorDAO.buscaPorId(fornecedorIdAdicionar);
+                        editarEvento.addFornecedor(fornecedorAdicionar);
+                    }
+
+                    System.out.println("\nHá mais fornecedores para adicionar?");
+                    System.out.println("\nDigite 1 para [SIM] ou 0 para [NAO]");
+                    respostaMaisFornecedores = s.nextLine();
+                }
+
+                System.out.println("\nFornecedor(es) adicionado(s) com sucesso!");
             }
+        } else {
+            System.out.println("\nFornecedores mantidos!");
         }
 
         editarEvento.setNomeDoEvento(editarEvento.getNomeDoEvento()); // Atualiza o nome do evento

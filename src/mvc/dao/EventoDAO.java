@@ -9,4 +9,5 @@ public interface EventoDAO {
     void removerEvento(long id);
     void listarEventos();
     void exibirListaEventosSimples();
+    int contarTotalDeEventos();
 }

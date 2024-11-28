@@ -73,4 +73,8 @@ public class Util {
         dia2 = LocalDate.now();
         diaInicioDoSistema = LocalDate.of(2024, Month.MAY, 1);
     }
+
+    public String removeFormatacaoCnpj(String cnpj) {
+        return cnpj.replace(".", "").replace("/", "").replace("-", "");
+    }
 }

@@ -2,8 +2,6 @@ package mvc.dao;
 
 import mvc.model.Evento;
 import mvc.model.Fornecedor;
-import mvc.model.Pessoa;
-import mvc.model.Util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,9 +17,11 @@ public class EventoController implements EventoDAO {
     private final ArrayList<Evento> eventos;
     private final PessoaDAO pessoaDAO = new PessoaController();
     private final FornecedorDAO fornecedorDAO = new FornecedorController();
+    public static int totalEventos = 0;
 
     public EventoController() {
         this.eventos = new ArrayList<>();
+        this.contarTotalDeEventos();
     }
 
     // Método auxiliar para converter ResultSet em Evento
@@ -36,6 +36,28 @@ public class EventoController implements EventoDAO {
         evento.setPessoaNoivo2(new PessoaController().buscaPorId(rs.getLong("pessoaNoivo2")));
         evento.setNomeDoEvento(rs.getString("nomeDoEvento"));
         return evento;
+    }
+
+    public int contarTotalDeEventos() {
+        String sql = "SELECT COUNT(*) AS total FROM Evento";
+        totalEventos = 0;
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                totalEventos = rs.getInt("total");
+            }
+
+            return totalEventos;
+
+        } catch (SQLException e) {
+            System.out.println("\nErro ao contar total de eventos.");
+            e.printStackTrace();
+        }
+
+        return totalEventos;
     }
     
     @Override
@@ -69,7 +91,7 @@ public class EventoController implements EventoDAO {
                 }
             }
 
-            System.out.println("Evento cadastrado com sucesso:\n" + evento);
+            System.out.println("\nEvento cadastrado com sucesso:\n\n" + evento);
 
         } catch (SQLException e) {
             System.out.println("\nErro ao cadastrar evento.");
@@ -113,7 +135,7 @@ public class EventoController implements EventoDAO {
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setDate(1, Date.valueOf(eventoAtualizado.getDataEvento()));
+            stmt.setDate(1, Date.valueOf(LocalDate.parse(eventoAtualizado.getDataEvento(), DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString()));
             stmt.setObject(2, eventoAtualizado.getCerimonial() != null ? eventoAtualizado.getCerimonial().getId() : null);
             stmt.setString(3, eventoAtualizado.getIgreja());
             stmt.setString(4, eventoAtualizado.getCartorio());
@@ -132,7 +154,7 @@ public class EventoController implements EventoDAO {
                 }
             }
 
-            System.out.println("Evento atualizado com sucesso:\n" + eventoAtualizado);
+            System.out.println("\nEvento atualizado com sucesso:\n\n" + eventoAtualizado);
 
         } catch (SQLException e) {
             System.out.println("\nErro ao atualizar evento.");
@@ -154,7 +176,7 @@ public class EventoController implements EventoDAO {
             stmt.setLong(1, id);
             stmt.executeUpdate();
 
-            System.out.println("Evento removido com sucesso.");
+            System.out.println("\nEvento removido com sucesso.");
 
         } catch (SQLException e) {
             System.out.println("\nErro ao remover evento.");
@@ -237,7 +259,6 @@ public class EventoController implements EventoDAO {
             if (!rs.isBeforeFirst()) {
                 System.out.println("Nenhum evento cadastrado no sistema!");
             } else {
-                System.out.println("Lista de eventos:");
                 while (rs.next()) {
                     System.out.println(
                         rs.getLong("id") + " - " +

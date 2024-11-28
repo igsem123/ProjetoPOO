@@ -1,5 +1,8 @@
 package mvc.model;
 
+import mvc.dao.EventoController;
+import mvc.dao.EventoDAO;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +11,6 @@ import java.util.Objects;
 
 public class Evento {
     public long id;
-    public static int totalEventos = 0;
     private LocalDate dataEvento;
     Pessoa cerimonial;
     public String igreja;
@@ -22,7 +24,7 @@ public class Evento {
 
     // Construtor com parâmetros
     public Evento(LocalDate dataEvento, Pessoa cerimonial, String igreja, String cartorio, Pessoa pessoaNoivo1, Pessoa pessoaNoivo2, ArrayList<Fornecedor> fornecedores) {
-        this.id = (totalEventos++);
+        this.id = (EventoController.totalEventos++);
         this.dataEvento = dataEvento;
         this.cerimonial = cerimonial;
         this.igreja = igreja;
@@ -37,7 +39,7 @@ public class Evento {
 
     // Construtor vazio
     public Evento() {
-        this.id = (totalEventos++);
+        this.id = (EventoController.totalEventos++);
         this.dataCriacao = Util.getDia();
         this.dataModificacao = Util.getDia();
     }

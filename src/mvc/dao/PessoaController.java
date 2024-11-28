@@ -2,6 +2,7 @@ package mvc.dao;
 
 import mvc.controller.Main;
 import mvc.model.Pessoa;
+import mvc.model.Util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,9 +15,13 @@ import java.util.Objects;
 
 public class PessoaController implements PessoaDAO {
     private final ArrayList<Pessoa> listaPessoas;
+    private Pessoa pessoa;
+    private Util util;
 
     public PessoaController() {
         this.listaPessoas = new ArrayList<>();
+        this.pessoa = new Pessoa();
+        this.util = new Util();
     }
 
     // Metodo do ResultSet para evitar repeticao de codigo
@@ -39,7 +44,7 @@ public class PessoaController implements PessoaDAO {
         String sql = "INSERT INTO pessoa (nome, sexo, dataNascimento, telefone, email, senha, tipoUsuario, cpf) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+             PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, pessoa.getNome());
             stmt.setString(2, pessoa.getSexo());
             stmt.setString(3, LocalDate.parse(pessoa.getDataNascimento(), DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
@@ -48,9 +53,15 @@ public class PessoaController implements PessoaDAO {
             stmt.setString(6, pessoa.getSenha());
             stmt.setInt(7, pessoa.getTipoUsuario());
             stmt.setString(8, pessoa.getCpf());
-            stmt.execute();
+            stmt.executeUpdate();
 
-            pessoa.setId(buscaPessoa(pessoa.getCpf()).getId()); // Pega o ‘ID’ gerado no banco e seta no objeto
+            try (ResultSet keys = stmt.getGeneratedKeys()) {
+                if (keys.next()) {
+                    pessoa.setId(keys.getLong(1));
+                } else {
+                    throw new SQLException("Falha ao obter o [ID] da pessoa.");
+                }
+            }
 
             System.out.println("\nPessoa cadastrada com sucesso:\n\n" + pessoa.toString());
         } catch (SQLException e) {
@@ -112,11 +123,10 @@ public class PessoaController implements PessoaDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                listaPessoas.add(resultSetToPessoa(rs));
-            }
-
-            for (Pessoa pessoa : listaPessoas) {
-                System.out.println("\nUsuário de [ID]: " + pessoa.getId() + " - Nome: " + pessoa.getNome() + " - CPF: " + pessoa.getCpf() + " - Tipo de usuário: " + pessoa.getTipoUsuario());
+                System.out.println("\nUsuário de [ID]: " + rs.getLong("id") +
+                        " - Nome: " + rs.getString("nome") +
+                        " - CPF: " + util.formataCpf(rs.getString("cpf")) +
+                        " - Tipo de usuário: " + pessoa.tipoUsuario(rs.getInt("tipoUsuario")));
             }
 
         } catch (SQLException e) {
@@ -180,7 +190,6 @@ public class PessoaController implements PessoaDAO {
 
     public void buscaCerimonialistas() {
         String sql = "SELECT * FROM pessoa WHERE tipoUsuario = 2";
-        ArrayList<Pessoa> cerimonialistas = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql))
@@ -188,12 +197,9 @@ public class PessoaController implements PessoaDAO {
             stmt.execute();
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                cerimonialistas.add(resultSetToPessoa(rs));
+                System.out.println("Cerimonialista de [ID]: " + rs.getLong("id") + " - Nome: " + rs.getString("nome"));
             }
 
-            for (Pessoa cerimonialista : cerimonialistas) {
-                System.out.println("Cerimonialista de [ID]: " + cerimonialista.getId() + " - Nome: " + cerimonialista.getNome());
-            }
         } catch (SQLException e) {
             System.out.println("\nErro ao buscar cerimonialistas.");
             throw new RuntimeException(e);
@@ -202,21 +208,17 @@ public class PessoaController implements PessoaDAO {
 
     public void buscaNoivos() {
         String sql = "SELECT * FROM pessoa WHERE tipoUsuario = 1";
-        ArrayList<Pessoa> noivos = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql))
         {
-            ResultSet rs = stmt.executeQuery();
             stmt.execute();
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                noivos.add(resultSetToPessoa(rs));
+                System.out.println("Noivo(a) de [ID]: " + rs.getLong("id") + " - Nome: " + rs.getString("nome"));
             }
 
-            for (Pessoa noivo : noivos) {
-                System.out.println("Noivo(a) de [ID]: " + noivo.getId() + " - Nome: " + noivo.getNome());
-            }
         } catch (SQLException e) {
             System.out.println("\nErro ao buscar noivo(a).");
             throw new RuntimeException(e);
@@ -225,7 +227,6 @@ public class PessoaController implements PessoaDAO {
 
     public void buscaConvidados() {
         String sql = "SELECT * FROM pessoa WHERE tipoUsuario = 4";
-        ArrayList<Pessoa> convidados = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql))
@@ -234,12 +235,9 @@ public class PessoaController implements PessoaDAO {
             stmt.execute();
 
             while (rs.next()) {
-                convidados.add(resultSetToPessoa(rs));
+                System.out.println("Convidado(a) de [ID]: " + rs.getLong("id") + " - Nome: " + rs.getString("nome"));
             }
 
-            for (Pessoa convidado : convidados) {
-                System.out.println("Convidado(a) de [ID]: " + convidado.getId() + " - Nome: " + convidado.getNome());
-            }
         } catch (SQLException e) {
             System.out.println("\nErro ao buscar convidados.");
             throw new RuntimeException(e);

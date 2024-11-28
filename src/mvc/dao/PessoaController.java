@@ -44,7 +44,7 @@ public class PessoaController implements PessoaDAO {
         String sql = "INSERT INTO pessoa (nome, sexo, dataNascimento, telefone, email, senha, tipoUsuario, cpf) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+             PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, pessoa.getNome());
             stmt.setString(2, pessoa.getSexo());
             stmt.setString(3, LocalDate.parse(pessoa.getDataNascimento(), DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
@@ -53,9 +53,15 @@ public class PessoaController implements PessoaDAO {
             stmt.setString(6, pessoa.getSenha());
             stmt.setInt(7, pessoa.getTipoUsuario());
             stmt.setString(8, pessoa.getCpf());
-            stmt.execute();
+            stmt.executeUpdate();
 
-            pessoa.setId(buscaPessoa(pessoa.getCpf()).getId()); // Pega o ‘ID’ gerado no banco e seta no objeto
+            try (ResultSet keys = stmt.getGeneratedKeys()) {
+                if (keys.next()) {
+                    pessoa.setId(keys.getLong(1));
+                } else {
+                    throw new SQLException("Falha ao obter o [ID] da pessoa.");
+                }
+            }
 
             System.out.println("\nPessoa cadastrada com sucesso:\n\n" + pessoa.toString());
         } catch (SQLException e) {

@@ -23,7 +23,7 @@ public class MuralRecados {
         this.dataCriacao = LocalDateTime.now();
         this.dataModificacao = LocalDateTime.now();
     }
-    
+
     public MuralRecados (String comentario, String nome, Evento evento) {
         this.id = (serial++);
         this.nomePessoa = nome;
@@ -54,7 +54,7 @@ public class MuralRecados {
         this.dataModificacao = LocalDateTime.now();
         this.pessoa = pessoa;
     }
-    
+
     public String getNomePessoa() {
         return nomePessoa;
     }
@@ -108,7 +108,7 @@ public class MuralRecados {
         if (pessoa != null) { // Verificando se a pessoa é nula na criação do toString
             sb.append(String.format("Quem comentou       : %s\n", pessoa.getNome()));
         } else if(nomePessoa != null){ // Verificando se nomePessoa é nulo na criação do toString
-        	sb.append(String.format("Quem comentou       : %s\n", nomePessoa));
+            sb.append(String.format("Quem comentou       : %s\n", nomePessoa));
         } else {
             sb.append("Quem comentou       : Não definido\n");
         }

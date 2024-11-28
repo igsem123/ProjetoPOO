@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.5" />
+    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.5">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/EventoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/EventoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/EventoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/FornecedorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/FornecedorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PessoaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PessoaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/MuralRecados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/MuralRecados.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -85,7 +96,7 @@
     "git-widget-placeholder": "raphael/Correções-EventoController-e-FornecedorController",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/rnmoreira/IdeaProjects/ProjetoPOO/lib/mysql-connector-j-9.0.0.jar",
+    "last_opened_file_path": "C:/Users/rnmoreira/IdeaProjects/ProjetoPOO/database",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -95,7 +106,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -106,6 +117,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rnmoreira\IdeaProjects\ProjetoPOO\database" />
       <recent name="C:\Users\rnmoreira\IdeaProjects\ProjetoPOO\lib" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -214,6 +226,8 @@
       <workItem from="1732730394265" duration="788000" />
       <workItem from="1732731200431" duration="453000" />
       <workItem from="1732733607224" duration="4204000" />
+      <workItem from="1732739204649" duration="167000" />
+      <workItem from="1732792022878" duration="11313000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -383,7 +397,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732739164688</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="v2.5">
+      <option name="closed" value="true" />
+      <created>1732739362007</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1732739362007</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

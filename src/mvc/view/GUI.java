@@ -53,16 +53,20 @@ public class GUI {
             this.builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 1 || opcao > 4) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 1 e 4.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 1 || opcao > 4) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 1 e 4.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número (1, 2, 3 ou 4).");
                 }
             } else {
-                // Limpa o buffer do scanner e avisa sobre a entrada inválida
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida! Por favor, digite um número (1, 2, 3 ou 4).");
+                System.out.println("\nEntrada vazia! Por favor, digite um número (1, 2, 3 ou 4).");
             }
         }
 
@@ -101,7 +105,7 @@ public class GUI {
                     System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 10.");
                 }
             } else {
-                // Limpa o buffer do scanner e avisa sobre a entrada inválida
+                // Limpa o ‘buffer’ do scanner e avisa sobre a entrada inválida
                 this.scanner.nextLine();
                 System.out.println("\nEntrada inválida!");
             }
@@ -129,16 +133,20 @@ public class GUI {
             this.builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 4) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 5) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número (0, 1, 2, 3, 4 ou 5).");
                 }
             } else {
-                // Limpa o buffer do scanner e avisa sobre a entrada inválida
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida! Por favor, digite um número (0, 1, 2, 3, 4 ou 5).");
+                System.out.println("\nEntrada vazia! Por favor, digite um número (0, 1, 2, 3, 4 ou 5).");
             }
         }
 
@@ -163,16 +171,20 @@ public class GUI {
             this.builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 3) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 3.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 3) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 3.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número (0, 1, 2 ou 3).");
                 }
             } else {
-                // Limpa o buffer do scanner e avisa sobre a entrada inválida
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida!");
+                System.out.println("\nEntrada vazia! Por favor, digite um número (0, 1, 2 ou 3).");
             }
         }
 
@@ -195,16 +207,20 @@ public class GUI {
             this.builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 1 || opcao > 3) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 1 e 3.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 1 || opcao > 3) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 1 e 3.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número (1, 2 ou 3).");
                 }
             } else {
-                // Limpa o buffer do scanner e avisa sobre a entrada inválida
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida!");
+                System.out.println("\nEntrada vazia! Por favor, digite um número (1, 2 ou 3).");
             }
         }
 
@@ -238,16 +254,20 @@ public class GUI {
             this.builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 12) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 12.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 12) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 12.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número entre (0 ou 12).");
                 }
             } else {
-                // Limpa o buffer do scanner e avisa sobre a entrada inválida
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida!");
+                System.out.println("\nEntrada vazia! Por favor, digite um número entre (0 ou 12).");
             }
         }
 
@@ -273,15 +293,20 @@ public class GUI {
             builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 5) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 5) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número entre (0 ou 5).");
                 }
             } else {
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida!");
+                System.out.println("\nEntrada vazia! Por favor, digite um número entre (0 ou 5).");
             }
         }
 
@@ -307,15 +332,20 @@ public class GUI {
             builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 5) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 5) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número entre (0 ou 5).");
                 }
             } else {
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida!");
+                System.out.println("\nEntrada vazia! Por favor, digite um número entre (0 ou 5).");
             }
         }
 
@@ -338,15 +368,20 @@ public class GUI {
             builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 2) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 2.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 2) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 2.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número  (0, 1 ou 2).");
                 }
             } else {
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida!");
+                System.out.println("\nEntrada vazia! Por favor, digite um número (0, 1 ou 2).");
             }
         }
 
@@ -372,15 +407,20 @@ public class GUI {
             builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 5) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 5) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número entre (0 ou 5).");
                 }
             } else {
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida!");
+                System.out.println("\nEntrada vazia! Por favor, digite um número entre (0 ou 5).");
             }
         }
 
@@ -406,15 +446,20 @@ public class GUI {
             builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 5) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 5) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número entre (0 ou 5).");
                 }
             } else {
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida!");
+                System.out.println("\nEntrada vazia! Por favor, digite um número entre (0 ou 5).");
             }
         }
 
@@ -440,15 +485,20 @@ public class GUI {
             builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 5) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 5) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número entre (0 ou 5).");
                 }
             } else {
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida!");
+                System.out.println("\nEntrada vazia! Por favor, digite um número entre (0 ou 5).");
             }
         }
 
@@ -471,15 +521,20 @@ public class GUI {
             builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 2) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 2.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 2) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 2.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número (0, 1 ou 2).");
                 }
             } else {
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida! Escolha entre 0, 1 ou 2.");
+                System.out.println("\nEntrada vazia! Por favor, digite um número (0, 1 ou 2).");
             }
         }
 
@@ -506,15 +561,20 @@ public class GUI {
             builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 6) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 6.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 6) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 6.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número entre (0 ou 6).");
                 }
             } else {
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida!");
+                System.out.println("\nEntrada vazia! Por favor, digite um número entre (0 ou 6).");
             }
         }
 
@@ -540,15 +600,20 @@ public class GUI {
             builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 5) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 5) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número entre (0 ou 5).");
                 }
             } else {
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida!");
+                System.out.println("\nEntrada vazia! Por favor, digite um número entre (0 ou 5).");
             }
         }
 
@@ -572,15 +637,20 @@ public class GUI {
             builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 3) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 3.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 3) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 3.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número (0, 1, 2 ou 3).");
                 }
             } else {
-                this.scanner.nextLine();
-                System.out.println("\nEntrada inválida! Escolha entre 0, 1, 2 ou 3.");
+                System.out.println("\nEntrada vazia! Por favor, digite um número (0, 1, 2 ou 3).");
             }
         }
 
@@ -607,14 +677,20 @@ public class GUI {
             builder.append("\n\nQual sua opcao? R: ");
             System.out.print(this.builder.toString());
 
-            if (this.scanner.hasNextInt()) {
-                opcao = Integer.parseInt(this.scanner.nextLine());
+            String input = this.scanner.nextLine().trim();
 
-                if (opcao < 0 || opcao > 6) {
-                    System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 6.");
+            if (!input.isEmpty()) {
+                try {
+                    opcao = Integer.parseInt(input);
+
+                    if (opcao < 0 || opcao > 6) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 6.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nEntrada inválida! Por favor, digite um número entre (0 ou 6).");
                 }
             } else {
-                System.out.println("\nEntrada inválida! Por favor, digite um número entre 0 e 6.");
+                System.out.println("\nEntrada vazia! Por favor, digite um número entre (0 ou 6).");
             }
         }
 
@@ -780,14 +856,22 @@ public class GUI {
         nF.setEmail(email);
 
         System.out.println("\nQual o valor em débito com a empresa?");
-        System.out.println("Digite desta forma -> 0000.00");
-        double valor = Double.parseDouble(scanner.nextLine());
-
-        while (valor < 0) {
+        String valor = scanner.nextLine().trim();
+        while (valor.equals("0") || valor.isBlank()) {
             System.out.println("\nValor inválido, tente novamente:");
-            valor = Double.parseDouble(scanner.nextLine());
+            valor = scanner.nextLine();
         }
-        nF.setValorAPagar(valor);
+
+        // Substitui a vírgula pelo ponto
+        valor = valor.replace(".", "").replace(",", ".");
+
+        double valorDebito = Double.parseDouble(valor);
+        try {
+            nF.setValorAPagar(valorDebito);
+            System.out.println("Valor em débito: " + valorDebito);
+        } catch (NumberFormatException e) {
+            System.out.println("Formato de número inválido. Por favor, digite no formato 0000.00");
+        }
 
         System.out.println("\nEm quantas parcelas pagará?");
         System.out.println("\n -> Digite 0 se o pagamento for à vista!");
@@ -800,17 +884,15 @@ public class GUI {
         nF.setParcelas(parcelas);
         
         if(parcelas == 0) {
-        	nF.setValorParcela(valor);
+        	nF.setValorParcela(valorDebito);
         } else {
-        	double parcelado = valor / parcelas;
+        	double parcelado = valorDebito / parcelas; // Valor da parcela a ser paga
         	nF.setValorParcela(parcelado);
         }
 
         String estado = "A Pagar";
         nF.setEstado(estado);
-
-        nF.setValorInicial(valor);
-        
+        nF.setValorInicial(valorDebito);
         return nF;
     }
 
@@ -1100,10 +1182,17 @@ public class GUI {
         System.out.println("\nLista de eventos cadastrados no sistema: ");
         eventoDAO.exibirListaEventosSimples();
         System.out.println("\nDigite para qual evento deseja deixar um recado: ");
-        long idEvento = Long.parseLong(scanner.nextLine());
-        Evento eventoDoRecado = eventoDAO.buscarPorId(idEvento);
+        String idEvento = scanner.nextLine();
+        Evento eventoDoRecado = null;
 
-        if(eventoDoRecado == null) {
+        if (!idEvento.isEmpty()) {
+            eventoDoRecado = eventoDAO.buscarPorId(Long.parseLong(idEvento));
+
+            if (eventoDoRecado == null) {
+                System.out.println("\nEvento não identificado. Tente novamente!");
+                this.cadastraRecados();
+            }
+        } else {
             System.out.println("\nEvento não identificado. Tente novamente!");
             this.cadastraRecados();
         }
@@ -1116,7 +1205,7 @@ public class GUI {
             recado = scanner.nextLine();
         }
 
-        if(Util.getPessoaLogada() == null) {
+        if (Util.getPessoaLogada() == null) {
             System.out.println("\nQual é o seu nome: ");
             String nome = scanner.nextLine();
 
@@ -1126,7 +1215,9 @@ public class GUI {
             }
 
             return new MuralRecados(recado, nome, eventoDoRecado);
-        } else return new MuralRecados(recado, Util.getPessoaLogada(), eventoDoRecado);
+        } else {
+            return new MuralRecados(recado, Util.getPessoaLogada(), eventoDoRecado);
+        }
     }
 
     //TODO Formulário para cadastrar um novo pagamento a ser feito pelo sistema

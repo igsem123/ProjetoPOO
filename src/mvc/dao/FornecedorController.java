@@ -20,19 +20,25 @@ public class FornecedorController implements FornecedorDAO {
 
     // Método auxiliar para converter ResultSet em Fornecedor
     Fornecedor resultSetToFornecedor(ResultSet rs) throws SQLException {
-        Fornecedor fornecedor = new Fornecedor();
-        fornecedor.setId(rs.getLong("id"));
-        fornecedor.setNome(rs.getString("nome"));
-        fornecedor.setCNPJ(rs.getString("CNPJ"));
-        fornecedor.setTelefone(rs.getString("telefone"));
-        fornecedor.setEmail(rs.getString("email"));
-        fornecedor.setValorAPagar(rs.getDouble("valorAPagar"));
-        fornecedor.setValorParcela(rs.getDouble("valorParcela"));
-        fornecedor.setParcelas(rs.getInt("parcelas"));
-        fornecedor.setEstado(rs.getString("estado"));
-        fornecedor.setValorInicial(rs.getDouble("valorInicial"));
-        fornecedor.setParcelaInicial(rs.getInt("parcelaInicial"));
-        fornecedor.setTotalParcelasPagas(rs.getInt("totalParcelasPagas"));
+        Fornecedor fornecedor = null;
+        try {
+            fornecedor = new Fornecedor();
+            fornecedor.setId(rs.getLong("id"));
+            fornecedor.setNome(rs.getString("nome"));
+            fornecedor.setCNPJ(rs.getString("CNPJ"));
+            fornecedor.setTelefone(rs.getString("telefone"));
+            fornecedor.setEmail(rs.getString("email"));
+            fornecedor.setValorAPagar(rs.getDouble("valorAPagar"));
+            fornecedor.setValorParcela(rs.getDouble("valorParcela"));
+            fornecedor.setParcelas(rs.getInt("parcelas"));
+            fornecedor.setEstado(rs.getString("estado"));
+            fornecedor.setValorInicial(rs.getDouble("valorInicial"));
+            fornecedor.setParcelaInicial(rs.getInt("parcelaInicial"));
+            fornecedor.setTotalParcelasPagas(rs.getInt("totalParcelasPagas"));
+        } catch (SQLException e) {
+            System.out.println("\nErro ao converter dados do banco em fornecedor.");
+            throw new RuntimeException(e);
+        }
         return fornecedor;
     }
 

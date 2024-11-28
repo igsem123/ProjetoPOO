@@ -80,14 +80,12 @@ public class ConvidadoIndividual {
         this.parentesco = parentesco;
     }
 
-    public boolean isConfirmacao() {
-        if (this.confirmacao) {
-            System.out.println("\nConfirmado(a) no evento!");
+    public String isConfirmacao(boolean confirmacao) {
+        if (confirmacao) {
+            return "Confirmado(a) no evento!";
         } else {
-            System.out.println("\nPresença desconfirmada no evento!");
+            return "Presença não confirmada no evento!";
         }
-
-        return this.confirmacao;
     }
 
     public boolean getConfirmacaoPrimitivo() {

@@ -13,13 +13,18 @@ import java.util.ArrayList;
 public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
     public ArrayList<ConvidadoIndividual> convidados;
     private int totalConvidados;
-    private EventoDAO eventoDAO = new EventoController();
-    private PessoaDAO pessoaDAO = new PessoaController();
-    private ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaController();
+    private EventoDAO eventoDAO;
+    private PessoaDAO pessoaDAO;
+    private ConvidadoFamiliaDAO convidadoFamiliaDAO;
+    private ConvidadoIndividual convidadoObj;
 
     public ConvidadoIndividualController() {
         this.convidados = new ArrayList<>();
         this.totalConvidados = 0;
+        this.convidadoFamiliaDAO = new ConvidadoFamiliaController();
+        this.convidadoObj = new ConvidadoIndividual();
+        this.eventoDAO = new EventoController();
+        this.pessoaDAO = new PessoaController();
     }
 
     public ArrayList<ConvidadoIndividual> getConvidados() {
@@ -54,17 +59,39 @@ public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
 
     // Criar
     public void criarConvidado(ConvidadoIndividual convidado) {
+        // Verifica se o familiaId existe na tabela convidadofamilia
+        String checkFamiliaSql = "SELECT id FROM convidadofamilia WHERE id = ?";
+        try (Connection conn = new ConnectionFactory().getConnection();
+             PreparedStatement checkStmt = conn.prepareStatement(checkFamiliaSql)) {
+            checkStmt.setLong(1, convidado.getFamilia().getId());
+            ResultSet rs = checkStmt.executeQuery();
+            if (!rs.next()) {
+                throw new SQLException("Erro: familiaId " + convidado.getFamilia().getId() + " não existe na tabela convidadofamilia.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         String sql = "INSERT INTO convidadoindividual (pessoaId, familiaId, eventoId, parentesco, confirmacao) VALUES (?, ?, ?, ?, ?)";
 
         // Inserção no banco de dados
         try (Connection conn = new ConnectionFactory().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             stmt.setLong(1, convidado.getPessoa().getId());
             stmt.setLong(2, convidado.getFamilia().getId());
             stmt.setLong(3, convidado.getEvento().getId());
             stmt.setString(4, convidado.getParentesco());
             stmt.setBoolean(5, convidado.getConfirmacaoPrimitivo());
             stmt.execute();
+
+            // Recupera o ID gerado
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    convidado.setId(generatedKeys.getLong(1));
+                } else {
+                    throw new SQLException("Falha ao obter o ID do convidado individual.");
+                }
+            }
 
             System.out.println("\nConvite individual criado com sucesso: \n\n" + convidado.toString());
         } catch (SQLException e) {
@@ -97,7 +124,22 @@ public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
             stmt.execute();
 
             // Exibe mensagem conforme o novo estado
-            convidado.isConfirmacao();
+            convidado.isConfirmacao(convidado.getConfirmacaoPrimitivo());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void desconfirmarPresencaPelaPessoa(ConvidadoIndividual convidadoDesconfirmado) {
+        String sql = "UPDATE convidadoindividual SET confirmacao = ? WHERE pessoaId = ?";
+        try (Connection conn = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setBoolean(1, convidadoDesconfirmado.getConfirmacaoPrimitivo());
+            stmt.setLong(2, convidadoDesconfirmado.getPessoa().getId());
+            stmt.execute();
+
+            // Exibe mensagem conforme o novo estado
+            convidadoDesconfirmado.isConfirmacao(convidadoDesconfirmado.getConfirmacaoPrimitivo());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -106,11 +148,14 @@ public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
     // Buscar por ID
     public ConvidadoIndividual buscarPorId(long id) {
         String sql = "SELECT * FROM convidadoindividual WHERE id = ?";
-        ConvidadoIndividual convidado = new ConvidadoIndividual();
+        ConvidadoIndividual convidado = null;
+
         try (Connection conn = new ConnectionFactory().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
+
             if (rs.next()) {
                 convidado = resultSetToConvidadoIndividual(rs);
             }
@@ -212,12 +257,12 @@ public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                convidados.add(resultSetToConvidadoIndividual(rs));
-            }
-
-            System.out.println("\nLista de convidados: ");
-            for (ConvidadoIndividual convidado : convidados) {
-                System.out.println("\n" + convidado.toString());
+                System.out.println("\nID: [" + rs.getLong("id") + "]" +
+                        "\nNome: " + pessoaDAO.buscaPorId(rs.getLong("pessoaId")).getNome() +
+                        "\nFamília: " + convidadoFamiliaDAO.buscarPorId(rs.getLong("familiaId")).getNomeFamilia() +
+                        "\nEvento: " + eventoDAO.buscarPorId(rs.getLong("eventoId")).getNomeDoEvento() +
+                        "\nParentesco: " + rs.getString("parentesco") +
+                        "\nConfirmado: " + convidadoObj.isConfirmacao(rs.getBoolean("confirmacao")));
             }
         } catch (SQLException e) {
             System.out.println("\nErro ao listar convidados.");
@@ -232,14 +277,11 @@ public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
         try (Connection conn = new ConnectionFactory().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
+            System.out.println("\nLista de convidados: ");
             while (rs.next()) {
-                convidados.add(resultSetToConvidadoIndividual(rs));
+                System.out.println("ID: [" + rs.getLong("id") + "] - Nome: " + pessoaDAO.buscaPorId(rs.getLong("pessoaId")).getNome());
             }
 
-            System.out.println("\nLista de convidados: ");
-            for (ConvidadoIndividual convidado : convidados) {
-                System.out.println("ID: [" + convidado.getId() + "] - Nome: " + convidado.getPessoa().getNome() + " - Família: " + convidado.getFamilia().getNomeFamilia() + " - Casamento: " + convidado.getEvento().getNomeDoEvento());
-            }
         } catch (SQLException e) {
             System.out.println("\nErro ao exibir convidados.");
             throw new RuntimeException(e);
@@ -254,14 +296,12 @@ public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, idEvento);
             ResultSet rs = stmt.executeQuery();
+            System.out.println("\nLista de convidados para o evento: ");
             while (rs.next()) {
-                convidados.add(resultSetToConvidadoIndividual(rs));
+                System.out.println("\nID: [" + rs.getLong("id") + "] - Nome: " + pessoaDAO.buscaPorId(rs.getLong("pessoaId")).getNome() + " - Parentesco: " + rs.getString("parentesco")
+                        + " - Confirmado: " + rs.getBoolean("confirmacao") + " - Evento: " + eventoDAO.buscarPorId(rs.getLong("eventoId")).getNomeDoEvento());
             }
 
-            System.out.println("\nLista de convidados para o evento: ");
-            for (ConvidadoIndividual convidado : convidados) {
-                System.out.println("ID: [" + convidado.getId() + "] - Nome: " + convidado.getPessoa().getNome() + " - Família: " + convidado.getFamilia().getNomeFamilia() + " - Casamento: " + convidado.getEvento().getNomeDoEvento());
-            }
         } catch (SQLException e) {
             System.out.println("\nErro ao exibir convidados.");
             throw new RuntimeException(e);

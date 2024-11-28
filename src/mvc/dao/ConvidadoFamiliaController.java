@@ -59,11 +59,17 @@ public class ConvidadoFamiliaController implements ConvidadoFamiliaDAO {
         String sql = "INSERT INTO convidadofamilia (nomeFamilia, acesso, eventoId) VALUES (?, ?, ?)";
 
         try (Connection conn = new ConnectionFactory().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, familia.getNomeFamilia());
             stmt.setString(2, familia.getAcesso());
             stmt.setLong(3, familia.getEvento().getId());
             stmt.execute();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                familia.setId(rs.getLong(1));
+            }
+
             System.out.println("\nConvite família criado com sucesso: \n\n" + familia.toString());
         } catch (SQLException e) {
             System.out.println("\nErro ao criar convite família: " + e.getMessage());

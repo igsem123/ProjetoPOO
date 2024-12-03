@@ -247,7 +247,7 @@ public class Main {
                             convidadoIndividualDAO.confirmarPresencaPelaPessoa(convidadoConfirmar);
                         } else {
                             ConvidadoIndividual convidadoNaoConfirmado = convidadoIndividualDAO.buscarPorId(idPessoaLogada);
-                            convidadoNaoConfirmado.isConfirmacao();
+                            convidadoIndividualDAO.desconfirmarPresencaPelaPessoa(convidadoNaoConfirmado);
                         }
 
                         break;
@@ -818,19 +818,35 @@ public class Main {
                                     System.out.println("\nDeseja mudar a pessoa cadastrada no convite (ou pressione ENTER para manter a pessoa atual): " + convidadoEditar.getPessoa().getNome() + "\n");
                                     pessoaDAO.buscaConvidados();
                                     System.out.println("\nSe deseja mudar, digite o [ID] da pessoa que possui este convite: ");
-                                    long idPessoaConvite = Long.parseLong(s.nextLine());
-                                    Pessoa novoConvidado = pessoaDAO.buscaPorId(idPessoaConvite);
+                                    String idPessoaConviteString = s.nextLine();
+                                    Pessoa novoConvidado = null;
+
+                                    if (idPessoaConviteString.isEmpty()) {
+                                        System.out.println("\nMantendo a pessoa atual!");
+                                    } else {
+                                        long idPessoaConvite = Long.parseLong(idPessoaConviteString);
+                                        novoConvidado = pessoaDAO.buscaPorId(idPessoaConvite);
+                                    }
 
                                     if (novoConvidado != null) {
                                         convidadoEditar.setPessoa(novoConvidado);
+                                    } else {
+                                        System.out.println("\nNão foi possível alterar a pessoa do convite!");
                                     }
 
                                     System.out.println("\nDeseja mudar a familia de qual o convidado faz parte (ou pressione ENTER para manter a familia atual): " + convidadoEditar.getFamilia().getNomeFamilia());
                                     System.out.println("\nLista de Famílias cadastradas no sistema: ");
                                     convidadoFamiliaDAO.listarFamilias();
                                     System.out.println("\nDigite o [ID] ou pressione ENTER para manter: ");
-                                    long idNovaFam = Long.parseLong(s.nextLine());
-                                    ConvidadoFamilia novaFamiliaEditar = convidadoFamiliaDAO.buscarPorId(idNovaFam);
+                                    String idNovaFamStr = s.nextLine();
+
+                                    ConvidadoFamilia novaFamiliaEditar = null;
+                                    if (idNovaFamStr.isEmpty()) {
+                                        System.out.println("\nMantendo a familia atual!");
+                                    } else {
+                                        long idNovaFam = Long.parseLong(idNovaFamStr);
+                                        novaFamiliaEditar = convidadoFamiliaDAO.buscarPorId(idNovaFam);
+                                    }
 
                                     if (novaFamiliaEditar != null) {
                                         convidadoEditar.setFamilia(novaFamiliaEditar);
@@ -841,6 +857,8 @@ public class Main {
 
                                     if(novoParentesco != null) {
                                         convidadoEditar.setParentesco(novoParentesco);
+                                    } else {
+                                        System.out.println("\nParentesco mantido!");
                                     }
 
                                     convidadoIndividualDAO.atualizarConvidado(convidadoEditarId, convidadoEditar);
@@ -886,7 +904,7 @@ public class Main {
 
                             case 3:
                                 System.out.println("\nLista de Famílias cadastradas no sistema: \n");
-                                convidadoFamiliaDAO.exibirFamilias();
+                                convidadoFamiliaDAO.listarFamilias();
                                 break;
 
                             case 4:

@@ -882,12 +882,12 @@ public class GUI {
             parcelas = Integer.parseInt(scanner.nextLine());
         }
         nF.setParcelas(parcelas);
-        
+
         if(parcelas == 0) {
-        	nF.setValorParcela(valorDebito);
+            nF.setValorParcela(valorDebito);
         } else {
-        	double parcelado = valorDebito / parcelas; // Valor da parcela a ser paga
-        	nF.setValorParcela(parcelado);
+            double parcelado = valorDebito / parcelas; // Valor da parcela a ser paga
+            nF.setValorParcela(parcelado);
         }
 
         String estado = "A Pagar";
@@ -1063,44 +1063,22 @@ public class GUI {
         System.out.println("\nQual o [ID] da família que o convidado faz parte?");
         System.out.println("-> Se não possui uma família cadastrada, digite [-1] para poder cadastrar uma nova.");
         long idFamilia = Long.parseLong(scanner.nextLine());
-        ConvidadoFamilia familia = convidadoFamiliaDAO.buscarPorId(idFamilia);
 
-        if (familia != null)
-        {
-            nCi.setFamilia(familia); // Setando a família informada
-        } else {
-            System.out.println("\nFamília não identificada.");
-            System.out.println("\nDigite o nome da sua família para cadastrá-la no sistema: ");
-            String nomeFamiliaInd = scanner.nextLine();
+        ConvidadoFamilia familia = null;
 
-            while (nomeFamiliaInd.isEmpty()) {
-                System.out.println("\nNome da família não informado, tente novamente!");
-                nomeFamiliaInd = scanner.nextLine();
-            }
-
-            System.out.println("\nDeseja gerar um acesso familiar?");
-            System.out.println("\n-> Digite [0] para SIM ou [1] para NÃO.");
-            int escolha = Integer.parseInt(scanner.nextLine());
-
-            if (escolha == 0) { // Criando o convite familiar com um acesso gerado
-
-                String noivo1 = eventoCi.getPessoaNoivo1().getNome();
-                String noivo2 = eventoCi.getPessoaNoivo1().getNome();
-                String data = eventoCi.getDataEvento();
-                ConvidadoFamilia novoConviteFamiliar = new ConvidadoFamilia(nomeFamiliaInd ,noivo1, noivo2, data, eventoCi);
-                convidadoFamiliaDAO.criarFamilia(novoConviteFamiliar);
-                nCi.setFamilia(novoConviteFamiliar);
-
-            } else {
-                // Criar convite familiar sem o acesso gerado
-                System.out.println("\nConvite familiar criado sem acesso de confirmação. Contate o administrador caso precise gerar em outro momento!");
-                ConvidadoFamilia novoConviteFamiliar = new ConvidadoFamilia(nomeFamiliaInd);
-                convidadoFamiliaDAO.criarFamilia(novoConviteFamiliar);
-                nCi.setFamilia(novoConviteFamiliar);
-            }
+        if (idFamilia != -1) {
+            familia = convidadoFamiliaDAO.buscarPorId(idFamilia);
         }
 
-        System.out.println("Qual o parentesco do convidado com algum dos noivos?");
+        if (familia != null) {
+            nCi.setFamilia(familia); // Setando a família informada
+        } else {
+            familia = this.cadastraConviteFamiliar(); // Cadastrando uma nova família
+            convidadoFamiliaDAO.criarFamilia(familia); // Criando a família
+            nCi.setFamilia(familia); // Setando a família criada
+        }
+
+        System.out.println("\nQual o parentesco do convidado com algum dos noivos?");
         String parentesco = scanner.nextLine();
 
         while (parentesco.isEmpty()) {

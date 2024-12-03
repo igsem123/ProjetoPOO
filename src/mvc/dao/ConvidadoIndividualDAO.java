@@ -18,4 +18,5 @@ public interface ConvidadoIndividualDAO {
     void confirmarConvidado(ConvidadoIndividual convidado);
     void confirmarPresencaPelaPessoa(ConvidadoIndividual convidado);
     ArrayList<ConvidadoIndividual> getConvidados();
+    void desconfirmarPresencaPelaPessoa(ConvidadoIndividual convidadoNaoConfirmado);
 }

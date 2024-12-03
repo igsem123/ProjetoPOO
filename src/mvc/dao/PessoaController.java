@@ -231,8 +231,8 @@ public class PessoaController implements PessoaDAO {
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql))
         {
-            ResultSet rs = stmt.executeQuery();
             stmt.execute();
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 System.out.println("Convidado(a) de [ID]: " + rs.getLong("id") + " - Nome: " + rs.getString("nome"));

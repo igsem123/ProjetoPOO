@@ -36,6 +36,14 @@ public class Presentes {
         this.dataModificacao = LocalDateTime.now();
     }
 
+    public Presentes() {
+        // Construtor vazio
+    }
+
+    public void setId(long aLong) {
+        this.id = aLong;
+    }
+
     public long getId() {
         return id;
     }
@@ -148,4 +156,6 @@ public class Presentes {
         sb.append("============================================\n");
         return sb.toString();
     }
+
+
 }

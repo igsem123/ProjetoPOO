@@ -77,4 +77,13 @@ public class Util {
     public String removeFormatacaoCnpj(String cnpj) {
         return cnpj.replace(".", "").replace("/", "").replace("-", "");
     }
+
+    public boolean isDouble(String presenteValor) {
+        try {
+            Double.parseDouble(presenteValor);
+            return true;
+        } catch (NumberFormatException var3) {
+            return false;
+        }
+    }
 }

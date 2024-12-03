@@ -18,7 +18,7 @@ public class FornecedorController implements FornecedorDAO {
         this.getTotalFornecedores();
     }
 
-    // Método auxiliar para converter ResultSet em Fornecedor
+    // Metodo auxiliar para converter ResultSet em Fornecedor
     Fornecedor resultSetToFornecedor(ResultSet rs) throws SQLException {
         Fornecedor fornecedor = null;
         try {

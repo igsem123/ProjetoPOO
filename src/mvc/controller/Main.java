@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -20,7 +19,7 @@ public class Main {
     EventoDAO eventoDAO = new EventoController();
     ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaController();
     ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualController();
-    PresentesDAO presentesDAO = new PresentesDAOMemoria(pessoaDAO, 500);
+    PresentesDAO presentesDAO = new PresentesController();
     MuralRecadosDAO muralRecadosDAO = new MuralRecadosDAOMemoria(pessoaDAO, eventoDAO, 1000);
     PagamentoDAO pagamentoDAO = new PagamentoDAOMemoria(pessoaDAO, fornecedorDAO, 1000);
     RelatorioController relatorio = new RelatorioController();
@@ -996,10 +995,16 @@ public class Main {
                     }
 
                     System.out.println("\nDigite o novo valor do presente (ou pressione ENTER para manter o valor atual): " + presenteEditar.getValor());
-                    double presenteValor = Double.parseDouble(s.nextLine());
+                    System.out.println("->Digite desta forma: 000.00");
+                    String presenteValor = s.nextLine();
 
-                    if (presenteValor != -1) {
-                        presenteEditar.setValor(presenteValor);
+                    while (!util.isDouble(presenteValor)) {
+                        System.out.println("\nValor inválido! Digite novamente: ");
+                        presenteValor = s.nextLine();
+                    }
+
+                    if(!presenteValor.isEmpty()) {
+                        presenteEditar.setValor(Double.parseDouble(presenteValor));
                     }
 
                     System.out.println("\nEsse presente já foi presentado aos noivos por algum convidado?");

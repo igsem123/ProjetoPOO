@@ -10,7 +10,6 @@ public interface ConvidadoFamiliaDAO {
     ConvidadoFamilia buscarPorId(long id);
     void atualizarFamilia(long id, ConvidadoFamilia familiaAtualizada);
     void removerFamilia(long id);
-    void exibirFamilias();
     void exibirFamiliasPorEvento(Long idEvento);
     void listarFamilias();
     ArrayList<ConvidadoFamilia> getFamilias();

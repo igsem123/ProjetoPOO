@@ -904,7 +904,7 @@ public class Main {
 
                             case 3:
                                 System.out.println("\nLista de Famílias cadastradas no sistema: \n");
-                                convidadoFamiliaDAO.exibirFamilias();
+                                convidadoFamiliaDAO.listarFamilias();
                                 break;
 
                             case 4:

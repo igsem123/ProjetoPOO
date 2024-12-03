@@ -12,14 +12,13 @@ import java.util.Scanner;
 public class ConvidadoFamiliaController implements ConvidadoFamiliaDAO {
     private ArrayList<ConvidadoFamilia> listaFamilias;
     private ConvidadoFamiliaDAO convidadoFamiliaDAO;
+    private ConvidadoIndividualDAO convidadoIndividualDAO;
     private EventoDAO eventoDAO;
     private Scanner scanner;
-    private GUI gui;
 
     public ConvidadoFamiliaController() {
         this.listaFamilias = new ArrayList<>();
         this.convidadoFamiliaDAO = this;
-        this.eventoDAO = new EventoController();
         this.scanner = new Scanner(System.in);
         this.eventoDAO = new EventoController();
     }
@@ -120,48 +119,30 @@ public class ConvidadoFamiliaController implements ConvidadoFamiliaDAO {
             return;
         }
 
+        String sql = "UPDATE convidadoIndividual SET confirmacao = ?, dataModificacao = ? WHERE familiaId = ?";
+
         // Agora que tenho a familia, preciso percorrer o vetor de convidados individuais e confirmar aqueles que estão atrelados à familia do acesso digitado
         for (ConvidadoIndividual convidado : convidadosIndividuais) {
             if (convidado != null && convidado.getFamilia() != null && convidado.getFamilia().getId() == familia.getId()) {
-                convidado.setConfirmacao(true); // Confirmando a presença de cada convidado
-                convidado.setDataModificacao(LocalDateTime.now());
-                System.out.println("\nConvidado(a): " + convidado.getPessoa().getNome() + " - " + convidado.getConfirmacao());
-                totalDeConvidadosInd++;
+
+                try (Connection conn = new ConnectionFactory().getConnection();
+                     PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    stmt.setBoolean(1, true);
+                    stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+                    stmt.setLong(3, familia.getId());
+                    stmt.execute();
+                    totalDeConvidadosInd++;
+                } catch (SQLException e) {
+                    System.out.println("\nErro ao confirmar presença de convidados individuais: " + e.getMessage());
+                    e.printStackTrace();
+                }
+
+                System.out.println("\nConvidado individual " + convidado.getPessoa().getNome() + " confirmado com sucesso!");
             }
         }
 
         if (totalDeConvidadosInd == 0) {
             System.out.println("\nNão há nenhum convidado individual cadastrado nessa família para confirmar.");
-
-            System.out.println("\nDeseja cadastrar convidados individuais para essa família? [S/N]");
-            String resposta = scanner.nextLine();
-
-            if (resposta.equalsIgnoreCase("S")) {
-                ArrayList<ConvidadoIndividual> convIndLista = new ArrayList<>();
-                ConvidadoIndividual convidadoIndividual = gui.cadastrarConviteIndividual(convidadoFamiliaDAO);
-                convIndLista.add(convidadoIndividual);
-
-                System.out.println("\nDeseja cadastrar mais convidados individuais para essa família? [S/N]");
-                String resposta2 = scanner.nextLine();
-
-                while (resposta2.equalsIgnoreCase("S")) {
-                    convidadoIndividual = gui.cadastrarConviteIndividual(convidadoFamiliaDAO);
-                    convIndLista.add(convidadoIndividual);
-                    System.out.println("\nDeseja cadastrar mais convidados individuais para essa família? [S/N]");
-                    resposta2 = scanner.nextLine();
-                }
-
-                System.out.println("\nDeseja confirmar a presença dos convidados individuais cadastrados? [S/N]");
-                String resposta3 = scanner.nextLine();
-
-                if (resposta3.equalsIgnoreCase("S")) {
-                    this.confirmarPresenca(acessoFamilia, convidadosIndividuais, convidadosFamilia);
-                } else {
-                    System.out.println("\nOperação cancelada.");
-                }
-            } else {
-                System.out.println("\nOperação cancelada.");
-            }
         }
     }
 
@@ -196,30 +177,6 @@ public class ConvidadoFamiliaController implements ConvidadoFamiliaDAO {
         }
     }
 
-    // Mostrar todos os convites família
-    public void exibirFamilias() {
-        String sql = "SELECT * FROM convidadoFamilia";
-
-        try (Connection connection = new ConnectionFactory().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.execute();
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                listaFamilias.add(resultSetToConvidadoFamilia(rs));
-            }
-
-            for (ConvidadoFamilia convidadoFamilia : listaFamilias) {
-                System.out.println("\n " + convidadoFamilia.toString());
-            }
-
-        } catch (SQLException e) {
-            System.out.println("\nErro ao exibir convites família: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
-
     // Mostrar todos os convites família por evento
     public void exibirFamiliasPorEvento(Long idEvento) {
         String sql = "SELECT * FROM convidadoFamilia WHERE eventoId = ?";
@@ -232,11 +189,7 @@ public class ConvidadoFamiliaController implements ConvidadoFamiliaDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                listaFamilias.add(resultSetToConvidadoFamilia(rs));
-            }
-
-            for (ConvidadoFamilia convidadoFamilia : listaFamilias) {
-                System.out.println("\n Convite Familia de [ID]: " + convidadoFamilia.getId() + " - Nome: " + convidadoFamilia.getNomeFamilia() + " - Acesso:" + convidadoFamilia.getAcesso());
+                System.out.println("Convite Família de ID: " + rs.getLong("id") + " - Nome da família: " + rs.getString("nomeFamilia") + " - Acesso: " + rs.getString("acesso"));
             }
 
         } catch (SQLException e) {
@@ -245,7 +198,7 @@ public class ConvidadoFamiliaController implements ConvidadoFamiliaDAO {
         }
     }
 
-    // Listar todos os convites família de maneira simples
+    // Listar todos os convites família
     public void listarFamilias() {
         String sql = "SELECT * FROM convidadoFamilia";
 
@@ -256,11 +209,7 @@ public class ConvidadoFamiliaController implements ConvidadoFamiliaDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                listaFamilias.add(resultSetToConvidadoFamilia(rs));
-            }
-
-            for (ConvidadoFamilia convidadoFamilia : listaFamilias) {
-                System.out.println("Convite familiar de ID: [" + convidadoFamilia.getId() + "] - Nome: " + convidadoFamilia.getNomeFamilia() + " - Acesso: " + convidadoFamilia.getAcesso());
+                System.out.println("Convite Família de ID: " + rs.getLong("id") + " - Nome da família: " + rs.getString("nomeFamilia") + " - Acesso: " + rs.getString("acesso"));
             }
 
         } catch (SQLException e) {

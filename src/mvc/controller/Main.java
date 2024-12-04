@@ -962,7 +962,8 @@ public class Main {
                 case 3:
                     System.out.println("\nInforme o [ID] do presente que deseja visualizar as informações: ");
                     long idPresente = Long.parseLong(s.nextLine());
-                    presentesDAO.buscarPorId(idPresente);
+                    Presentes buscado = presentesDAO.buscarPorId(idPresente);
+                    System.out.println(buscado.toString());
                     break;
 
                 case 4:

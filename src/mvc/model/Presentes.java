@@ -116,8 +116,12 @@ public class Presentes {
         return dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 
-    public void setDataModificacao() {
-        this.dataModificacao = LocalDateTime.now();
+    public void setDataModificacao(LocalDateTime data) {
+        this.dataModificacao = data;
+    }
+    
+    public void setDataCriacao(LocalDateTime data) {
+        this.dataCriacao = data;
     }
 
     public int hashCode() {

@@ -41,6 +41,15 @@ public class PresentesController implements PresentesDAO{
             presente.setNome(rs.getString("nome"));
             presente.setTipo(rs.getInt("tipo"));
             presente.setValor(rs.getDouble("valor"));
+            
+            Timestamp dataCriacaoTimestamp = rs.getTimestamp("dataCriacao");
+            Timestamp dataModificacaoTimestamp = rs.getTimestamp("dataModificacao");
+            if (dataCriacaoTimestamp != null) {
+                presente.setDataCriacao(dataCriacaoTimestamp.toLocalDateTime());
+            }
+            if (dataModificacaoTimestamp != null) {
+                presente.setDataModificacao(dataModificacaoTimestamp.toLocalDateTime());
+            }
         } catch (SQLException e) {
             System.out.println("\nErro ao converter dados do banco em presente.");
             throw new RuntimeException(e);

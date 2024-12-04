@@ -2,6 +2,8 @@ package mvc.dao;
 
 import mvc.model.Fornecedor;
 
+import java.util.ArrayList;
+
 public interface FornecedorDAO {
     void criarFornecedor(Fornecedor fornecedor);
     void listarFornecedores();
@@ -11,4 +13,5 @@ public interface FornecedorDAO {
     Fornecedor buscaPorId(Long id);
     void deletarFornecedor(Long id);
     int getTotalFornecedores();
+    ArrayList<Fornecedor> getFornecedores();
 }

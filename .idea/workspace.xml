@@ -6,6 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.6">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database_schemas" beforeDir="false" afterPath="$PROJECT_DIR$/database_schemas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/FornecedorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/FornecedorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosDAOMemoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAOMemoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PagamentoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/RelatorioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/RelatorioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/Calendario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Calendario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Evento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/Pagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Pagamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +98,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "raphael/Alteração-PresentesController",
+    "git-widget-placeholder": "raphael/Alteração-PagamentoDAOMemoria-para-Controller",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/rnmoreira/IdeaProjects/ProjetoPOO/database",
@@ -507,6 +521,11 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="pagamentos.get(0)" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

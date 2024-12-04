@@ -5,6 +5,7 @@ import mvc.dao.*;
 import mvc.model.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import static mvc.controller.Main.SENHA_ADMIN;
@@ -1285,7 +1286,7 @@ public class GUI {
                 dataPagamentoString = scanner.nextLine();
             }
 
-            LocalDate dataPagamento = Util.formataData(dataPagamentoString);
+            LocalDate dataPagamento = LocalDate.from(Util.formataDataLocalDate(dataPagamentoString));
             novoPagamento = new Pagamento(noivoPagando, fornecedorPagamento, descricao, valorTotalPagamento, parcelasPagas, true, dataPagamento);
         } else {
             // Atualizando o valor a pagar e as parcelas do fornecedor, setando já direto após a criação do pagamento

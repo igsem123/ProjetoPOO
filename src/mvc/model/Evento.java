@@ -59,7 +59,7 @@ public class Evento {
 
     public void setDataEvento(String dataEvento) {
         this.dataModificacao = LocalDateTime.now();
-        this.dataEvento = Util.formataData(dataEvento);
+        this.dataEvento = Util.formataDataLocalDate(dataEvento);
     }
     
     public void setDataEvento(LocalDate dataEvento) {

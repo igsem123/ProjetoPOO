@@ -1,8 +1,9 @@
 package mvc.model;
+import mvc.dao.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 
 public class Pagamento {
 
@@ -17,6 +18,9 @@ public class Pagamento {
     private LocalDate dataPagamento;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
+    private PessoaDAO pessoaDAO = new PessoaController();
+    private FornecedorDAO fornecedorDAO = new FornecedorController();
+    private PagamentoDAO pagamentoDAO = new PagamentoController(pessoaDAO, fornecedorDAO);
 
     // Construtor
     public Pagamento(Pessoa pessoa, Fornecedor fornecedor, String descricao, double valor, int parcela, boolean agendado, LocalDate dataPagamento) {
@@ -32,6 +36,10 @@ public class Pagamento {
         this.dataModificacao = LocalDateTime.now();
     }
 
+    public Pagamento() {
+        // Construtor vazio
+    }
+
     // Getters e Setters para acessar os atributos
     public LocalDate getDataPagamento() {
         return dataPagamento;
@@ -44,6 +52,10 @@ public class Pagamento {
 
     public boolean isPagoCompleto() {
         return this.parcela == 0;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {
@@ -99,31 +111,13 @@ public class Pagamento {
         return agendado;
     }
 
-    public String getAgendamento() {
-        String agendamento;
-        if (this.agendado) {
-            agendamento = "Agendado!";
-            return agendamento;
-        } else {
-            if (this.dataPagamento.isBefore(LocalDate.now())) {
-                agendamento = "Pago com atraso!";
-                return agendamento;
-            } else if (this.dataPagamento.isEqual(LocalDate.now())) {
-                agendamento = "Pago!";
-                return agendamento;
-            } else if (this.dataPagamento.isAfter(LocalDate.now())) {
-                agendamento = "Pagamento próximo!";
-                return agendamento;
-            } else {
-                agendamento = "Não agendado!";
-                return agendamento;
-            }
-        }
-    }
-
     public void setAgendado(boolean agendado) {
         this.dataModificacao = LocalDateTime.now();
         this.agendado = agendado;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public LocalDateTime getDataModificacao() {
@@ -147,11 +141,13 @@ public class Pagamento {
         sb.append(String.format("Descrição do pagamento   : %s\n", descricao));
         sb.append(String.format("Valor pago               : %.2f\n", valor));
         sb.append(String.format("Parcelas pagas           : %d\n", parcela));
-        sb.append(String.format("Foi agendado             : %s\n", this.getAgendamento()));
+        sb.append(String.format("Foi agendado             : %s\n", pagamentoDAO.getAgendamento(getId())));
         sb.append(String.format("Data do pagamento        : %s\n", dataPagamento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
         sb.append(String.format("Data de Criação          : %s\n", dataCriacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append(String.format("Data de Modificação      : %s\n", dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
         sb.append("====================================================\n");
         return sb.toString();
     }
+
+
 }

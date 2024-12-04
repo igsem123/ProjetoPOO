@@ -1,9 +1,11 @@
 package mvc.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Util {
     private static Pessoa pessoaLogada = null;
@@ -50,9 +52,35 @@ public class Util {
         diaAtual.plusMonths((long)numeroMeses);
     }
 
-    public static LocalDate formataData(String data) {
+    public static LocalDateTime formataDataLocalDateTime(String data) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDateTime.parse(data, dtf);
+    }
+
+    public static LocalDate formataDataLocalDate(String data) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return LocalDate.parse(data, dtf);
+    }
+
+    public static String formataDataHora(LocalDateTime data) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return data.format(dtf);
+    }
+
+    public static Timestamp localDateTimeToTimestamp(LocalDateTime dataPagamento) {
+        return Timestamp.valueOf(dataPagamento);
+    }
+
+    public static LocalDate timestampToLocalDate(Timestamp dataPagamento) {
+        return dataPagamento.toLocalDateTime().toLocalDate();
+    }
+
+    public static LocalDateTime timestampToLocalDateTime(Timestamp dataCriacao) {
+        return dataCriacao.toLocalDateTime();
+    }
+
+    public static Timestamp localDateToTimestamp(LocalDate dataPagamento) {
+        return Timestamp.valueOf(dataPagamento.atStartOfDay());
     }
 
     public String formataCpf(String cpf) {

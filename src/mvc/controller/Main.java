@@ -21,7 +21,7 @@ public class Main {
     ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualController();
     PresentesDAO presentesDAO = new PresentesController();
     MuralRecadosDAO muralRecadosDAO = new MuralRecadosDAOMemoria(pessoaDAO, eventoDAO, 1000);
-    PagamentoDAO pagamentoDAO = new PagamentoDAOMemoria(pessoaDAO, fornecedorDAO, 1000);
+    PagamentoDAO pagamentoDAO = new PagamentoController(pessoaDAO, fornecedorDAO);
     RelatorioController relatorio = new RelatorioController();
 
     // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
@@ -115,10 +115,17 @@ public class Main {
                             System.out.println("\nPresentes na lista dos noivos: ");
                             presentesDAO.exibeListaPresentesSimples();
                             System.out.println("\nDigite o [ID] do presente que você deseja dar aos noivos: ");
-                            long idPresentear = Long.parseLong(s.nextLine());
+                            String idPresentear = s.nextLine();
+
+                            while (idPresentear.isEmpty()) {
+                                System.out.println("\nID inválido!");
+                                System.out.println("Digite novamente o [ID]: ");
+                                idPresentear = s.nextLine();
+                            }
+
                             System.out.println("\nDigite o seu nome: ");
                             String nome = s.nextLine();
-                            presentesDAO.darPresente(idPresentear, nome);
+                            presentesDAO.darPresente(Long.parseLong(idPresentear), nome);
                             break;
                         case 2:
                             presentesDAO.exibeListaPresentesSimples();
@@ -188,6 +195,7 @@ public class Main {
                         menuCalendario();
                         break;
                     case 0:
+                        Util.setPessoaLogada(null);
                         System.out.println("\nSaindo do menu principal!");
                         break;
                     default:
@@ -1159,7 +1167,7 @@ public class Main {
                     pagamentoDAO.exibirListaSimplesPagamentos();
                     System.out.println("\nInforme o [ID] do pagamento que deseja buscar informações completas: ");
                     long idPagamento = Long.parseLong(s.nextLine());
-                    pagamentoDAO.buscarPagamentoPorId(idPagamento);
+                    System.out.println("\n" + pagamentoDAO.buscarPagamentoPorId(idPagamento));
                     break;
 
                 case 3:
@@ -1262,7 +1270,7 @@ public class Main {
                             String novaData = s.nextLine();
 
                             if (!novaData.isEmpty()) {
-                                LocalDate novaDataDePagamento = Util.formataData(novaData);
+                                LocalDate novaDataDePagamento = Util.formataDataLocalDate(novaData);
                                 pagamentoEditar.setDataPagamento(novaDataDePagamento);
                                 pagamentoEditar.setAgendado(true);
                             }
@@ -1278,9 +1286,9 @@ public class Main {
                         // Se todas as parcelas foram pagas, atualiza o estado do fornecedor
                         if (pagamentoEditar.getFornecedor().getValorAPagar() <= 0) {
                             pagamentoEditar.getFornecedor().setEstado("Pago Completo");
-                            System.out.println("O fornecedor " + pagamentoEditar.getFornecedor().getNome() + " foi totalmente pago.");
+                            System.out.println("\n\nO fornecedor " + pagamentoEditar.getFornecedor().getNome() + " foi totalmente pago.");
                         } else {
-                            System.out.println("O fornecedor " + pagamentoEditar.getFornecedor().getNome() + " ainda possui saldo em aberto: " + pagamentoEditar.getFornecedor().getValorAPagar());
+                            System.out.println("\n\nO fornecedor " + pagamentoEditar.getFornecedor().getNome() + " ainda possui saldo em aberto: " + pagamentoEditar.getFornecedor().getValorAPagar());
                         }
 
                         // Comentário para o professor: não sei se precisava atualizar um pagamento, mas tentei fazer
@@ -1296,14 +1304,14 @@ public class Main {
                             String novaData = s.nextLine();
 
                             if (!novaData.isEmpty()) {
-                                LocalDate novaDataDePagamento = Util.formataData(novaData);
+                                LocalDate novaDataDePagamento = Util.formataDataLocalDate(novaData);
                                 pagamentoEditar.setDataPagamento(novaDataDePagamento);
                             }
                         } else {
                             pagamentoEditar.setDataPagamento(LocalDate.now());
                         }
-                        // Atualizando o pagamento sem a parcela editada / mas com possivelmente o agendamento editado
-                        pagamentoDAO.atualizarPagamento(pagamentoEditar); // Fiz essa buçanha sem ir testando, se não funcionar eu me **** e dou um update :DDD
+                        // Atualizando o pagamento sem a parcela editada, mas com possivelmente o agendamento editado
+                        pagamentoDAO.atualizarPagamento(pagamentoEditar); // Fiz essa buçanha sem testar, se não funcionar eu me **** e dou um ‘update’ :DDD
                     }
                     break;
 
@@ -1336,9 +1344,9 @@ public class Main {
             op = gui.opCalendario();
             switch(op) {
                 case 1:
-                    calendario.verificarPagamentosAgendados(Util.getDia(), pagamentoDAO.getPagamentos());
+                    calendario.verificarPagamentosAgendados(Util.getDia(), pagamentoDAO.getPagamentos(), fornecedorDAO.getFornecedores());
                     LocalDateTime dataAtual = calendario.getDataAtual().atStartOfDay();
-                    if (calendario.verificarPagamentosAgendados(dataAtual, pagamentoDAO.getPagamentos())) {
+                    if (calendario.verificarPagamentosAgendados(dataAtual, pagamentoDAO.getPagamentos(), fornecedorDAO.getFornecedores())) {
                         System.out.println("\nExistem pagamentos feitos com sucesso para hoje, deseja visualizá-los?");
                         System.out.println("Digite [1] para SIM e [0] para NÃO.");
                         int opcao = Integer.parseInt(s.nextLine());
@@ -1352,13 +1360,13 @@ public class Main {
 
                 case 2:
                     System.out.println("\nConferindo se existem pagamentos a serem feitos e realizando-os:");
-                    calendario.avancarDiasEconferirPagamentos(pagamentoDAO.getPagamentos());
+                    calendario.avancarDiasEconferirPagamentos(pagamentoDAO.getPagamentos(), fornecedorDAO.getFornecedores());
                     break;
                 case 3:
                     calendario.exibirDataAtual();
                     System.out.println("\nDigite a nova data do sistema (dd/MM/yyyy):");
                     String novaData = s.next();
-                    LocalDate dataModificada = Util.formataData(novaData);
+                    LocalDate dataModificada = Util.formataDataLocalDate(novaData);
                     calendario.atualizarData(dataModificada);
                     break;
 
@@ -1479,7 +1487,7 @@ public class Main {
                     break;
 
                 case 4:
-                    Pagamento[] pagamentos = pagamentoDAO.buscarTodos();
+                    ArrayList<Pagamento> pagamentos = pagamentoDAO.buscarTodos();
                     reportPath = "reports/PagamentosDosNoivos.pdf";
                     relatorio.pagamentosRealizadosPDF(pagamentos, reportPath);
                     break;

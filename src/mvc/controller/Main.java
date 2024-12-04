@@ -963,7 +963,7 @@ public class Main {
                     System.out.println("\nInforme o [ID] do presente que deseja visualizar as informações: ");
                     long idPresente = Long.parseLong(s.nextLine());
                     Presentes buscado = presentesDAO.buscarPorId(idPresente);
-                    System.out.println(buscado.toString());
+                    System.out.println("\n" + buscado.toString());
                     break;
 
                 case 4:

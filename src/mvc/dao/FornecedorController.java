@@ -58,6 +58,24 @@ public class FornecedorController implements FornecedorDAO {
         }
         return totalFornecedores;
     }
+
+    public ArrayList<Fornecedor> getFornecedores() {
+        String sql = "SELECT * FROM Fornecedor";
+        ArrayList<Fornecedor> fornecedores = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                fornecedores.add(resultSetToFornecedor(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println("\nErro ao buscar fornecedores.");
+            e.printStackTrace();
+        }
+        return fornecedores;
+    }
     
     @Override
     public void criarFornecedor(Fornecedor fornecedor) {

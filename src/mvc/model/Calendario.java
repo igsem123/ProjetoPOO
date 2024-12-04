@@ -1,9 +1,14 @@
 package mvc.model;
 
 
+import mvc.dao.ConnectionFactory;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Calendario {
     private LocalDate dataAtual;
@@ -24,19 +29,20 @@ public class Calendario {
     }
 
     // Pegar dia inicial do sistema e avançar para a data atual
-    public void avancarDiasEconferirPagamentos(Pagamento[] pagamentos) {
+    public void avancarDiasEconferirPagamentos(ArrayList<Pagamento> pagamentos, ArrayList<Fornecedor> fornecedores) {
         LocalDateTime diaInicialDoSistema = Util.getDiaInicioDoSistema().atStartOfDay();
         LocalDateTime diaAtual = Util.getDia();
 
         do {
             diaInicialDoSistema = avancarDia(diaInicialDoSistema);
-            if (verificarPagamentosAgendados(diaInicialDoSistema, pagamentos)) {
+            boolean pagamentoEfetuado = verificarPagamentosAgendados(diaInicialDoSistema, pagamentos, fornecedores);
+            if (pagamentoEfetuado) {
                 System.out.println("\nPagamento agendado para '" + diaInicialDoSistema.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "' foi efetuado com sucesso em '" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "'.");
                 System.out.println("\n--------------------------------------------------");
             }
         } while (diaInicialDoSistema.isBefore(diaAtual)) ;
 
-        if (!verificarPagamentosAgendados(diaInicialDoSistema, pagamentos)) {
+        if (!verificarPagamentosAgendados(diaInicialDoSistema, pagamentos, fornecedores)) {
             System.out.println("\nNão há mais pagamentos agendados para serem efetuados.");
         }
 
@@ -45,53 +51,98 @@ public class Calendario {
     }
 
     // Verifica pagamentos agendados para a data atual
-    public boolean verificarPagamentosAgendados(LocalDateTime data, Pagamento[] pagamentos) {
-        // Processa os pagamentos agendados para a data atual
+    public boolean verificarPagamentosAgendados(LocalDateTime data, ArrayList<Pagamento> pagamentos, ArrayList<Fornecedor> fornecedores) {
+        boolean pagamentoEfetuado = false;
+
         for (Pagamento pagamento : pagamentos) {
             if (pagamento != null && pagamento.isAgendado() && pagamento.getDataPagamento().equals(data.toLocalDate())
                     && pagamento.getFornecedor().getValorAPagar() > 0) {
-                // Obter o fornecedor relacionado ao pagamento
                 Fornecedor fornecedor = pagamento.getFornecedor();
 
                 if (fornecedor.getValorAPagar() == 0) {
                     System.out.println("\nO fornecedor " + fornecedor.getNome() + " já foi totalmente pago.");
                 } else {
-                    // Calcular valor das parcelas a serem pagas
-                    double valorAPagar = pagamento.getValor(); // Valor total do pagamento
-                    int parcelasRestantes = fornecedor.getParcelas(); // Parcelas restantes do fornecedor
-
-                    // Calcular o valor de cada parcela
                     double valorParcela = fornecedor.getValorParcela();
                     double valorPago = valorParcela * pagamento.getParcela();
+                    int parcelasRestantes = fornecedor.getParcelas() - pagamento.getParcela();
+                    int totalParcelasPagas = fornecedor.getTotalParcelasPagas() + pagamento.getParcela();
 
-                    // Atualiza o valor do fornecedor após o pagamento
-                    fornecedor.setValorAPagar(fornecedor.getValorAPagar() - valorPago);
-                    fornecedor.setParcelas(parcelasRestantes - pagamento.getParcela());
+                    String SQL = "UPDATE fornecedor SET valorAPagar = ?, parcelas = ?, totalParcelasPagas = ? WHERE id = ?";
+                    try (Connection connection = new ConnectionFactory().getConnection();
+                         PreparedStatement stmt = connection.prepareStatement(SQL)) {
 
-                    // Atualiza o pagamento como concluído
-                    pagamento.setParcela(1);
-                    pagamento.setAgendado(false);
-                    pagamento.setDataModificacao(LocalDateTime.now());
+                        stmt.setDouble(1, fornecedor.getValorAPagar() - valorPago);
+                        stmt.setInt(2, parcelasRestantes);
+                        stmt.setInt(3, totalParcelasPagas);
+                        stmt.setLong(4, fornecedor.getId());
+                        stmt.execute();
+                        System.out.println("\nValor a pagar e parcelas do fornecedor atualizados com sucesso.");
 
-                    // Se todas as parcelas foram pagas, atualiza o estado do fornecedor
-                    if (fornecedor.getValorAPagar() <= 0) {
-                        fornecedor.setEstado("Pago Completo");
-                        System.out.println("\nO fornecedor " + fornecedor.getNome() + " foi totalmente pago.");
-                    } else {
-                        System.out.println("\nTransação efetuada com sucesso! O fornecedor " + fornecedor.getNome() + " ainda possui saldo em aberto de R$ " + fornecedor.getValorAPagar() + ".");
+                    } catch (Exception e) {
+                        System.out.println("\nErro ao atualizar valor a pagar e parcelas do fornecedor: " + e.getMessage());
+                        e.printStackTrace();
                     }
 
-                    return true;
+                    String SQL2 = "UPDATE pagamento SET parcela = ?, agendado = ?, dataModificacao = ? WHERE id = ?";
+                    try (Connection connection = new ConnectionFactory().getConnection();
+                         PreparedStatement stmt = connection.prepareStatement(SQL2)) {
+                        stmt.setInt(1, pagamento.getParcela());
+                        stmt.setBoolean(2, false);
+                        stmt.setTimestamp(3, Util.localDateTimeToTimestamp(LocalDateTime.now()));
+                        stmt.setLong(4, pagamento.getId());
+                        stmt.execute();
+                        System.out.println("\nPagamento atualizado com sucesso.");
+
+                    } catch (Exception e) {
+                        System.out.println("\nErro ao atualizar pagamento: " + e.getMessage());
+                        e.printStackTrace();
+                    }
+
+                    String SQL3 = "INSERT INTO historicoPagamento (fornecedorId, valorPago, dataPagamento) VALUES (?, ?, ?)";
+                    try (Connection connection = new ConnectionFactory().getConnection();
+                         PreparedStatement stmt = connection.prepareStatement(SQL3)) {
+
+                        stmt.setLong(1, fornecedor.getId());
+                        stmt.setDouble(2, valorPago);
+                        stmt.setTimestamp(3, Util.localDateTimeToTimestamp(LocalDateTime.now()));
+                        stmt.execute();
+                        System.out.println("\nPagamento inserido no histórico com sucesso.");
+
+                    } catch (Exception e) {
+                        System.out.println("\nErro ao inserir pagamento no histórico: " + e.getMessage());
+                        e.printStackTrace();
+                    }
+
+                    String SQL4 = "UPDATE fornecedor SET estado = ? WHERE id = ?";
+                    try (Connection connection = new ConnectionFactory().getConnection();
+                         PreparedStatement stmt = connection.prepareStatement(SQL4)) {
+
+                        if (fornecedor.getValorAPagar() <= 0) {
+                            fornecedor.setEstado("Pago");
+                            stmt.setString(1, "Pago");
+                        } else {
+                            stmt.setString(1, "Parcial");
+                        }
+                        stmt.setLong(2, fornecedor.getId());
+                        stmt.execute();
+                        System.out.println("\nEstado do fornecedor atualizado com sucesso.");
+
+                    } catch (Exception e) {
+                        System.out.println("\nErro ao atualizar estado do fornecedor: " + e.getMessage());
+                        e.printStackTrace();
+                    }
+
+                    pagamentoEfetuado = true;
                 }
             }
         }
-        return false;
+        return pagamentoEfetuado;
     }
 
-    public void notificarPagamentosProximos(Pagamento[] pagamentos, int diasAntecedencia) {
+    public void notificarPagamentosProximos(ArrayList<Pagamento> pagamentos, int diasAntecedencia) {
         for (Pagamento pagamento : pagamentos) {
             if (pagamento != null && pagamento.isAgendado()) {
-                LocalDate dataPagamento = pagamento.getDataPagamento();
+                LocalDateTime dataPagamento = pagamento.getDataPagamento().atStartOfDay();
 
                 // Verifica se o pagamento está dentro do intervalo de dias antes do vencimento
                 if (dataPagamento.minusDays(diasAntecedencia).equals(this.dataAtual)) {
@@ -102,7 +153,7 @@ public class Calendario {
         }
     }
 
-    public void notificarPagamentosAtrasados(Pagamento[] pagamentos) {
+    public void notificarPagamentosAtrasados(ArrayList <Pagamento> pagamentos) {
         for (Pagamento pagamento : pagamentos) {
             if (pagamento != null && pagamento.isAgendado()) {
                 LocalDate dataPagamento = pagamento.getDataPagamento();
@@ -110,7 +161,7 @@ public class Calendario {
                 // Verifica se o pagamento está atrasado (data do pagamento já passou)
                 if (dataPagamento.isBefore(this.dataAtual)) {
                     System.out.println("\nAVISO: O pagamento de " + pagamento.getFornecedor().getNome() +
-                            " está atrasado! Vencimento: " + dataPagamento);
+                            " está atrasado! Vencimento: " + Util.formataDataHora(dataPagamento.atStartOfDay()));
                 }
             }
         }
@@ -127,7 +178,7 @@ public class Calendario {
     }
 
     // Exibe os pagamentos agendados para a data atual
-    public void exibirPagamentosAgendados(LocalDateTime dataAtual, Pagamento[] pagamentos) {
+    public void exibirPagamentosAgendados(LocalDateTime dataAtual, ArrayList<Pagamento> pagamentos) {
         for (Pagamento pagamento : pagamentos) {
             if (pagamento != null && pagamento.getDataPagamento().equals(dataAtual.toLocalDate())) {
                 System.out.println("\n" + pagamento);

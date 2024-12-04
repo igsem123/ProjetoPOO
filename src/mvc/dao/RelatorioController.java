@@ -328,7 +328,7 @@ public class RelatorioController implements RelatorioDAO {
     }
 
     @Override
-    public void pagamentosRealizadosPDF(Pagamento[] pagamentos, String path) {
+    public void pagamentosRealizadosPDF(ArrayList<Pagamento> pagamentos, String path) {
         try {
             // Cria o documento A4
             Document document = new Document(PageSize.A4);

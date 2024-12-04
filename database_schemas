@@ -143,3 +143,13 @@ CREATE TABLE Pagamento (
 );
 
 describe pagamento;
+
+CREATE TABLE HistoricoPagamento (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,              -- Identificador único do histórico
+    fornecedorId BIGINT NOT NULL,                      -- ID do fornecedor relacionado
+    valorPago DECIMAL(10, 2) NOT NULL,                 -- Valor do pagamento efetuado
+    dataPagamento DATE NOT NULL,                       -- Data do pagamento
+    FOREIGN KEY (fornecedorId) REFERENCES Fornecedor(id) ON DELETE CASCADE -- Relação com Fornecedor
+);
+
+describe historicopagamento;

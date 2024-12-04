@@ -41,14 +41,14 @@ public class MuralRecadosDAOMemoria implements MuralRecadosDAO{
 
         MuralRecados recado5 = new MuralRecados(
                 "Que alegria ver vocês se casando! Que sejam sempre felizes e abençoados!",
-                new Pessoa("Ricardo Barbosa", "Masculino", Util.formataData("14/04/1987"), "+55 34 9 3344-5566", "ricardo.barbosa@gmail.com", "ricardo123", 4, "654.321.987-00"),
+                new Pessoa("Ricardo Barbosa", "Masculino", Util.formataDataLocalDate("14/04/1987"), "+55 34 9 3344-5566", "ricardo.barbosa@gmail.com", "ricardo123", 4, "654.321.987-00"),
                 eventoDAO.buscarPorId(2L)
         );
         this.criarRecado(recado5);
 
         MuralRecados recado6 = new MuralRecados(
                 "Parabéns Ana Paula e Carlos! Que esse seja o início de uma vida cheia de realizações!",
-                new Pessoa("Camila Rocha", "Feminino", Util.formataData("10/10/1995"), "+55 34 9 4455-6677", "camila.rocha@gmail.com", "camila456", 4, "123.321.456-98"),
+                new Pessoa("Camila Rocha", "Feminino", Util.formataDataLocalDate("10/10/1995"), "+55 34 9 4455-6677", "camila.rocha@gmail.com", "camila456", 4, "123.321.456-98"),
                 eventoDAO.buscarPorId(2L)
         );
         this.criarRecado(recado6);

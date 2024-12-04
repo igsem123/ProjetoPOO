@@ -1123,7 +1123,7 @@ public class GUI {
 
     //TODO Formulário para criar um presente
     public Presentes cadastraPresente() {
-        System.out.println("\nDigite qual será o presente: ");
+        System.out.println("\nDigite o nome do presente: ");
         String nomePresente = scanner.nextLine();
 
         while (nomePresente.isEmpty()) {
@@ -1137,6 +1137,7 @@ public class GUI {
                 "   3 [Decoração/Cama/Mesa/Banho]\n" +
                 "   4 [Moveis/Eletronicos]\n" +
                 "   5 [Dinheiro]\n");
+        System.out.println("Digite o número correspondente ao tipo de presente: ");
         int tipoPresente = Integer.parseInt(scanner.nextLine());
 
         while (tipoPresente < 1 || tipoPresente > 5) {

@@ -36,6 +36,14 @@ public class Presentes {
         this.dataModificacao = LocalDateTime.now();
     }
 
+    public Presentes() {
+        // Construtor vazio
+    }
+
+    public void setId(long aLong) {
+        this.id = aLong;
+    }
+
     public long getId() {
         return id;
     }
@@ -108,8 +116,12 @@ public class Presentes {
         return dataModificacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 
-    public void setDataModificacao() {
-        this.dataModificacao = LocalDateTime.now();
+    public void setDataModificacao(LocalDateTime data) {
+        this.dataModificacao = data;
+    }
+    
+    public void setDataCriacao(LocalDateTime data) {
+        this.dataCriacao = data;
     }
 
     public int hashCode() {
@@ -148,4 +160,6 @@ public class Presentes {
         sb.append("============================================\n");
         return sb.toString();
     }
+
+
 }

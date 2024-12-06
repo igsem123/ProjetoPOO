@@ -14,4 +14,6 @@ public interface FornecedorDAO {
     void deletarFornecedor(Long id);
     int getTotalFornecedores();
     ArrayList<Fornecedor> getFornecedores();
+    void atualizarEstadoFornecedor(Fornecedor fornecedor);
+    void atualizarFornecedorCalendario(Fornecedor fornecedor, double valorPago, int parcelasRestantes, int totalParcelasPagas);
 }

@@ -21,7 +21,7 @@ public class Main {
     ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualController();
     PresentesDAO presentesDAO = new PresentesController();
     MuralRecadosDAO muralRecadosDAO = new MuralRecadosDAOMemoria(pessoaDAO, eventoDAO, 1000);
-    PagamentoDAO pagamentoDAO = new PagamentoController(pessoaDAO, fornecedorDAO);
+    PagamentoDAO pagamentoDAO = new PagamentoController();
     RelatorioController relatorio = new RelatorioController();
 
     // Inicializa a GUI passando as instâncias dos DAOs para evitar duplicação de dados
@@ -379,7 +379,7 @@ public class Main {
                     String cpf = s.nextLine();
                     Pessoa achou = pessoaDAO.buscaPessoa(cpf);
                     if(achou != null) {
-                        System.out.println(achou.toString());
+                        System.out.println(achou);
                     } else {
                         System.out.println("\nPessoa nao encontrada!");
                     }
@@ -502,7 +502,7 @@ public class Main {
                     Fornecedor achouF = fornecedorDAO.buscaFornecedor(cnpj);
                     if (achouF != null) {
                         System.out.println("\nFornecedor encontrado com sucesso!\n");
-                        System.out.println(achouF.toString());
+                        System.out.println(achouF);
                     } else {
                         System.out.println("\nFornecedor nao encontrado!\n");
                     }
@@ -606,7 +606,7 @@ public class Main {
                     Evento achouE = eventoDAO.buscarPorId(buscaEventoId);
                     if (achouE != null) {
                         System.out.println("\nEvento encontrado com sucesso!\n");
-                        System.out.println(achouE.toString());
+                        System.out.println(achouE);
                     } else {
                         System.out.println("\nEvento nao encontrado!");
                     }
@@ -869,7 +869,7 @@ public class Main {
                                     }
 
                                     convidadoIndividualDAO.atualizarConvidado(convidadoEditarId, convidadoEditar);
-                                    System.out.println("\nConvidado com os dados atualizados:\n\n" + convidadoEditar.toString());
+                                    System.out.println("\nConvidado com os dados atualizados:\n\n" + convidadoEditar);
                                 }
                                 break;
 
@@ -1335,7 +1335,7 @@ public class Main {
     }
 
     public void menuCalendario() {
-        // Métodos intrinsecos do calendário, vão funcionar ao abrir a opção
+        // Métodos intrínsecos do calendário, vão funcionar ao abrir a opção
         calendario.notificarPagamentosProximos(pagamentoDAO.getPagamentos(), 3); // Setando dia de antecência para notificar o adm sobre um pagamento agendado em data próx
         calendario.notificarPagamentosAtrasados(pagamentoDAO.getPagamentos());
 
@@ -1344,12 +1344,18 @@ public class Main {
             op = gui.opCalendario();
             switch(op) {
                 case 1:
-                    calendario.verificarPagamentosAgendados(Util.getDia(), pagamentoDAO.getPagamentos(), fornecedorDAO.getFornecedores());
+                    calendario.verificarPagamentosAgendados(Util.getDia(), pagamentoDAO.getPagamentos());
                     LocalDateTime dataAtual = calendario.getDataAtual().atStartOfDay();
-                    if (calendario.verificarPagamentosAgendados(dataAtual, pagamentoDAO.getPagamentos(), fornecedorDAO.getFornecedores())) {
+                    if (calendario.verificarPagamentosAgendados(dataAtual, pagamentoDAO.getPagamentos())) {
                         System.out.println("\nExistem pagamentos feitos com sucesso para hoje, deseja visualizá-los?");
                         System.out.println("Digite [1] para SIM e [0] para NÃO.");
                         int opcao = Integer.parseInt(s.nextLine());
+                        try {
+                            opcao = Integer.parseInt(s.nextLine());
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("\nOpção inválida, tente novamente!");
+                        }
+
                         if (opcao == 1) {
                             calendario.exibirPagamentosAgendados(dataAtual, pagamentoDAO.getPagamentos());
                         }
@@ -1360,7 +1366,7 @@ public class Main {
 
                 case 2:
                     System.out.println("\nConferindo se existem pagamentos a serem feitos e realizando-os:");
-                    calendario.avancarDiasEconferirPagamentos(pagamentoDAO.getPagamentos(), fornecedorDAO.getFornecedores());
+                    calendario.avancarDiasEconferirPagamentos(pagamentoDAO.getPagamentos());
                     break;
                 case 3:
                     calendario.exibirDataAtual();
@@ -1371,7 +1377,7 @@ public class Main {
                     break;
 
                 case 0:
-                    System.out.println("\nSaindo do modulo calendario!");
+                    System.out.println("\nSaindo do modulo calendário!");
                     break;
             }
         } while (op != 0);
@@ -1476,14 +1482,14 @@ public class Main {
                     eventoDAO.exibirListaEventosSimples();
                     System.out.println("\nInforme o [ID]: ");
                     long idEventoDoConviteFamilia = Long.parseLong(s.nextLine());
-                    Evento eventoDoConviteFalimia = eventoDAO.buscarPorId(idEventoDoConviteFamilia);
+                    Evento eventoDoConviteFamilia = eventoDAO.buscarPorId(idEventoDoConviteFamilia);
                     System.out.println("\nLista das familias cadastradas no sistema: ");
                     convidadoFamiliaDAO.exibirFamiliasPorEvento(idEventoDoConviteFamilia);
                     System.out.println("\nDigite o [ID] da familia que deseja gerar o convite: ");
                     long idFamilia = Long.parseLong(s.nextLine());
                     ConvidadoFamilia conviteFamilia = convidadoFamiliaDAO.buscarPorId(idFamilia);
                     reportPath = "reports/ConviteDeCasamentoParaFamilia.pdf";
-                    relatorio.conviteIndividualFamiliaPDF(conviteFamilia, eventoDoConviteFalimia, reportPath);
+                    relatorio.conviteIndividualFamiliaPDF(conviteFamilia, eventoDoConviteFamilia, reportPath);
                     break;
 
                 case 4:

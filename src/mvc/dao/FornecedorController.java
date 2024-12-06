@@ -247,4 +247,41 @@ public class FornecedorController implements FornecedorDAO {
         return fornecedor;
     }
 
+    // Métodos relacionados ao Calendário
+    public void atualizarFornecedorCalendario(Fornecedor fornecedor, double valorPago, int parcelasRestantes, int totalParcelasPagas) {
+        String SQL = "UPDATE fornecedor SET valorAPagar = ?, parcelas = ?, totalParcelasPagas = ? WHERE id = ?";
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(SQL)) {
+            stmt.setDouble(1, fornecedor.getValorAPagar() - valorPago);
+            stmt.setInt(2, parcelasRestantes);
+            stmt.setInt(3, totalParcelasPagas);
+            stmt.setLong(4, fornecedor.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("\nErro ao atualizar fornecedor no calendário.");
+            e.printStackTrace();
+        }
+    }
+
+    public void atualizarEstadoFornecedor(Fornecedor fornecedor) {
+        String SQL = "UPDATE fornecedor SET estado = ? WHERE id = ?";
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(SQL)) {
+
+            ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM fornecedor WHERE id = " + fornecedor.getId());
+            rs.next();
+
+            if (rs.getDouble("valorAPagar") == 0) {
+                fornecedor.setEstado("Pago");
+                stmt.setString(1, "Pago");
+            } else {
+                stmt.setString(1, "Parcial");
+            }
+            stmt.setLong(2, fornecedor.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("\nErro ao atualizar estado do fornecedor.");
+            e.printStackTrace();
+        }
+    }
 }

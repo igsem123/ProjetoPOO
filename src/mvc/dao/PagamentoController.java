@@ -6,19 +6,18 @@ import mvc.model.Util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class PagamentoController implements PagamentoDAO{
     private final ArrayList<Pagamento> listaPagamentos;
-    private PessoaDAO pessoaDAO;
-    private FornecedorDAO fornecedorDAO;
+    private PessoaDAO pessoaDAO = new PessoaController();
+    private FornecedorDAO fornecedorDAO = new FornecedorController();
 
-    public PagamentoController(PessoaDAO pessoaDAO, FornecedorDAO fornecedorDAO) {
+    public PagamentoController() {
         this.listaPagamentos = new ArrayList<>();
-        this.pessoaDAO = pessoaDAO;
-        this.fornecedorDAO = fornecedorDAO;
     }
 
     public ArrayList<Pagamento> getPagamentos() {
@@ -240,6 +239,36 @@ public class PagamentoController implements PagamentoDAO{
             if (pagamento != null) {
                 System.out.println("ID do Pagamento [" + pagamento.getId() + "] - Pagador: " + pagamento.getPessoa().getNome() + " - Fornecedor: " + pagamento.getFornecedor().getNome());
             }
+        }
+    }
+
+    // Métodos relacionados ao Calendário
+    public void atualizarPagamentoCalendario(Pagamento pagamento) {
+        String SQL = "UPDATE pagamento SET parcela = ?, agendado = ?, dataModificacao = ? WHERE id = ?";
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(SQL)) {
+            stmt.setInt(1, pagamento.getParcela());
+            stmt.setBoolean(2, false);
+            stmt.setTimestamp(3, Util.localDateTimeToTimestamp(LocalDateTime.now()));
+            stmt.setLong(4, pagamento.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar pagamento no calendário: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void inserirHistoricoPagamento(long fornecedorId, double valorPago) {
+        String SQL = "INSERT INTO historicoPagamento (fornecedorId, valorPago, dataPagamento) VALUES (?, ?, ?)";
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(SQL)) {
+            stmt.setLong(1, fornecedorId);
+            stmt.setDouble(2, valorPago);
+            stmt.setTimestamp(3, Util.localDateTimeToTimestamp(LocalDateTime.now()));
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erro ao inserir histórico de pagamento: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

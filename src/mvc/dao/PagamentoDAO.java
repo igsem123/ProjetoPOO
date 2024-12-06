@@ -14,4 +14,6 @@ public interface PagamentoDAO {
     void exibirListaSimplesPagamentos();
     ArrayList<Pagamento> getPagamentos();
     String getAgendamento(long id);
+    void inserirHistoricoPagamento(long id, double valorPago);
+    void atualizarPagamentoCalendario(Pagamento pagamento);
 }

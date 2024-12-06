@@ -20,7 +20,7 @@ public class Pagamento {
     private LocalDateTime dataModificacao;
     private PessoaDAO pessoaDAO = new PessoaController();
     private FornecedorDAO fornecedorDAO = new FornecedorController();
-    private PagamentoDAO pagamentoDAO = new PagamentoController(pessoaDAO, fornecedorDAO);
+    private PagamentoDAO pagamentoDAO = new PagamentoController();
 
     // Construtor
     public Pagamento(Pessoa pessoa, Fornecedor fornecedor, String descricao, double valor, int parcela, boolean agendado, LocalDate dataPagamento) {

@@ -242,6 +242,7 @@ CREATE TABLE `muralrecados` (
 LOCK TABLES `muralrecados` WRITE;
 /*!40000 ALTER TABLE `muralrecados` DISABLE KEYS */;
 /*!40000 ALTER TABLE `muralrecados` ENABLE KEYS */;
+ALTER TABLE muralrecados MODIFY pessoaId BIGINT NULL;
 UNLOCK TABLES;
 
 --

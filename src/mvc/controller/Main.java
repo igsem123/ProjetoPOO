@@ -21,7 +21,7 @@ public class Main {
     ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaController();
     ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualController();
     PresentesDAO presentesDAO = new PresentesDAOMemoria(pessoaDAO, 500);
-    MuralRecadosDAO muralRecadosDAO = new MuralRecadosDAOMemoria(pessoaDAO, eventoDAO, 1000);
+    MuralRecadosDAO muralRecadosDAO = new MuralRecadosController();
     PagamentoDAO pagamentoDAO = new PagamentoDAOMemoria(pessoaDAO, fornecedorDAO, 1000);
     RelatorioController relatorio = new RelatorioController();
 

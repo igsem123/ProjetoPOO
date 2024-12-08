@@ -3,6 +3,7 @@ package mvc.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import mvc.dao.MuralRecadosController;
 
 public class MuralRecados {
     private long id;
@@ -32,10 +33,21 @@ public class MuralRecados {
         this.dataCriacao = LocalDateTime.now();
         this.dataModificacao = LocalDateTime.now();
     }
+    
+    // Construtor vazio
+    public MuralRecados() {
+        this.id = (MuralRecadosController.totalRecados++);
+        this.dataCriacao = Util.getDia();
+        this.dataModificacao = Util.getDia();
+    }
 
-    public long getId() {
+	public long getId() {
         return id;
     }
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
 
     public String getComentario() {
         return comentario;

@@ -20,7 +20,7 @@ public class Main {
     ConvidadoFamiliaDAO convidadoFamiliaDAO = new ConvidadoFamiliaController();
     ConvidadoIndividualDAO convidadoIndividualDAO = new ConvidadoIndividualController();
     PresentesDAO presentesDAO = new PresentesController();
-    MuralRecadosDAO muralRecadosDAO = new MuralRecadosDAOMemoria(pessoaDAO, eventoDAO, 1000);
+    MuralRecadosDAO muralRecadosDAO = new MuralRecadosController();
     PagamentoDAO pagamentoDAO = new PagamentoController();
     RelatorioController relatorio = new RelatorioController();
 

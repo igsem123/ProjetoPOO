@@ -144,13 +144,13 @@ public class ConvidadoIndividual {
         return hash;
     }
 
-    public String perfil() {
+    public String perfil(Pessoa pessoa, ConvidadoIndividual convidado) {
         return "\n|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
-                "\n| Perfil do Convidado: " + this.pessoa.getNome() + "\n|\n|" +
-                "\n| ID                 : " + this.id +
-                "\n| Familia            : " + this.familia.getNomeFamilia() +
-                "\n| Parentesco         : " + this.parentesco +
-                "\n| Confirmacao        : " + getConfirmacao() +
+                "\n| Perfil do Convidado: " + pessoa.getNome() + "\n|\n|" +
+                "\n| [ID] da Pessoa     : " + convidado.getId() +
+                "\n| Família            : " + convidado.familia.getNomeFamilia() +
+                "\n| Parentesco         : " + convidado.parentesco +
+                "\n| Confirmação        : " + convidado.getConfirmacao() +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 

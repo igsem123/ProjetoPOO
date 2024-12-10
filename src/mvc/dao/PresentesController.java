@@ -1,5 +1,6 @@
 package mvc.dao;
 
+import mvc.model.Evento;
 import mvc.model.Pessoa;
 import mvc.model.Presentes;
 
@@ -41,7 +42,7 @@ public class PresentesController implements PresentesDAO{
             presente.setNome(rs.getString("nome"));
             presente.setTipo(rs.getInt("tipo"));
             presente.setValor(rs.getDouble("valor"));
-            
+
             Timestamp dataCriacaoTimestamp = rs.getTimestamp("dataCriacao");
             Timestamp dataModificacaoTimestamp = rs.getTimestamp("dataModificacao");
             if (dataCriacaoTimestamp != null) {
@@ -83,6 +84,22 @@ public class PresentesController implements PresentesDAO{
     }
 
     @Override
+    public void adicionarPresenteAoEvento(long presenteId, long eventoId) {
+        String SQL = "INSERT INTO Evento_Presente (eventoId, presenteId) VALUES (?, ?)";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(SQL)) {
+            stmt.setLong(1, eventoId);
+            stmt.setLong(2, presenteId);
+            stmt.execute();
+            System.out.println("\nPresente adicionado ao evento com sucesso!");
+        } catch (SQLException e) {
+            System.out.println("\nErro ao adicionar presente ao evento: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public Presentes buscarPorId(long id) {
         String SQL = "SELECT * FROM presentes WHERE id = ?";
         Presentes presente = null;
@@ -106,10 +123,10 @@ public class PresentesController implements PresentesDAO{
 
     @Override
     public void darPresente(long id, Pessoa pessoa) {
-        String selectSQL = "SELECT * FROM presentes WHERE id = ?";
-        String SQL = "UPDATE presentes SET pessoaId = ? WHERE id = ?";
+        String selectSQL = "SELECT * FROM evento_presente WHERE id = ?";
+        String SQL = "UPDATE evento_presente SET pessoaId = ?, nomePessoa = ? WHERE id = ?";
 
-        // Verifica se o presente já foi presenteado
+        // Verifique se o presente já foi presenteado
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(selectSQL)) {
             stmt.setLong(1, id);
@@ -129,25 +146,28 @@ public class PresentesController implements PresentesDAO{
             throw new RuntimeException(e);
         }
 
-        // Atualiza o presente com o ‘ID’ da pessoa que deu o presente
+        // Atualize o presente com o ‘ID’ da pessoa que deu o presente.
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(SQL)) {
             stmt.setLong(1, pessoa.getId());
-            stmt.setLong(2, id);
+            stmt.setString(2, pessoa.getNome());
+            stmt.setLong(3, id);
             stmt.execute();
-            System.out.println("\nPresente registrado aos noivos com sucesso!!");
+
+            Presentes presente = buscarPorId(id);
+            System.out.println("\nPresente [" + presente.getNome() + "] registrado aos noivos com sucesso!!");
         } catch (SQLException e) {
             System.out.println("\nErro ao dar presente: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }
-    
+
     @Override
     public void darPresente(long id, String nomePessoa) {
-        String selectSQL = "SELECT * FROM presentes WHERE id = ?";
-        String SQL = "UPDATE presentes SET nomePessoa = ? WHERE id = ?";
+        String selectSQL = "SELECT * FROM evento_presente WHERE id = ?";
+        String SQL = "UPDATE evento_presente SET nomePessoa = ? WHERE id = ?";
 
-        // Verifica se o presente já foi presenteado
+        // Verifique se o presente já foi presenteado
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(selectSQL)) {
             stmt.setLong(1, id);
@@ -167,13 +187,15 @@ public class PresentesController implements PresentesDAO{
             throw new RuntimeException(e);
         }
 
-        // Atualiza o presente com o nome da pessoa que deu o presente
+        // Atualize o presente com o nome da pessoa que deu o presente.
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(SQL)) {
             stmt.setString(1, nomePessoa);
             stmt.setLong(2, id);
             stmt.execute();
-            System.out.println("\nPresente registrado aos noivos com sucesso!!");
+
+            Presentes presente = buscarPorId(id);
+            System.out.println("\nPresente [" + presente.getNome() + "] registrado aos noivos com sucesso!!");
         } catch (SQLException e) {
             System.out.println("\nErro ao dar presente: " + e.getMessage());
             throw new RuntimeException(e);
@@ -181,8 +203,24 @@ public class PresentesController implements PresentesDAO{
     }
 
     @Override
+    public void exibePresentesCadastrados() {
+        String SQL = "SELECT * FROM presentes";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(SQL)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                System.out.println("\nID: [" + rs.getLong("id") + "] Presente: " + rs.getString("nome") + "\nValor: " + rs.getDouble("valor"));
+            }
+        } catch (SQLException e) {
+            System.out.println("\nErro ao exibir lista de presentes: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void exibeListaPresentesSimples() {
-        String SQL = "SELECT id, nome, valor, pessoaId, nomePessoa FROM presentes";
+        String SQL = "SELECT * FROM presentes INNER JOIN Evento_Presente ON presentes.id = Evento_Presente.presenteId";
 
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(SQL)) {
@@ -190,10 +228,38 @@ public class PresentesController implements PresentesDAO{
             while (rs.next()) {
                 System.out.println("\nID: [" + rs.getLong("id") + "] Presente: " + rs.getString("nome") + "\nValor: " + rs.getDouble("valor"));
                 if (rs.getLong("pessoaId") != 0) {
-                    System.out.println("-> Este presente já foi presenteado aos noivos por: " + rs.getLong("pessoaId"));
-                } else if(rs.getString("nomePessoa") != null) {
-                	System.out.println("-> Este presente já foi presenteado aos noivos por: " + rs.getString("nomePessoa"));
+                    System.out.println("-> Este presente já foi presenteado aos noivos pelo usuário de [ID]: " + rs.getLong("pessoaId") + " - " + rs.getString("nomePessoa"));
+                } else if (rs.getString("nomePessoa") != null) {
+                    System.out.println("-> Este presente já foi presenteado aos noivos por: " + rs.getString("nomePessoa"));
                 }
+            }
+        } catch (SQLException e) {
+            System.out.println("\nErro ao exibir lista de presentes: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean exibeListaPresentesPorEvento(long eventoId) {
+        String SQL = "SELECT * FROM presentes INNER JOIN Evento_Presente ON presentes.id = Evento_Presente.presenteId WHERE Evento_Presente.eventoId = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(SQL)) {
+            stmt.setLong(1, eventoId);
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) {
+                System.out.println("\nNenhum presente encontrado para o evento informado de [ID]: " + eventoId);
+                return false;
+            } else {
+                do {
+                    System.out.println("\nID: [" + rs.getLong("id") + "] Presente: " + rs.getString("nome") + "\nValor: " + rs.getDouble("valor"));
+                    if (rs.getLong("pessoaId") != 0) {
+                        System.out.println("-> Este presente já foi presenteado aos noivos pelo usuário de [ID]: " + rs.getLong("pessoaId") + " - " + rs.getString("nomePessoa"));
+                    } else if (rs.getString("nomePessoa") != null) {
+                        System.out.println("-> Este presente já foi presenteado aos noivos por: " + rs.getString("nomePessoa"));
+                    }
+                } while (rs.next());
+                return true;
             }
         } catch (SQLException e) {
             System.out.println("\nErro ao exibir lista de presentes: " + e.getMessage());
@@ -220,6 +286,40 @@ public class PresentesController implements PresentesDAO{
     }
 
     @Override
+    public void atualizarPresenteInserindoPessoa(long id, Presentes presenteAtualizado, Evento evento, Pessoa pessoa) {
+        String SQL = "UPDATE presentes SET nome = ?, tipo = ?, valor = ? WHERE id = ?";
+        String SQL2 = "UPDATE evento_presente SET eventoId = ?, pessoaId = ?, nomePessoa = ? WHERE presenteId = ?";
+
+        // Primeiro atualizo o presente se houver alterações
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(SQL)) {
+            stmt.setString(1, presenteAtualizado.getNome());
+            stmt.setInt(2, presenteAtualizado.getTipo());
+            stmt.setDouble(3, presenteAtualizado.getValor());
+            stmt.setLong(4, id);
+            stmt.execute();
+            System.out.println("\nPresente atualizado com sucesso: \n\n" + presenteAtualizado.toString());
+        } catch (SQLException e) {
+            System.out.println("\nErro ao atualizar presente: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+        // Depois atualizo o evento_presente com o ID do evento e da pessoa que deu o presente
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(SQL2)) {
+            stmt.setLong(1, evento.getId());
+            stmt.setLong(2, pessoa.getId());
+            stmt.setString(3, pessoa.getNome());
+            stmt.setLong(4, id);
+            stmt.execute();
+            System.out.println("\nPresente atualizado com sucesso no evento: \n\n" + evento.getNomeDoEvento());
+        } catch (SQLException e) {
+            System.out.println("\nErro ao atualizar presente no evento: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void removerPresente(long id) {
         String SQL = "DELETE FROM presentes WHERE id = ?";
 
@@ -230,6 +330,23 @@ public class PresentesController implements PresentesDAO{
             System.out.println("\nPresente removido com sucesso.");
         } catch (SQLException e) {
             System.out.println("\nErro ao remover presente: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void adicionarTodosPresentesAoEvento(long id) {
+        String SQL = "SELECT * FROM presentes";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(SQL)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                adicionarPresenteAoEvento(rs.getLong("id"), id);
+            }
+            System.out.println("\nTodos os presentes foram adicionados ao evento com sucesso!");
+        } catch (SQLException e) {
+            System.out.println("\nErro ao adicionar todos os presentes ao evento: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }

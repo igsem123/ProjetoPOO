@@ -4,6 +4,8 @@ import mvc.model.Evento;
 import mvc.model.MuralRecados;
 import mvc.model.Pessoa;
 
+import java.util.ArrayList;
+
 public interface MuralRecadosDAO {
 
     void criarRecado(MuralRecados recado);
@@ -12,7 +14,7 @@ public interface MuralRecadosDAO {
 
     MuralRecados buscarPorId(long id);
 
-    MuralRecados[] buscarTodosPorEvento(Evento evento);
+    ArrayList<MuralRecados> buscarTodosPorEvento(Evento evento);
     
     void exibeListaDeRecados();
 

@@ -54,7 +54,7 @@ public class Main {
 
         // Conexão com o banco de dados
         Connection conexao = DriverManager.getConnection(URL, USER, PASSWORD);
-        if (conexao != null) System.out.println("Conexão com o banco de dados estabelecida com sucesso!");
+        if (conexao != null) System.out.println("\nConexão com o banco de dados estabelecida com sucesso!");
 
         int opcao = -1;
 
@@ -112,21 +112,48 @@ public class Main {
                     int opcaoPresentes = gui.opPresentesConvidados();
                     switch (opcaoPresentes) {
                         case 1:
-                            System.out.println("\nPresentes na lista dos noivos: ");
-                            presentesDAO.exibeListaPresentesSimples();
-                            System.out.println("\nDigite o [ID] do presente que você deseja dar aos noivos: ");
-                            String idPresentear = s.nextLine();
+                            System.out.println("\nPara dar um presente, informe o [ID] do evento dos noivos que deseja presentear: ");
+                            eventoDAO.exibirListaEventosSimples();
+                            System.out.println("\nDigite o [ID]: ");
+                            long eventoId;
+                            try {
+                                eventoId = Long.parseLong(s.nextLine());
+                            } catch (NumberFormatException e) {
+                                System.out.println("\n[ID] inválido! Tente novamente.");
+                                break;
+                            }
 
-                            while (idPresentear.isEmpty()) {
-                                System.out.println("\nID inválido!");
-                                System.out.println("Digite novamente o [ID]: ");
-                                idPresentear = s.nextLine();
+                            Evento evento = eventoDAO.buscarPorId(eventoId);
+                            if (evento == null) {
+                                System.out.println("\nEvento não encontrado!");
+                                break;
+                            }
+
+                            System.out.println("\nPresentes na lista dos noivos: ");
+                            if (!presentesDAO.exibeListaPresentesPorEvento(evento.getId())) {
+                                break;
+                            } // Se não houver presentes, retorna ao menu de convidados
+
+                            System.out.println("\nDigite o [ID] do presente que você deseja dar aos noivos: ");
+                            long idPresentear;
+                            try {
+                                idPresentear = Long.parseLong(s.nextLine());
+                            } catch (NumberFormatException e) {
+                                System.out.println("\n[ID] inválido! Tente novamente.");
+                                break;
+                            }
+
+                            Presentes presenteSelecionado = presentesDAO.buscarPorId(idPresentear);
+                            if (presenteSelecionado == null) {
+                                System.out.println("\nPresente não encontrado!");
+                                break;
                             }
 
                             System.out.println("\nDigite o seu nome: ");
                             String nome = s.nextLine();
-                            presentesDAO.darPresente(Long.parseLong(idPresentear), nome);
+                            presentesDAO.darPresente(presenteSelecionado.getId(), nome);
                             break;
+
                         case 2:
                             presentesDAO.exibeListaPresentesSimples();
                             break;
@@ -210,23 +237,49 @@ public class Main {
                     case 1:
                         System.out.println(Util.getPessoaLogada().perfil());
                         long idConvidado = Util.getPessoaLogada().getId();
-                        ConvidadoIndividual perfil = convidadoIndividualDAO.buscarPorId(idConvidado);
-                        System.out.println("\nConvite da pessoa logada: \n" + perfil.perfil());
+                        ConvidadoIndividual perfil = convidadoIndividualDAO.buscarPorPessoaId(idConvidado);
+                        if (perfil == null) {
+                            System.out.println("\nNão há convite individual cadastrado para você!");
+                            break;
+                        } else {
+                            System.out.println("\nConvite da pessoa logada: \n" + perfil.perfil(Util.getPessoaLogada(), perfil));
+                        }
                         break;
 
                     case 2:
                         int opcaoPresentes = gui.opPresentesConvidados();
                         switch (opcaoPresentes) {
                             case 1:
+                                ConvidadoIndividual convidadoIndividual = convidadoIndividualDAO.buscarPorPessoaId(Util.getPessoaLogada().getId());
+                                if (convidadoIndividual == null) {
+                                    System.out.println("\nVocê não possui um convite individual cadastrado!");
+                                    break;
+                                }
+
                                 System.out.println("\nPresentes na lista dos noivos: ");
-                                presentesDAO.exibeListaPresentesSimples();
+                                if (!presentesDAO.exibeListaPresentesPorEvento(convidadoIndividual.getEvento().getId())) {
+                                    break;
+                                } // Se não houver presentes, retorna ao menu de convidados
+
                                 System.out.println("\nDigite o [ID] do presente que você deseja dar aos noivos: ");
-                                long idPresentear = Long.parseLong(s.nextLine());
+                                long idPresentear;
+                                try {
+                                    idPresentear = Long.parseLong(s.nextLine());
+                                } catch (NumberFormatException e) {
+                                    System.out.println("\n[ID] inválido! Tente novamente.");
+                                    break;
+                                }
                                 presentesDAO.darPresente(idPresentear, Util.getPessoaLogada());
                                 break;
 
                             case 2:
-                                presentesDAO.exibeListaPresentesSimples();
+                                ConvidadoIndividual buscaPresentesPeloConvidado = convidadoIndividualDAO.buscarPorPessoaId(Util.getPessoaLogada().getId());
+                                if (buscaPresentesPeloConvidado == null) {
+                                    System.out.println("\nVocê não possui um convite individual cadastrado!");
+                                    break;
+                                } else {
+                                    presentesDAO.exibeListaPresentesPorEvento(buscaPresentesPeloConvidado.getEvento().getId());
+                                }
                                 break;
 
                             case 0:
@@ -234,7 +287,7 @@ public class Main {
                                 break;
 
                             default:
-                                System.out.println("\nDigite uma opcao valida");
+                                System.out.println("\nDigite uma opção válida!");
                                 break;
                         }
 
@@ -250,11 +303,34 @@ public class Main {
                         int opPresenca = Integer.parseInt(s.nextLine());
 
                         if(opPresenca == 1) {
-                            ConvidadoIndividual convidadoConfirmar = convidadoIndividualDAO.buscarPorId(idPessoaLogada);
-                            convidadoIndividualDAO.confirmarPresencaPelaPessoa(convidadoConfirmar);
+                            if (convidadoIndividualDAO.buscarPorPessoaId(idPessoaLogada) == null) {
+                                System.out.println("\nVocê não possui um convite individual cadastrado!");
+                                break;
+                            } else {
+                                ConvidadoIndividual convidadoConfirmar = convidadoIndividualDAO.buscarPorPessoaId(idPessoaLogada);
+                                if (convidadoConfirmar.getConfirmacaoPrimitivo()) {
+                                    System.out.println("\nVocê já confirmou sua presença no evento!");
+                                    System.out.println("Deseja desconfirmar sua presença? [1] SIM | [0] NÃO");
+                                    int opDesconfirmar;
+                                    try {
+                                        opDesconfirmar = Integer.parseInt(s.nextLine());
+                                    } catch (NumberFormatException e) {
+                                        System.out.println("\nOpção inválida!");
+                                        break;
+                                    }
+                                    if (opDesconfirmar == 1) {
+                                        convidadoIndividualDAO.desconfirmarPresencaPelaPessoa(convidadoConfirmar);
+                                    } else {
+                                        System.out.println("\nOperação cancelada!");
+                                        break; // Cancela a operação
+                                    }
+                                } else {
+                                    convidadoIndividualDAO.confirmarPresencaPelaPessoa(convidadoConfirmar);
+                                }
+                            }
                         } else {
-                            ConvidadoIndividual convidadoNaoConfirmado = convidadoIndividualDAO.buscarPorId(idPessoaLogada);
-                            convidadoIndividualDAO.desconfirmarPresencaPelaPessoa(convidadoNaoConfirmado);
+                            System.out.println("\nOperação cancelada!");
+                            break; // Cancela a operação
                         }
 
                         break;
@@ -267,6 +343,8 @@ public class Main {
 
                         if (!acesso.isEmpty()) {
                             convidadoFamiliaDAO.confirmarPresenca(acesso, convidados, familias);
+                        } else {
+                            System.out.println("\nAcesso inválido!");
                         }
                         break;
                     case 0:
@@ -964,7 +1042,7 @@ public class Main {
 
                 case 2:
                     System.out.println("\nLista de presentes cadastrados no sistema: ");
-                    presentesDAO.exibeListaPresentesSimples();
+                    presentesDAO.exibePresentesCadastrados();
                     break;
 
                 case 3:
@@ -978,8 +1056,14 @@ public class Main {
                     System.out.println("\nLista de presentes cadastrados no sistema: ");
                     presentesDAO.exibeListaPresentesSimples();
                     System.out.println("\nInforme o [ID] do presente que deseja atualizar: ");
-                    long idPresenteAtualizar = Long.parseLong(s.nextLine());
 
+                    long idPresenteAtualizar;
+                    try {
+                        idPresenteAtualizar = Long.parseLong(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nID inválido! Tente novamente: ");
+                        idPresenteAtualizar = Long.parseLong(s.nextLine());
+                    }
                     Presentes presenteEditar = presentesDAO.buscarPorId(idPresenteAtualizar);
 
                     while (presenteEditar == null) {
@@ -1016,19 +1100,31 @@ public class Main {
                         presenteEditar.setValor(Double.parseDouble(presenteValor));
                     }
 
-                    System.out.println("\nEsse presente já foi presentado aos noivos por algum convidado?");
+                    System.out.println("\nEsse presente já foi presentado em algum dos eventos cadastrados no sistema por algum convidado?");
                     System.out.println("\n->Digite [1] para SIM e [0] para NÃO.");
                     int opcaoPresente = Integer.parseInt(s.nextLine());
 
                     if (opcaoPresente == 1) {
+                        System.out.println("\nDigite o [ID] do evento em que este presente foi presenteado: ");
+                        eventoDAO.exibirListaEventosSimples();
+                        System.out.println("\nInforme o [ID] do evento: ");
+                        long idEventoPresente;
+                        try {
+                            idEventoPresente = Long.parseLong(s.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("\nID inválido! Tente novamente: ");
+                            idEventoPresente = Long.parseLong(s.nextLine());
+                        }
+                        Evento eventoPresente = eventoDAO.buscarPorId(idEventoPresente);
+
                         System.out.println("\nLista de convidados cadastrados no sistema: ");
                         pessoaDAO.buscaConvidados();
                         System.out.println("\nDigite o [ID] do convidado que enviou este presente: ");
                         long idConvPresente = Long.parseLong(s.nextLine());
                         Pessoa pessoaPresente = pessoaDAO.buscaPorId(idConvPresente);
 
-                        if (pessoaPresente != null) {
-                            presenteEditar.setPessoa(pessoaPresente);
+                        if (pessoaPresente != null && eventoPresente != null) {
+                            presentesDAO.atualizarPresenteInserindoPessoa(idPresenteAtualizar, presenteEditar, eventoPresente, pessoaPresente); // Atualiza o presente com as novas infos
                         }
                     } else {
                         presenteEditar.setPessoa(null);
@@ -1044,6 +1140,81 @@ public class Main {
                     long idPresenteRemover = Long.parseLong(s.nextLine());
 
                     presentesDAO.removerPresente(idPresenteRemover);
+                    break;
+
+                case 6:
+                    System.out.println("\nPara qual evento deseja adicionar presentes? ");
+                    eventoDAO.exibirListaEventosSimples();
+                    System.out.println("\nInforme o [ID] do evento: ");
+                    long idEventoPresente;
+                    try {
+                        idEventoPresente = Long.parseLong(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nID inválido! Tente novamente: ");
+                        idEventoPresente = Long.parseLong(s.nextLine());
+                    }
+
+                    Evento eventoPresente = eventoDAO.buscarPorId(idEventoPresente);
+
+                    if (eventoPresente == null) {
+                        System.out.println("\nEvento não encontrado!");
+                        break;
+                    }
+
+                    System.out.println("\nDeseja adicionar todos os presentes cadastrados no sistema ao evento? ");
+                    System.out.println("\n->Digite [1] para SIM e [0] para NÃO.");
+                    int opcaoPresentes;
+                    try {
+                        opcaoPresentes = Integer.parseInt(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nOpção inválida! Tente novamente: ");
+                        opcaoPresentes = Integer.parseInt(s.nextLine());
+                    }
+
+                    if (opcaoPresentes == 1) {
+                        presentesDAO.adicionarTodosPresentesAoEvento(eventoPresente.getId());
+                    } else if (opcaoPresentes == 0) {
+                        System.out.println("\nLista de presentes cadastrados no sistema: ");
+                        presentesDAO.exibeListaPresentesSimples();
+                        System.out.println("\nInforme o [ID] do presente que deseja adicionar ao evento: ");
+
+                        long idPresenteEvento;
+                        try {
+                            idPresenteEvento = Long.parseLong(s.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("\nID inválido! Tente novamente: ");
+                            idPresenteEvento = Long.parseLong(s.nextLine());
+                        }
+
+                        Presentes presenteEvento = presentesDAO.buscarPorId(idPresenteEvento);
+                        if (presenteEvento != null) {
+                            presentesDAO.adicionarPresenteAoEvento(eventoPresente.getId(), presenteEvento.getId()); // Adiciona o presente ao evento
+                        }
+                    } else {
+                        System.out.println("\nOpção inválida!");
+                    }
+
+                    break;
+
+                case 7:
+                    System.out.println("\nInforme o [ID] do evento que deseja visualizar os presentes: ");
+                    eventoDAO.exibirListaEventosSimples();
+                    System.out.println("\nInforme o [ID] do evento: ");
+                    long idEventoPresentes;
+                    try {
+                        idEventoPresentes = Long.parseLong(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nID inválido! Tente novamente: ");
+                        idEventoPresentes = Long.parseLong(s.nextLine());
+                    }
+
+                    Evento eventoPresentes = eventoDAO.buscarPorId(idEventoPresentes);
+                    if (eventoPresentes != null) {
+                        System.out.println("\nLista de presentes cadastrados para o evento " + eventoPresentes.getNomeDoEvento() + ": ");
+                        presentesDAO.exibeListaPresentesPorEvento(eventoPresentes.getId());
+                    } else {
+                        System.out.println("\nEvento não encontrado!");
+                    }
                     break;
 
                 case 0:
@@ -1073,12 +1244,19 @@ public class Main {
                     System.out.println("\nDe qual evento deseja visualizar os recados? ");
                     eventoDAO.exibirListaEventosSimples();
                     System.out.println("\nInforme o [ID]: ");
-                    long idEventoDoRecado = Long.parseLong(s.nextLine());
+                    long idEventoDoRecado;
+                    try {
+                        idEventoDoRecado = Long.parseLong(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nID inválido! Tente novamente: ");
+                        idEventoDoRecado = Long.parseLong(s.nextLine());
+                    }
                     Evento eventoDoRecado = eventoDAO.buscarPorId(idEventoDoRecado);
 
                     if (eventoDoRecado != null) {
-                        System.out.println("\nRecados registrados para o " + eventoDoRecado.getNomeDoEvento() + "\n");
                         muralRecadosDAO.exibeListaDeRecadosPorEvento(eventoDoRecado);
+                    } else {
+                        System.out.println("\nEvento não encontrado!");
                     }
                     break;
 
@@ -1098,13 +1276,33 @@ public class Main {
                     System.out.println("\nQual recado deseja editar? ");
                     muralRecadosDAO.exibeListaDeRecados();
                     System.out.println("\nInforme o [Nº] do recado: ");
-                    long idRecadoEditar = Long.parseLong(s.nextLine());
+                    long idRecadoEditar;
+                    try {
+                        idRecadoEditar = Long.parseLong(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nID inválido! Tente novamente: ");
+                        idRecadoEditar = Long.parseLong(s.nextLine());
+                    }
                     MuralRecados recadoEditar = muralRecadosDAO.buscarPorId(idRecadoEditar);
 
                     if (recadoEditar != null) {
-                        System.out.println("\nFoi esse convidado(a) quem escreveu o recado? Ou deseja alterá-lo? (pressione ENTER para manter o convidado(a) atual: " + recadoEditar.getPessoa().getNome() + ")");
-                        System.out.println("\n->Se deseja alterá-lo digite [1], se não pressione ENTER");
-                        int opcaoAlterarRecado = Integer.parseInt(s.nextLine());
+                        System.out.println("\nFoi esse convidado(a) quem escreveu o recado? Ou deseja alterá-lo? (pressione [0] para manter o convidado(a) atual: " + recadoEditar.getPessoa().getNome() + ")");
+                        System.out.println("\n->Se deseja alterá-lo digite [1], se não pressione [0]");
+                        String input;
+                        int opcaoAlterarRecado;
+
+                        try {
+                            input = s.nextLine().trim();
+                            opcaoAlterarRecado = Integer.parseInt(input);
+                        } catch (NumberFormatException e) {
+                            System.out.println("\nOpção inválida! Tente novamente: ");
+                            input = s.nextLine().trim();
+                            try {
+                            opcaoAlterarRecado = Integer.parseInt(input);
+                            } catch (NumberFormatException ex) {
+                                opcaoAlterarRecado = -1; // Valor inválido para indicar erro
+                            }
+                        }
 
                         if (opcaoAlterarRecado == 1) {
                             System.out.println("\nLista de convidados cadastrados no sistema: ");
@@ -1119,6 +1317,8 @@ public class Main {
 
                             Pessoa convidadoCorretoDoRecado = pessoaDAO.buscaPorId(idConvidado);
                             recadoEditar.setPessoa(convidadoCorretoDoRecado);
+                        } else {
+                            System.out.println("\nConvidado(a) mantido(a)!");
                         }
 
                         System.out.println("\nDigite um novo comentário (ou pressione ENTER para manter o recado atual)");
@@ -1126,6 +1326,8 @@ public class Main {
 
                         if (!novoComentario.isEmpty()) {
                             recadoEditar.setComentario(novoComentario);
+                        } else {
+                            System.out.println("\nComentário mantido!");
                         }
 
                         muralRecadosDAO.editaRecado(recadoEditar);
@@ -1452,12 +1654,20 @@ public class Main {
                     System.out.println("\nDe qual evento deseja extrair o relatorio? ");
                     eventoDAO.exibirListaEventosSimples();
                     System.out.println("\nInforme o [ID]: ");
-                    long idEventoDoRecado = Long.parseLong(s.nextLine());
+
+                    long idEventoDoRecado;
+                    try {
+                        idEventoDoRecado = Long.parseLong(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nID inválido! Digite novamente: ");
+                        idEventoDoRecado = Long.parseLong(s.nextLine());
+                    }
+
                     Evento eventoDoRecado = eventoDAO.buscarPorId(idEventoDoRecado);
                     reportPath = "reports/RelatorioRecadosRecebidos.pdf";
 
                     if (eventoDoRecado != null) {
-                        MuralRecados[] recados = muralRecadosDAO.buscarTodosPorEvento(eventoDoRecado);
+                        ArrayList<MuralRecados> recados = muralRecadosDAO.buscarTodosPorEvento(eventoDoRecado);
                         relatorio.recadosRecebidosPDF(recados, eventoDoRecado.getNomeDoEvento(), reportPath);
                     }
                     break;
@@ -1466,12 +1676,28 @@ public class Main {
                     System.out.println("\nDe qual evento é o convite? ");
                     eventoDAO.exibirListaEventosSimples();
                     System.out.println("\nInforme o [ID]: ");
-                    long idEventoDoConvite = Long.parseLong(s.nextLine());
+
+                    long idEventoDoConvite;
+                    try {
+                        idEventoDoConvite = Long.parseLong(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nID inválido! Digite novamente: ");
+                        idEventoDoConvite = Long.parseLong(s.nextLine());
+                    }
+
                     Evento eventoDoConvite = eventoDAO.buscarPorId(idEventoDoConvite);
                     System.out.println("\nLista de convidados cadastrados no sistema: ");
                     convidadoIndividualDAO.exibirConvidadosPorEvento(idEventoDoConvite);
                     System.out.println("\nDigite o [ID] do convidado que deseja gerar o convite: ");
-                    long id = Long.parseLong(s.nextLine());
+
+                    long id;
+                    try {
+                        id = Long.parseLong(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nID inválido! Digite novamente: ");
+                        id = Long.parseLong(s.nextLine());
+                    }
+
                     ConvidadoIndividual convite = convidadoIndividualDAO.buscarPorId(id);
                     reportPath = "reports/ConviteDeCasamento.pdf";
                     relatorio.conviteIndividualPDF(convite, eventoDoConvite, reportPath);
@@ -1481,12 +1707,28 @@ public class Main {
                     System.out.println("\nDe qual evento é o convite? ");
                     eventoDAO.exibirListaEventosSimples();
                     System.out.println("\nInforme o [ID]: ");
-                    long idEventoDoConviteFamilia = Long.parseLong(s.nextLine());
+
+                    long idEventoDoConviteFamilia;
+                    try {
+                        idEventoDoConviteFamilia = Long.parseLong(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nID inválido! Digite novamente: ");
+                        idEventoDoConviteFamilia = Long.parseLong(s.nextLine());
+                    }
+
                     Evento eventoDoConviteFamilia = eventoDAO.buscarPorId(idEventoDoConviteFamilia);
                     System.out.println("\nLista das familias cadastradas no sistema: ");
                     convidadoFamiliaDAO.exibirFamiliasPorEvento(idEventoDoConviteFamilia);
                     System.out.println("\nDigite o [ID] da familia que deseja gerar o convite: ");
-                    long idFamilia = Long.parseLong(s.nextLine());
+
+                    long idFamilia;
+                    try {
+                        idFamilia = Long.parseLong(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nID inválido! Digite novamente: ");
+                        idFamilia = Long.parseLong(s.nextLine());
+                    }
+
                     ConvidadoFamilia conviteFamilia = convidadoFamiliaDAO.buscarPorId(idFamilia);
                     reportPath = "reports/ConviteDeCasamentoParaFamilia.pdf";
                     relatorio.conviteIndividualFamiliaPDF(conviteFamilia, eventoDoConviteFamilia, reportPath);
@@ -1502,7 +1744,15 @@ public class Main {
                     System.out.println("\nDe qual evento deseja extrair o relatorio de convidados? ");
                     eventoDAO.exibirListaEventosSimples();
                     System.out.println("\nInforme o [ID]: ");
-                    long idEventoDoRecadoConv = Long.parseLong(s.nextLine());
+
+                    long idEventoDoRecadoConv;
+                    try {
+                        idEventoDoRecadoConv = Long.parseLong(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nID inválido! Digite novamente: ");
+                        idEventoDoRecadoConv = Long.parseLong(s.nextLine());
+                    }
+
                     Evento eventoDoRecadoConv = eventoDAO.buscarPorId(idEventoDoRecadoConv);
 
                     if (eventoDoRecadoConv != null) {
@@ -1516,7 +1766,15 @@ public class Main {
                     System.out.println("\nDe qual evento deseja extrair o relatorio de convidados confirmados? ");
                     eventoDAO.exibirListaEventosSimples();
                     System.out.println("\nInforme o [ID]: ");
-                    long idEventoDoRecadoConvConf = Long.parseLong(s.nextLine());
+
+                    long idEventoDoRecadoConvConf;
+                    try {
+                        idEventoDoRecadoConvConf = Long.parseLong(s.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nID inválido! Digite novamente: ");
+                        idEventoDoRecadoConvConf = Long.parseLong(s.nextLine());
+                    }
+
                     Evento eventoDoRecadoConvConf = eventoDAO.buscarPorId(idEventoDoRecadoConvConf);
 
                     if (eventoDoRecadoConvConf != null) {

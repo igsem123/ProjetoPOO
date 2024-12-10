@@ -52,7 +52,11 @@ public class MuralRecadosController implements MuralRecadosDAO{
             }
 
             // Define o nome da pessoa
-            stmt.setString(2, recado.getNomePessoa());
+            if (recado.getPessoa() != null) {
+                stmt.setString(2, recado.getPessoa().getNome());
+            } else {
+                stmt.setString(2, recado.getNomePessoa());
+            }
 
             // Define o evento associado
             stmt.setLong(3, recado.getEvento().getId());
@@ -70,7 +74,7 @@ public class MuralRecadosController implements MuralRecadosDAO{
                 }
             }
 
-            System.out.println("Recado criado com sucesso: " + recado);
+            System.out.println("\nRecado criado com sucesso: \n\n" + recado);
 
         } catch (SQLException e) {
             System.err.println("Erro ao criar recado.");
@@ -104,7 +108,7 @@ public class MuralRecadosController implements MuralRecadosDAO{
     }
 
     @Override
-    public MuralRecados[] buscarTodosPorEvento(Evento evento) {
+    public ArrayList<MuralRecados> buscarTodosPorEvento(Evento evento) {
         String sql = "SELECT * FROM muralrecados WHERE eventoId = ?";
         ArrayList<MuralRecados> recadosList = new ArrayList<>();
 
@@ -124,7 +128,7 @@ public class MuralRecadosController implements MuralRecadosDAO{
             e.printStackTrace();
         }
 
-        return recadosList.toArray(new MuralRecados[0]);
+        return recadosList;
     }
     
     @Override
@@ -194,11 +198,11 @@ public class MuralRecadosController implements MuralRecadosDAO{
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (!rs.isBeforeFirst()) {
-                    System.out.println("Nenhum recado encontrado para o evento: " + evento.getNomeDoEvento());
+                    System.out.println("\nNenhum recado encontrado para o evento: " + evento.getNomeDoEvento());
                     return;
                 }
 
-                System.out.println("Recados para o evento: " + evento.getNomeDoEvento());
+                System.out.println("\nRecados para o evento: " + evento.getNomeDoEvento() + "\n");
                 while (rs.next()) {
                     MuralRecados recado = resultSetToMuralRecados(rs);
                     System.out.println(recado);
@@ -206,7 +210,7 @@ public class MuralRecadosController implements MuralRecadosDAO{
             }
 
         } catch (SQLException e) {
-            System.err.println("Erro ao exibir lista de recados por evento.");
+            System.err.println("\nErro ao exibir lista de recados por evento.");
             e.printStackTrace();
         }
     }
@@ -230,13 +234,14 @@ public class MuralRecadosController implements MuralRecadosDAO{
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Recado editado com sucesso: " + recadoAtualizado);
+                recadoAtualizado = this.buscarPorId(recadoAtualizado.getId());
+                System.out.println("\nRecado editado com sucesso: \n\n" + recadoAtualizado);
             } else {
-                System.out.println("Recado não encontrado para edição.");
+                System.out.println("\nRecado não encontrado para edição.");
             }
 
         } catch (SQLException e) {
-            System.err.println("Erro ao editar recado.");
+            System.err.println("\nErro ao editar recado.");
             e.printStackTrace();
         }
     }
@@ -252,13 +257,13 @@ public class MuralRecadosController implements MuralRecadosDAO{
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Recado removido com sucesso.");
+                System.out.println("\nRecado removido com sucesso.");
             } else {
-                System.out.println("Recado não encontrado para remoção.");
+                System.out.println("\nRecado não encontrado para remoção.");
             }
 
         } catch (SQLException e) {
-            System.err.println("Erro ao remover recado.");
+            System.err.println("\nErro ao remover recado.");
             e.printStackTrace();
         }
     }

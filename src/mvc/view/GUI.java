@@ -470,7 +470,7 @@ public class GUI {
     public int opPresentes() {
         int opcao = -1;
 
-        while (opcao < 0 || opcao > 5) {
+        while (opcao < 0 || opcao > 7) {
             builder.setLength(0);
             builder.append("\n----------------------------------------");
             builder.append("\n|  * -> Gerenciamento de Presentes     |");
@@ -480,6 +480,8 @@ public class GUI {
             builder.append("\n|  3 - Busca de presente pelo [ID]     |");
             builder.append("\n|  4 - Atualizar um presente           |");
             builder.append("\n|  5 - Excluir um presente             |");
+            builder.append("\n|  6 - Adicionar presente a evento     |");
+            builder.append("\n|  7 - Exibir presentes de um evento   |");
             builder.append("\n|  0 - Sair                            |");
             builder.append("\n|                                      |");
             builder.append("\n----------------------------------------");
@@ -492,14 +494,14 @@ public class GUI {
                 try {
                     opcao = Integer.parseInt(input);
 
-                    if (opcao < 0 || opcao > 5) {
-                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 5.");
+                    if (opcao < 0 || opcao > 7) {
+                        System.out.println("\nOpção inválida! Por favor, escolha uma opção entre 0 e 7.");
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("\nEntrada inválida! Por favor, digite um número entre (0 ou 5).");
+                    System.out.println("\nEntrada inválida! Por favor, digite um número entre (0 ou 7).");
                 }
             } else {
-                System.out.println("\nEntrada vazia! Por favor, digite um número entre (0 ou 5).");
+                System.out.println("\nEntrada vazia! Por favor, digite um número entre (0 ou 7).");
             }
         }
 

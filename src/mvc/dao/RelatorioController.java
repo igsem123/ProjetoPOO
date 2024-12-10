@@ -45,7 +45,7 @@ public class RelatorioController implements RelatorioDAO {
     }
 
     @Override
-    public void recadosRecebidosPDF(MuralRecados[] recados, String evento, String path) {
+    public void recadosRecebidosPDF(ArrayList<MuralRecados> recados, String evento, String path) {
         try {
             // Cria o documento A4
             Document document = new Document(PageSize.A4);

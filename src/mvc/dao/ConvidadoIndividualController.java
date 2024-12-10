@@ -93,7 +93,7 @@ public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
                 }
             }
 
-            System.out.println("\nConvite individual criado com sucesso: \n\n" + convidado.toString());
+            System.out.println("\nConvite individual criado com sucesso: \n\n" + convidado);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -104,11 +104,14 @@ public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
         String sql = "UPDATE convidadoindividual SET confirmacao = ? WHERE id = ?";
         try (Connection conn = new ConnectionFactory().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setBoolean(1, convidado.getConfirmacaoPrimitivo());
+            stmt.setBoolean(1, true);
             stmt.setLong(2, convidado.getId());
-            stmt.execute();
+            stmt.executeUpdate();
 
-            System.out.println("\nPresença confirmada para o convidado: \n\n" + convidado.toString());
+            // Atualiza o estado do objeto
+            convidado = buscarPorId(convidado.getId());
+
+            System.out.println("\nPresença confirmada para o convidado: \n\n" + convidado);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -119,12 +122,15 @@ public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
         String sql = "UPDATE convidadoindividual SET confirmacao = ? WHERE pessoaId = ?";
         try (Connection conn = new ConnectionFactory().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setBoolean(1, convidado.getConfirmacaoPrimitivo());
+            stmt.setBoolean(1, true);
             stmt.setLong(2, convidado.getPessoa().getId());
-            stmt.execute();
+            stmt.executeUpdate();
+
+            // Atualiza o estado do objeto
+            convidado = buscarPorPessoaId(convidado.getPessoa().getId());
 
             // Exibe mensagem conforme o novo estado
-            convidado.isConfirmacao(convidado.getConfirmacaoPrimitivo());
+            System.out.println("\nPresença confirmada, seu convite: \n\n" + convidado);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -134,12 +140,15 @@ public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
         String sql = "UPDATE convidadoindividual SET confirmacao = ? WHERE pessoaId = ?";
         try (Connection conn = new ConnectionFactory().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setBoolean(1, convidadoDesconfirmado.getConfirmacaoPrimitivo());
+            stmt.setBoolean(1, false);
             stmt.setLong(2, convidadoDesconfirmado.getPessoa().getId());
             stmt.execute();
 
+            // Atualiza o estado do objeto
+            convidadoDesconfirmado = buscarPorPessoaId(convidadoDesconfirmado.getPessoa().getId());
+
             // Exibe mensagem conforme o novo estado
-            convidadoDesconfirmado.isConfirmacao(convidadoDesconfirmado.getConfirmacaoPrimitivo());
+            System.out.println("\nPresença desconfirmada, seu convite: \n\n" + convidadoDesconfirmado);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -159,10 +168,32 @@ public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
             if (rs.next()) {
                 convidado = resultSetToConvidadoIndividual(rs);
             }
+
+            return convidado;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return convidado;
+    }
+
+    // Buscar convite por pessoa 'ID'
+    public ConvidadoIndividual buscarPorPessoaId(long pessoaId) {
+        String sql = "SELECT * FROM convidadoindividual WHERE pessoaId = ?";
+        ConvidadoIndividual convidado = null;
+
+        try (Connection conn = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setLong(1, pessoaId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                convidado = resultSetToConvidadoIndividual(rs);
+            }
+
+            return convidado;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //Buscar Todos
@@ -227,6 +258,9 @@ public class ConvidadoIndividualController implements ConvidadoIndividualDAO {
             stmt.setBoolean(5, convidadoAtualizado.getConfirmacaoPrimitivo());
             stmt.setLong(6, id);
             stmt.execute();
+
+            // Atualize o estado do objeto
+            convidadoAtualizado = buscarPorId(id);
 
             System.out.println("\nConvidado atualizado com sucesso: \n\n" + convidadoAtualizado.toString());
         } catch (SQLException e) {

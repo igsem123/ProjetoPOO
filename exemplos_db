@@ -91,3 +91,220 @@
                 Pessoa crianca4 = new Pessoa("Ana Costa", "Mulher", Util.formataData("12/09/2010"),
                         "+55 34 9 5566-7788", "ana.costa@gmail.com", "ana123", 4, "44455566604");
                 this.criarPessoa(crianca4);
+
+Presentes faqueiro = new Presentes("Faqueiro (jogo de talheres)", 1, 150.00);
+        this.adicionarPresente(faqueiro);
+        Presentes aparelhoJantar = new Presentes("Aparelho de jantar", 1, 200.00);
+        this.adicionarPresente(aparelhoJantar);
+        Presentes jogoPanelas = new Presentes("Jogo de panelas", 1, 250.00);
+        this.adicionarPresente(jogoPanelas);
+        Presentes jogoFormasAssadeiras = new Presentes("Jogo de formas e assadeiras", 1, 120.00);
+        this.adicionarPresente(jogoFormasAssadeiras);
+        Presentes chaleira = new Presentes("Chaleira", 1, 80.00);
+        this.adicionarPresente(chaleira);
+        Presentes jogoCopos = new Presentes("Jogo de copos (dia a dia)", 1, 70.00);
+        this.adicionarPresente(jogoCopos);
+        Presentes jogoTacas = new Presentes("Jogo de taças", 1, 100.00);
+        this.adicionarPresente(jogoTacas);
+        Presentes buleLeiteira = new Presentes("Bule e leiteira", 1, 90.00);
+        this.adicionarPresente(buleLeiteira);
+        Presentes fruteira = new Presentes("Fruteira", 1, 60.00);
+        this.adicionarPresente(fruteira);
+        Presentes garrafaTermica = new Presentes("Garrafa térmica", 1, 50.00);
+        this.adicionarPresente(garrafaTermica);
+        Presentes balancaCozinha = new Presentes("Balança para cozinha", 1, 40.00);
+        this.adicionarPresente(balancaCozinha);
+        Presentes jogoFacas = new Presentes("Jogo de facas", 1, 150.00);
+        this.adicionarPresente(jogoFacas);
+        Presentes tabuaQueijosFrios = new Presentes("Tábua para queijos e frios", 1, 45.00);
+        this.adicionarPresente(tabuaQueijosFrios);
+        Presentes tabuaCarnes = new Presentes("Tábua para carnes", 1, 70.00);
+        this.adicionarPresente(tabuaCarnes);
+        Presentes baldeGelo = new Presentes("Balde de gelo", 1, 80.00);
+        this.adicionarPresente(baldeGelo);
+        Presentes aparelhoCafeCha = new Presentes("Aparelho de café e chá", 1, 110.00);
+        this.adicionarPresente(aparelhoCafeCha);
+        Presentes bomboniere = new Presentes("Bomboniere", 1, 35.00);
+        this.adicionarPresente(bomboniere);
+        Presentes jogoSobremesa = new Presentes("Jogo de sobremesa", 1, 90.00);
+        this.adicionarPresente(jogoSobremesa);
+        Presentes conjuntoBolo = new Presentes("Conjunto para bolo (prato e espátula)", 1, 60.00);
+        this.adicionarPresente(conjuntoBolo);
+        Presentes jarra = new Presentes("Jarra", 1, 40.00);
+        this.adicionarPresente(jarra);
+        Presentes petisqueira = new Presentes("Petisqueira", 1, 50.00);
+        this.adicionarPresente(petisqueira);
+        Presentes portaCondimentos = new Presentes("Porta-condimentos/temperos", 1, 60.00);
+        this.adicionarPresente(portaCondimentos);
+        Presentes portaGuardapo = new Presentes("Porta-guardapo", 1, 20.00);
+        this.adicionarPresente(portaGuardapo);
+        Presentes saladeira = new Presentes("Saladeira", 1, 80.00);
+        this.adicionarPresente(saladeira);
+        Presentes apoioCopos = new Presentes("Apoio para copos", 1, 25.00);
+        this.adicionarPresente(apoioCopos);
+        Presentes jogoUtensilios = new Presentes("Jogo de utensílios e espátulas", 1, 70.00);
+        this.adicionarPresente(jogoUtensilios);
+        Presentes jogoLugarAmericano = new Presentes("Jogo de lugar americano", 1, 50.00);
+        this.adicionarPresente(jogoLugarAmericano);
+        Presentes fogao = new Presentes("Fogão", 2, 1500.00);
+        this.adicionarPresente(fogao);
+        Presentes coifa = new Presentes("Coifa", 2, 900.00);
+        this.adicionarPresente(coifa);
+        Presentes geladeira = new Presentes("Geladeira", 2, 2500.00);
+        this.adicionarPresente(geladeira);
+        Presentes freezer = new Presentes("Freezer", 2, 2000.00);
+        this.adicionarPresente(freezer);
+        Presentes liquidificador = new Presentes("Liquidificador", 2, 150.00);
+        this.adicionarPresente(liquidificador);
+        Presentes torradeira = new Presentes("Torradeira/sanduicheira", 2, 200.00);
+        this.adicionarPresente(torradeira);
+        Presentes airFryer = new Presentes("Air fryer", 2, 400.00);
+        this.adicionarPresente(airFryer);
+        Presentes microOndas = new Presentes("Micro-ondas", 2, 350.00);
+        this.adicionarPresente(microOndas);
+        Presentes processadorAlimentos = new Presentes("Processador de alimentos", 2, 500.00);
+        this.adicionarPresente(processadorAlimentos);
+        Presentes batedeira = new Presentes("Batedeira", 2, 300.00);
+        this.adicionarPresente(batedeira);
+        Presentes espremedorFrutas = new Presentes("Espremedor de frutas", 2, 100.00);
+        this.adicionarPresente(espremedorFrutas);
+        Presentes aparelhoFondue = new Presentes("Aparelho de fondue e raclette", 2, 150.00);
+        this.adicionarPresente(aparelhoFondue);
+        Presentes cafeteira = new Presentes("Cafeteira", 2, 200.00);
+        this.adicionarPresente(cafeteira);
+        Presentes grillEletrico = new Presentes("Grill elétrico", 2, 250.00);
+        this.adicionarPresente(grillEletrico);
+        Presentes juicer = new Presentes("Juicer", 2, 180.00);
+        this.adicionarPresente(juicer);
+        Presentes maquinaPao = new Presentes("Máquina de pão", 2, 450.00);
+        this.adicionarPresente(maquinaPao);
+        Presentes panelaEletrica = new Presentes("Panela elétrica", 2, 220.00);
+        this.adicionarPresente(panelaEletrica);
+        Presentes jogoLençol = new Presentes("Jogo de lençóis", 3, 200.00);
+        this.adicionarPresente(jogoLençol);
+        Presentes edredom = new Presentes("Edredom", 3, 300.00);
+        this.adicionarPresente(edredom);
+        Presentes manta = new Presentes("Manta", 3, 150.00);
+        this.adicionarPresente(manta);
+        Presentes cobertor = new Presentes("Cobertor", 3, 180.00);
+        this.adicionarPresente(cobertor);
+        Presentes jogoToalhasBanho = new Presentes("Jogo de toalhas de banho", 3, 120.00);
+        this.adicionarPresente(jogoToalhasBanho);
+        Presentes toalhasMesa = new Presentes("Toalhas de mesa", 3, 100.00);
+        this.adicionarPresente(toalhasMesa);
+        Presentes casticaisVelas = new Presentes("Castiçais e velas", 3, 60.00);
+        this.adicionarPresente(casticaisVelas);
+        Presentes objetosDecoracao = new Presentes("Objetos de decoração", 3, 250.00);
+        this.adicionarPresente(objetosDecoracao);
+        Presentes tapetes = new Presentes("Tapetes", 3, 350.00);
+        this.adicionarPresente(tapetes);
+        Presentes conjuntoPiaLavabo = new Presentes("Conjunto para pia/lavabo", 3, 90.00);
+        this.adicionarPresente(conjuntoPiaLavabo);
+        Presentes aromatizadorAmbiente = new Presentes("Aromatizador de ambiente", 3, 80.00);
+        this.adicionarPresente(aromatizadorAmbiente);
+        Presentes tabuaPassar = new Presentes("Tábua de passar", 3, 120.00);
+        this.adicionarPresente(tabuaPassar);
+        Presentes capacho = new Presentes("Capacho", 3, 50.00);
+        this.adicionarPresente(capacho);
+        Presentes relogio = new Presentes("Relógio", 3, 150.00);
+        this.adicionarPresente(relogio);
+        Presentes vasos = new Presentes("Vasos", 3, 100.00);
+        this.adicionarPresente(vasos);
+        Presentes cama = new Presentes("Cama", 4, 2000.00);
+        this.adicionarPresente(cama);
+        Presentes colchao = new Presentes("Colchão", 4, 1800.00);
+        this.adicionarPresente(colchao);
+        Presentes sofa = new Presentes("Sofá", 4, 2500.00);
+        this.adicionarPresente(sofa);
+        Presentes tv = new Presentes("TV", 4, 3000.00);
+        this.adicionarPresente(tv);
+        Presentes mesaCadeiras = new Presentes("Mesa e cadeiras de jantar", 4, 2200.00);
+        this.adicionarPresente(mesaCadeiras);
+        Presentes rack = new Presentes("Rack", 4, 700.00);
+        this.adicionarPresente(rack);
+        Presentes luminaria = new Presentes("Luminária", 4, 350.00);
+        this.adicionarPresente(luminaria);
+        Presentes abajour = new Presentes("Abajour", 4, 200.00);
+        this.adicionarPresente(abajour);
+        Presentes ferroPassar = new Presentes("Ferro de passar", 4, 150.00);
+        this.adicionarPresente(ferroPassar);
+        Presentes lavadoraRoupas = new Presentes("Lavadora de roupas/Lava e seca", 4, 2500.00);
+        this.adicionarPresente(lavadoraRoupas);
+        Presentes aspiradorPo = new Presentes("Aspirador de pó", 4, 500.00);
+        this.adicionarPresente(aspiradorPo);
+        Presentes guardaRoupa = new Presentes("Guarda-roupa", 4, 2000.00);
+        this.adicionarPresente(guardaRoupa);
+        Presentes mesaCentro = new Presentes("Mesa de centro", 4, 800.00);
+        this.adicionarPresente(mesaCentro);
+        Presentes poltronas = new Presentes("Poltronas", 4, 1200.00);
+        this.adicionarPresente(poltronas);
+
+        // Pagamentos
+
+       Pagamento p1 = new Pagamento(pessoaDAO.buscaPorId(0L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, primeira parcela.", 1250.0,1, true, Util.formataData("21/06/2024"));
+               this.criarPagamento(p1);
+               Pagamento p2 = new Pagamento(pessoaDAO.buscaPorId(0L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, segunda parcela.", 1250.0,1, true, Util.formataData("01/07/2024"));
+               this.criarPagamento(p2);
+               Pagamento p3 = new Pagamento(pessoaDAO.buscaPorId(0L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, terceira parcela.", 1250.0,1, true, Util.formataData("15/07/2024"));
+               this.criarPagamento(p3);
+               Pagamento p4 = new Pagamento(pessoaDAO.buscaPorId(0L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, quarta parcela.", 1250.0,1, true, Util.formataData("01/08/2024"));
+               this.criarPagamento(p4);
+               Pagamento p5 = new Pagamento(pessoaDAO.buscaPorId(0L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, quinta parcela.", 1250.0,1, true, Util.formataData("15/08/2024"));
+               this.criarPagamento(p5);
+               Pagamento p6 = new Pagamento(pessoaDAO.buscaPorId(0L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, sexta parcela.", 1250.0,1, true, Util.formataData("01/09/2024"));
+               this.criarPagamento(p6);
+               Pagamento p7 = new Pagamento(pessoaDAO.buscaPorId(0L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, sétima parcela.", 1250.0,1, true, Util.formataData("15/09/2024"));
+               this.criarPagamento(p7);
+               Pagamento p8 = new Pagamento(pessoaDAO.buscaPorId(0L), fornecedorDAO.buscaPorId(0L), "Pagamento a empresa XZY das lonas da festa, oitava e última parcela.", 1250.0,1, true, Util.formataData("01/10/2024"));
+               this.criarPagamento(p8);
+               Pagamento p9 = new Pagamento(pessoaDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(1L), "Pagamento a empresa ABC das bebidas da festa, primeira parcela.", 1500.0, 1, true, Util.formataData("22/10/2024"));
+               this.criarPagamento(p9);
+               Pagamento p10 = new Pagamento(pessoaDAO.buscaPorId(2L), fornecedorDAO.buscaPorId(1L), "Pagamento a empresa ABC das bebidas da festa, segunda e terceira parcela.", 3000.0, 2, true, Util.formataData("02/11/2024"));
+               this.criarPagamento(p10);
+
+       // Recados
+
+       // Recados de ex.:
+               MuralRecados recado1 = new MuralRecados(
+                       "Que emoção participar desse momento tão especial! Desejo toda felicidade do mundo para vocês!",
+                       "Joao",
+                       eventoDAO.buscarPorId(0L)
+               );
+               this.criarRecado(recado1);
+
+               MuralRecados recado2 = new MuralRecados(
+                       "Parabéns Raphael e Lucas! Que essa nova fase seja repleta de amor e alegrias!",
+                       pessoaDAO.buscaPorId(11L),
+                       eventoDAO.buscarPorId(0L)
+               );
+               this.criarRecado(recado2);
+
+               MuralRecados recado3 = new MuralRecados(
+                       "Estou muito feliz por vocês dois! Que Deus abençoe essa união!",
+                       pessoaDAO.buscaPorId(12L),
+                       eventoDAO.buscarPorId(0L)
+               );
+               this.criarRecado(recado3);
+
+               MuralRecados recado4 = new MuralRecados(
+                       "Ana Paula e Carlos, desejo a vocês um casamento repleto de momentos lindos e inesquecíveis!",
+                       "Paulo",
+                       eventoDAO.buscarPorId(1L) // Ana Paula e Carlos Alberto
+               );
+               this.criarRecado(recado4);
+
+               MuralRecados recado5 = new MuralRecados(
+                       "Que alegria ver vocês se casando! Que sejam sempre felizes e abençoados!",
+                       new Pessoa("Ricardo Barbosa", "Masculino", Util.formataData("14/04/1987"), "+55 34 9 3344-5566", "ricardo.barbosa@gmail.com", "ricardo123", 4, "654.321.987-00"),
+                       eventoDAO.buscarPorId(1L)
+               );
+               this.criarRecado(recado5);
+
+               MuralRecados recado6 = new MuralRecados(
+                       "Parabéns Ana Paula e Carlos! Que esse seja o início de uma vida cheia de realizações!",
+                       new Pessoa("Camila Rocha", "Feminino", Util.formataData("10/10/1995"), "+55 34 9 4455-6677", "camila.rocha@gmail.com", "camila456", 4, "123.321.456-98"),
+                       eventoDAO.buscarPorId(1L)
+               );
+               this.criarRecado(recado6);
+
+

@@ -83,6 +83,8 @@ CREATE TABLE MuralRecados (
     FOREIGN KEY (eventoId) REFERENCES Evento(id) ON DELETE CASCADE                  -- Relação com Evento
 );
 
+ALTER TABLE muralrecados MODIFY pessoaId BIGINT NULL;
+
 describe muralrecados;
 
 CREATE TABLE ConvidadoFamilia (
@@ -125,7 +127,28 @@ CREATE TABLE Presentes (
     FOREIGN KEY (pessoaId) REFERENCES Pessoa(id) ON DELETE SET NULL                 -- Relação opcional com Pessoa
 );
 
+-- Passo 1: Excluir a chave estrangeira
+ALTER TABLE Presentes DROP FOREIGN KEY presentes_ibfk_1;
+
+-- Passo 2: Excluir as colunas
+ALTER TABLE Presentes
+    DROP COLUMN pessoaId,
+    DROP COLUMN nomePessoa;
+
 describe presentes;
+
+CREATE TABLE Evento_Presente (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,                                           -- ID auto incremento
+    eventoId BIGINT NOT NULL,                                                       -- ID do evento
+    presenteId BIGINT NOT NULL,                                                     -- ID do presente
+    pessoaId BIGINT,                                                                -- ID da pessoa que deu o presente
+    nomePessoa VARCHAR(255),                                                        -- Nome da pessoa que deu o presente
+    FOREIGN KEY (eventoId) REFERENCES Evento(id) ON DELETE CASCADE,                 -- Relaciona com Evento
+    FOREIGN KEY (presenteId) REFERENCES Presentes(id) ON DELETE CASCADE,            -- Relaciona com Presentes
+    FOREIGN KEY (pessoaId) REFERENCES Pessoa(id) ON DELETE CASCADE                  -- Relaciona com Pessoa
+);
+
+describe evento_presente;
 
 CREATE TABLE Pagamento (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,                                           -- Identificador único do pagamento

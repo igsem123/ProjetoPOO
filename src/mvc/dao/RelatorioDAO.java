@@ -9,8 +9,8 @@ import mvc.model.Pagamento;
 import java.util.ArrayList;
 
 public interface RelatorioDAO {
-	void recadosRecebidosPDF(MuralRecados[] recados, String evento, String path);
-	void conviteIndividualPDF(ConvidadoIndividual convidado, Evento evento, String path);
+    void recadosRecebidosPDF(ArrayList<MuralRecados> recados, String evento, String path);
+    void conviteIndividualPDF(ConvidadoIndividual convidado, Evento evento, String path);
 	void conviteIndividualFamiliaPDF(ConvidadoFamilia convidado, Evento evento, String path);
 	void pagamentosRealizadosPDF(ArrayList <Pagamento> pagamentos, String path);
 	void listaConvidadosPDF(ArrayList <ConvidadoIndividual> convidados, String path);

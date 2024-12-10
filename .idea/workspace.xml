@@ -5,14 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.7">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/dump-db_casamentos-202412051151.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database_schemas" beforeDir="false" afterPath="$PROJECT_DIR$/database_schemas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exemplos_db" beforeDir="false" afterPath="$PROJECT_DIR$/exemplos_db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/ConviteDeCasamento.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/ConviteDeCasamento.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/RelatorioRecadosRecebidos.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/RelatorioRecadosRecebidos.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/FornecedorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/FornecedorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/FornecedorDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PagamentoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PagamentoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PagamentoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Calendario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Calendario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Pagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Pagamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PresentesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PresentesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PresentesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PresentesDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/RelatorioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/RelatorioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/model/Presentes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Presentes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,37 +96,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.GUI.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.mvc.controller.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;raphael/Alteração-PagamentoDAOMemoria-para-Controller&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/rnmoreira/IdeaProjects/ProjetoPOO/database&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/rnath/Documents/IdeaProjects/ProjetoPOO/src/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.GUI.executor": "Debug",
+    "Application.Main.executor": "Run",
+    "Application.mvc.controller.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "raphael/Alteração-PresentesController-e-Correções-Diversas",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/rnmoreira/IdeaProjects/ProjetoPOO/database/dump-db_casamentos-202412051151.sql",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/rnath/Documents/IdeaProjects/ProjetoPOO/src/Main.java",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\rnmoreira\IdeaProjects\ProjetoPOO\database" />
@@ -232,6 +243,8 @@
       <workItem from="1733230572774" duration="8868000" />
       <workItem from="1733405924256" duration="1755000" />
       <workItem from="1733487189003" duration="7267000" />
+      <workItem from="1733747565582" duration="3343000" />
+      <workItem from="1733828172121" duration="19873000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />

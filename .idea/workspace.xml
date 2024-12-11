@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="ProjetoPOO:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -227,7 +232,7 @@
       <workItem from="1733487189003" duration="7267000" />
       <workItem from="1733747565582" duration="3343000" />
       <workItem from="1733828172121" duration="20937000" />
-      <workItem from="1733914812688" duration="2276000" />
+      <workItem from="1733914812688" duration="3407000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -469,7 +474,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733914845512</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="v2.8">
+      <option name="closed" value="true" />
+      <created>1733922789117</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1733922789117</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

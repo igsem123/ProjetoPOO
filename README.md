@@ -28,7 +28,7 @@ O sistema foi desenvolvido em **Java** com uma arquitetura modularizada para fac
 
 ### Tecnologias utilizadas
 
-- **Java 17**: Linguagem principal usada no desenvolvimento.
+- **Java 21**: Linguagem principal usada no desenvolvimento.
 - **Scanner**: Utilizado para interação com o usuário via terminal.
 - **Arquitetura baseada em DAO**: Camada de persistência separada da lógica de negócio, utilizando DAOs em memória.
 - **Padrão Builder**: Implementado para construir menus e interfaces via console.
@@ -38,7 +38,7 @@ O sistema foi desenvolvido em **Java** com uma arquitetura modularizada para fac
 
 #### Pré-requisitos
 
-- **Java 17** ou superior instalado
+- **Java 21** ou superior instalado
 - IDE ou ambiente de desenvolvimento com suporte a projetos Java (ex: IntelliJ, Eclipse)
 
 #### Passos para rodar o projeto

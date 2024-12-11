@@ -2,7 +2,7 @@
 
 # Gestão de Casamentos
 
-![Badge](https://img.shields.io/badge/Java-17-blue) ![Badge](https://img.shields.io/badge/Status-Em%20Desenvolvimento-orange)
+![Badge](https://img.shields.io/badge/Java-21-blue) ![Badge](https://img.shields.io/badge/Status-Concluido-orange)
 
 ### Sobre o projeto
 

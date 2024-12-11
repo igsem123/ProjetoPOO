@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ProjetoPOO:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ProjetoPOO_jar</output-path>
+    <root id="archive" name="ProjetoPOO.jar">
+      <element id="module-output" name="ProjetoPOO" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/itextpdf-5.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/itext-pdfa-5.5.13.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/mysql-connector-j-9.0.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

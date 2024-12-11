@@ -4,26 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.7">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="7c5e3f6b-84cc-495c-8e5d-f28f0e530b51" name="Changes" comment="v2.8">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/dump-db_casamentos-202412051151.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database_schemas" beforeDir="false" afterPath="$PROJECT_DIR$/database_schemas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exemplos_db" beforeDir="false" afterPath="$PROJECT_DIR$/exemplos_db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reports/ConviteDeCasamento.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/ConviteDeCasamento.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reports/RelatorioRecadosRecebidos.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/reports/RelatorioRecadosRecebidos.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/ConvidadoIndividualDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/MuralRecadosDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PresentesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PresentesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/PresentesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/PresentesDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/RelatorioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/RelatorioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/dao/RelatorioDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/ConvidadoIndividual.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/model/Presentes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/model/Presentes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/view/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/view/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="raphael/Alteração-PresentesController-e-Correções-Diversas" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -105,7 +87,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "raphael/Alteração-PresentesController-e-Correções-Diversas",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/rnmoreira/IdeaProjects/ProjetoPOO/database/dump-db_casamentos-202412051151.sql",
@@ -115,7 +97,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/rnath/Documents/IdeaProjects/ProjetoPOO/src/Main.java",
-    "project.structure.last.edited": "Problems",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.keymap",
@@ -244,7 +226,8 @@
       <workItem from="1733405924256" duration="1755000" />
       <workItem from="1733487189003" duration="7267000" />
       <workItem from="1733747565582" duration="3343000" />
-      <workItem from="1733828172121" duration="19873000" />
+      <workItem from="1733828172121" duration="20937000" />
+      <workItem from="1733914812688" duration="2276000" />
     </task>
     <task id="LOCAL-00001" summary="v0.3">
       <option name="closed" value="true" />
@@ -470,7 +453,23 @@
       <option name="project" value="LOCAL" />
       <updated>1733410316743</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="v2.8">
+      <option name="closed" value="true" />
+      <created>1733849468592</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1733849468592</updated>
+    </task>
+    <task id="LOCAL-00030" summary="v2.8">
+      <option name="closed" value="true" />
+      <created>1733914845512</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1733914845512</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,7 +537,8 @@
     <MESSAGE value="v2.5" />
     <MESSAGE value="v2.6" />
     <MESSAGE value="v2.7" />
-    <option name="LAST_COMMIT_MESSAGE" value="v2.7" />
+    <MESSAGE value="v2.8" />
+    <option name="LAST_COMMIT_MESSAGE" value="v2.8" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
